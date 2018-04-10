@@ -9,9 +9,4 @@
   <changeSet author="Oleg Rakus" id="V1.0">
     <sqlFile path="HoReD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
-  
-  <changeSet author="Oleg Rakus" id="V1.1">
-    <sqlFile path="Edited procedure REGISTER_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
-  </changeSet>
-
 </databaseChangeLog>
