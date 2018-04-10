@@ -6,7 +6,7 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.3.xsd">
   
-  <changeSet author="Oleg Rakus" id="V1.0">
+  <changeSet author="Mariia Shkolyk" id="V1.0">
     <sqlFile path="HoReD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 </databaseChangeLog>
