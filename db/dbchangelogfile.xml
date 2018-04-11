@@ -4,14 +4,19 @@
   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.3.xsd">
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
   
-  <changeSet author="Oleg Rakus" id="V1.0">
-    <sqlFile path="HoReD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  <changeSet author="Vadym Ivanov" id="V1.0">
+    <sqlFile path="V1.0_Create_Starting_Tables.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V1.0_Insert_Values.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
-  <changeSet author="Oleg Rakus" id="V1.1">
-    <sqlFile path="Edited procedure REGISTER_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  <changeSet author="Maksym Sikorsky" id="V1.1">
+    <sqlFile path="V1.1_Procedures_Get_Info_About_Doctors.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
-
+  
+  <changeSet author="Oleh Rakus" id="V1.2">
+    <sqlFile path="V1.2_Procedure_Register_User.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
 </databaseChangeLog>
