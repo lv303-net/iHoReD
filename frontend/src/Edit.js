@@ -2,14 +2,13 @@ import React from 'react';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import validator from 'validator';
-import LogbarAuth from './LogbarAuth';
 
+import validator from 'validator';
 class Edit extends Component {
   render() {
     return (
         <div className="App container-fluid">
-        <LogbarAuth/>
+        <Logbar/>
         <div className="wrapper row mt-4">
         <ChangeInfo/>
         </div>
@@ -24,6 +23,26 @@ if(process.env.NODE_ENV==="development")
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored-backend.azurewebsites.net"
   
+
+
+  function Logbar(props){
+    return <div>
+      <nav className="navbar navbar-expand-sm navbar-custom  navbar-default sticky-top navbar-toggleable-md">
+         <p className='text-white mr-1'> </p><p className = 'text-white font-weight-bold mr-3' id = 'usernamebar'></p>
+         <div className = "container-fluid justify-content-end align-items-center navbar-collapse collapse ">
+          <form className="form-inline" action="/action_page.php">
+            <div>
+              Ihor Nytrebych     
+              <Link to="/">   
+                <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal">Sign out</button> 
+              </Link>
+            </div>
+          </form> 
+        </div>
+      </nav> 
+    </div>
+  }
+
 function Footerbar(props){
   return <div>
     <p className='font-italic bg-secondary text-white text-center'>Ніхто ще не скаржився на наш сервіс!</p>
