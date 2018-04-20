@@ -110,5 +110,13 @@
   <changeSet author="Tetiana Usyk" id="V3.0">
     <sqlFile path="V3.0_ALTER TABLE RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.1">
+    <sqlFile path="V3.1_INSERT_INTO_RULES_AND_RULESETS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.2">
+    <sqlFile path="V3.2_CREATE_PROCEDURE_SELECT_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 
 </databaseChangeLog>
