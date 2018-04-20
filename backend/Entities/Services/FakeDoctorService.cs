@@ -67,5 +67,35 @@ namespace Entities.Services
         {
             throw new NotImplementedException();
         }
+
+        public List<DoctorRules> GetDoctorRules(List<DoctorRules> allRules)
+        {
+            var list = new List<DoctorRules>();
+            return list;
+        }
+
+        public List<DoctorRules> GetDoctorAllRules(int doctorId, DateTime dateStart, DateTime dateFinish)
+        {
+            var list = new List<DoctorRules>();
+            return list;
+        }
+
+        public List<string[]> ConvertToEvents(List<DoctorRules> allRules)
+        {
+            var list = new List<string[]>();
+            return list;
+        }
+
+        public DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule)
+        {
+            var list = new DoctorRules();
+            return list;
+        }
+
+        public List<DayofWeek> CompareWeek(IDictionary<DayofWeek, bool> exWeek, IDictionary<DayofWeek, bool> inWeek)
+        {
+            var list = new List<DayofWeek>();
+            return list;
+        }
     }
 }

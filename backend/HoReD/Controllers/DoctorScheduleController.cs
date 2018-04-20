@@ -7,20 +7,20 @@ using Entities.Services;
 namespace HoReD.Controllers
 {
     /// <summary>
-    /// Controller that represents information about doctors shedule
+    /// Controller that represents information about doctors schedule
     /// </summary>
    
-    public class DoctorSheduleController : ApiController
+    public class DoctorScheduleController : ApiController
     {
         private readonly IDoctorService _doctorService;
         
-        public DoctorSheduleController(IDoctorService doctorService)
+        public DoctorScheduleController(IDoctorService doctorService)
         {
             _doctorService = doctorService;
         }
 
         /// <summary>
-        /// Gets doctor's shedule  from database
+        /// Gets doctor's schedule  from database
         /// </summary>
         /// <returns>List of instances of the worcing hour of Doctor</returns>
         /// <example>http://localhost:*****/GetDoctorSchedule/{doctorId}</example>
@@ -34,5 +34,5 @@ namespace HoReD.Controllers
             return _doctorService.GetDoctorSchedule(doctorId);
         }
 
-            }
+    }
 }
