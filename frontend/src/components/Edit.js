@@ -56,71 +56,70 @@ class ChangeInfo extends React.Component{
   };
   render(){
     return <div className="container col-sm-8" id="editInfoWindow">
-      <p className="offset-sm-1 col-sm-2 editInfoTitle" id="basicInfoID">Basic info</p>
-      <div className="col-sm-3 editInfoTitle" id="spanNearButton"></div>
-      <div className="editInfoTitle col-sm-6" id="sexButtonWindow">
-        <div className="radio col-sm-5" id="radioMaleWindow">
-          <label>
-            <input type="radio" name="optradio"/>Male
-          </label>
-        </div>
-        <div class="col-sm-1"></div>
-        <div className="radio col-sm-5" id="radioFemaleWindow">
-          <label>
-            <input type="radio" name="optradio"/>Female
-          </label>
-        </div>
-      </div>
-      <div className="form-row mb-1 justify-content-center margin">
-        <div className="col-sm-4">
-          <label>First name</label>
-          <input type="text" className="form-control" placeholder="First Name"/>
-        </div>
-        <div class="col-sm-1"></div>
-        <div className="col-sm-4">
-          <label>Last name</label>
-          <input type="text" className="form-control" placeholder="Last Name"/>
+      <div id="editUserInfoHeader">
+        <p className="col-sm-5 offset-sm-1" id="basicInfoID"><b>Basic info</b></p>
+        <div className="col-sm-5" id="sexButtonWindow">
+          <div className="radio col-sm-12" id="radioMaleWindow">
+            <label>
+              <input type="radio" name="optradio"/>Male
+            </label>
+          </div>
+          <div class="col-sm-1"></div>
+          <div className="radio col-sm-12" id="radioFemaleWindow">
+            <label>
+              <input type="radio" name="optradio"/>Female
+            </label>
+          </div>
         </div>
       </div>
-      <div className="form-row mb-1 justify-content-center margin">
-        <div className="col-sm-4">
-          <label>Email</label>
-          <input type="text" className="form-control" placeholder="Email"/>
+      <div>
+        <div className="form-row mb-1 marginTop10px">
+          <div className="col-sm-4 offset-sm-1">
+            <label>First name</label>
+            <input type="text" className="form-control" placeholder="First Name"/>
+          </div>
+          <div className="col-sm-4 offset-sm-1">
+            <label>Last name</label>
+            <input type="text" className="form-control" placeholder="Last Name"/>
+          </div>
         </div>
-        <div class="col-sm-1"></div>
-        <div className="col-sm-4">
-          <label>Phone number</label>
-          <input type="text" className="form-control" placeholder="Phone number"/>
+        <div className="form-row mb-1">
+          <div className="col-sm-4 offset-sm-1">
+            <label>Email</label>
+            <input type="text" className="form-control" placeholder="Email"/>
+          </div>
+          <div className="col-sm-4 offset-sm-1">
+            <label>Phone number</label>
+            <input type="text" className="form-control" placeholder="Phone number"/>
+          </div>
         </div>
       </div>
-      <p className="offset-md-1 editInfoTitle">Home adress</p>
-      <div className="form-row mb-1 justify-content-center margin">
-        <div className="col-sm-4">
+
+      <p className="marginTop35px offset-sm-1"><b>Home adress</b></p>
+      <div className="form-row mb-1">
+        <div className="col-sm-4 offset-sm-1">
           <label>Country</label>
           <input type="text" className="form-control" placeholder="Country"/>
         </div>
-        <div class="col-sm-1"></div>
-        <div className="col-sm-4">
+        <div className="col-sm-4 offset-sm-1">
           <label>City</label>
           <input type="text" className="form-control" placeholder="City"/>
         </div>
       </div>
-      <div className="form-row mb-1 justify-content-center margin">
-        <div className="col-sm-4">
+      <div className="form-row mb-1">
+        <div className="col-sm-4 offset-sm-1">
           <label>Street</label>
           <input type="text" className="form-control" placeholder="Street"/>
         </div>
-        <div class="col-sm-1"></div>
-        <div className="col-sm-4">
+        <div className="col-sm-4 offset-sm-1">
           <label>Apartment</label>
           <input type="text" className="form-control" placeholder="Apartment"/>
         </div>
       </div>
-      <div className="form-row mb-2 justify-content-end col-sm-6 col-md-6 col-lg-10 margin">
+      <div className="form-row mb-2 justify-content-end col-sm-10 padding">
         <button type="button" className="btn btn-primary btn-md btn-clr btn-info">Submit</button>
       </div>
-  
-</div>
-}
+    </div>
+  }
 }
 export default Edit;
