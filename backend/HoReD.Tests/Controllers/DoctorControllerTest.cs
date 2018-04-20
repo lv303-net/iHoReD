@@ -67,7 +67,7 @@ namespace HoReDTests.Controllers
             var controller = new DoctorController(mock.Object);
 
             // Act
-            var result = controller.GetDoctorsByProfession(profession.ToString());
+            var result = controller.GetDoctorsByProfession(profession);
 
             // Assert
             Assert.AreEqual(result[0][0].ToString(), fake_list[0][0]);
@@ -86,7 +86,7 @@ namespace HoReDTests.Controllers
             var controller = new DoctorController(mock.Object);
 
             // Act
-            var response = controller.GetDoctorsByProfession(prof.ToString()).Count;
+            var response = controller.GetDoctorsByProfession(prof).Count;
 
             // Assert
             Assert.AreEqual(response, fake_list.Count);
