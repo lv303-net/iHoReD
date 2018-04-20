@@ -99,8 +99,12 @@
     <sqlFile path="V2.18_PROCEDURES_FOR_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
-  <changeSet author="Iryna Halenok" id="V2.18">
-    <sqlFile path="V2.18_UPDATE_DOCTORS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  <changeSet author="Iryna Halenok" id="V2.19">
+    <sqlFile path="V2.19_UPDATE_DOCTORS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V2.20">
+    <sqlFile path="V2.20_UPDATE_USERS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
 </databaseChangeLog>
