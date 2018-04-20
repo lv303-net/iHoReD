@@ -89,8 +89,14 @@
   </changeSet>
 
   <changeSet author="Iryna Halenok" id="V2.17">
-    <sqlFile path="V2.17_CREATE_VISITS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
-    <sqlFile path="V2.17_CREATE_PROCEDURE_INSERT_VISIT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.17_CREATE_SCHEDULE_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.17_PROCEDURE_INSERT_SCHEDULE_RECORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V2.18">
+    <sqlFile path="V2.18_CREATE_TABLES_RULES_AND_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.18_PROCEDURES_FOR_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.18_PROCEDURES_FOR_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
   <changeSet author="Iryna Halenok" id="V2.18">
