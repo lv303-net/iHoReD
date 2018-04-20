@@ -106,5 +106,9 @@
   <changeSet author="Iryna Halenok" id="V2.20">
     <sqlFile path="V2.20_UPDATE_USERS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.0">
+    <sqlFile path="V3.0_ALTER TABLE RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 
 </databaseChangeLog>
