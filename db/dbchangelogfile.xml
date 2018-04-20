@@ -93,4 +93,8 @@
     <sqlFile path="V2.17_CREATE_PROCEDURE_INSERT_VISIT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Iryna Halenok" id="V2.18">
+    <sqlFile path="V2.18_UPDATE_DOCTORS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
