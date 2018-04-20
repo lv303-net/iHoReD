@@ -17,7 +17,7 @@ namespace Entities.Services
             {
                 _myConnection.Open();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new InvalidOperationException();
             }
@@ -57,29 +57,19 @@ namespace Entities.Services
             _myConnection.Open();
         }
 
-        public void Insert(string cmd, IDictionary<string, string> usersInfo)
+        public void Insert(string cmd, IDictionary<string, object> data)
         {
             using (_myConnection)
             {
                 using (var sqlCommand = new SqlCommand(cmd, _myConnection))
                 {
                     sqlCommand.CommandType = CommandType.StoredProcedure;
-                    foreach (var userInfo in usersInfo)
+                    foreach (var d in data)
                     {
-                        sqlCommand.AddParameter(userInfo.Key, userInfo.Value);
+                        sqlCommand.AddParameter(d.Key, d.Value);
                     }
 
-                    try
-                    {
-                        if (sqlCommand.ExecuteNonQuery() != 1)
-                        {
-                            throw new UnauthorizedAccessException();
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        throw new Exception(e.Message);
-                    }
+                    sqlCommand.ExecuteNonQuery();
                 }
             }
         }

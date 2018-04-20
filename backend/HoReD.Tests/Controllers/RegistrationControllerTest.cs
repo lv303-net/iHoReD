@@ -16,7 +16,6 @@ using System.Linq;
 
 namespace HoReD.Tests.Controllers
 {
-
     [TestFixture]
     public class RegistrationControllerTest
     {
@@ -228,11 +227,11 @@ namespace HoReD.Tests.Controllers
         {
             var testParameter = new RegistrationBindingModel()
             {
-                FirstName = "testFirstName",
-                LastName = "testLastName",
-                Email = "olya@ukr.net",
+                FirstName = "TestFirstname",
+                LastName = "TestLastname",
+                Email = "testEmail@ukr.net",
                 Password = "testPassword1$",
-                Phone = "0639639999"
+                Phone = "0639637918"
             };
             return testParameter;
         }
