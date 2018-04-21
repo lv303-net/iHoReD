@@ -170,87 +170,73 @@ namespace Entities.Services
         public List<string[]> ConvertToEvents(List<DoctorRules> allRules)
         {
             var events=new List<string[]>();
+
             foreach (var rule in allRules)
             {
-                if (rule.IfInclusive == true)
+                if (!rule.IfInclusive)
                 {
-                    //var inclEvent = {}
+                    var tempDate = rule.PeriodStart;
+                    var tempHour = rule.HourStart;
+                    while (tempDate <= rule.PeriodFinish)
+                    {
+                        if (rule.Week[tempDate.DayOfWeek])
+                        {
+                            tempHour = rule.HourStart;
+                            while (tempHour <= rule.HourFinish)
+                            {
+                                foreach (var incEvent in events)
+                                {
+                                    var excEvent = new[]
+                                    {
+                                        tempDate.ToString(), tempHour.ToString(),
+                                        (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
+                                    };
+                                    if (events.Contains(excEvent))
+                                    {
+                                        events.Remove(excEvent);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             return events;
         }
 
-        public List<DoctorRules> GetDoctorRules(List<DoctorRules> allRules)
+        public DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule)
         {
-            var incluciveRules=new List<DoctorRules>();
-            var exclusiceRules=new List<DoctorRules>();
-            foreach (var role in incluciveRules)
+            var res = new DoctorRules();
+            if ((exRule.PeriodStart > inRule.PeriodFinish) || (exRule.PeriodFinish < inRule.PeriodStart))
             {
-                if (role.IfInclusive == true)
+                return inRule;
+            }
+            else
+            {
+                if ((exRule.HourStart > inRule.HourFinish) || (exRule.HourFinish < inRule.HourStart))
                 {
-                    incluciveRules.Add(role);
+                    return inRule;
                 }
                 else
                 {
-                    exclusiceRules.Add(role);
+                    if (CompareWeek(exRule.Week, inRule.Week).Count == 0)
+                    {
+                        return inRule;
+                    }
+                    else
+                    {
+
+                    }
+
                 }
             }
 
-            foreach (var exRule in exclusiceRules)
-            {
-                foreach (var inRule in incluciveRules)
-                {
-                    
-                }
-            }
-
-            return incluciveRules;
+            return res;
         }
 
-        //public DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule)
-        //{
-        //    var res=new DoctorRules();
-        //    if ((exRule.PeriodStart > inRule.PeriodFinish) || (exRule.PeriodFinish < inRule.PeriodStart))
-        //    {
-        //        return inRule;
-        //    }
-        //    else
-        //    {
-        //        if ((exRule.HourStart > inRule.HourFinish) || (exRule.HourFinish < inRule.HourStart))
-        //        {
-        //            return inRule;
-        //        }
-        //        else
-        //        {
-        //            if (CompareWeek(exRule.Week, inRule.Week).Count == 0)
-        //            {
-        //                return inRule;
-        //            }
-        //            else
-        //            {
-                        
-        //            }
-
-        //        }
-        //    }
-
-        //    return res;
-        //}
-
-        //public List<DayofWeek> CompareWeek(IDictionary<DayofWeek, bool> exWeek, IDictionary<DayofWeek, bool> inWeek)
-        //{
-        //    var result=new List<DayofWeek>();
-
-        //    if ((exWeek[DayofWeek.Sunday] == true) && (inWeek[DayofWeek.Sunday] == true)) { result.Add(DayofWeek.Sunday); }
-        //    if ((exWeek[DayofWeek.Monday] == true) && (inWeek[DayofWeek.Monday] == true)) { result.Add(DayofWeek.Monday); }
-        //    if ((exWeek[DayofWeek.Tuesday] == true) && (inWeek[DayofWeek.Tuesday] == true)) { result.Add(DayofWeek.Tuesday); }
-        //    if ((exWeek[DayofWeek.Wednesday] == true) && (inWeek[DayofWeek.Wednesday] == true)) { result.Add(DayofWeek.Wednesday); }
-        //    if ((exWeek[DayofWeek.Thursday] == true) && (inWeek[DayofWeek.Thursday] == true)) { result.Add(DayofWeek.Thursday); }
-        //    if ((exWeek[DayofWeek.Friday] == true) && (inWeek[DayofWeek.Friday] == true)) { result.Add(DayofWeek.Friday); }
-
-        //    return result;
-        //}
-
-
+        public List<DayOfWeek> CompareWeek(IDictionary<DayOfWeek, bool> exWeek, IDictionary<DayOfWeek, bool> inWeek)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

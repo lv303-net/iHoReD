@@ -17,12 +17,10 @@ namespace Entities.Services
 
         List<DoctorRules> GetDoctorAllRules(int doctorId, DateTime dateStart, DateTime dateFinish);
 
-        List<DoctorRules> GetDoctorRules(List<DoctorRules> allRoles);
-
         List<string[]> ConvertToEvents(List<DoctorRules> allRules);
 
-        //DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule);
+        DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule);
 
-        //List<DayofWeek> CompareWeek(IDictionary<DayofWeek, bool> exWeek, IDictionary<DayofWeek, bool> inWeek);
+        List<DayOfWeek> CompareWeek(IDictionary<DayOfWeek, bool> exWeek, IDictionary<DayOfWeek, bool> inWeek);
     }
 }
