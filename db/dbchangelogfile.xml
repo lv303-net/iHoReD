@@ -119,4 +119,10 @@
     <sqlFile path="V3.2_CREATE_PROCEDURE_SELECT_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Maksym Sikorskyi" id="V3.3">
+    <sqlFile path="V3.3_CREATE_USER_INFO_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.3_PROCEDURES_EDIT_USER_INFO_AND_GET_ALL_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.3_ALTER_PROCEDURE_REGISTER_USER_FOR_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
