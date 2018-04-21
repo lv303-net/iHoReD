@@ -32,6 +32,7 @@ namespace HoReD.Controllers
                 }
                 
                 _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password);
+
                 return Ok();
             }
             catch (Exception)

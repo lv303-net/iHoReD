@@ -67,5 +67,15 @@ namespace Entities.Services
         {
             throw new NotImplementedException();
         }
+
+        public List<DoctorRules> GetDoctorAllRules(int doctorId, DateTime dateStart, DateTime dateFinish)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string[]> ConvertToEvents(List<DoctorRules> allRules)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

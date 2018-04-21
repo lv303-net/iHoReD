@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public enum DayofWeek
-    {
-        Sunday = 1, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
-    }
     public class DoctorRules
     {
         public string RuleName { get; set; }
@@ -24,6 +20,6 @@ namespace Entities
 
         public bool IfInclusive { get; set; }
 
-        public IDictionary<DayofWeek,bool> Week { get; set; }
+        public IDictionary<DayOfWeek,bool> Week { get; set; }
     }
 }

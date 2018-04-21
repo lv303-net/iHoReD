@@ -151,14 +151,14 @@ namespace Entities.Services
                     PeriodStart = DateTime.Parse(values.GetValue(3 + i).ToString()),
                     PeriodFinish = DateTime.Parse(values.GetValue(4 + i).ToString()),
                     IfInclusive = bool.Parse(values.GetValue(5 + i).ToString()),
-                    Week = new Dictionary<DayofWeek, bool>
+                    Week = new Dictionary<DayOfWeek, bool>
                     {
-                        {DayofWeek.Sunday, bool.Parse(values.GetValue(6 + i).ToString())},
-                        {DayofWeek.Monday, bool.Parse(values.GetValue(7 + i).ToString())},
-                        {DayofWeek.Tuesday, bool.Parse(values.GetValue(8 + i).ToString())},
-                        {DayofWeek.Wednesday, bool.Parse(values.GetValue(9 + i).ToString())},
-                        {DayofWeek.Thursday, bool.Parse(values.GetValue(10 + i).ToString())},
-                        {DayofWeek.Friday, bool.Parse(values.GetValue(11 + i).ToString())}
+                        {DayOfWeek.Sunday, bool.Parse(values.GetValue(6 + i).ToString())},
+                        {DayOfWeek.Monday, bool.Parse(values.GetValue(7 + i).ToString())},
+                        {DayOfWeek.Tuesday, bool.Parse(values.GetValue(8 + i).ToString())},
+                        {DayOfWeek.Wednesday, bool.Parse(values.GetValue(9 + i).ToString())},
+                        {DayOfWeek.Thursday, bool.Parse(values.GetValue(10 + i).ToString())},
+                        {DayOfWeek.Friday, bool.Parse(values.GetValue(11 + i).ToString())}
                     },
                 };
                 result.Add(doctorRule);
@@ -172,85 +172,62 @@ namespace Entities.Services
             var events=new List<string[]>();
             foreach (var rule in allRules)
             {
-                if (rule.IfInclusive == true)
+                if (rule.IfInclusive)
                 {
-                    //var inclEvent = {}
+                    var tempDate = rule.PeriodStart;
+                    var tempHour = rule.HourStart;
+                    while (tempDate <= rule.PeriodFinish)
+                    {
+                        if (rule.Week[tempDate.DayOfWeek])
+                        {
+                            tempHour = rule.HourStart;
+                            while (tempHour <= rule.HourFinish)
+                            {
+                                var inclEvent = new[]
+                                {
+                                    tempDate.ToString(), tempHour.ToString(),
+                                    (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
+                                };
+                                events.Add(inclEvent);
+                            }
+                        }
+                        tempDate.Add(TimeSpan.FromDays(1));
+                    }
+
+                }
+            }
+
+            foreach (var rule in allRules)
+            {
+                if (!rule.IfInclusive)
+                {
+                    var tempDate = rule.PeriodStart;
+                    var tempHour = rule.HourStart;
+                    while (tempDate <= rule.PeriodFinish)
+                    {
+                        if (rule.Week[tempDate.DayOfWeek])
+                        {
+                            tempHour = rule.HourStart;
+                            while (tempHour <= rule.HourFinish)
+                            {
+                                foreach (var incEvent in events)
+                                {
+                                    var excEvent = new[]
+                                    {
+                                        tempDate.ToString(), tempHour.ToString(),
+                                        (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
+                                    };
+                                    if (events.Contains(excEvent))
+                                    {
+                                        events.Remove(excEvent);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             return events;
         }
-
-        public List<DoctorRules> GetDoctorRules(List<DoctorRules> allRules)
-        {
-            var incluciveRules=new List<DoctorRules>();
-            var exclusiceRules=new List<DoctorRules>();
-            foreach (var role in incluciveRules)
-            {
-                if (role.IfInclusive == true)
-                {
-                    incluciveRules.Add(role);
-                }
-                else
-                {
-                    exclusiceRules.Add(role);
-                }
-            }
-
-            foreach (var exRule in exclusiceRules)
-            {
-                foreach (var inRule in incluciveRules)
-                {
-                    
-                }
-            }
-
-            return incluciveRules;
-        }
-
-        public DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule)
-        {
-            var res=new DoctorRules();
-            if ((exRule.PeriodStart > inRule.PeriodFinish) || (exRule.PeriodFinish < inRule.PeriodStart))
-            {
-                return inRule;
-            }
-            else
-            {
-                if ((exRule.HourStart > inRule.HourFinish) || (exRule.HourFinish < inRule.HourStart))
-                {
-                    return inRule;
-                }
-                else
-                {
-                    if (CompareWeek(exRule.Week, inRule.Week).Count == 0)
-                    {
-                        return inRule;
-                    }
-                    else
-                    {
-                        
-                    }
-
-                }
-            }
-
-            return res;
-        }
-
-        public List<DayofWeek> CompareWeek(IDictionary<DayofWeek, bool> exWeek, IDictionary<DayofWeek, bool> inWeek)
-        {
-            var result=new List<DayofWeek>();
-
-            if ((exWeek[DayofWeek.Sunday] == true) && (inWeek[DayofWeek.Sunday] == true)) { result.Add(DayofWeek.Sunday); }
-            if ((exWeek[DayofWeek.Monday] == true) && (inWeek[DayofWeek.Monday] == true)) { result.Add(DayofWeek.Monday); }
-            if ((exWeek[DayofWeek.Tuesday] == true) && (inWeek[DayofWeek.Tuesday] == true)) { result.Add(DayofWeek.Tuesday); }
-            if ((exWeek[DayofWeek.Wednesday] == true) && (inWeek[DayofWeek.Wednesday] == true)) { result.Add(DayofWeek.Wednesday); }
-            if ((exWeek[DayofWeek.Thursday] == true) && (inWeek[DayofWeek.Thursday] == true)) { result.Add(DayofWeek.Thursday); }
-            if ((exWeek[DayofWeek.Friday] == true) && (inWeek[DayofWeek.Friday] == true)) { result.Add(DayofWeek.Friday); }
-
-            return result;
-        }
-
-
     }
 }

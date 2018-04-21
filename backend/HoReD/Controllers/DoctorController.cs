@@ -32,9 +32,9 @@ namespace HoReD.Controllers
 
         [HttpGet]
         [Route("GetDoctors/{professionId}")]
-         public List<string[]> GetDoctorsByProfession(string professionId)
+         public List<string[]> GetDoctorsByProfession(int professionId)
         {
-             return _doctorService.GetDoctorsByProfessionId(Convert.ToInt32(professionId));
+             return _doctorService.GetDoctorsByProfessionId(professionId);
         }
 
         [HttpGet]
@@ -44,6 +44,14 @@ namespace HoReD.Controllers
         public List<string[]> GetProfessions(bool isStatic)
         {
             return _doctorService.GetProfessions(isStatic);
+        }
+
+        [HttpGet]
+        [Route("DoctorEvents/{doctorId}/{dateStart=}/{dateFinish=}")]
+        public List<string[]> GetDoctorEvents(int doctorId, DateTime dateStart, DateTime dateFinish)
+        {
+            var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
+            return _doctorService.ConvertToEvents(rules);
         }
 
     }
