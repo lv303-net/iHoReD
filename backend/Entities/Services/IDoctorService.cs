@@ -21,8 +21,8 @@ namespace Entities.Services
 
         List<string[]> ConvertToEvents(List<DoctorRules> allRules);
 
-        DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule);
+        //DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule);
 
-        List<DayofWeek> CompareWeek(IDictionary<DayofWeek, bool> exWeek, IDictionary<DayofWeek, bool> inWeek);
+        //List<DayofWeek> CompareWeek(IDictionary<DayofWeek, bool> exWeek, IDictionary<DayofWeek, bool> inWeek);
     }
 }

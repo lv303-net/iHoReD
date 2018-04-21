@@ -12,23 +12,22 @@ namespace HoReD.Controllers
 
     public class ScheduleController : ApiController
     {
-        private readonly IScheduleService _visitService;
+        private readonly IScheduleService _scheduleService;
 
-        public ScheduleController(IScheduleService visitService)
+        public ScheduleController(IScheduleService scheduleService)
         {
-            _visitService = visitService;
+            _scheduleService = scheduleService;
         }
 
         /// <summary>
         /// Inserts new schedule record into database
         /// </summary>
         [HttpPost]
-        [AllowAnonymous]
         public IHttpActionResult InsertNewScheduleRecord(Models.ScheduleBindingModel model)
         {
             try
             {
-                _visitService.InsertScheduleRecord(model.IdDoctor, model.IdPatient, model.startDateTime, model.endDateTime);
+                _scheduleService.InsertScheduleRecord(model.IdDoctor, model.IdPatient, model.startDateTime, model.endDateTime);
                 return Ok();
             }
             catch (Exception)

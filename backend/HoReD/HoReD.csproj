@@ -200,6 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\RuleController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Global.asax.cs">
@@ -207,6 +208,7 @@
     </Compile>
     <Compile Include="Models\LoginUserBindingModel.cs" />
     <Compile Include="Models\RegistrationBindingModel.cs" />
+    <Compile Include="Models\RuleBindingModelcs.cs" />
     <Compile Include="Models\ScheduleBindingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

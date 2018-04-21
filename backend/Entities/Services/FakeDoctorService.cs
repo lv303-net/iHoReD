@@ -92,10 +92,10 @@ namespace Entities.Services
             return list;
         }
 
-        public List<DayofWeek> CompareWeek(IDictionary<DayofWeek, bool> exWeek, IDictionary<DayofWeek, bool> inWeek)
-        {
-            var list = new List<DayofWeek>();
-            return list;
-        }
+        //public List<DayofWeek> CompareWeek(IDictionary<DayofWeek, bool> exWeek, IDictionary<DayofWeek, bool> inWeek)
+        //{
+        //    var list = new List<DayofWeek>();
+        //    return list;
+        //}
     }
 }
