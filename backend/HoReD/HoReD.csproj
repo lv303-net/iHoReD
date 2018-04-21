@@ -208,7 +208,7 @@
     </Compile>
     <Compile Include="Models\LoginUserBindingModel.cs" />
     <Compile Include="Models\RegistrationBindingModel.cs" />
-    <Compile Include="Models\RuleBindingModelcs.cs" />
+    <Compile Include="Models\RuleBindingModel.cs" />
     <Compile Include="Models\ScheduleBindingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

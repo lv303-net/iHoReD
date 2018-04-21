@@ -131,17 +131,17 @@ namespace Entities.Services
 
         public List<DoctorRules> GetDoctorAllRules(int doctorId,DateTime dateStart,DateTime dateFinish)
         {
-            const string cmd = "";
+            const string cmd = "SELECT_RULES";
             var param = new Dictionary<string, object>()
             {
-                {"@IDDoctors", doctorId},
-                {"@DATESTART", dateStart},
-                {"@DATEFINISH", dateFinish}
+                {"@FROM", dateStart},
+                {"@TILL", dateFinish},
+                {"@IDDOCTOR", doctorId}
             };
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var result = new List<DoctorRules>();
             var values = str.Split('*');
-            for (int i = 0; i < (result.Count - 1); i += 12)
+            for (int i = 0; i < (result.Count - 1); i += 14)
             {
                 var doctorRule = new DoctorRules()
                 {

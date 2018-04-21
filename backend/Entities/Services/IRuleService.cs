@@ -9,6 +9,9 @@ namespace Entities.Services
     public interface IRuleService
     {
         List<DoctorRules> GetRules();
+
         List<DoctorInfo> GetDoctorsByIdRule(int IdRule);
+
+        void AddOrUpdateRule(DoctorRules rule);
     }
 }

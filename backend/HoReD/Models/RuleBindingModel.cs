@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HoReD.Models
 {
-    public class RuleBindingModelcs
+    public class RuleBindingModel
     {
         public int IdRule { get; set; }
 

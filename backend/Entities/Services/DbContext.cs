@@ -68,7 +68,6 @@ namespace Entities.Services
                     {
                         sqlCommand.AddParameter(d.Key, d.Value);
                     }
-
                     sqlCommand.ExecuteNonQuery();
                 }
             }
