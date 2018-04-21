@@ -7,7 +7,7 @@ var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
-  server_url="https://hored-backend.azurewebsites.net"
+  server_url="https://hored.azurewebsites.net"
 
 /*$(document).ready(function() {
 $('#calendar').fullCalendar({
