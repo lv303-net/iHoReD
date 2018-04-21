@@ -38,17 +38,14 @@ class Calendar extends Component {
     };
         $('#calendar').fullCalendar( 'renderEvent', event, true);
     }
-
-
+    
     componentDidMount(){
-        axios.get(server_url+'/GetDoctorSchedule/'+4)
+        axios.get(server_url+'/GetDoctorSchedule/' + 4)
         .then(response => {
-
             response.data.forEach(startEndTime => {
                //doctor.FirstName + ' ' + doctor.LastName + '</a>';
                this.addEvent("hhh", startEndTime[0], startEndTime[1], false);
             });
-          
         });
       const { calendar } = this.refs;
         
@@ -84,12 +81,23 @@ class Calendar extends Component {
                 },
                 true // stick the event
             );
+  
             $('#calendar').fullCalendar('unselect');
+            
         },
+        events: [
+          {
+            title  : 'Conference',
+            start  : '2018-04-22T20:30:00',
+            end    : '2018-04-23T23:30:00',
+          }
+        ]
         })
       });
     }
-  
+
+   
+
     render() {
       return (
         <div id='calendar'></div>
