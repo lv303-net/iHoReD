@@ -129,4 +129,8 @@
     <sqlFile path="V3.31_ALTERED_PROCEDURE_EDIT_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Maksym Sikorskyi" id="V3.32">
+    <sqlFile path="V3.32_ALTERED_PROCEDURE_GET.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
