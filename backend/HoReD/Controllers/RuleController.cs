@@ -15,39 +15,39 @@ namespace HoReD.Controllers
             _ruleService = ruleService;
         }
 
-
         [HttpGet]
-        [Route("Rules")]
+        [Route("Rule")]
         public List<DoctorRules> GetRules()
         {
             try
             {
                 return _ruleService.GetRules();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                string message = e.Message;
                 return null;
             }
         }
 
         [HttpPost]
-        [Route("Rules/{IdRule}")]
-        public void AddOrUpdate(Models.RuleBindingModel rule)
+        [Route("Rule/{IdRule}")]
+        public void AddOrUpdate(Models.RuleBindingModel model)
         {
             try
             {
-                DoctorRules dr = new DoctorRules()
+                DoctorRules rule = new DoctorRules()
                 {
-                    IdRule = rule.IdRule,
-                    RuleName = rule.RuleName,
-                    HourStart = rule.HourStart,
-                    HourFinish = rule.HourFinish,
-                    PeriodStart = rule.PeriodStart,
-                    PeriodFinish = rule.PeriodFinish,
-                    IfInclusive = rule.IfInclusive,
-                    Week = rule.Week                
+                    IdRule = model.IdRule,
+                    RuleName = model.RuleName,
+                    HourStart = model.HourStart,
+                    HourFinish = model.HourFinish,
+                    PeriodStart = model.PeriodStart,
+                    PeriodFinish = model.PeriodFinish,
+                    IfInclusive = model.IfInclusive,
+                    Week = model.Week                
                 };
-                _ruleService.AddOrUpdateRule(dr);
+                _ruleService.AddOrUpdateRule(rule);
             }
             catch (Exception e)
             {
@@ -55,9 +55,36 @@ namespace HoReD.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("Rule/{IdRule}/Delete")]
+        public void Delete(int IdRule)
+        {
+            try
+            {
+                _ruleService.DeleteRule(IdRule);
+            }
+            catch (Exception e)
+            {
+                string message = e.Message;
+            }
+        }
+
+        [HttpPost]
+        [Route("Rule/{IdRule}/Doctors/{IdDoctor}/Dismiss")]
+        public void Delete(Models.RulesetBindingModel model)
+        {
+            try
+            {
+                _ruleService.DismissDoctorFromRule(model.IdRule, model.IdDoctor);
+            }
+            catch (Exception e)
+            {
+                string message = e.Message;
+            }
+        }
 
         [HttpGet]
-        [Route("Rules/DoctorsByRule/{IdRule}")]
+        [Route("Rule/{IdRule}/Doctors")]
         public List<DoctorInfo> GetDoctorsBYIdRule(int IdRule)
         {
             try

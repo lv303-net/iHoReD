@@ -13,5 +13,9 @@ namespace Entities.Services
         List<DoctorInfo> GetDoctorsByIdRule(int IdRule);
 
         void AddOrUpdateRule(DoctorRules rule);
+
+        void DeleteRule(int IdRule);
+
+        void DismissDoctorFromRule(int IdRule, int IdDoctor);
     }
 }

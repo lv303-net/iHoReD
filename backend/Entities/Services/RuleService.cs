@@ -66,7 +66,7 @@ namespace Entities.Services
                 {"@INCLUSIVE", rule.IfInclusive},
                 {"@SUNDAY", rule.Week[DayOfWeek.Sunday]},
                 {"@MONDAY", rule.Week[DayOfWeek.Monday]},
-                {"@TUESDAY", rule.Week[DayOfWeek.Thursday]},
+                {"@TUESDAY", rule.Week[DayOfWeek.Tuesday]},
                 {"@WEDNESDAY", rule.Week[DayOfWeek.Wednesday]},
                 {"@THIRSDAY", rule.Week[DayOfWeek.Thursday]},
                 {"@FRIDAY", rule.Week[DayOfWeek.Friday]},
@@ -83,6 +83,20 @@ namespace Entities.Services
                 param.Add("@ID", rule.IdRule);
                 
             }
+
+            _dbContext.Insert(cmd, param);
+
+            _dbContext.Dispose();
+        }
+
+        public void DeleteRule(int  IdRule)
+        {
+            const string cmd = "DELETE_RULE";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@ID", IdRule},
+            };
 
             _dbContext.Insert(cmd, param);
 
@@ -114,6 +128,21 @@ namespace Entities.Services
             }
             _dbContext.Dispose();
             return list;
+        }
+
+        public void DismissDoctorFromRule(int IdRule, int IdDoctor)
+        {
+            const string cmd = "DISMISS_DOCTOR_FROM_RULE";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@RULE_ID", IdRule},
+                {"@DOCTOR_ID", IdDoctor},
+            };
+
+            _dbContext.Insert(cmd, param);
+
+            _dbContext.Dispose();
         }
     }
 }
