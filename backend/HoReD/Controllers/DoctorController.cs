@@ -47,11 +47,13 @@ namespace HoReD.Controllers
         }
 
         [HttpGet]
-        [Route("DoctorEvents/{doctorId}/{dateStart=}/{dateFinish=}")]
-        public List<string[]> GetDoctorEvents(int doctorId, DateTime dateStart, DateTime dateFinish)
+        [Route("DoctorEvents/{doctorId}")]
+        public List<string[]> GetDoctorEvents(int doctorId)
         {
+            DateTime dateStart = new DateTime(2018, 05, 01);
+            DateTime dateFinish = new DateTime(2018, 05, 30);
             var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
-            return _doctorService.ConvertToEvents(rules);
+            return _doctorService.ConvertToEvents(rules, dateStart, dateFinish);
         }
 
     }

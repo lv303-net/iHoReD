@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Entities.Services
@@ -131,17 +132,17 @@ namespace Entities.Services
 
         public List<DoctorRules> GetDoctorAllRules(int doctorId,DateTime dateStart,DateTime dateFinish)
         {
-            const string cmd = "";
+            const string cmd = "SELECT_RULES";
             var param = new Dictionary<string, object>()
             {
-                {"@IDDoctors", doctorId},
-                {"@DATESTART", dateStart},
-                {"@DATEFINISH", dateFinish}
+                {"@IDDOCTOR", doctorId},
+                {"@FROM", dateStart},
+                {"@TILL", dateFinish}
             };
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var result = new List<DoctorRules>();
             var values = str.Split('*');
-            for (int i = 0; i < (result.Count - 1); i += 12)
+            for (int i = 0; i < (values.Length - 1); i += 15)
             {
                 var doctorRule = new DoctorRules()
                 {
@@ -158,7 +159,8 @@ namespace Entities.Services
                         {DayOfWeek.Tuesday, bool.Parse(values.GetValue(8 + i).ToString())},
                         {DayOfWeek.Wednesday, bool.Parse(values.GetValue(9 + i).ToString())},
                         {DayOfWeek.Thursday, bool.Parse(values.GetValue(10 + i).ToString())},
-                        {DayOfWeek.Friday, bool.Parse(values.GetValue(11 + i).ToString())}
+                        {DayOfWeek.Friday, bool.Parse(values.GetValue(11 + i).ToString())},
+                        {DayOfWeek.Saturday, bool.Parse(values.GetValue(12 + i).ToString())}
                     },
                 };
                 result.Add(doctorRule);
@@ -167,16 +169,16 @@ namespace Entities.Services
             return result;
         }
 
-        public List<string[]> ConvertToEvents(List<DoctorRules> allRules)
+        public List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
         {
             var events=new List<string[]>();
             foreach (var rule in allRules)
             {
                 if (rule.IfInclusive)
                 {
-                    var tempDate = rule.PeriodStart;
+                    var tempDate = dateStart;
                     var tempHour = rule.HourStart;
-                    while (tempDate <= rule.PeriodFinish)
+                    while (tempDate <= dateFinish)
                     {
                         if (rule.Week[tempDate.DayOfWeek])
                         {
@@ -188,10 +190,11 @@ namespace Entities.Services
                                     tempDate.ToString(), tempHour.ToString(),
                                     (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
                                 };
+                                tempHour=tempHour.Add(TimeSpan.FromMinutes(30));
                                 events.Add(inclEvent);
                             }
                         }
-                        tempDate.Add(TimeSpan.FromDays(1));
+                        tempDate=tempDate.Add(TimeSpan.FromDays(1));
                     }
 
                 }
@@ -201,7 +204,7 @@ namespace Entities.Services
             {
                 if (!rule.IfInclusive)
                 {
-                    var tempDate = rule.PeriodStart;
+                    var tempDate = dateStart;
                     var tempHour = rule.HourStart;
                     while (tempDate <= rule.PeriodFinish)
                     {
@@ -210,20 +213,16 @@ namespace Entities.Services
                             tempHour = rule.HourStart;
                             while (tempHour <= rule.HourFinish)
                             {
-                                foreach (var incEvent in events)
+                                var excEvent = events.FirstOrDefault(u => u[0] == tempDate.ToString()&&u[1]== tempHour.ToString()&&u[2]== (tempHour.Add(TimeSpan.FromMinutes(30))).ToString());
+                                if (excEvent!=null)
                                 {
-                                    var excEvent = new[]
-                                    {
-                                        tempDate.ToString(), tempHour.ToString(),
-                                        (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
-                                    };
-                                    if (events.Contains(excEvent))
-                                    {
-                                        events.Remove(excEvent);
-                                    }
+                                    events.Remove(excEvent);
                                 }
+                                tempHour=tempHour.Add(TimeSpan.FromMinutes(30));
                             }
                         }
+
+                        tempDate = tempDate.Add(TimeSpan.FromDays(1));
                     }
                 }
             }
