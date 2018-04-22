@@ -9,6 +9,7 @@ import Diagnoses from './components/Diagnoses';
 import Edit from './components/Edit';
 import StartPatientPage from './components/StartPatientPage';
 import registerServiceWorker from './registerServiceWorker';
+import AdminRulesPage from './components/AdminRulesPage';
 
 class Home extends Component {
     render() {
@@ -18,6 +19,7 @@ class Home extends Component {
         <Route path="/editUserInfo" component={Edit}/>
         <Route path="/allDiagnoses" component={Diagnoses}/>
         <Route path="/startPage" component={StartPatientPage}/>
+        <Route path="/admin" component={AdminRulesPage}/>
       </Switch>
            );
     }
