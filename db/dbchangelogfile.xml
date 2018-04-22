@@ -140,6 +140,10 @@
   <changeSet author="Maksym Sikorskyi" id="V3.34">
     <sqlFile path="V3.34_ALTER_PROCEDURE_GET_DOCTORS_WITHOUT_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.4">
+    <sqlFile path="V3.4_ALTERED_PROCEDURE_SELECT_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 
   <changeSet author="Maksym Sikorskyi" id="V3.35">
     <sqlFile path="V3.35_ALTERED_PROCEDURE_GET_DOCTORS_WITH_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
