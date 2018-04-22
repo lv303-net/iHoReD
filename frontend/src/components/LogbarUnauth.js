@@ -101,7 +101,11 @@ class LogbarUnauth extends Component {
           password: this.passwordRegistr,
           phone: this.phoneRegistr
         };
-    
+        
+        
+        localStorage.setItem("currentUserFirstName", (this.firstNameRegistr));
+        localStorage.setItem("currentUserLastName", (this.lastNameRegistr));
+
         axios.post(server_url + '/api/Registration',userRegister)
           .then(function (response) {
               //handle success
