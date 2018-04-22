@@ -70,7 +70,7 @@ namespace HoReD.Controllers
         }
 
         [HttpPost]
-        [Route("Rule/{IdRule}/DoctorHasRule/{hasRule=true}/{IdDoctor}/Dismiss")]
+        [Route("Rule/{IdRule}/DoctorHasRule/{IdDoctor}/Dismiss")]
         public void Delete(Models.RulesetBindingModel model)
         {
             try
@@ -84,7 +84,7 @@ namespace HoReD.Controllers
         }
 
         [HttpPost]
-        [Route("Rule/{IdRule}/DoctorHasRule/{hasRule=false}/{IdDoctor}/Assign")]
+        [Route("Rule/{IdRule}/DoctorHasRule/false/{IdDoctor}/Assign")]
         public void AssignDoctorToRule(Models.RulesetBindingModel model)
         {
             try
@@ -99,7 +99,6 @@ namespace HoReD.Controllers
 
         [HttpGet]
         [Route("Rule/{IdRule}/DoctorHasRule/{hasRule=true}")]
-        [Route("Rule/{IdRule}/DoctorHasNotRule/{hasRule=false}")]
         public List<DoctorInfo> GetDoctorsBYIdRule(int IdRule, bool hasRule)
         {
             try

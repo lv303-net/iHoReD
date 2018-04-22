@@ -81,7 +81,6 @@ namespace Entities.Services
             {
                 cmd = "UPDATE_RULE";
                 param.Add("@ID", rule.IdRule);
-                
             }
 
             _dbContext.ExecuteSqlQuery(cmd, param);
@@ -114,14 +113,14 @@ namespace Entities.Services
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var values = str.Split('*');
             var list = new List<DoctorInfo>();
-            for (int i = 0; i < (values.Length - 1); i += 5)
+            for (int i = 0; i < (values.Length - 1); i += 4)
             {
                 var doctor = new DoctorInfo
                 {
-                    Id = Convert.ToInt32(values.GetValue(1+ i)),
-                    FirstName = values.GetValue(2 + i).ToString(),
-                    LastName = values.GetValue(3 + i).ToString(),
-                    ProfessionName = values.GetValue(4 + i).ToString(),
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    FirstName = values.GetValue(1 + i).ToString(),
+                    LastName = values.GetValue(2 + i).ToString(),
+                    ProfessionName = values.GetValue(3 + i).ToString(),
                 };
                 list.Add(doctor);
 
