@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -28,22 +28,38 @@ else if(process.env.NODE_ENV==="production")
 class RulesList extends Component {
     constructor() {
         super();
+        this.state = {
+          }
 
         axios.get(server_url+'/rule')
         .then(res => {
-        res.data.forEach(profession => {
-          document.getElementById("rulesList").innerHTML 
-           //+= '<div  class="list-group-item list-group-item-active" id="'+profession[0]+'">'// + this.setProfession(); + '
-           += '<div  class="list-group-item list-group-item-active" onclick={localStorage.setItem("currentProfession",' + profession[0] + ')}>'
-           + profession[1] + '</div>';
-        });
-      });
-    }
+            res.data.forEach(rules => {
+              document.getElementById("listRules").innerHTML 
+               += '<button  class="list-group-item list-group-item-active d-flex justify-content-between" onclick={this.buttonClicked}>'
+               + rules.RuleName + '</button>';
+            });
+          });
+      }
+buttonClicked() {
+    document.getElementById("listDoctors").innerHTML = <DoctorsListWithSomeRule/>;
+}
+
     render() {
         return (
-            <div id="rulesList">
-                
+            <div className = "container">
+                <div className="list-group col-sm-6" id="listRules">
+                </div>
+                <div className="list-group col-sm-6" id="listDoctors">
+                </div>
             </div>
+        )
+    }
+}
+
+class DoctorsListWithSomeRule extends Component {
+    render () {
+        return (
+            <p>some</p>
         )
     }
 }
