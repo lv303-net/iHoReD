@@ -11,7 +11,13 @@ namespace HoReD.Controllers
 {
     public class RegistrationController : ApiController
     {
-        private readonly IDbContext _dbContext = new DbContext();
+        private readonly IUserService _userService;
+
+        public RegistrationController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
 
         //Adds to system inforation about new user
         [HttpPost]
@@ -25,8 +31,8 @@ namespace HoReD.Controllers
                     return Conflict();
                 }
                 
-                IUserService user = new UserService(_dbContext);
-                user.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password);
+                _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password);
+
                 return Ok();
             }
             catch (Exception)

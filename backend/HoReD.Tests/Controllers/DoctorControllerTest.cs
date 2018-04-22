@@ -58,12 +58,12 @@ namespace HoReDTests.Controllers
         }
 
         [Test]
-        [TestCase ("something")]
-        public void GetDoctorsByProffesion_ReturnedValuesValid(string profession)
+        [TestCase (1)]
+        public void GetDoctorsByProffesion_ReturnedValuesValid(int profession)
         {
             // Arrange
             var fake_list = GetFakeDoctorsByProfession(profession);
-            mock.Setup(repo => repo.GetDoctorsByProfession(profession)).Returns(fake_list);
+            mock.Setup(repo => repo.GetDoctorsByProfessionId(profession)).Returns(fake_list);
             var controller = new DoctorController(mock.Object);
 
             // Act
@@ -80,9 +80,9 @@ namespace HoReDTests.Controllers
         public void GetDoctorsByProfession_ValidCountOfRecords()
         {
             // Arrange
-            string prof = "something";
+            int prof = 1;
             var fake_list = GetFakeDoctorsByProfession(prof);
-            mock.Setup(repo => repo.GetDoctorsByProfession(prof)).Returns(fake_list);
+            mock.Setup(repo => repo.GetDoctorsByProfessionId(prof)).Returns(fake_list);
             var controller = new DoctorController(mock.Object);
 
             // Act
@@ -107,9 +107,9 @@ namespace HoReDTests.Controllers
 
 
             // Assert
-            Assert.AreEqual(result[0].ToString(), fake_list[0]);
-            Assert.AreEqual(result[1].ToString(), fake_list[1]);
-            Assert.AreEqual(result[2].ToString(), fake_list[2]);
+            Assert.AreEqual(result[0], fake_list[0]);
+            Assert.AreEqual(result[1], fake_list[1]);
+            Assert.AreEqual(result[2], fake_list[2]);
         }
 
         [Test]
@@ -158,16 +158,16 @@ namespace HoReDTests.Controllers
             return list;
         }
 
-        public List<string> GetFakeProfessions(bool isStatic)
+        public List<string[]> GetFakeProfessions(bool isStatic)
         {
-            var list = new List<string>();
-            list.Add("therapist");
-            list.Add("dentist");
-            list.Add("ophtalmologist");
+            var list = new List<string[]>();
+            list.Add(new string[] { "therapist", "1" ,"true"});
+            list.Add(new string[] { "dentist", "2", "true" });
+            list.Add(new string[] { "ophtalmologist", "3", "true" });
             return list;
         }
 
-        public List<string[]> GetFakeDoctorsByProfession(string profession)
+        public List<string[]> GetFakeDoctorsByProfession(int profession)
         {
             var list = new List<string[]>();
             var prof1 = new string[] { "Halenok", "Iryna" };

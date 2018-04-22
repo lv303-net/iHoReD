@@ -37,14 +37,11 @@ namespace Entities.Services
             _myConnection.Open();
         }
 
-        public void InsertNewUser(string cmd, IDictionary<string, string> usersInfo)
-        {
-            
-        }
-
         public void Dispose()
         {
             _myConnection?.Dispose();
         }
+
+        public void ExecuteSqlQuery(string cmd, IDictionary<string, object> data) { }
     }
 }

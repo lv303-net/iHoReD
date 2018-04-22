@@ -9,14 +9,11 @@ namespace HoReD.Controllers
     /// <summary>
     /// Controller that represents information about Doctors
     /// </summary>
+    //[RoutePrefix("api/Doctor")]
     public class DoctorController : ApiController
     {
         private readonly IDoctorService _doctorService;
-
-        public DoctorController()
-        {
-            _doctorService = new DoctorService(new DbContext());
-        }
+        
         public DoctorController(IDoctorService doctorService)
         {
             _doctorService = doctorService;
@@ -34,19 +31,27 @@ namespace HoReD.Controllers
         }
 
         [HttpGet]
-        [Route("GetDoctors/{profession}")]
-        public List<string[]> GetDoctorsByProfession(string profession)
+        [Route("GetDoctors/{professionId}")]
+         public List<string[]> GetDoctorsByProfession(int professionId)
         {
-            return _doctorService.GetDoctorsByProfession(profession);
+             return _doctorService.GetDoctorsByProfessionId(professionId);
         }
 
         [HttpGet]
         [ActionName("GetProfessions")]
         [Route("ProfessionsStatic/{isStatic=true}")]
         [Route("ProfessionsNotStatic/{isStatic=false}")]
-        public List<string> GetProfessions(bool isStatic)
+        public List<string[]> GetProfessions(bool isStatic)
         {
             return _doctorService.GetProfessions(isStatic);
+        }
+
+        [HttpGet]
+        [Route("DoctorEvents/{doctorId}/{dateStart=}/{dateFinish=}")]
+        public List<string[]> GetDoctorEvents(int doctorId, DateTime dateStart, DateTime dateFinish)
+        {
+            var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
+            return _doctorService.ConvertToEvents(rules);
         }
 
     }

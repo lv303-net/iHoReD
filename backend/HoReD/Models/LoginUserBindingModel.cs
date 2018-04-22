@@ -8,7 +8,7 @@ namespace HoReD.Models
 {
     public class LoginUserBindingModel
     {
-        public string Login { get; set; }
+        public string Email { get; set; }
 
         public string Password { get; set; }
 

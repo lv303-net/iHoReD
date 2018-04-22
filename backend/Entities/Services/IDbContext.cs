@@ -6,7 +6,9 @@ namespace Entities.Services
     public interface IDbContext : IDisposable
     {
         string ExecuteSqlQuery(string cmd, char separatedChar, Dictionary<string, object> param);
+
         void OpenConnection();
-        void InsertNewUser(string cmd, IDictionary<string, string> usersInfo);
+
+        void ExecuteSqlQuery(string cmd, IDictionary<string, object> data);
     }
 }

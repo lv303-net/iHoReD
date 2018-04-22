@@ -10,6 +10,6 @@ namespace Entities.Services
     public interface IUserService
     {
         void StoringInfoAboutNewUser(string firstname, string lastname, string email, string password);
-        User GetUserInfo(string login, string password);
+        User GetUserInfo(string email);
     }
 }

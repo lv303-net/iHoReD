@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Entities.Services
 {
@@ -6,8 +7,20 @@ namespace Entities.Services
     {
         List<DoctorInfo> GetDoctors();
 
-        List<string> GetProfessions(bool isStatic);
+        List<string[]> GetProfessions(bool isStatic);
 
         List<string[]> GetDoctorsByProfession(string profession);
+
+        List<string[]> GetDoctorsByProfessionId(int professionId);
+
+        List<string[]> GetDoctorSchedule(int doctorId);
+
+        List<DoctorRules> GetDoctorAllRules(int doctorId, DateTime dateStart, DateTime dateFinish);
+
+        List<string[]> ConvertToEvents(List<DoctorRules> allRules);
+
+        DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule);
+
+        List<DayOfWeek> CompareWeek(IDictionary<DayOfWeek, bool> exWeek, IDictionary<DayOfWeek, bool> inWeek);
     }
 }

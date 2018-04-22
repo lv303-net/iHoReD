@@ -11,7 +11,7 @@ namespace Entities
     /// Hashing class implementing some methods for hashing password
     /// </summary>
 
-    class Hashing
+    public class Hashing
     {
         /// <summary>
         /// Method for generating salt which then will be used in hashing method

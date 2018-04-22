@@ -12,14 +12,15 @@ namespace HoReD.Controllers
 {
     public class LoginController : ApiController
     {
-        private readonly IDbContext _dbContext = new DbContext();
+        private readonly IUserService _userService;
+
+        public LoginController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         //Adds to system inforation about new user
-        [Route("LoginUser")]
         [HttpPost]
-        [HttpGet]
-        [AllowAnonymous]
-        
         public IHttpActionResult LoginUser(LoginUserBindingModel model)
         {
             try
@@ -29,10 +30,17 @@ namespace HoReD.Controllers
                     return Conflict();
                 }
 
-                IUserService user = new UserService(_dbContext);
-                User currentUser = new User();
-                currentUser = user.GetUserInfo("izhydchukdoc", "hgKJ7&hjv*");
-                return Ok(currentUser);
+                var currentUser = _userService.GetUserInfo(model.Email);
+                var passwordRegForm = model.Password;
+                var isPasswordEqual = Hashing.VerifyPassword(model.Password, currentUser.Password);
+                if (isPasswordEqual)
+                {
+                    return Ok(currentUser);
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
             catch (Exception)
             {

@@ -35,12 +35,12 @@ namespace Entities.Services
             return list;
         }
 
-        public List<string> GetProfessions(bool isStatic)
+        public List<string[]> GetProfessions(bool isStatic)
         {
-            var list = new List<string>();
-            list.Add("therapist");
-            list.Add("dentist");
-            list.Add("ophtalmologist");
+            var list = new List<string[]>();
+            list.Add(new string[] { "therapist","1" });
+            list.Add(new string[] { "dentist", "2" });
+            list.Add(new string[] { "ophtalmologist", "3" });
             return list;
         }
 
@@ -52,6 +52,41 @@ namespace Entities.Services
             list.Add(prof1);
             list.Add(prof2);
             return list;
+        }
+        public List<string[]> GetDoctorsByProfessionId(int professionId)
+        {
+            var list = new List<string[]>();
+            var prof1 = new[] { "Halenok", "Iryna" };
+            var prof2 = new string[] { "Solyar", "Olya" };
+            list.Add(prof1);
+            list.Add(prof2);
+            return list;
+        }
+
+        public List<string[]> GetDoctorSchedule(int doctorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<DoctorRules> GetDoctorAllRules(int doctorId, DateTime dateStart, DateTime dateFinish)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string[]> ConvertToEvents(List<DoctorRules> allRules)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule)
+        {
+            var list = new DoctorRules();
+            return list;
+        }
+
+        public List<DayOfWeek> CompareWeek(IDictionary<DayOfWeek, bool> exWeek, IDictionary<DayOfWeek, bool> inWeek)
+        {
+            throw new NotImplementedException();
         }
     }
 }
