@@ -12,36 +12,71 @@ else if(process.env.NODE_ENV==="production")
 //localStorage.removeItem("currentProfession");
 class ProfessionsTable extends React.Component{
     
-constructor(){
+constructor(props){
     
-      super();
-      this.handleClick = this.handleClick.bind(this);
+      super(props);
       this.state = {
-        justClicked: null
+        idArr: [],
+        id: 1
       };
-
-      //axios.get('http://localhost:58511/ProfessionsStatic')
       axios.get(server_url+'/ProfessionsStatic')
-      .then(res => {
-        res.data.forEach(profession => {
-          document.getElementById("professions").innerHTML 
-           //+= '<div  class="list-group-item list-group-item-active" id="'+profession[0]+'">'// + this.setProfession(); + '
-           += '<div  class="list-group-item list-group-item-active" onclick={localStorage.setItem("currentProfession",' + profession[0] + ')}>'
-           + profession[1] + '</div>';
+        .then(res => {
+          res.data.forEach(profession => {
+             const idArr = res.data;
+             this.setState({
+               idArr
+             })
+          });
         });
-      });
-      console.log(this.state.justClicked);
+      this.eventHandler = this.eventHandler.bind(this);
     };
-    handleClick(letter) {
-      this.setState({ justClicked: letter });
+
+    // componentWillMount()
+    //   {
+        
+    //   //   this.setState(function(prevState, props){
+    //   //         return{
+    //   //           id: localStorage.getItem("currentProfession")
+    //   //         }
+    //   // });
+    // }
+    
+    eventHandler(idProf) {
+      localStorage.setItem("currentProfession", idProf)
+      alert("Im here")
+      console.log(this.state.id)
+      this.setState({
+        id: localStorage.getItem("currentProfession")
+        //id: idProf
+      }
+      )
+      console.log(this.state.id)
     }
 
+    componentDidUpdate(){
+      console.log(this.state.id)
+    }
+    // getProfessions(){
+    //   axios.get(server_url+'/ProfessionsStatic')
+    //   .then(res => {
+    //     res.data.forEach(profession => {
+    //       document.getElementById("professions").innerHTML 
+    //        //+= '<div  class="list-group-item list-group-item-active" onClick="item('+ profession[0] +');">'// + this.setProfession(); + '
+    //        += '<div  class="list-group-item list-group-item-active" onclick=this.eventHandler>'
+    //        + profession[1] + '</div>';
+           
+    //     });
+    //   });
+    //   }
+
+
     render(){
-      return <div className = "container col sm-1 md-1 lg-1 xl-1">
+      return <div className = "container col sm-1 md-1 lg-1 xl-1" id="container">
        <div className="list-group" id="professions">
+       {this.state.idArr.map(idArr => <div key={idArr.toString()} onClick={() => this.eventHandler(idArr[0])}>{idArr[1]}</div>)}
        <a href="#" className="list-group-item active bg-info">Availible doctors:</a>
-       </div>
-       
+       </div> 
+       <DoctorTable idProf={this.state.id}/>
     </div>
     
   }

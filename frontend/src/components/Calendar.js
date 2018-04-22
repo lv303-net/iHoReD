@@ -3,6 +3,7 @@ import { Component } from 'react';
 import $ from 'jquery';
 import 'fullcalendar';
 import axios from 'axios';
+import { months } from 'moment';
 var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
@@ -48,10 +49,14 @@ class Calendar extends Component {
             });
         });
       const { calendar } = this.refs;
-        
+      
+      
+
       $(document).ready(function() {
         // page is ready
+        
         $('#calendar').fullCalendar({
+
             // enable theme
         eventLimit:true,
 
@@ -66,9 +71,15 @@ class Calendar extends Component {
         center: 'title',
         right: 'month,agendaWeek,agendaDay'
         },
+        
         selectable: true,
         selectHelper: true,
         editable: true,
+        viewRender: function(view)
+        {
+            var view = $('#calendar').fullCalendar('getView');
+            //alert("The view's title is " + view.intervalStart.format() + 'T00:00:00'+ ' ' + view.intervalEnd.format() + 'T00:00:00'+ ' '); 
+        },
         select: function(start, end) {
             end =  $.fullCalendar.moment(start);
             end.add(30, 'minutes');
@@ -81,9 +92,9 @@ class Calendar extends Component {
                 },
                 true // stick the event
             );
-  
-            $('#calendar').fullCalendar('unselect');
             
+            $('#calendar').fullCalendar('unselect');
+             
         },
         events: [
           {
@@ -92,11 +103,10 @@ class Calendar extends Component {
             end    : '2018-04-23T23:30:00',
           }
         ]
+        
         })
       });
     }
-
-   
 
     render() {
       return (
