@@ -30,7 +30,7 @@ namespace Entities.Services
                 {"@END_DATETIME",endDayTime}
             };
 
-            _dbContext.Insert(cmd, param);
+            _dbContext.ExecuteSqlQuery(cmd, param);
 
             _dbContext.Dispose();
         }

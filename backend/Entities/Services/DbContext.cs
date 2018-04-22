@@ -57,7 +57,7 @@ namespace Entities.Services
             _myConnection.Open();
         }
 
-        public void Insert(string cmd, IDictionary<string, object> data)
+        public void ExecuteSqlQuery(string cmd, IDictionary<string, object> data)
         {
             using (_myConnection)
             {

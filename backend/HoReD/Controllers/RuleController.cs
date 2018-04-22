@@ -70,7 +70,7 @@ namespace HoReD.Controllers
         }
 
         [HttpPost]
-        [Route("Rule/{IdRule}/Doctors/{IdDoctor}/Dismiss")]
+        [Route("Rule/{IdRule}/DoctorHasRule/{hasRule=true}/{IdDoctor}/Dismiss")]
         public void Delete(Models.RulesetBindingModel model)
         {
             try
@@ -83,13 +83,28 @@ namespace HoReD.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("Rule/{IdRule}/Doctors")]
-        public List<DoctorInfo> GetDoctorsBYIdRule(int IdRule)
+        [HttpPost]
+        [Route("Rule/{IdRule}/DoctorHasRule/{hasRule=false}/{IdDoctor}/Assign")]
+        public void AssignDoctorToRule(Models.RulesetBindingModel model)
         {
             try
             {
-                return _ruleService.GetDoctorsByIdRule(IdRule);
+                _ruleService.AssignDoctorToRule(model.IdRule, model.IdDoctor);
+            }
+            catch (Exception e)
+            {
+                string message = e.Message;
+            }
+        }
+
+        [HttpGet]
+        [Route("Rule/{IdRule}/DoctorHasRule/{hasRule=true}")]
+        [Route("Rule/{IdRule}/DoctorHasNotRule/{hasRule=false}")]
+        public List<DoctorInfo> GetDoctorsBYIdRule(int IdRule, bool hasRule)
+        {
+            try
+            {
+                return _ruleService.GetDoctorsByIdRule(IdRule, hasRule);
             }
             catch (Exception e)
             {

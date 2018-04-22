@@ -9,6 +9,6 @@ namespace Entities.Services
 
         void OpenConnection();
 
-        void Insert(string cmd, IDictionary<string, object> data);
+        void ExecuteSqlQuery(string cmd, IDictionary<string, object> data);
     }
 }

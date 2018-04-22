@@ -10,12 +10,14 @@ namespace Entities.Services
     {
         List<DoctorRules> GetRules();
 
-        List<DoctorInfo> GetDoctorsByIdRule(int IdRule);
+        List<DoctorInfo> GetDoctorsByIdRule(int IdRule, bool hasRule);
 
         void AddOrUpdateRule(DoctorRules rule);
 
         void DeleteRule(int IdRule);
 
         void DismissDoctorFromRule(int IdRule, int IdDoctor);
+
+        void AssignDoctorToRule(int IdRule, int IdDoctor);
     }
 }

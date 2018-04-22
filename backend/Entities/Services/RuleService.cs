@@ -84,7 +84,7 @@ namespace Entities.Services
                 
             }
 
-            _dbContext.Insert(cmd, param);
+            _dbContext.ExecuteSqlQuery(cmd, param);
 
             _dbContext.Dispose();
         }
@@ -98,14 +98,14 @@ namespace Entities.Services
                 {"@ID", IdRule},
             };
 
-            _dbContext.Insert(cmd, param);
+            _dbContext.ExecuteSqlQuery(cmd, param);
 
             _dbContext.Dispose();
         }
 
-        public List<DoctorInfo> GetDoctorsByIdRule(int IdRule)
+        public List<DoctorInfo> GetDoctorsByIdRule(int IdRule, bool hasRule)
         {
-            const string cmd = "GET_DOCTORS_WITH_RULE";
+            string cmd = hasRule ? "GET_DOCTORS_WITH_RULE" : "GET_DOCTORS_WITHOUT_RULE";
 
             var param = new Dictionary<string, object>()
             {
@@ -140,7 +140,22 @@ namespace Entities.Services
                 {"@DOCTOR_ID", IdDoctor},
             };
 
-            _dbContext.Insert(cmd, param);
+            _dbContext.ExecuteSqlQuery(cmd, param);
+
+            _dbContext.Dispose();
+        }
+
+        public void AssignDoctorToRule(int IdRule, int IdDoctor)
+        {
+            const string cmd = "ASSIGN_DOCTOR_TO_RULE";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@RULE_ID", IdRule},
+                {"@DOCTOR_ID", IdDoctor},
+            };
+
+            _dbContext.ExecuteSqlQuery(cmd, param);
 
             _dbContext.Dispose();
         }
