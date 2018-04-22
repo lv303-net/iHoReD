@@ -28,7 +28,7 @@ constructor(props){
              })
           });
         });
-      //this.eventHandler = this.eventHandler.bind(this);
+      this.eventHandler = this.eventHandler.bind(this);
     };
 
     // componentWillMount()
@@ -42,14 +42,20 @@ constructor(props){
     // }
     
     eventHandler(idProf) {
+      localStorage.setItem("currentProfession", idProf)
       alert("Im here")
+      console.log(this.state.id)
       this.setState({
-        //id: localStorage.getItem("currentProfession")
-        id: idProf
-      })
+        id: localStorage.getItem("currentProfession")
+        //id: idProf
+      }
+      )
       console.log(this.state.id)
     }
 
+    componentDidUpdate(){
+      console.log(this.state.id)
+    }
     // getProfessions(){
     //   axios.get(server_url+'/ProfessionsStatic')
     //   .then(res => {

@@ -39,7 +39,7 @@ class DoctorTable extends React.Component{
         // if (nextProps.currentRow === prevState.lastRow){
         //   return null;
         // }
-        console.log(nextProps.idProf)
+        // console.log(nextProps.idProf)
         return {
           idProf: nextProps.idProf,
         }
@@ -54,8 +54,9 @@ class DoctorTable extends React.Component{
       // }
 
       shouldComponentUpdate(nextProps, nextState) {
-        //console.log()
-        return this.state.idProf !== nextProps.idProf; 
+        console.log(nextProps.idProf);
+        console.log(this.props.idProf);
+        return this.props.idProf !== nextProps.idProf; 
       }
 
       getDoctors(){
