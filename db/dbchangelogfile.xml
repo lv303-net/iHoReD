@@ -130,11 +130,7 @@
   </changeSet>
 
   <changeSet author="Maksym Sikorskyi" id="V3.32">
-    <sqlFile path="V3.32_ALTERED_PROCEDURE_GET.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
-  </changeSet>
-
-  <changeSet author="Maksym Sikorskyi" id="V3.321">
-    <sqlFile path="V3.321_ALTERED_PROCEDURE_GET_DOCTORS_WITH_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path=""V3.32_ALTERED_PROCEDURE_GET_DOCTORS_WITH_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
 </databaseChangeLog>
