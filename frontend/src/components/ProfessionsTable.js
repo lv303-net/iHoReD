@@ -8,18 +8,16 @@ var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
-  server_url="https://hored-backend.azurewebsites.net"
+  server_url="https://hored.azurewebsites.net"
 localStorage.removeItem("currentProfession");
 //console.log(localStorage.getItem("currentProfession"));
 
 class ProfessionsTable extends React.Component{
 constructor(props){
-    
       super(props);
       this.state = {
         idArr: [],
         id: 1
-        
       };
       this.eventHandler=this.eventHandler.bind(this);
       axios.get(server_url+'/ProfessionsStatic')
