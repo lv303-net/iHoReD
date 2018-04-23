@@ -45,27 +45,28 @@ class Calendar extends Component {
       return (this.state.idDoc !== nextState.idDoc); 
     }
 
-    addEvent(newtitle, newstart, newend, newallday) {
+    addEvent(newstart, newend, newallday) {
         var event={
-        title  : newtitle,
+        //title  : newtitle,
         start  : newstart,
         end  : newend,
         allDay : newallday // will make the time show
     };
         $('#calendar').fullCalendar( 'renderEvent', event, true);
     }
-    
-    componentDidMount(){
-        axios.get(server_url+'/GetDoctorSchedule/' + this.state.idDoc)
+    getRules(){
+    axios.get(server_url+'/GetDoctorSchedule/' + this.state.idDoc)
         .then(response => {
             response.data.forEach(startEndTime => {
                //doctor.FirstName + ' ' + doctor.LastName + '</a>';
-               this.addEvent("hhh", startEndTime[0], startEndTime[1], false);
+               this.addEvent(startEndTime[0], startEndTime[1], false);
             });
         });
+      }
+    
+    componentDidMount(){
+        
       const { calendar } = this.refs;
-      
-      
 
       $(document).ready(function() {
         // page is ready
@@ -94,7 +95,8 @@ class Calendar extends Component {
         {
             var view = $('#calendar').fullCalendar('getView');
             //alert("The view's title is " + view.intervalStart.format() + 'T00:00:00'+ ' ' + view.intervalEnd.format() + 'T00:00:00'+ ' '); 
-        },
+            
+          },
         select: function(start, end) {
             end =  $.fullCalendar.moment(start);
             end.add(30, 'minutes');
@@ -124,6 +126,7 @@ class Calendar extends Component {
     }
 
     render() {
+      this.getRules();
       return (
         <div id='calendar'></div>
         
