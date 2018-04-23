@@ -3,12 +3,10 @@ using System.Collections.Generic;
 
 namespace Entities.Services
 {
-    public interface IDbContext : IDisposable
+    public interface IDbContext
     {
         string ExecuteSqlQuery(string cmd, char separatedChar, Dictionary<string, object> param);
 
-        void OpenConnection();
-
-        void Insert(string cmd, IDictionary<string, object> data);
+        void ExecuteSqlQuery(string cmd, IDictionary<string, object> data);
     }
 }

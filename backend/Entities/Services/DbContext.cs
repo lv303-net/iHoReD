@@ -13,22 +13,14 @@ namespace Entities.Services
 
         public DbContext()
         {
-            try
-            {
-                _myConnection.Open();
-            }
-            catch (Exception)
-            {
-                throw new InvalidOperationException();
-            }
+          
         }
 
         //Execute query, which return one string, where values separated by char
         public string ExecuteSqlQuery(string cmd, char separatedChar,Dictionary<string,object> param)
         {
             var result = new StringBuilder();
-            using (_myConnection)
-            {
+            _myConnection.Open();
                 using (var command = new SqlCommand(cmd, _myConnection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -46,21 +38,16 @@ namespace Entities.Services
                         }
                     }
 
-                }
+                _myConnection.Close();
             }
             if (result.Length > 0)  result.Remove(result.Length - 1, 1);
             return result.ToString();
         }
-
-        public void OpenConnection()
+       
+        public void ExecuteSqlQuery(string cmd, IDictionary<string, object> data)
         {
             _myConnection.Open();
-        }
-
-        public void Insert(string cmd, IDictionary<string, object> data)
-        {
-            using (_myConnection)
-            {
+            
                 using (var sqlCommand = new SqlCommand(cmd, _myConnection))
                 {
                     sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -68,15 +55,15 @@ namespace Entities.Services
                     {
                         sqlCommand.AddParameter(d.Key, d.Value);
                     }
-
                     sqlCommand.ExecuteNonQuery();
                 }
-            }
+            _myConnection.Close();
         }
-
+        
         public void Dispose()
         {
             _myConnection?.Dispose();
         }
+        
     }
 }

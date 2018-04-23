@@ -68,22 +68,14 @@ namespace Entities.Services
             throw new NotImplementedException();
         }
 
-        public List<DoctorRules> GetDoctorRules(List<DoctorRules> allRules)
-        {
-            var list = new List<DoctorRules>();
-            return list;
-        }
-
         public List<DoctorRules> GetDoctorAllRules(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
-            var list = new List<DoctorRules>();
-            return list;
+            throw new NotImplementedException();
         }
 
-        public List<string[]> ConvertToEvents(List<DoctorRules> allRules)
+        public List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
         {
-            var list = new List<string[]>();
-            return list;
+            throw new NotImplementedException();
         }
 
         public DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule)
@@ -92,10 +84,9 @@ namespace Entities.Services
             return list;
         }
 
-        public List<DayofWeek> CompareWeek(IDictionary<DayofWeek, bool> exWeek, IDictionary<DayofWeek, bool> inWeek)
+        public List<DayOfWeek> CompareWeek(IDictionary<DayOfWeek, bool> exWeek, IDictionary<DayOfWeek, bool> inWeek)
         {
-            var list = new List<DayofWeek>();
-            return list;
+            throw new NotImplementedException();
         }
     }
 }

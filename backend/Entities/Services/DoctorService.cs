@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Entities.Services
@@ -37,7 +38,6 @@ namespace Entities.Services
                 list.Add(doctor);
 
             }
-            _dbContext.Dispose();
             return list;
         }
 
@@ -56,7 +56,6 @@ namespace Entities.Services
                 string[] name = { values.GetValue(i).ToString(), values.GetValue(i + 1).ToString(), values.GetValue(i + 2).ToString() };
                 list.Add(name);
             }
-            _dbContext.Dispose();
             return list;
         }
 
@@ -76,7 +75,6 @@ namespace Entities.Services
                 list.Add(name);
 
             }
-            _dbContext.Dispose();
             return list;
         }
         public List<string[]> GetDoctorsByProfessionId(int professionId)
@@ -89,13 +87,12 @@ namespace Entities.Services
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var values = str.Split('*');
             var list = new List<string[]>();
-            for (int i = 0; i < (values.Length - 1); i += 2)
+            for (int i = 0; i < (values.Length - 1); i += 3)
             {
-                string[] name = { values.GetValue(0 + i).ToString(), values.GetValue(1 + i).ToString() };
+                string[] name = { values.GetValue(0 + i).ToString(), values.GetValue(1 + i).ToString(),values.GetValue(2+i).ToString()};
                 list.Add(name);
 
             }
-            _dbContext.Dispose();
             return list;
         }
 
@@ -125,23 +122,22 @@ namespace Entities.Services
                 string[] name = { dt + "T" + result[i].ToString(), dt + "T" + result[++j].ToString() };
                 list.Add(name);
             }
-            _dbContext.Dispose();
             return list;
         }
 
         public List<DoctorRules> GetDoctorAllRules(int doctorId,DateTime dateStart,DateTime dateFinish)
         {
-            const string cmd = "";
+            const string cmd = "SELECT_RULES";
             var param = new Dictionary<string, object>()
             {
-                {"@IDDoctors", doctorId},
-                {"@DATESTART", dateStart},
-                {"@DATEFINISH", dateFinish}
+                {"@FROM", dateStart},
+                {"@TILL", dateFinish},
+                {"@IDDOCTOR", doctorId}
             };
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var result = new List<DoctorRules>();
             var values = str.Split('*');
-            for (int i = 0; i < (result.Count - 1); i += 12)
+            for (int i = 0; i < (values.Length - 1); i += 15)
             {
                 var doctorRule = new DoctorRules()
                 {
@@ -151,106 +147,80 @@ namespace Entities.Services
                     PeriodStart = DateTime.Parse(values.GetValue(3 + i).ToString()),
                     PeriodFinish = DateTime.Parse(values.GetValue(4 + i).ToString()),
                     IfInclusive = bool.Parse(values.GetValue(5 + i).ToString()),
-                    Week = new Dictionary<DayofWeek, bool>
+                    Week = new Dictionary<DayOfWeek, bool>
                     {
-                        {DayofWeek.Sunday, bool.Parse(values.GetValue(6 + i).ToString())},
-                        {DayofWeek.Monday, bool.Parse(values.GetValue(7 + i).ToString())},
-                        {DayofWeek.Tuesday, bool.Parse(values.GetValue(8 + i).ToString())},
-                        {DayofWeek.Wednesday, bool.Parse(values.GetValue(9 + i).ToString())},
-                        {DayofWeek.Thursday, bool.Parse(values.GetValue(10 + i).ToString())},
-                        {DayofWeek.Friday, bool.Parse(values.GetValue(11 + i).ToString())}
+                        {DayOfWeek.Sunday, bool.Parse(values.GetValue(6 + i).ToString())},
+                        {DayOfWeek.Monday, bool.Parse(values.GetValue(7 + i).ToString())},
+                        {DayOfWeek.Tuesday, bool.Parse(values.GetValue(8 + i).ToString())},
+                        {DayOfWeek.Wednesday, bool.Parse(values.GetValue(9 + i).ToString())},
+                        {DayOfWeek.Thursday, bool.Parse(values.GetValue(10 + i).ToString())},
+                        {DayOfWeek.Friday, bool.Parse(values.GetValue(11 + i).ToString())},
+                        {DayOfWeek.Saturday, bool.Parse(values.GetValue(12 + i).ToString())}
                     },
                 };
                 result.Add(doctorRule);
             }
-            _dbContext.Dispose();
             return result;
         }
 
-        public List<string[]> ConvertToEvents(List<DoctorRules> allRules)
+        public List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
         {
             var events=new List<string[]>();
+            string pattern = "yyyy-MM-dd";
             foreach (var rule in allRules)
             {
-                if (rule.IfInclusive == true)
+                var tempHour = rule.HourStart;
+                var tempDateStart = new DateTime();
+                var tempDateFinish = new DateTime();
+                if (dateStart > rule.PeriodStart)
                 {
-                    //var inclEvent = {}
+                    tempDateStart = dateStart;
+                }
+                else
+                {
+                    tempDateStart = rule.PeriodStart;
+                }
+                if (dateFinish < rule.PeriodFinish)
+                {
+                    tempDateFinish = dateFinish;
+                }
+                else
+                {
+                    tempDateFinish = rule.PeriodFinish;
+                }
+                while (tempDateStart <= tempDateFinish)
+                {
+                    if (rule.Week[tempDateStart.DayOfWeek])
+                    {
+                        tempHour = rule.HourStart;
+                        while (tempHour <= rule.HourFinish)
+                        {
+                            if (rule.IfInclusive)
+                            {
+                                var convertDate = tempDateStart.ToString(pattern);
+                                var inclEvent = new[]
+                                {
+                                    convertDate.ToString(), tempHour.ToString(),
+                                    (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
+                                };
+                                events.Add(inclEvent);
+                            }
+                            else
+                            {
+                                var convertDate = tempDateStart.ToString(pattern);
+                                var excEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
+                                if (excEvent != null)
+                                {
+                                    events.Remove(excEvent);
+                                }
+                            }
+                            tempHour = tempHour.Add(TimeSpan.FromMinutes(30));
+                        }
+                    }
+                    tempDateStart = tempDateStart.Add(TimeSpan.FromDays(1));
                 }
             }
             return events;
         }
-
-        public List<DoctorRules> GetDoctorRules(List<DoctorRules> allRules)
-        {
-            var incluciveRules=new List<DoctorRules>();
-            var exclusiceRules=new List<DoctorRules>();
-            foreach (var role in incluciveRules)
-            {
-                if (role.IfInclusive == true)
-                {
-                    incluciveRules.Add(role);
-                }
-                else
-                {
-                    exclusiceRules.Add(role);
-                }
-            }
-
-            foreach (var exRule in exclusiceRules)
-            {
-                foreach (var inRule in incluciveRules)
-                {
-                    
-                }
-            }
-
-            return incluciveRules;
-        }
-
-        public DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule)
-        {
-            var res=new DoctorRules();
-            if ((exRule.PeriodStart > inRule.PeriodFinish) || (exRule.PeriodFinish < inRule.PeriodStart))
-            {
-                return inRule;
-            }
-            else
-            {
-                if ((exRule.HourStart > inRule.HourFinish) || (exRule.HourFinish < inRule.HourStart))
-                {
-                    return inRule;
-                }
-                else
-                {
-                    if (CompareWeek(exRule.Week, inRule.Week).Count == 0)
-                    {
-                        return inRule;
-                    }
-                    else
-                    {
-                        
-                    }
-
-                }
-            }
-
-            return res;
-        }
-
-        public List<DayofWeek> CompareWeek(IDictionary<DayofWeek, bool> exWeek, IDictionary<DayofWeek, bool> inWeek)
-        {
-            var result=new List<DayofWeek>();
-
-            if ((exWeek[DayofWeek.Sunday] == true) && (inWeek[DayofWeek.Sunday] == true)) { result.Add(DayofWeek.Sunday); }
-            if ((exWeek[DayofWeek.Monday] == true) && (inWeek[DayofWeek.Monday] == true)) { result.Add(DayofWeek.Monday); }
-            if ((exWeek[DayofWeek.Tuesday] == true) && (inWeek[DayofWeek.Tuesday] == true)) { result.Add(DayofWeek.Tuesday); }
-            if ((exWeek[DayofWeek.Wednesday] == true) && (inWeek[DayofWeek.Wednesday] == true)) { result.Add(DayofWeek.Wednesday); }
-            if ((exWeek[DayofWeek.Thursday] == true) && (inWeek[DayofWeek.Thursday] == true)) { result.Add(DayofWeek.Thursday); }
-            if ((exWeek[DayofWeek.Friday] == true) && (inWeek[DayofWeek.Friday] == true)) { result.Add(DayofWeek.Friday); }
-
-            return result;
-        }
-
-
     }
 }

@@ -30,7 +30,7 @@ namespace Entities.Services
             };
             var cmd = "REGISTER_USER";
 
-            _dbContext.Insert(cmd, regInfo);
+            _dbContext.ExecuteSqlQuery(cmd, regInfo);
         }
 
         public User GetUserInfo(string email)
@@ -52,13 +52,41 @@ namespace Entities.Services
                     Email = values.GetValue(5).ToString(),
                 };
 
-            _dbContext.Dispose();
             return user;
         }
 
-        public void OpenConnection()
+        public void ActivateUser(int Id)
         {
-            _dbContext.OpenConnection();
+            const string cmd = "ACTIVATE_USER";
+            var param = new Dictionary<string, object>()
+            {
+                {"ID_USER", Id},
+            };
+
+            _dbContext.ExecuteSqlQuery(cmd, param);
+        }
+
+        public void ApdateInfoAboutUser(string id,string firstname, string lastname, string email, string password, string isActivated,
+            string phone, string sex, string country, string city, string street, string apartment)
+        {
+            //var password_hash = Hashing.HashingPassword(password);
+
+            var regInfo = new Dictionary<string, object>()
+            {
+                { "@ID", int.Parse(id)},
+                { "@PHONE", phone},
+                { "@SEX", bool.Parse(sex)},
+                { "@COUNTRY", country},
+                { "@CITY", city},
+                { "@STREET", street},
+                { "@APARTMENT", apartment},
+                { "@FIRSTNAME", firstname},
+                { "@LASTNAME", lastname},
+                { "@EMAIL", email},
+            };
+            var cmd = "EDIT_USER_INFO";
+
+            _dbContext.ExecuteSqlQuery(cmd, regInfo);
         }
     }
 }

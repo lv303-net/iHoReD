@@ -46,5 +46,13 @@ namespace HoReD.Controllers
             return _doctorService.GetProfessions(isStatic);
         }
 
+        [HttpGet]
+        [Route("DoctorEvents/{doctorId}/{dateStart}/{dateFinish}")]
+        public List<string[]> GetDoctorEvents(int doctorId,DateTime dateStart,DateTime dateFinish)
+        {
+            var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
+            return _doctorService.ConvertToEvents(rules, dateStart, dateFinish);
+        }
+
     }
 }
