@@ -90,6 +90,7 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\ScheduleService.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

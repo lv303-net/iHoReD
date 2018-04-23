@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Entities;
 
 namespace HoReD.Controllers
 {
@@ -24,6 +25,13 @@ namespace HoReD.Controllers
         {
             _userService.ApdateInfoAboutUser(model.Id, model.FirstName, model.LastName, model.Email, model.Password, model.IsActivated, model.Phone, model.Sex, model.Country, model.City, model.Street, model.Apartment);
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetUserInfoById/{UserInfoId}")]
+        public UserInfo GetUserInfoById(int UserInfoId)
+        {
+            return _userService.GetUserInfoById(UserInfoId);
         }
 
     }

@@ -30,9 +30,10 @@ namespace HoReD.Controllers
                     return Conflict();
                 }
                 
-                _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password);
+                _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password, model.Phone);
 
                 EmailNotificationService.sendEmail(_userService.GetUserInfo(model.Email));
+
                 return Ok();
             }
             catch (Exception)
