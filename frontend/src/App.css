@@ -136,3 +136,13 @@
   margin-left: 60%;
 }
 }
+
+div.profDocTable:hover {
+  background-color: #E3E3E3;
+  cursor: pointer;
+}
+
+#doctors, #professions {
+  
+  margin-left: 15px;
+}
