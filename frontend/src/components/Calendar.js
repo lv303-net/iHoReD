@@ -28,10 +28,25 @@ $('#calendar').fullCalendar({
 });*/
 
 class Calendar extends Component {
-    
+    constructor(props){      
+      super(props);
+      this.state = { idDoc: 1};     
+    };
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+      return {
+        idDoc: nextProps.idDoctor,
+      }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      console.log(nextProps.idDoctor);
+      console.log(this.props.idDoctor);
+      return (this.state.idDoc !== nextState.idDoc); 
+    }
 
     addEvent(newtitle, newstart, newend, newallday) {
-        var event={ 
+        var event={
         title  : newtitle,
         start  : newstart,
         end  : newend,
@@ -41,7 +56,7 @@ class Calendar extends Component {
     }
     
     componentDidMount(){
-        axios.get(server_url+'/GetDoctorSchedule/' + 4)
+        axios.get(server_url+'/GetDoctorSchedule/' + this.state.idDoc)
         .then(response => {
             response.data.forEach(startEndTime => {
                //doctor.FirstName + ' ' + doctor.LastName + '</a>';
