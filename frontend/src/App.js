@@ -27,7 +27,7 @@ render() {
         ) : (
           <LogbarAuth/>
         )}
-        <div className="wrapper row mt-4">
+        <div className="wrapper row">
         <ProfessionsTable/>
         </div>
       </div>

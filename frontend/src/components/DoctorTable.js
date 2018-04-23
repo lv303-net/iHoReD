@@ -8,9 +8,9 @@ var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
-  server_url="https://hored-backend.azurewebsites.net"
+  server_url="https://hored.azurewebsites.net"
 
-console.log(localStorage.getItem("currentProfession"));
+//console.log(localStorage.getItem("currentProfession"));
 class DoctorTable extends React.Component{
     constructor(props){      
       super(props);
@@ -33,30 +33,26 @@ class DoctorTable extends React.Component{
       }
 
       shouldComponentUpdate(nextProps, nextState) {
-        console.log(nextProps.idProf);
-        console.log(this.props.idProf);
         return (this.state.doc !== nextState.doc); 
       }
 
       getDoctors(){
-      console.log(this.state.idProf);
       axios.get(server_url+'/GetDoctors/' + this.state.idProf)
       .then(res => {
-             this.setState({
-               doc: res.data
-             })
-        });
+        this.setState({
+          doc: res.data
+        })
+      });
     }
       
     render(){
       this.getDoctors();
-      return  <div className="container col sm-1 md-1 lg-1 xl-1">
-                  <div className="list-group" id = "doctors">
-                  {this.state.doc.map(doc => <div key={doc.toString()} onClick={() => this.eventHandler(doc)}>{doc[1]}</div>)}
-                  <a href="#" className="list-group-item active bg-info ">Choose the doctor:</a>
+      return  (
+                  <div className="col-md-5 list-group mt-4" id = "doctors">
+                  <div className="list-group-item active bg-info profDocHeader">Doctors:</div>
+                  {this.state.doc.map(doc => <div className='list-group-item list-group-active profDocTable' key={doc.toString()} onClick={() => this.eventHandler(doc[2])}>{doc[1] + ' ' + doc[0]}</div>)}                  
                   </div>
-                  <Calendar idDoctor={this.state.idDoc}/>
-            </div>
+                  );
   }
   }
 

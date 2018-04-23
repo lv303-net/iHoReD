@@ -9,7 +9,8 @@ if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored-backend.azurewebsites.net"
-console.log(localStorage.getItem("Profession"));
+localStorage.removeItem("currentProfession");
+//console.log(localStorage.getItem("currentProfession"));
 
 class ProfessionsTable extends React.Component{
 constructor(props){
@@ -29,23 +30,23 @@ constructor(props){
           });
         });
     };
-  
+    
     eventHandler(idP) {
-      localStorage.setItem("Profession", idP)
-      alert("Im here")
-      console.log(this.state.id)
+      localStorage.setItem("currentProfession", idP)
       this.setState({
         id: idP
       })
     }
 
     render(){
-      return <div className = "container col sm-1 md-1 lg-1 xl-1" id="container">
-       <div className="list-group" id="professions">
-       {this.state.idArr.map(idArr => <div key={idArr.toString()} onClick={() => this.eventHandler(idArr[0])}>{idArr[1]}</div>)}
-       <a href="#" className="list-group-item active bg-info">Availible doctors:</a>
+      return <div className = "container">
+       <div className="row justify-content-center">
+       <div className="col-md-5 list-group mt-4" id="professions">
+        <div className="list-group-item active bg-info">Professions:</div>
+        {this.state.idArr.map(idArr => <div className='list-group-item list-group-item-active profDocTable' key={idArr.toString()} onClick={() => this.eventHandler(idArr[0])}>{idArr[1]}</div>)}
        </div> 
-       <DoctorTable idProf={this.state.id}/>
+        <DoctorTable idProf={this.state.id}/> 
+        </div>     
     </div>
     
   }

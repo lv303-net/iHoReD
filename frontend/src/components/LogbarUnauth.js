@@ -28,32 +28,23 @@ class Authorization extends React.Component {
   
       axios.post(server_url + '/api/Login',userAuth)
         .then(function (response) {
-            //handle success
-            window.location.assign("/startPage")
-            console.log(response.data);
-            console.log(localStorage.getItem("currentUserLastName"));
+            window.location.reload();
             localStorage.setItem("currentUserFirstName", (response.data.FirstName));
             localStorage.setItem("currentUserLastName", (response.data.LastName));
-            console.log(localStorage.getItem("currentUserFirstName"));
-            console.log(localStorage.getItem("currentUserLastName"));
         })
-        .catch(function (response) {
-            //handle error
-            console.log(response);
-        });
     }
   
       render() {
         return(
           <div className='divRender'>
-            <form className="ml-3 mr-3 navbarForm" onSubmit={this.handleSubmitAuth} noValidate >
+            <form className="navbarForm" onSubmit={this.handleSubmitAuth} noValidate >
               <div className="container">
                 <div className="row">
                   <div className="col-xs-12 col-sm-12 col-md-3 mb-2 navbarDiv">
                     <input className="form-control col-12"  type="text" placeholder="Email" onBlur={(x => {this.loginAuth=x.target.value; })}/> 
                   </div>
                   <div className="col-xs-12 col-sm-12 col-md-3 mb-2">
-                    <input className="form-control col-12"  type="text" placeholder="Password" onBlur={(x => {this.passwordAuth=x.target.value; })}/>           
+                    <input className="form-control col-12"  type="password" placeholder="Password" onBlur={(x => {this.passwordAuth=x.target.value; })}/>           
                   </div>
                   <div className="col-xs-12 col-sm-12 col-md-3 mb-2">
                     <button type="submit"  ref={this.btnSubmit} className="btn btn-info col-xs-6">Sign in</button>
@@ -109,7 +100,7 @@ class LogbarUnauth extends Component {
         axios.post(server_url + '/api/Registration',userRegister)
           .then(function (response) {
               //handle success
-              window.location.assign("/startPage")
+              window.location.reload();
               console.log(response);
           })
           .catch(function (response) {
