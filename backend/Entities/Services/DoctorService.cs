@@ -175,51 +175,53 @@ namespace Entities.Services
 
             foreach (var rule in allRules)
             {
-                if (rule.IfInclusive)
+                var tempHour = rule.HourStart;
+                var tempDateStart = new DateTime();
+                var tempDateFinish = new DateTime();
+                if (dateStart > rule.PeriodStart)
                 {
-                    var tempDate = dateStart;
-                    var tempHour = rule.HourStart;
-                    while (tempDate <= dateFinish)
-                    {
-                        if (rule.Week[tempDate.DayOfWeek])
-                        {
-                            tempHour = rule.HourStart;
-                            while (tempHour <= rule.HourFinish)
-                            {
-                                var inclEvent = new[]
-                                {
-                                    tempDate.ToString(), tempHour.ToString(),
-                                    (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
-                                };
-                                tempHour = tempHour.Add(TimeSpan.FromMinutes(30));
-                                events.Add(inclEvent);
-                            }
-                        }
-                        tempDate = tempDate.Add(TimeSpan.FromDays(1));
-                    }
+                    tempDateStart = dateStart;
                 }
                 else
                 {
-                    var tempDate = dateStart;
-                    var tempHour = rule.HourStart;
-                    while (tempDate <= rule.PeriodFinish)
+                    tempDateStart = rule.PeriodStart;
+                }
+                if (dateFinish < rule.PeriodFinish)
+                {
+                    tempDateFinish = dateFinish;
+                }
+                else
+                {
+                    tempDateFinish = rule.PeriodFinish;
+                }
+                while (tempDateStart <= tempDateFinish)
+                {
+                    if (rule.Week[tempDateStart.DayOfWeek])
                     {
-                        if (rule.Week[tempDate.DayOfWeek])
+                        tempHour = rule.HourStart;
+                        while (tempHour <= rule.HourFinish)
                         {
-                            tempHour = rule.HourStart;
-                            while (tempHour <= rule.HourFinish)
+                            if (rule.IfInclusive)
                             {
-                                var excEvent = events.FirstOrDefault(u => u[0] == tempDate.ToString() && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
+                                var inclEvent = new[]
+                                {
+                                    tempDateStart.ToString(), tempHour.ToString(),
+                                    (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
+                                };
+                                events.Add(inclEvent);
+                            }
+                            else
+                            {
+                                var excEvent = events.FirstOrDefault(u => u[0] == tempDateStart.ToString() && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
                                 if (excEvent != null)
                                 {
                                     events.Remove(excEvent);
                                 }
-                                tempHour = tempHour.Add(TimeSpan.FromMinutes(30));
                             }
+                            tempHour = tempHour.Add(TimeSpan.FromMinutes(30));
                         }
-
-                        tempDate = tempDate.Add(TimeSpan.FromDays(1));
                     }
+                    tempDateStart = tempDateStart.Add(TimeSpan.FromDays(1));
                 }
             }
             return events;
