@@ -19,7 +19,6 @@ namespace HoReD.Controllers
             _userService = userService;
         }
 
-        //Adds to system inforation about new user
         [HttpPost]
         public IHttpActionResult LoginUser(LoginUserBindingModel model)
         {
