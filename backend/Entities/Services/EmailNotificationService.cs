@@ -47,10 +47,10 @@ namespace Entities.Services
             return client;
         }
 
-        public static void sendEmail(string email)
+        public static void sendEmail(User user)
         {
             SmtpClient client = SetSmtpClient();
-            MailMessage mm = new MailMessage(Credentials.Email, email, subject, body);
+            MailMessage mm = new MailMessage(Credentials.Email, user.Email, subject, body);
 
             client.Send(mm);
         }    

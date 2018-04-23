@@ -30,6 +30,7 @@ namespace Entities.Services
             var cmd = "REGISTER_USER";
 
             _dbContext.ExecuteSqlQuery(cmd, regInfo);
+            _dbContext.Dispose();
         }
 
         public User GetUserInfo(string email)

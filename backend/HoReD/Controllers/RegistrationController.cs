@@ -33,10 +33,12 @@ namespace HoReD.Controllers
                 
                 _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password);
 
+                EmailNotificationService.sendEmail(_userService.GetUserInfo(model.Email));
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                string message = e.Message;
                 return Unauthorized();
             }
         }
