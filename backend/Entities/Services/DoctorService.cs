@@ -197,16 +197,18 @@ namespace Entities.Services
                         {
                             if (rule.IfInclusive)
                             {
+                                var convertDate = tempDateStart.ToString().Substring(0, 10);
                                 var inclEvent = new[]
                                 {
-                                    tempDateStart.ToString(), tempHour.ToString(),
+                                    convertDate, tempHour.ToString(),
                                     (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
                                 };
                                 events.Add(inclEvent);
                             }
                             else
                             {
-                                var excEvent = events.FirstOrDefault(u => u[0] == tempDateStart.ToString() && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
+                                var convertDate = tempDateStart.ToString().Substring(0, 10);
+                                var excEvent = events.FirstOrDefault(u => u[0] == convertDate && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
                                 if (excEvent != null)
                                 {
                                     events.Remove(excEvent);

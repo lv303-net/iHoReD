@@ -53,5 +53,28 @@ namespace Entities.Services
 
             return user;
         }
+
+        public void ApdateInfoAboutUser(string id,string firstname, string lastname, string email, string password, string isActivated,
+            string phone, string sex, string country, string city, string street, string apartment)
+        {
+            //var password_hash = Hashing.HashingPassword(password);
+
+            var regInfo = new Dictionary<string, object>()
+            {
+                { "@ID", int.Parse(id)},
+                { "@PHONE", phone},
+                { "@SEX", bool.Parse(sex)},
+                { "@COUNTRY", country},
+                { "@CITY", city},
+                { "@STREET", street},
+                { "@APARTMENT", apartment},
+                { "@FIRSTNAME", firstname},
+                { "@LASTNAME", lastname},
+                { "@EMAIL", email},
+            };
+            var cmd = "EDIT_USER_INFO";
+
+            _dbContext.ExecuteSqlQuery(cmd, regInfo);
+        }
     }
 }
