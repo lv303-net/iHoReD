@@ -90,9 +90,9 @@ namespace Entities.Services
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var values = str.Split('*');
             var list = new List<string[]>();
-            for (int i = 0; i < (values.Length - 1); i += 2)
+            for (int i = 0; i < (values.Length - 1); i += 3)
             {
-                string[] name = { values.GetValue(0 + i).ToString(), values.GetValue(1 + i).ToString() };
+                string[] name = { values.GetValue(0 + i).ToString(), values.GetValue(1 + i).ToString(),values.GetValue(2+i).ToString()};
                 list.Add(name);
 
             }
@@ -191,19 +191,14 @@ namespace Entities.Services
                                     tempDate.ToString(), tempHour.ToString(),
                                     (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
                                 };
-                                tempHour=tempHour.Add(TimeSpan.FromMinutes(30));
+                                tempHour = tempHour.Add(TimeSpan.FromMinutes(30));
                                 events.Add(inclEvent);
                             }
                         }
-                        tempDate=tempDate.Add(TimeSpan.FromDays(1));
+                        tempDate = tempDate.Add(TimeSpan.FromDays(1));
                     }
-
                 }
-            }
-
-            foreach (var rule in allRules)
-            {
-                if (!rule.IfInclusive)
+                else
                 {
                     var tempDate = dateStart;
                     var tempHour = rule.HourStart;
@@ -214,12 +209,12 @@ namespace Entities.Services
                             tempHour = rule.HourStart;
                             while (tempHour <= rule.HourFinish)
                             {
-                                var excEvent = events.FirstOrDefault(u => u[0] == tempDate.ToString()&&u[1]== tempHour.ToString()&&u[2]== (tempHour.Add(TimeSpan.FromMinutes(30))).ToString());
-                                if (excEvent!=null)
+                                var excEvent = events.FirstOrDefault(u => u[0] == tempDate.ToString() && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
+                                if (excEvent != null)
                                 {
                                     events.Remove(excEvent);
                                 }
-                                tempHour=tempHour.Add(TimeSpan.FromMinutes(30));
+                                tempHour = tempHour.Add(TimeSpan.FromMinutes(30));
                             }
                         }
 
