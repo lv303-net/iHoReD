@@ -31,7 +31,7 @@ namespace HoReD.Controllers
                     return Conflict();
                 }
                 
-                _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password);
+                _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password, model.Phone);
                 return Ok();
             }
             catch (Exception)

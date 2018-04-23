@@ -16,7 +16,7 @@ namespace Entities.Services
             _dbContext = dbContext;
         }
 
-        public void StoringInfoAboutNewUser(string firstname, string lastname, string email, string password)
+        public void StoringInfoAboutNewUser(string firstname, string lastname, string email, string password, string phone)
         {
             var password_hash = Hashing.HashingPassword(password);
 
@@ -26,6 +26,7 @@ namespace Entities.Services
                 { "LASTNAME", lastname},
                 { "EMAIL", email},
                 { "PASSWORD", password_hash},
+                { "PHONE", phone}
             };
             var cmd = "REGISTER_USER";
 
