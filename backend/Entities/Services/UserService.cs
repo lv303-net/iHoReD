@@ -54,6 +54,17 @@ namespace Entities.Services
             return user;
         }
 
+        public void ActivateUser(int Id)
+        {
+            const string cmd = "ACTIVATE_USER";
+            var param = new Dictionary<string, object>()
+            {
+                {"ID_USER", Id},
+            };
+
+            _dbContext.ExecuteSqlQuery(cmd, param);
+        }
+
         public void ApdateInfoAboutUser(string id,string firstname, string lastname, string email, string password, string isActivated,
             string phone, string sex, string country, string city, string street, string apartment)
         {
