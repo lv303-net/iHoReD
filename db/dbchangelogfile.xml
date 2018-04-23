@@ -93,4 +93,68 @@
     <sqlFile path="V2.17_PROCEDURE_INSERT_SCHEDULE_RECORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Maksym Sikorskyi" id="V2.18">
+    <sqlFile path="V2.18_CREATE_TABLES_RULES_AND_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.18_PROCEDURES_FOR_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.18_PROCEDURES_FOR_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V2.19">
+    <sqlFile path="V2.19_UPDATE_DOCTORS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V2.20">
+    <sqlFile path="V2.20_UPDATE_USERS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.0">
+    <sqlFile path="V3.0_ALTER TABLE RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.1">
+    <sqlFile path="V3.1_INSERT_INTO_RULES_AND_RULESETS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.2">
+    <sqlFile path="V3.2_CREATE_PROCEDURE_SELECT_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.3">
+    <sqlFile path="V3.3_CREATE_USER_INFO_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.3_PROCEDURES_EDIT_USER_INFO_AND_GET_ALL_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.3_ALTER_PROCEDURE_REGISTER_USER_FOR_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.31">
+    <sqlFile path="V3.31_ALTERED_PROCEDURE_EDIT_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.32">
+    <sqlFile path="V3.32_ALTERED_PROCEDURE_GET_DOCTORS_WITH_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.33">
+    <sqlFile path="V3.33_PROCEDURE_GET_DOCTORS_WITHOUT_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Maksym Sikorskyi" id="V3.34">
+    <sqlFile path="V3.34_ALTER_PROCEDURE_GET_DOCTORS_WITHOUT_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.4">
+    <sqlFile path="V3.4_ALTERED_PROCEDURE_SELECT_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.35">
+    <sqlFile path="V3.35_ALTERED_PROCEDURE_GET_DOCTORS_WITH_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Maksym Sikorskyi" id="V3.5">
+    <sqlFile path="V3.5_ALTERED_TABLE_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Maksym Sikorskyi" id="V3.51">
+    <sqlFile path="V3.51_INSERT_INTO_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
