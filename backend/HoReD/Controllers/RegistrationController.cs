@@ -49,7 +49,7 @@ namespace HoReD.Controllers
             try
             {
                 _userService.ActivateUser(IdUser);
-                return Ok();
+                return this.Redirect("/");//redirect to user page
             }   
             catch (Exception)
             {
