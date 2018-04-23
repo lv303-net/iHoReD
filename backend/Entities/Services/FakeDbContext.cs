@@ -11,7 +11,6 @@ namespace Entities.Services
 
         public FakeDbContext()
         {
-            _myConnection.Open();
         }
 
         //Execute query, which return one string, where values separated by char
@@ -30,16 +29,6 @@ namespace Entities.Services
             }
 
             return result.ToString();
-        }
-
-        public void OpenConnection()
-        {
-            _myConnection.Open();
-        }
-
-        public void Dispose()
-        {
-            _myConnection?.Dispose();
         }
 
         public void ExecuteSqlQuery(string cmd, IDictionary<string, object> data) { }

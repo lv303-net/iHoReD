@@ -42,8 +42,7 @@ namespace Entities.Services
             client.Timeout = 10000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.Credentials = new System.Net.NetworkCredential(Credentials.Email, Credentials.Password);
-            client.UseDefaultCredentials = false;
-
+            
             return client;
         }
 
@@ -51,7 +50,6 @@ namespace Entities.Services
         {
             SmtpClient client = SetSmtpClient();
             MailMessage mm = new MailMessage(Credentials.Email, user.Email, subject, body);
-
             client.Send(mm);
         }    
     }

@@ -48,7 +48,6 @@ namespace Entities.Services
                 list.Add(doctorRule);
 
             }
-            _dbContext.Dispose();
             return list;
         }
 
@@ -85,7 +84,6 @@ namespace Entities.Services
 
             _dbContext.ExecuteSqlQuery(cmd, param);
 
-            _dbContext.Dispose();
         }
 
         public void DeleteRule(int  IdRule)
@@ -99,7 +97,6 @@ namespace Entities.Services
 
             _dbContext.ExecuteSqlQuery(cmd, param);
 
-            _dbContext.Dispose();
         }
 
         public List<DoctorInfo> GetDoctorsByIdRule(int IdRule, bool hasRule)
@@ -125,7 +122,6 @@ namespace Entities.Services
                 list.Add(doctor);
 
             }
-            _dbContext.Dispose();
             return list;
         }
 
@@ -141,7 +137,6 @@ namespace Entities.Services
 
             _dbContext.ExecuteSqlQuery(cmd, param);
 
-            _dbContext.Dispose();
         }
 
         public void AssignDoctorToRule(int IdRule, int IdDoctor)
@@ -155,8 +150,6 @@ namespace Entities.Services
             };
 
             _dbContext.ExecuteSqlQuery(cmd, param);
-
-            _dbContext.Dispose();
         }
     }
 }
