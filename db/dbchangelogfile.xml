@@ -157,4 +157,12 @@
     <sqlFile path="V3.51_INSERT_INTO_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+   <changeSet author="Olha Solyar" id="V3.6">
+    <sqlFile path="V3.6_ALTERED_PROCEDURE_GET_DOCTORS_BY_PROFESSION_ID.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Tetiana Usyk" id="V3.7">
+    <sqlFile path="V3.7_ALTERED_PROCEDURE_SELECT_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+   
 </databaseChangeLog>
