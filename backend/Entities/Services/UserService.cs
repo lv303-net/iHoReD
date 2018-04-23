@@ -30,7 +30,6 @@ namespace Entities.Services
             var cmd = "REGISTER_USER";
 
             _dbContext.ExecuteSqlQuery(cmd, regInfo);
-            _dbContext.Dispose();
         }
 
         public User GetUserInfo(string email)
@@ -52,13 +51,7 @@ namespace Entities.Services
                     Email = values.GetValue(5).ToString(),
                 };
 
-            _dbContext.Dispose();
             return user;
-        }
-
-        public void OpenConnection()
-        {
-            _dbContext.OpenConnection();
         }
     }
 }

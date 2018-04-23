@@ -38,7 +38,6 @@ namespace Entities.Services
                 list.Add(doctor);
 
             }
-            _dbContext.Dispose();
             return list;
         }
 
@@ -57,7 +56,6 @@ namespace Entities.Services
                 string[] name = { values.GetValue(i).ToString(), values.GetValue(i + 1).ToString(), values.GetValue(i + 2).ToString() };
                 list.Add(name);
             }
-            _dbContext.Dispose();
             return list;
         }
 
@@ -77,7 +75,6 @@ namespace Entities.Services
                 list.Add(name);
 
             }
-            _dbContext.Dispose();
             return list;
         }
         public List<string[]> GetDoctorsByProfessionId(int professionId)
@@ -96,7 +93,6 @@ namespace Entities.Services
                 list.Add(name);
 
             }
-            _dbContext.Dispose();
             return list;
         }
 
@@ -126,7 +122,6 @@ namespace Entities.Services
                 string[] name = { dt + "T" + result[i].ToString(), dt + "T" + result[++j].ToString() };
                 list.Add(name);
             }
-            _dbContext.Dispose();
             return list;
         }
 
@@ -165,7 +160,6 @@ namespace Entities.Services
                 };
                 result.Add(doctorRule);
             }
-            _dbContext.Dispose();
             return result;
         }
 

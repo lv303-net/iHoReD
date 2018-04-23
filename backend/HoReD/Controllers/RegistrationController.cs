@@ -32,6 +32,7 @@ namespace HoReD.Controllers
                 }
                 
                 _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password);
+               // _userService.
 
                 EmailNotificationService.sendEmail(_userService.GetUserInfo(model.Email));
                 return Ok();
