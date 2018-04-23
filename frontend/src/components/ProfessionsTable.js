@@ -14,12 +14,10 @@ localStorage.removeItem("currentProfession");
 
 class ProfessionsTable extends React.Component{
 constructor(props){
-    
       super(props);
       this.state = {
         idArr: [],
         id: 1
-        
       };
       this.eventHandler=this.eventHandler.bind(this);
       axios.get(server_url+'/ProfessionsStatic')

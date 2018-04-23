@@ -29,7 +29,6 @@ render() {
         )}
         <div className="wrapper row">
         <ProfessionsTable/>
-        <Calendar/>
         </div>
       </div>
     ); 
