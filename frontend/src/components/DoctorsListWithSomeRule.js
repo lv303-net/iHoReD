@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 var server_url;
-/*if(process.env.NODE_ENV==="development")
+if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")*/
+else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 
 class DoctorsListWithSomeRule extends Component {
@@ -37,7 +37,7 @@ class DoctorsListWithSomeRule extends Component {
       render(){
         this.getDoctors();
         return  (
-                    <div className="col-sm-6 list-group" id = "doctors">
+                    <div className="col-sm-6 list-group mt-4" id = "doctors">
                     {this.state.doc.map(doc => <div className='list-group-item list-group-active'key={doc.toString()}>{doc.FirstName + ' ' + doc.LastName}</div>)}                  
                     </div>
                     );
