@@ -56,24 +56,25 @@ class DoctorTable extends React.Component{
       shouldComponentUpdate(nextProps, nextState) {
         console.log(nextProps.idProf);
         console.log(this.props.idProf);
-        return this.props.idProf !== nextProps.idProf; 
+        return (this.props.idProf !== nextProps.idProf || this.state.doc !== nextState.doc); 
       }
 
       getDoctors(){
       console.log(this.state.idProf);
       axios.get(server_url+'/GetDoctors/' + this.state.idProf)
       .then(res => {
-        res.data.forEach(doctor => {
-          const doc = res.data;
+        // res.data.forEach(doctor => {
+        //   let doctors = res.data;
              this.setState({
-               doc
+               doc: res.data
              })
         });
-      });
+      //});
     }
       
     render(){
       this.getDoctors();
+      console.log(this.state.doc);
       return  <div className="container col sm-1 md-1 lg-1 xl-1">
                   <div className="list-group" id = "doctors">
                   {this.state.doc.map(doc => <div key={doc.toString()}>{doc[1]}</div>)}

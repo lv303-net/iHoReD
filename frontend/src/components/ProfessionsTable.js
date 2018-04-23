@@ -9,16 +9,19 @@ if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored-backend.azurewebsites.net"
-//localStorage.removeItem("currentProfession");
+localStorage.removeItem("currentProfession");
+console.log(localStorage.getItem("currentProfession"));
+
 class ProfessionsTable extends React.Component{
-    
 constructor(props){
     
       super(props);
       this.state = {
         idArr: [],
         id: 1
+        
       };
+      this.eventHandler=this.eventHandler.bind(this);
       axios.get(server_url+'/ProfessionsStatic')
         .then(res => {
           res.data.forEach(profession => {
@@ -28,7 +31,6 @@ constructor(props){
              })
           });
         });
-      this.eventHandler = this.eventHandler.bind(this);
     };
 
     // componentWillMount()
@@ -41,16 +43,15 @@ constructor(props){
     //   // });
     // }
     
-    eventHandler(idProf) {
-      localStorage.setItem("currentProfession", idProf)
+    eventHandler(idP) {
+      localStorage.setItem("currentProfession", idP)
       alert("Im here")
       console.log(this.state.id)
       this.setState({
-        id: localStorage.getItem("currentProfession")
-        //id: idProf
-      }
-      )
-      console.log(this.state.id)
+        //id: localStorage.getItem("currentProfession"),
+        id: idP
+      }, () => 
+      {id:16, console.log(this.state.id)})
     }
 
     componentDidUpdate(){
@@ -76,7 +77,12 @@ constructor(props){
        {this.state.idArr.map(idArr => <div key={idArr.toString()} onClick={() => this.eventHandler(idArr[0])}>{idArr[1]}</div>)}
        <a href="#" className="list-group-item active bg-info">Availible doctors:</a>
        </div> 
-       <DoctorTable idProf={this.state.id}/>
+       {(localStorage.getItem("currentUserFirstName")==null) ? (
+        <DoctorTable idProf={this.state.id}/>
+        ) : (
+          <DoctorTable idProf={0}/>
+        )}
+       
     </div>
     
   }
