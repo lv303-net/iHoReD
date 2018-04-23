@@ -77,5 +77,16 @@ namespace Entities.Services
         {
             throw new NotImplementedException();
         }
+
+        public DoctorRules CompareDoctorRules(DoctorRules exRule, DoctorRules inRule)
+        {
+            var list = new DoctorRules();
+            return list;
+        }
+
+        public List<DayOfWeek> CompareWeek(IDictionary<DayOfWeek, bool> exWeek, IDictionary<DayOfWeek, bool> inWeek)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

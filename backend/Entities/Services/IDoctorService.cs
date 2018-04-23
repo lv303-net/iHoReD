@@ -19,5 +19,6 @@ namespace Entities.Services
 
         List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish);
 
+
     }
 }

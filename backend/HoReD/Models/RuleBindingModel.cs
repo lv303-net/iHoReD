@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace HoReD.Models
 {
-    public class DoctorRules
+    public class RuleBindingModel
     {
         public int IdRule { get; set; }
 

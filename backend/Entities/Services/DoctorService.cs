@@ -135,9 +135,9 @@ namespace Entities.Services
             const string cmd = "SELECT_RULES";
             var param = new Dictionary<string, object>()
             {
-                {"@IDDOCTOR", doctorId},
                 {"@FROM", dateStart},
-                {"@TILL", dateFinish}
+                {"@TILL", dateFinish},
+                {"@IDDOCTOR", doctorId}
             };
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var result = new List<DoctorRules>();
@@ -172,6 +172,7 @@ namespace Entities.Services
         public List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
         {
             var events=new List<string[]>();
+
             foreach (var rule in allRules)
             {
                 if (rule.IfInclusive)
