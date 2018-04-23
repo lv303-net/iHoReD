@@ -1,0 +1,148 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.navbar-custom {
+  color: #ccfff5;
+  background-color:#80bfff;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-backdrop {
+  background-color:#66b3ff;
+}
+
+.modal-content {
+  background-color:#cce6ff;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.list-group-item-custom {
+  background-color:#cce6ff;
+}
+
+.invalid-tooltip {
+  visibility: hidden;
+}
+
+.invalid-feedback {
+  visibility: hidden;
+}
+
+#inputFName:hover #invalidFname {
+  visibility:visible;
+}
+
+#inputLName:hover #invalidLname {
+  visibility:visible;
+}
+
+#inputEmail:hover #invalidEmail {
+  visibility:visible;
+}
+
+#inputPassword:hover #invalidPassword {
+  visibility:visible;
+}
+
+.form-control {
+  border-color: aqua;
+}
+.form-control:focus, input:focus{
+  outline: none;
+}
+  
+#editInfoWindow {
+  background-color: white;
+  border-radius: 10px;
+  border: 2px solid #adc9ff;
+  text-align: start;
+  padding: 2%;
+}
+
+#editUserInfoHeader {
+  display: flex;
+}
+
+#basicInfoID, #sexButtonWindow {
+  padding: 0;
+}
+
+.marginTop35px {
+  margin-top: 35px;
+}
+
+.marginTop10px {
+  margin-top: 10px;
+}
+
+.padding {
+  padding: 0 !important;
+}
+
+.navbarForm {
+  width: 100%;
+}
+
+.navbarDiv {
+  width: 100%;
+}
+
+.divRender {
+  width: 100% !important;
+}
+
+.navbarContainer {
+  width: 100% important;
+}
+
+@media (min-width: 768px) {
+.navbarForm [type="submit"]{
+  margin-right: 60%;
+}
+
+.navbarForm [type="button"]{
+  margin-left: 60%;
+}
+}
+
+div.profDocTable:hover {
+  background-color: #E3E3E3;
+  cursor: pointer;
+}
+
+#doctors, #professions {
+  
+  margin-left: 15px;
+}
