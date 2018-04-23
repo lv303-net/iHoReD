@@ -172,7 +172,7 @@ namespace Entities.Services
         public List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
         {
             var events=new List<string[]>();
-
+            string pattern = "yyyy-MM-dd";
             foreach (var rule in allRules)
             {
                 var tempHour = rule.HourStart;
@@ -203,18 +203,18 @@ namespace Entities.Services
                         {
                             if (rule.IfInclusive)
                             {
-                                var convertDate = tempDateStart.ToString().Substring(0, 10);
+                                var convertDate = tempDateStart.ToString(pattern);
                                 var inclEvent = new[]
                                 {
-                                    convertDate, tempHour.ToString(),
+                                    convertDate.ToString(), tempHour.ToString(),
                                     (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
                                 };
                                 events.Add(inclEvent);
                             }
                             else
                             {
-                                var convertDate = tempDateStart.ToString().Substring(0, 10);
-                                var excEvent = events.FirstOrDefault(u => u[0] == convertDate && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
+                                var convertDate = tempDateStart.ToString(pattern);
+                                var excEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
                                 if (excEvent != null)
                                 {
                                     events.Remove(excEvent);
