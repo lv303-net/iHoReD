@@ -18,7 +18,6 @@ namespace HoReD.Controllers
             _userService = userService;
         }
 
-
         //Adds to system inforation about new user
         [HttpPost]
         [AllowAnonymous]
@@ -31,15 +30,29 @@ namespace HoReD.Controllers
                     return Conflict();
                 }
                 
-                _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password);
-               // _userService.
+                _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password, model.Phone);
 
                 EmailNotificationService.sendEmail(_userService.GetUserInfo(model.Email));
+
                 return Ok();
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string message = e.Message;
+                return Unauthorized();
+            }
+        }
+
+        [HttpPost]
+        [Route("Registration/ActivateUser/{IdUser}")]
+        public IHttpActionResult ActivateUser(int IdUser)
+        {
+            try
+            {
+                _userService.ActivateUser(IdUser);
+                return Ok();
+            }   
+            catch (Exception)
+            {
                 return Unauthorized();
             }
         }

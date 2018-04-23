@@ -16,7 +16,7 @@ namespace Entities.Services
             _dbContext = dbContext;
         }
 
-        public void StoringInfoAboutNewUser(string firstname, string lastname, string email, string password)
+        public void StoringInfoAboutNewUser(string firstname, string lastname, string email, string password, string phone)
         {
             var password_hash = Hashing.HashingPassword(password);
 
@@ -26,6 +26,7 @@ namespace Entities.Services
                 { "LASTNAME", lastname},
                 { "EMAIL", email},
                 { "PASSWORD", password_hash},
+                { "PHONE", phone}
             };
             var cmd = "REGISTER_USER";
 
@@ -52,6 +53,17 @@ namespace Entities.Services
                 };
 
             return user;
+        }
+
+        public void ActivateUser(int Id)
+        {
+            const string cmd = "ACTIVATE_USER";
+            var param = new Dictionary<string, object>()
+            {
+                {"ID_USER", Id},
+            };
+
+            _dbContext.ExecuteSqlQuery(cmd, param);
         }
 
         public void ApdateInfoAboutUser(string id,string firstname, string lastname, string email, string password, string isActivated,
