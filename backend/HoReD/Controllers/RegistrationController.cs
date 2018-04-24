@@ -43,13 +43,13 @@ namespace HoReD.Controllers
         }
 
         [HttpPost]
-        [Route("Registration/ActivateUser/{IdUser}")]
+        [Route("Registration/{IdUser}")]
         public IHttpActionResult ActivateUser(int IdUser)
         {
             try
             {
                 _userService.ActivateUser(IdUser);
-                return this.Redirect("/");//redirect to user page
+                return this.Redirect("/"); //redirect to user page
             }   
             catch (Exception)
             {
