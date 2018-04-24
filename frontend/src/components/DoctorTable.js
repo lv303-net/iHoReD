@@ -44,7 +44,7 @@ class DoctorTable extends React.Component{
                   <div className="list-group-item active bg-info profDocHeader">Doctors:</div>
                   {this.state.doc.map(doc => <div className='list-group-item list-group-active profDocTable' key={doc.toString()} onClick={() => this.eventHandler(doc[2])}>{doc[1] + ' ' + doc[0]}</div>)}                  
                   </div>
-              <Calendar idDoctor={this.state.idDoc} />
+              
               </div>
               </div>
   }

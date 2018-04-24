@@ -16,16 +16,16 @@ class ProfessionsTable extends React.Component{
 constructor(props){
       super(props);
       this.state = {
-        idArr: [],
+        professionsArr: [],
         id: 1
       };
       this.eventHandler=this.eventHandler.bind(this);
       axios.get(server_url+'/ProfessionsStatic')
         .then(res => {
           res.data.forEach(profession => {
-             const idArr = res.data;
+             const professionsArr = res.data;
              this.setState({
-               idArr
+               professionsArr
              })
           });
         });
@@ -43,7 +43,7 @@ constructor(props){
        <div className="row justify-content-center">
        <div className="col-md-5 list-group mt-4" id="professions">
         <div className="list-group-item active bg-info">Professions:</div>
-        {this.state.idArr.map(idArr => <div className='list-group-item list-group-item-active profDocTable' key={idArr.toString()} onClick={() => this.eventHandler(idArr[0])}>{idArr[1]}</div>)}
+        {this.state.professionsArr.map(professionsArr => <div className='list-group-item list-group-item-active profDocTable' key={professionsArr.toString()} onClick={() => this.eventHandler(professionsArr[0])}>{professionsArr[1]}</div>)}
        </div> 
         <DoctorTable idProf={this.state.id}/> 
         </div>     
