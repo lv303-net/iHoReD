@@ -43,7 +43,7 @@ constructor(props){
        <div className="row justify-content-center">
        <div className="col-md-5 list-group mt-4" id="professions">
         <div className="list-group-item active bg-info">Professions:</div>
-        {this.state.professionsArr.map(professionsArr => <div className='list-group-item list-group-item-active profDocTable' key={professionsArr.toString()} onClick={() => this.eventHandler(professionsArr[0])}>{idArr[1]}</div>)}
+        {this.state.professionsArr.map(professionsArr => <div className='list-group-item list-group-item-active profDocTable' key={professionsArr.toString()} onClick={() => this.eventHandler(professionsArr[0])}>{professionsArr[1]}</div>)}
        </div> 
         <DoctorTable idProf={this.state.id}/> 
         </div>     
