@@ -10,23 +10,6 @@ if(process.env.NODE_ENV==="development")
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 
-/*$(document).ready(function() {
-$('#calendar').fullCalendar({
-    dayClick: function(date, jsEvent, view) {
-  
-      alert('Clicked on: ' + date.format());
-  
-      alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-  
-      alert('Current view: ' + view.name);
-  
-      // change the day's background color just for fun
-      $(this).css('background-color', 'red');
-  
-    }
-  });
-});*/
-
 class Calendar extends Component {
     constructor(props){      
       super(props);
@@ -45,12 +28,10 @@ class Calendar extends Component {
       return (this.state.idDoc !== nextState.idDoc); 
     }
 
-    addEvent(newstart, newend, newallday) {
+    addEvent(newstart, newend) {
         var event={
-        //title  : newtitle,
         start  : newstart,
-        end  : newend,
-        allDay : newallday // will make the time show
+        end  : newend
     };
         $('#calendar').fullCalendar( 'renderEvent', event, true);
     }
@@ -58,8 +39,7 @@ class Calendar extends Component {
     axios.get(server_url+'/GetDoctorSchedule/' + this.state.idDoc)
         .then(response => {
             response.data.forEach(startEndTime => {
-               //doctor.FirstName + ' ' + doctor.LastName + '</a>';
-               this.addEvent(startEndTime[0], startEndTime[1], false);
+               this.addEvent(startEndTime[0], startEndTime[1]);
             });
         });
       }
@@ -72,10 +52,8 @@ class Calendar extends Component {
         // page is ready
         
         $('#calendar').fullCalendar({
-
             // enable theme
         eventLimit:true,
-
         theme: true,
         // emphasizes business hours
         businessHours: true,
@@ -93,9 +71,7 @@ class Calendar extends Component {
         editable: true,
         viewRender: function(view)
         {
-            var view = $('#calendar').fullCalendar('getView');
-            //alert("The view's title is " + view.intervalStart.format() + 'T00:00:00'+ ' ' + view.intervalEnd.format() + 'T00:00:00'+ ' '); 
-            
+            var view = $('#calendar').fullCalendar('getView');        
           },
         select: function(start, end) {
             end =  $.fullCalendar.moment(start);
