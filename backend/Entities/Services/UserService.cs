@@ -18,14 +18,14 @@ namespace Entities.Services
 
         public void StoringInfoAboutNewUser(string firstname, string lastname, string email, string password, string phone)
         {
-            var password_hash = Hashing.HashingPassword(password);
+            var passwordHash = Hashing.HashingPassword(password);
 
             var regInfo = new Dictionary<string, object>()
             {
                 { "FIRSTNAME", firstname},
                 { "LASTNAME", lastname},
                 { "EMAIL", email},
-                { "PASSWORD", password_hash},
+                { "PASSWORD", passwordHash},
                 { "PHONE", phone}
             };
             var cmd = "REGISTER_USER";

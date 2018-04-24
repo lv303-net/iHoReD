@@ -31,7 +31,7 @@ namespace HoReD.Controllers
 
                 var currentUser = _userService.GetUserInfo(model.Email);
                 var passwordRegForm = model.Password;
-                var isPasswordEqual = Hashing.VerifyPassword(model.Password, currentUser.Password);
+                var isPasswordEqual = Hashing.VerifyPassword(passwordRegForm, currentUser.Password);
                 if (isPasswordEqual)
                 {
                     return Ok(currentUser);
