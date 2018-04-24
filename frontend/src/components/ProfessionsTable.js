@@ -8,40 +8,45 @@ var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
-  server_url="https://hored-backend.azurewebsites.net"
-//localStorage.removeItem("currentProfession");
-class ProfessionsTable extends React.Component{
-    
-constructor(){
-    
-      super();
-      this.handleClick = this.handleClick.bind(this);
-      this.state = {
-        justClicked: null
-      };
+  server_url="https://hored.azurewebsites.net"
+localStorage.removeItem("currentProfession");
+//console.log(localStorage.getItem("currentProfession"));
 
-      //axios.get('http://localhost:58511/ProfessionsStatic')
+class ProfessionsTable extends React.Component{
+constructor(props){
+      super(props);
+      this.state = {
+        professionsArr: [],
+        id: 1
+      };
+      this.eventHandler=this.eventHandler.bind(this);
       axios.get(server_url+'/ProfessionsStatic')
-      .then(res => {
-        res.data.forEach(profession => {
-          document.getElementById("professions").innerHTML 
-           //+= '<div  class="list-group-item list-group-item-active" id="'+profession[0]+'">'// + this.setProfession(); + '
-           += '<div  class="list-group-item list-group-item-active" onclick={localStorage.setItem("currentProfession",' + profession[0] + ')}>'
-           + profession[1] + '</div>';
+        .then(res => {
+          res.data.forEach(profession => {
+             const professionsArr = res.data;
+             this.setState({
+               professionsArr
+             })
+          });
         });
-      });
-      console.log(this.state.justClicked);
     };
-    handleClick(letter) {
-      this.setState({ justClicked: letter });
+    
+    eventHandler(idP) {
+      localStorage.setItem("currentProfession", idP)
+      this.setState({
+        id: idP
+      })
     }
 
     render(){
-      return <div className = "container col sm-1 md-1 lg-1 xl-1">
-       <div className="list-group" id="professions">
-       <a href="#" className="list-group-item active bg-info">Availible doctors:</a>
-       </div>
-       
+      return <div className = "container">
+       <div className="row justify-content-center">
+       <div className="col-md-5 list-group mt-4" id="professions">
+        <div className="list-group-item active bg-info">Professions:</div>
+        {this.state.professionsArr.map(professionsArr => <div className='list-group-item list-group-item-active profDocTable' key={professionsArr.toString()} onClick={() => this.eventHandler(professionsArr[0])}>{professionsArr[1]}</div>)}
+       </div> 
+        <DoctorTable idProf={this.state.id}/> 
+        </div>     
     </div>
     
   }

@@ -2,50 +2,51 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
-
+import Calendar from './Calendar';
 var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
-  server_url="https://hored-backend.azurewebsites.net"
+  server_url="https://hored.azurewebsites.net"
 
-console.log(localStorage.getItem("currentProfession"));
 class DoctorTable extends React.Component{
-    constructor(props){
-      
+    constructor(props){      
       super(props);
-      
-      /*this.state = {
-        professionId:this.props.professionId
-      };*/
-
-      /*componentWillReceiveProps(nextProps)
-      {
-        this.setState(
-          {
-            professionId:nextProps.professionId
-          }
-        )
-      }*/
-
-      //axios.get('http://localhost:58511/api/Doctor')
-      console.log(localStorage.getItem("currentProfession"));
-      axios.get(server_url+'/GetDoctors/' + localStorage.getItem("currentProfession"))
-      .then(res => {
-  
-        res.data.forEach(doctor => {
-          document.getElementById("doctors").innerHTML 
-           += '<div  class="list-group-item list-group-item-active">'
-           + doctor[0] + ' ' + doctor[1] + '</div>';
-        });
-      });
+      this.state = { doc: [], idProf: 0, idDoc: 0};     
+      this.eventHandler=this.eventHandler.bind(this);
     };
+
+      eventHandler(idDoctor) {
+        this.setState({
+          idDoc: idDoctor
+        })
+      }
+
+      shouldComponentUpdate(nextProps, nextState) {
+        return (this.state.idProf !== nextProps.idProf); 
+      }
+
+      componentWillUpdate(nextProps, nextState)
+      {
+        axios.get(server_url+'/GetDoctors/' + nextProps.idProf)
+        .then(res => {
+        this.setState({
+          idProf: nextProps.idProf,
+          doc: res.data
+        })
+      });
+      }
+      
     render(){
-    return  <div className="container col sm-1 md-1 lg-1 xl-1">
-                  <div className="list-group" id = "doctors">
-                  <a href="#" className="list-group-item active bg-info ">Choose the doctor:</a>
+      return  <div className = "container">
+                  <div className="row justify-content-center">
+                  <div className="col-md-5 list-group mt-4" id="professions">
+                  <div className="list-group-item active bg-info profDocHeader">Doctors:</div>
+                  {this.state.doc.map(doc => <div className='list-group-item list-group-active profDocTable' key={doc.toString()} onClick={() => this.eventHandler(doc[2])}>{doc[1] + ' ' + doc[0]}</div>)}                  
                   </div>
-            </div>
+              
+              </div>
+              </div>
   }
   }
 

@@ -3,58 +3,57 @@ import { Component } from 'react';
 import $ from 'jquery';
 import 'fullcalendar';
 import axios from 'axios';
+import { months } from 'moment';
 var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 
-/*$(document).ready(function() {
-$('#calendar').fullCalendar({
-    dayClick: function(date, jsEvent, view) {
-  
-      alert('Clicked on: ' + date.format());
-  
-      alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-  
-      alert('Current view: ' + view.name);
-  
-      // change the day's background color just for fun
-      $(this).css('background-color', 'red');
-  
-    }
-  });
-});*/
-
 class Calendar extends Component {
-    
+    constructor(props){      
+      super(props);
+      this.state = { idDoc: 1};     
+    };
 
-    addEvent(newtitle, newstart, newend, newallday) {
-        var event={ 
-        title  : newtitle,
+    static getDerivedStateFromProps(nextProps, prevState) {
+      return {
+        idDoc: nextProps.idDoctor,
+      }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      console.log(nextProps.idDoctor);
+      console.log(this.props.idDoctor);
+      return (this.state.idDoc !== nextState.idDoc); 
+    }
+
+    addEvent(newstart, newend) {
+        var event={
         start  : newstart,
-        end  : newend,
-        allDay : newallday // will make the time show
+        end  : newend
     };
         $('#calendar').fullCalendar( 'renderEvent', event, true);
     }
-    
-    componentDidMount(){
-        axios.get(server_url+'/GetDoctorSchedule/' + 4)
+    getRules(){
+    axios.get(server_url+'/GetDoctorSchedule/' + this.state.idDoc)
         .then(response => {
             response.data.forEach(startEndTime => {
-               //doctor.FirstName + ' ' + doctor.LastName + '</a>';
-               this.addEvent("hhh", startEndTime[0], startEndTime[1], false);
+               this.addEvent(startEndTime[0], startEndTime[1]);
             });
         });
-      const { calendar } = this.refs;
+      }
+    
+    componentDidMount(){
         
+      const { calendar } = this.refs;
+
       $(document).ready(function() {
         // page is ready
+        
         $('#calendar').fullCalendar({
             // enable theme
         eventLimit:true,
-
         theme: true,
         // emphasizes business hours
         businessHours: true,
@@ -66,9 +65,14 @@ class Calendar extends Component {
         center: 'title',
         right: 'month,agendaWeek,agendaDay'
         },
+        
         selectable: true,
         selectHelper: true,
         editable: true,
+        viewRender: function(view)
+        {
+            var view = $('#calendar').fullCalendar('getView');        
+          },
         select: function(start, end) {
             end =  $.fullCalendar.moment(start);
             end.add(30, 'minutes');
@@ -81,9 +85,9 @@ class Calendar extends Component {
                 },
                 true // stick the event
             );
-  
-            $('#calendar').fullCalendar('unselect');
             
+            $('#calendar').fullCalendar('unselect');
+             
         },
         events: [
           {
@@ -92,13 +96,13 @@ class Calendar extends Component {
             end    : '2018-04-23T23:30:00',
           }
         ]
+        
         })
       });
     }
 
-   
-
     render() {
+      this.getRules();
       return (
         <div id='calendar'></div>
         

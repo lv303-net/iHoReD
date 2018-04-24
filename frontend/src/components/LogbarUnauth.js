@@ -8,7 +8,7 @@ var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
-  server_url="https://hored-backend.azurewebsites.net"
+  server_url="https://hored.azurewebsites.net"
 class Authorization extends React.Component {
     constructor(props){
       super(props);
@@ -28,32 +28,23 @@ class Authorization extends React.Component {
   
       axios.post(server_url + '/api/Login',userAuth)
         .then(function (response) {
-            //handle success
-            window.location.assign("/startPage")
-            console.log(response.data);
-            console.log(localStorage.getItem("currentUserLastName"));
+            window.location.reload();
             localStorage.setItem("currentUserFirstName", (response.data.FirstName));
             localStorage.setItem("currentUserLastName", (response.data.LastName));
-            console.log(localStorage.getItem("currentUserFirstName"));
-            console.log(localStorage.getItem("currentUserLastName"));
         })
-        .catch(function (response) {
-            //handle error
-            console.log(response);
-        });
     }
   
       render() {
         return(
           <div className='divRender'>
-            <form className="ml-3 mr-3 navbarForm" onSubmit={this.handleSubmitAuth} noValidate >
+            <form className="navbarForm" onSubmit={this.handleSubmitAuth} noValidate >
               <div className="container">
                 <div className="row">
                   <div className="col-xs-12 col-sm-12 col-md-3 mb-2 navbarDiv">
                     <input className="form-control col-12"  type="text" placeholder="Email" onBlur={(x => {this.loginAuth=x.target.value; })}/> 
                   </div>
                   <div className="col-xs-12 col-sm-12 col-md-3 mb-2">
-                    <input className="form-control col-12"  type="text" placeholder="Password" onBlur={(x => {this.passwordAuth=x.target.value; })}/>           
+                    <input className="form-control col-12"  type="password" placeholder="Password" onBlur={(x => {this.passwordAuth=x.target.value; })}/>           
                   </div>
                   <div className="col-xs-12 col-sm-12 col-md-3 mb-2">
                     <button type="submit"  ref={this.btnSubmit} className="btn btn-info col-xs-6">Sign in</button>
@@ -101,11 +92,15 @@ class LogbarUnauth extends Component {
           password: this.passwordRegistr,
           phone: this.phoneRegistr
         };
-    
+        
+        
+        localStorage.setItem("currentUserFirstName", (this.firstNameRegistr));
+        localStorage.setItem("currentUserLastName", (this.lastNameRegistr));
+
         axios.post(server_url + '/api/Registration',userRegister)
           .then(function (response) {
               //handle success
-              window.location.assign("/startPage")
+              window.location.reload();
               console.log(response);
           })
           .catch(function (response) {
@@ -221,7 +216,8 @@ class LogbarUnauth extends Component {
               <h4 className="modal-title">Registration Form</h4>
               <button type="button" className="close" data-dismiss="modal">&times;</button>
             </div>
-             <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate /*method="post" action="api/Registration" 
+            <div className="form-row mb-3"></div>
+            <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate /*method="post" action="api/Registration" 
         encType="application/x-www-form-urlencoded"*/>
       
       <div className="form-row mb-3 justify-content-center">
@@ -266,25 +262,14 @@ class LogbarUnauth extends Component {
           </div>
         </div>
       </div>
-      <div className="form-row mb-3">
-      <div className="form-group col-sm-6 col-xs-12  ">
-      </div>
-      <div className="form-group col-sm-6 col-xs-12  ">
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" id="gridCheck"/>
-          <label className="form-check-label" htmlFor="gridCheck">
-            Remember Me
-          </label>
-        </div>
-      </div>
-      </div>
+      <div className="form-row mb-3"></div>
       <div className="row mb-3 justify-content-center">
         <div className="col-xs-3 col-sm-3 col-md-3">
           <button type="submit"  ref={this.btnSubmitRegistr} disabled className="btn btn-info btn-lg mb-3">Sign up
           </button>
         </div>
         <div className="col-xs-3 col-sm-3 col-md-3" >   
-          <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Close
+          <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
           </button>
         </div>
       </div>
