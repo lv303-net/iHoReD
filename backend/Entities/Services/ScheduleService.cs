@@ -31,8 +31,6 @@ namespace Entities.Services
             };
 
             _dbContext.ExecuteSqlQuery(cmd, param);
-
-            _dbContext.Dispose();
         }
     }
 }

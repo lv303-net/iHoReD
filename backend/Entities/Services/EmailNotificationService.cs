@@ -21,7 +21,7 @@ namespace Entities.Services
 
 
         const string subject = "Hospital Registaration Desk";
-        const string body = "To confirm your registration, please follow the link below";
+        const string body = "To confirm your registration, please ";
 
         /// <summary>
         ///	Credentials that are used for sending emails.
@@ -42,16 +42,18 @@ namespace Entities.Services
             client.Timeout = 10000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.Credentials = new System.Net.NetworkCredential(Credentials.Email, Credentials.Password);
-            client.UseDefaultCredentials = false;
-
+            
+            
             return client;
         }
 
-        public static void sendEmail(string email)
+        public static void sendEmail(User user)
         {
             SmtpClient client = SetSmtpClient();
-            MailMessage mm = new MailMessage(Credentials.Email, email, subject, body);
-
+            MailMessage mm = new MailMessage(Credentials.Email, user.Email);
+            mm.IsBodyHtml = true;
+            mm.Subject = subject;
+            mm.Body = body + "<a href='http://localhost:3000/Registration/ActivateUser/" + user.Id.ToString() + "'>click here</a>";
             client.Send(mm);
         }    
     }
