@@ -28,7 +28,12 @@ render() {
           <LogbarAuth/>
         )}
         <div className="wrapper row">
+        <div className="col-sm-4">
         <ProfessionsTable/>
+        </div>
+        <div className="col-sm-8 mt-3">
+        <Calendar />
+        </div>
         </div>
       </div>
     ); 

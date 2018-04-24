@@ -3,56 +3,50 @@ import { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
 import Calendar from './Calendar';
-
 var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 
-//console.log(localStorage.getItem("currentProfession"));
 class DoctorTable extends React.Component{
     constructor(props){      
       super(props);
-      this.state = { doc: [], idProf: 1, idDoc: 1};     
+      this.state = { doc: [], idProf: 0, idDoc: 0};     
       this.eventHandler=this.eventHandler.bind(this);
     };
-      
-      static getDerivedStateFromProps(nextProps, prevState) {
-        return {
-          idProf: nextProps.idProf,
-        }
-      }
 
       eventHandler(idDoctor) {
-        alert("Im here Doc")
-        console.log(this.state.idDoc)
         this.setState({
           idDoc: idDoctor
         })
       }
 
       shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.doc !== nextState.doc); 
+        return (this.state.idProf !== nextProps.idProf); 
       }
 
-      getDoctors(){
-      axios.get(server_url+'/GetDoctors/' + this.state.idProf)
-      .then(res => {
+      componentWillUpdate(nextProps, nextState)
+      {
+        axios.get(server_url+'/GetDoctors/' + nextProps.idProf)
+        .then(res => {
         this.setState({
+          idProf: nextProps.idProf,
           doc: res.data
         })
       });
-    }
+      }
       
     render(){
-      this.getDoctors();
-      return  (
-                  <div className="col-md-5 list-group mt-4" id = "doctors">
+      return  <div className = "container">
+                  <div className="row justify-content-center">
+                  <div className="col-md-5 list-group mt-4" id="professions">
                   <div className="list-group-item active bg-info profDocHeader">Doctors:</div>
                   {this.state.doc.map(doc => <div className='list-group-item list-group-active profDocTable' key={doc.toString()} onClick={() => this.eventHandler(doc[2])}>{doc[1] + ' ' + doc[0]}</div>)}                  
                   </div>
-                  );
+              
+              </div>
+              </div>
   }
   }
 
