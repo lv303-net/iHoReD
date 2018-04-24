@@ -21,7 +21,7 @@ namespace Entities.Services
 
 
         const string subject = "Hospital Registaration Desk";
-        const string body = "To confirm your registration, please ";
+        const string body = "Congratulations,you are registered in HoReD";
 
         /// <summary>
         ///	Credentials that are used for sending emails.
@@ -53,7 +53,6 @@ namespace Entities.Services
             MailMessage mm = new MailMessage(Credentials.Email, user.Email);
             mm.IsBodyHtml = true;
             mm.Subject = subject;
-            mm.Body = body + "<a href='http://localhost:3001/Registration/ActivateUser/" + user.Id.ToString() + "'>click here</a>";
             client.Send(mm);
         }    
     }
