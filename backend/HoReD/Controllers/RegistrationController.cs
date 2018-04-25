@@ -32,7 +32,7 @@ namespace HoReD.Controllers
                 
                 _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password, model.Phone);
 
-                EmailNotificationService.sendEmail(_userService.GetUserInfo(model.Email));
+             EmailNotificationService.sendEmail(_userService.GetUserInfo(model.Email));
 
                 return Ok();
             }
@@ -42,14 +42,14 @@ namespace HoReD.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("Registration/{IdUser}")]
         public IHttpActionResult ActivateUser(int IdUser)
         {
             try
             {
                 _userService.ActivateUser(IdUser);
-                return this.Redirect("/"); //redirect to user page
+                return Ok();
             }   
             catch (Exception)
             {
