@@ -40,14 +40,15 @@ constructor(props){
 
     render(){
       return <div className = "container">
-       <div className="row justify-content-center">
-       <div className="col-md-5 list-group mt-4" id="professions">
-        <div className="list-group-item active bg-info">Professions:</div>
-        {this.state.professionsArr.map(professionsArr => <div className='list-group-item list-group-item-active profDocTable' key={professionsArr.toString()} onClick={() => this.eventHandler(professionsArr[0])}>{professionsArr[1]}</div>)}
+      <div className="row justify-content-center">
+       <div className="list-group" role="tablist" id="professions">
+       <div className="list-group-item bg-info">Professions:</div>
+        {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => this.eventHandler(professionsArr[0])}><div>{professionsArr[1]}</div></a>)}
        </div> 
         <DoctorTable idProf={this.state.id}/> 
-        </div>     
-    </div>
+        </div>  
+        </div>
+
     
   }
   }
