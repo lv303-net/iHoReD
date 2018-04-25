@@ -202,8 +202,8 @@ class LogbarUnauth extends Component {
       }
        
       render() {
-      return (<div>
-              <nav className="navbar navbar-expand-sm navbar-custom  navbar-default sticky-top navbar-toggleable-md">
+      return (<div className="container">
+              <nav className="navbar container fixed-top navbar-expand flex-md-row bd-navbar navbar-custom  navbar-default sticky-top navbar-toggleable-md">
                  <p className='text-white mr-1'> </p><p className = 'text-white font-weight-bold mr-3' id = 'usernamebar'></p>
                    <div className = "container-fluid justify-content-center align-items-center navbar-collapse collapse navbarContainer">
                 <Authorization/>

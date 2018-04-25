@@ -41,7 +41,7 @@ class Authorization extends React.Component {
       render() {
         return(
           <div className='divRender'>
-            <form className="ml-3 mr-3 navbarForm" onSubmit={this.handleSubmitAuth} noValidate >
+            <form className="navbarForm" onSubmit={this.handleSubmitAuth} noValidate >
               <div className="container">
                 <div className="row">
                   <div className="col-xs-12 col-sm-12 col-md-3 mb-2 navbarDiv">
