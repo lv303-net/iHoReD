@@ -127,6 +127,10 @@ namespace Entities.Services
 
         public List<DoctorRules> GetDoctorAllRules(int doctorId,DateTime dateStart,DateTime dateFinish)
         {
+            if((dateFinish.DayOfYear-dateStart.DayOfYear)<7)
+            {
+                dateFinish = dateStart;
+            }
             const string cmd = "SELECT_RULES";
             var param = new Dictionary<string, object>()
             {
@@ -165,6 +169,10 @@ namespace Entities.Services
 
         public List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
         {
+            if ((dateFinish.DayOfYear - dateStart.DayOfYear) < 7)
+            {
+                dateFinish = dateStart;
+            }
             var events = new List<string[]>();
             string pattern = "yyyy-MM-dd";
             if ((dateFinish.DayOfYear-dateStart.DayOfYear)<28)
