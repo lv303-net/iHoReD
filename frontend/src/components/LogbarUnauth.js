@@ -11,29 +11,8 @@ else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 class Authorization extends React.Component {
     constructor(props){
-      super(props);}
-    //   this.loginAuth='';
-    //   this.passwordAuth='';
-    // }
-    
-    // handleSubmitAuth = event => 
-    // {
-    //   event.preventDefault();
-    //   //const
-  
-    //   var userAuth ={
-    //     email: this.loginAuth,
-    //     password: this.passwordAuth
-    //   }
-    //   this.btnSubmitAuth= React.createRef();
-  
-    //   axios.post(server_url + '/api/Login',userAuth)
-    //     .then(function (response) {
-    //         window.location.reload();
-    //         localStorage.setItem("currentUserFirstName", (response.data.FirstName));
-    //         localStorage.setItem("currentUserLastName", (response.data.LastName));
-    //     })
-    // }
+      super(props);
+    }
   
       render() {
         return(
