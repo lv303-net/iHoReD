@@ -21,9 +21,9 @@ class AdminRulesPage extends Component {
 }
 
 var server_url;
-/*if(process.env.NODE_ENV==="development")
+if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")*/
+else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 
 class RulesList extends Component {
