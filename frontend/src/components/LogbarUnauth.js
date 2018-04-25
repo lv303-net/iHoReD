@@ -209,9 +209,9 @@ class LogbarUnauth extends Component {
           </div>
 
           <div className="col-xs-12 col-sm-12 col-md-3">
-            <h8>Topol`na 4, Str</h8>
-            <h8>(096) 167 01 03)</h8>
-            <h8>(093) 167 01 03)</h8>
+            <h8>Topol`na 4, Str  </h8>
+            <h8>(096) 167 01 03  </h8>
+            <h8>(093) 167 01 03  </h8>
           </div>
           <Authorization/>
         </div>
