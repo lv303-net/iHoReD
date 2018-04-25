@@ -164,5 +164,14 @@
    <changeSet author="Tetiana Usyk" id="V3.7">
     <sqlFile path="V3.7_ALTERED_PROCEDURE_SELECT_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
-   
+
+   <changeSet author="Tetiana Usyk" id="V3.8">
+    <sqlFile path="V3.8_CREATE_PROCEDURE_ACTIVATE_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+   <changeSet author="Iryna Halenok" id="V3.9">
+    <sqlFile path="V3.9_UPDATE_PROCEDURE_REGISTER_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+     
 </databaseChangeLog>
