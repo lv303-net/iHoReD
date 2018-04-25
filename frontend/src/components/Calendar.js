@@ -84,12 +84,10 @@ class Calendar extends React.Component{
 
       componentWillUpdate(nextProps, nextState)
       {
+        //console.log(window.location.pathname + ' ' + window.location.host.slice(-1));
         $('#calendar').fullCalendar( 'removeEvents');
         axios.get(server_url+'/DoctorEvents/' + nextProps.idDoctor +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
         .then(response => {
-            // this.setState({
-            //   events: response.data
-            // })
             response.data.map(event => {this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2])})
             });
       }
