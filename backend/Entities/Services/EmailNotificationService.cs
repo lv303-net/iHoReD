@@ -50,11 +50,11 @@ namespace Entities.Services
         public static void sendEmail(User user)
         {
             SmtpClient client = SetSmtpClient();
-            MailMessage mm = new MailMessage(Credentials.Email, user.Email);
-            mm.IsBodyHtml = true;
-            mm.Subject = subject;
-            mm.Body = body + "<a href='http://localhost:3000/Registration/ActivateUser/" + user.Id.ToString() + "'>click here</a>";
-            client.Send(mm);
+            MailMessage mailMessage = new MailMessage(Credentials.Email, user.Email);
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Subject = subject;
+            mailMessage.Body = body + "<a href='http://localhost:3000/Registration/ActivateUser/" + user.Id.ToString() + "'>click here</a>";
+            client.Send(mailMessage);
         }    
     }
 }
