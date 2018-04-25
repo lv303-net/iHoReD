@@ -3,75 +3,51 @@ import { Component } from 'react';
 import $ from 'jquery';
 import 'fullcalendar';
 import axios from 'axios';
-import { months } from 'moment';
+
 var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 
-class Calendar extends Component {
+class Calendar extends React.Component{
     constructor(props){      
       super(props);
-      this.state = { idDoc: 1};     
-    };
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-      return {
-        idDoc: nextProps.idDoctor,
-      }
+      this.state = { idDoc: 0, startPeriod: '', endPeriod: '', events:[]};  
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-      console.log(nextProps.idDoctor);
-      console.log(this.props.idDoctor);
-      return (this.state.idDoc !== nextState.idDoc); 
+    save(start, end)
+    {
+      this.setState({
+        startPeriod: start,
+        endPeriod: end
+      })
     }
 
-    addEvent(newstart, newend) {
-        var event={
-        start  : newstart,
-        end  : newend
-    };
-        $('#calendar').fullCalendar( 'renderEvent', event, true);
-    }
-    getRules(){
-    axios.get(server_url+'/GetDoctorSchedule/' + this.state.idDoc)
-        .then(response => {
-            response.data.forEach(startEndTime => {
-               this.addEvent(startEndTime[0], startEndTime[1]);
-            });
-        });
-      }
-    
-    componentDidMount(){
-        
-      const { calendar } = this.refs;
-
+    componentDidMount()
+    {
+      var _that = this;
       $(document).ready(function() {
-        // page is ready
-        
         $('#calendar').fullCalendar({
-            // enable theme
         eventLimit:true,
         theme: true,
-        // emphasizes business hours
         businessHours: true,
-        // event dragging & resizing
         editable: true,
-        // header
         header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,agendaDay'
+        right: 'agendaDay,agendaWeek,month'
         },
-        
         selectable: true,
         selectHelper: true,
         editable: true,
+        
         viewRender: function(view)
         {
-            var view = $('#calendar').fullCalendar('getView');        
+            var view = $('#calendar').fullCalendar('getView');
+            localStorage.setItem("startPeriod", view.intervalStart.format())
+            localStorage.setItem("endPeriod", view.intervalEnd.format())
+            _that.save(view.intervalStart.format(), view.intervalEnd.format())
           },
         select: function(start, end) {
             end =  $.fullCalendar.moment(start);
@@ -83,32 +59,44 @@ class Calendar extends Component {
                 end: end,
                 allDay: false
                 },
-                true // stick the event
+                true 
             );
-            
-            $('#calendar').fullCalendar('unselect');
-             
-        },
-        events: [
-          {
-            title  : 'Conference',
-            start  : '2018-04-22T20:30:00',
-            end    : '2018-04-23T23:30:00',
-          }
-        ]
         
+            $('#calendar').fullCalendar('unselect');
+        },
+         
         })
+        
       });
     }
 
-    render() {
-      this.getRules();
-      return (
-        <div id='calendar'></div>
-        
-      );
+      addEvent(newstart, newend) {
+        var event={
+        start  : newstart,
+        end  : newend
+      };
+        $('#calendar').fullCalendar( 'renderEvent', event, true);
     }
-  
+      shouldComponentUpdate(nextProps, nextState) {
+        return (this.props.idDoctor!== nextProps.idDoctor || (this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod)); 
+      }
+
+      componentWillUpdate(nextProps, nextState)
+      {
+        axios.get(server_url+'/DoctorEvents/' + this.props.idDoctor +'/' + this.state.startPeriod+'/' + this.state.endPeriod)
+        .then(response => {
+            this.setState({
+              events: response.data
+            })
+            });
+      }
+
+    render(){
+      return  (<div id = "calendar"> 
+                {this.state.events.map(event => {this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2])})}
+              </div>
+                  );
+  }
   }
 
-export default Calendar;
+  export default Calendar;
