@@ -53,8 +53,8 @@ class RulesList extends Component {
         return (
             <div className = "container">
                 <div className="list-group col-sm-6 float-left" id="listRules">
-                <div className="list-group-item active bg-info">Rules:</div>
-                {this.state.idArr.map(idr => <div className='list-group-item list-group-item-active' key={idr.toString()} onClick={() => this.eventHandler(idr.IdRule)}>{idr.RuleName}</div>)}
+					<div className="list-group-item active bg-info">Rules:</div>
+                	{this.state.idArr.map(idr => <div className='list-group-item list-group-item-active' key={idr.toString()}><div className='col-sm-9 float-left' onClick={() => this.eventHandler(idr.IdRule)}>{idr.RuleName}</div><div className='col-sm-3 float-right justify-content-end'><i class="fas fa-info-circle"></i><i class="fas fa-pencil-alt"></i><i class="fas fa-times"></i></div></div>)}
                 </div>
                 <div id="listDoctors">
                 <DoctorsListWithSomeRule idRule={this.state.id}/>

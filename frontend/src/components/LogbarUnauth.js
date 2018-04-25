@@ -12,42 +12,16 @@ else if(process.env.NODE_ENV==="production")
 class Authorization extends React.Component {
     constructor(props){
       super(props);
-      this.loginAuth='';
-      this.passwordAuth='';
-    }
-    
-    handleSubmitAuth = event => 
-    {
-      event.preventDefault();
-      //const
-  
-      var userAuth ={
-        email: this.loginAuth,
-        password: this.passwordAuth
-      }
-  
-      axios.post(server_url + '/api/Login',userAuth)
-        .then(function (response) {
-            window.location.reload();
-            localStorage.setItem("currentUserFirstName", (response.data.FirstName));
-            localStorage.setItem("currentUserLastName", (response.data.LastName));
-        })
     }
   
       render() {
         return(
           <div className='divRender'>
-            <form className="navbarForm" onSubmit={this.handleSubmitAuth} noValidate >
+            <form className="navbarForm">
               <div className="container">
                 <div className="row">
-                  <div className="col-xs-12 col-sm-12 col-md-3 mb-2 navbarDiv">
-                    <input className="form-control col-12"  type="text" placeholder="Email" onBlur={(x => {this.loginAuth=x.target.value; })}/> 
-                  </div>
                   <div className="col-xs-12 col-sm-12 col-md-3 mb-2">
-                    <input className="form-control col-12"  type="password" placeholder="Password" onBlur={(x => {this.passwordAuth=x.target.value; })}/>           
-                  </div>
-                  <div className="col-xs-12 col-sm-12 col-md-3 mb-2">
-                    <button type="submit"  ref={this.btnSubmit} className="btn btn-info col-xs-6">Sign in</button>
+                    <button type="button" className="btn btn-info" data-toggle="modal" data-target="#SignInModal">Sign in</button>
                   </div>
                   <div className="col-xs-12 col-sm-12 col-md-3 mb-2">
                     <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal">Sign up</button> 
@@ -64,7 +38,6 @@ class Authorization extends React.Component {
 class LogbarUnauth extends Component { 
       constructor(props){
         super(props);
-        // this.validate=this.validate.bind(this);
         this.firstNameRegistr='';
         this.lastNameRegistr='';
         this.emailRegistr='';
@@ -79,6 +52,27 @@ class LogbarUnauth extends Component {
         this.divPassRegistr = React.createRef();
         this.divConfirmPassRegistr = React.createRef();
         this.btnSubmitRegistr= React.createRef();
+
+        this.loginAuth='';
+        this.passwordAuth='';
+        this.btnSubmitAuth= React.createRef();
+      }
+
+      handleSubmitAuth = event => 
+      {
+        event.preventDefault();
+      //const 
+        var userAuth ={
+          email: this.loginAuth,
+          password: this.passwordAuth
+        }
+    
+        axios.post(server_url + '/api/Login', userAuth)
+          .then(function (response) {
+              window.location.reload();
+              localStorage.setItem("currentUserFirstName", (response.data.FirstName));
+              localStorage.setItem("currentUserLastName", (response.data.LastName));
+          })
       }
       
       handleSubmitRegistr = event => 
@@ -132,7 +126,7 @@ class LogbarUnauth extends Component {
           return false;
         }
       }
-    
+
       validateLastName() {
         var tempLName=false;
         if ( validator.isAlpha(this.lastNameRegistr,'en-GB')) {
@@ -157,8 +151,7 @@ class LogbarUnauth extends Component {
           var tempPhone=false;
           this.divPhoneRegistr.current.textContent="Your phone is not valid!";
           return false;
-        }
-        
+        }        
       }
     
       validateEmail() {
@@ -202,82 +195,114 @@ class LogbarUnauth extends Component {
       }
        
       render() {
-      return (<div className="container">
-              <nav className="navbar container fixed-top navbar-expand flex-md-row bd-navbar navbar-custom  navbar-default sticky-top navbar-toggleable-md">
-                 <p className='text-white mr-1'> </p><p className = 'text-white font-weight-bold mr-3' id = 'usernamebar'></p>
-                   <div className = "container-fluid justify-content-center align-items-center navbar-collapse collapse navbarContainer">
-                <Authorization/>
+      return (
+      <div>
+        <nav className="navbar navbar-expand-sm navbar-custom  navbar-default sticky-top navbar-toggleable-md">
+          <p className='text-white mr-1'> </p><p className = 'text-white font-weight-bold mr-3' id = 'usernamebar'></p>
+          <div className = "container-fluid justify-content-center align-items-center navbar-collapse collapse navbarContainer">
+            <Authorization/>
+          </div>
+        </nav>  
+
+        <div className="modal fade" id="myModal">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header mb-5">
+                <h4 className="modal-title">Registration Form</h4>
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+              </div>
+              <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate>    
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputFName">
+                    <input type="text" className="form-control" onBlur={(x => {this.firstNameRegistr=x.target.value; this.validateFirstName()})} name="FIRSTNAME" placeholder="First Name" required/>
+                    <div id="invalidFname" ref={this.divFNameRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputLName">
+                    <input type="text" className="form-control" onBlur={(x => {this.lastNameRegistr=x.target.value; this.validateLastName()})} placeholder="Last Name" name="LASTNAME" required/>
+                    <div id="invalidLname" ref={this.divLNameRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputPhone">
+                    <input type="tel"  className="form-control" onBlur={x=> {this.phoneRegistr=x.target.value; this.validatePhone()}} placeholder="Phone" name="phone" required/>
+                    <div id="invalidPhone" ref={this.divPhoneRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputEmail">
+                    <input type="email"  className="form-control" onBlur={x=> {this.emailRegistr=x.target.value; this.validateEmail()}} id="inputEmailtext" placeholder="Email" name="email" required/>
+                    <div id="invalidEmail" ref={this.divEmailRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputPassword">
+                    <input type="password"  className="form-control" placeholder="Password" onBlur={(x => {this.passwordRegistr=x.target.value; this.validatePassword() })} name="password" required/>
+                    <div id="invalidPassword" ref={this.divPassRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputConfirmPassword">
+                    <input type="password"  className="form-control" placeholder="Confirm Password" onChange={(x => {this.confirmPasswordRegistr=x.target.value; this.checkPassword(); this.validateAll()})} onPaste={x => {x.preventDefault()}} name="confirmPassword" required/>
+                    <div id="invalidConfirmPassword" ref={this.divConfirmPassRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="row mb-3 mt-5 justify-content-center">
+                  <div className="col-xs-3 col-sm-3 col-md-3">
+                    <button type="submit"  ref={this.btnSubmitRegistr} disabled className="btn btn-info btn-lg mb-3">Sign up
+                    </button>
+                  </div>
+                  <div className="col-xs-3 col-sm-3 col-md-3" >   
+                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-          </nav>            
-      <div className="modal fade" id="myModal">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h4 className="modal-title">Registration Form</h4>
-              <button type="button" className="close" data-dismiss="modal">&times;</button>
+          </div> 
+        </div>
+
+        <div className="modal fade" id="SignInModal">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header mb-5">
+                <h4 className="modal-title">Please, enter Your creds</h4>
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+              </div>
+              <form className="ml-3 mr-3" onSubmit={this.handleSubmitAuth}>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12">
+                    <input className="form-control"  type="text" placeholder="Email" onBlur={(x => {this.loginAuth=x.target.value; })} required/>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12">
+                    <input className="form-control"  type="password" placeholder="Password" onBlur={(x => {this.passwordAuth=x.target.value; })} required/> 
+                  </div>
+                </div>
+                <div className="row mb-3 mt-5 justify-content-center">
+                  <div className="col-xs-3 col-sm-3 col-md-3">
+                    <button type="submit" className="btn btn-info btn-lg mb-3">Sign in
+                    </button>
+                  </div>
+                  <div className="col-xs-3 col-sm-3 col-md-3" >   
+                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-            <div className="form-row mb-3"></div>
-            <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate /*method="post" action="api/Registration" 
-        encType="application/x-www-form-urlencoded"*/>
-      
-      <div className="form-row mb-3 justify-content-center">
-        <div className="form-group col-sm-6 col-xs-12" id="inputFName">
-          <input type="text" className="form-control" onBlur={(x => {this.firstNameRegistr=x.target.value; this.validateFirstName()})} name="FIRSTNAME" placeholder="First Name" required/>
-          <div id="invalidFname" ref={this.divFNameRegistr}>
-          </div>
+          </div> 
         </div>
-      </div>
-      <div className="form-row mb-3 justify-content-center">
-        <div className="form-group col-sm-6 col-xs-12" id="inputLName">
-          <input type="text" className="form-control" onBlur={(x => {this.lastNameRegistr=x.target.value; this.validateLastName()})} placeholder="Last Name" name="LASTNAME" required/>
-          <div id="invalidLname" ref={this.divLNameRegistr}>
-          </div>
-        </div>
-      </div>
-      <div className="form-row mb-3 justify-content-center">
-        <div className="form-group col-sm-6 col-xs-12" id="inputPhone">
-          <input type="tel"  className="form-control" onBlur={x=> {this.phoneRegistr=x.target.value; this.validatePhone()}} placeholder="Phone" name="phone" required/>
-          <div id="invalidPhone" ref={this.divPhoneRegistr}>
-          </div>
-        </div>
-      </div>
-      <div className="form-row mb-3 justify-content-center">
-        <div className="form-group col-sm-6 col-xs-12" id="inputEmail">
-          <input type="email"  className="form-control" onBlur={x=> {this.emailRegistr=x.target.value; this.validateEmail()}} id="inputEmailtext" placeholder="Email" name="email" required/>
-          <div id="invalidEmail" ref={this.divEmailRegistr}>
-          </div>
-        </div>
-      </div>
-      <div className="form-row mb-3 justify-content-center">
-        <div className="form-group col-sm-6 col-xs-12" id="inputPassword">
-          <input type="password"  className="form-control" placeholder="Password" onBlur={(x => {this.passwordRegistr=x.target.value; this.validatePassword() })} name="password" required/>
-          <div id="invalidPassword" ref={this.divPassRegistr}>
-          </div>
-        </div>
-      </div>
-      <div className="form-row mb-3 justify-content-center">
-        <div className="form-group col-sm-6 col-xs-12" id="inputConfirmPassword">
-          <input type="password"  className="form-control" placeholder="Confirm Password" onChange={(x => {this.confirmPasswordRegistr=x.target.value; this.checkPassword(); this.validateAll()})} onPaste={x => {x.preventDefault()}} name="confirmPassword" required/>
-          <div id="invalidConfirmPassword" ref={this.divConfirmPassRegistr}>
-          </div>
-        </div>
-      </div>
-      <div className="form-row mb-3"></div>
-      <div className="row mb-3 justify-content-center">
-        <div className="col-xs-3 col-sm-3 col-md-3">
-          <button type="submit"  ref={this.btnSubmitRegistr} disabled className="btn btn-info btn-lg mb-3">Sign up
-          </button>
-        </div>
-        <div className="col-xs-3 col-sm-3 col-md-3" >   
-          <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
-          </button>
-        </div>
-      </div>
-    </form>
-          </div>
-        </div> 
-      </div>
-    </div>);
+
+      </div>);
       }
     }
     
