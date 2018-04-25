@@ -165,61 +165,115 @@ namespace Entities.Services
 
         public List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
         {
-            var events=new List<string[]>();
+            var events = new List<string[]>();
             string pattern = "yyyy-MM-dd";
-            foreach (var rule in allRules)
+            if ((dateFinish.DayOfYear-dateStart.DayOfYear)<28)
             {
-                var tempHour = rule.HourStart;
-                var tempDateStart = new DateTime();
-                var tempDateFinish = new DateTime();
-                if (dateStart > rule.PeriodStart)
+                foreach (var rule in allRules)
                 {
-                    tempDateStart = dateStart;
-                }
-                else
-                {
-                    tempDateStart = rule.PeriodStart;
-                }
-                if (dateFinish < rule.PeriodFinish)
-                {
-                    tempDateFinish = dateFinish;
-                }
-                else
-                {
-                    tempDateFinish = rule.PeriodFinish;
-                }
-                while (tempDateStart <= tempDateFinish)
-                {
-                    if (rule.Week[tempDateStart.DayOfWeek])
+                    var tempHour = rule.HourStart;
+                    var tempDateStart = new DateTime();
+                    var tempDateFinish = new DateTime();
+                    if (dateStart > rule.PeriodStart)
                     {
-                        tempHour = rule.HourStart;
-                        while (tempHour <= rule.HourFinish)
+                        tempDateStart = dateStart;
+                    }
+                    else
+                    {
+                        tempDateStart = rule.PeriodStart;
+                    }
+                    if (dateFinish < rule.PeriodFinish)
+                    {
+                        tempDateFinish = dateFinish;
+                    }
+                    else
+                    {
+                        tempDateFinish = rule.PeriodFinish;
+                    }
+                    while (tempDateStart <= tempDateFinish)
+                    {
+                        if (rule.Week[tempDateStart.DayOfWeek])
+                        {
+                            tempHour = rule.HourStart;
+                            while (tempHour <= rule.HourFinish)
+                            {
+                                if (rule.IfInclusive)
+                                {
+                                    var convertDate = tempDateStart.ToString(pattern);
+                                    var inclEvent = new[]
+                                    {
+                                    convertDate.ToString(), tempHour.ToString(),
+                                    (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
+                                };
+                                    events.Add(inclEvent);
+                                }
+                                else
+                                {
+                                    var convertDate = tempDateStart.ToString(pattern);
+                                    var excEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
+                                    if (excEvent != null)
+                                    {
+                                        events.Remove(excEvent);
+                                    }
+                                }
+                                tempHour = tempHour.Add(TimeSpan.FromMinutes(30));
+                            }
+                        }
+                        tempDateStart = tempDateStart.Add(TimeSpan.FromDays(1));
+                    }
+                }
+            }
+            else
+            {
+                foreach (var rule in allRules)
+                {
+                    var tempDateStart = new DateTime();
+                    var tempDateFinish = new DateTime();
+                    if (dateStart > rule.PeriodStart)
+                    {
+                        tempDateStart = dateStart;
+                    }
+                    else
+                    {
+                        tempDateStart = rule.PeriodStart;
+                    }
+                    if (dateFinish < rule.PeriodFinish)
+                    {
+                        tempDateFinish = dateFinish;
+                    }
+                    else
+                    {
+                        tempDateFinish = rule.PeriodFinish;
+                    }
+                    while (tempDateStart <= tempDateFinish)
+                    {
+                        if (rule.Week[tempDateStart.DayOfWeek])
                         {
                             if (rule.IfInclusive)
                             {
                                 var convertDate = tempDateStart.ToString(pattern);
                                 var inclEvent = new[]
                                 {
-                                    convertDate.ToString(), tempHour.ToString(),
-                                    (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
+                                    convertDate.ToString(), rule.HourStart.ToString(),
+                                    rule.HourFinish.ToString()
                                 };
                                 events.Add(inclEvent);
                             }
                             else
                             {
                                 var convertDate = tempDateStart.ToString(pattern);
-                                var excEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
+                                var excEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) >= rule.HourStart && TimeSpan.Parse(u[2]) <= rule.HourFinish);
                                 if (excEvent != null)
                                 {
                                     events.Remove(excEvent);
                                 }
                             }
-                            tempHour = tempHour.Add(TimeSpan.FromMinutes(30));
                         }
+                        tempDateStart = tempDateStart.Add(TimeSpan.FromDays(1));
                     }
-                    tempDateStart = tempDateStart.Add(TimeSpan.FromDays(1));
                 }
             }
+            
             return events;
         }
     }
