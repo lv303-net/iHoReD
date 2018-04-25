@@ -20,7 +20,8 @@ class Calendar extends React.Component{
     {
       this.setState({
         startPeriod: start,
-        endPeriod: end
+        endPeriod: end,
+        idDoc : this.props.idDoctor
       })
     }
 
@@ -83,17 +84,19 @@ class Calendar extends React.Component{
 
       componentWillUpdate(nextProps, nextState)
       {
-        axios.get(server_url+'/DoctorEvents/' + this.props.idDoctor +'/' + this.state.startPeriod+'/' + this.state.endPeriod)
+        $('#calendar').fullCalendar( 'removeEvents');
+        axios.get(server_url+'/DoctorEvents/' + nextProps.idDoctor +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
         .then(response => {
-            this.setState({
-              events: response.data
-            })
+            // this.setState({
+            //   events: response.data
+            // })
+            response.data.map(event => {this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2])})
             });
       }
 
     render(){
       return  (<div id = "calendar"> 
-                {this.state.events.map(event => {this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2])})}
+                
               </div>
                   );
   }
