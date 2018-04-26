@@ -20,7 +20,7 @@ class Authorization extends React.Component {
     return(
           <div className="col-xs-12 col-sm-12 col-md-4">
             <div className="row">
-              <div className="col-xs-12 col-sm-12 col-md-6 mt-3 pr-0 float-right">
+              <div className="col-xs-12 col-sm-12 col-md-6 mt-3 float-right">
                 <button type="button" className="btn btn-info" data-toggle="modal" data-target="#SignInModal">Sign in</button>
               </div>
               <div className="col-xs-12 col-sm-12 col-md-6 mt-3 float-right">
