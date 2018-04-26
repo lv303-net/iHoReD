@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Net.Mail;
 using System.Text;
+using System.Configuration;
 
 namespace Entities.Services
 {
@@ -21,7 +22,7 @@ namespace Entities.Services
 
 
         const string subject = "Hospital Registaration Desk";
-        const string body = "To confirm your registration, please follow the link below";
+        const string body = "Congratulations,you are registered in HoReD";
 
         /// <summary>
         ///	Credentials that are used for sending emails.
@@ -42,17 +43,19 @@ namespace Entities.Services
             client.Timeout = 10000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.Credentials = new System.Net.NetworkCredential(Credentials.Email, Credentials.Password);
-            client.UseDefaultCredentials = false;
-
+            
+            
             return client;
         }
 
-        public static void sendEmail(string email)
-        {
+        public static void sendEmail(User user)
+        {         
             SmtpClient client = SetSmtpClient();
-            MailMessage mm = new MailMessage(Credentials.Email, email, subject, body);
-
-            client.Send(mm);
+            MailMessage mailmessage = new MailMessage(Credentials.Email, user.Email);
+            mailmessage.IsBodyHtml = true;
+            mailmessage.Subject = subject;
+            mailmessage.Body = body + "<a href="+ConfigurationManager.AppSettings["Path"]+ "/activation/"+ user.Id+">click here</a>";
+            client.Send(mailmessage);
         }    
     }
 }

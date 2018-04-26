@@ -27,7 +27,7 @@ namespace HoReD.Tests.Controllers
         public void SetUp()
         {
             moq = new Mock<IUserService>();
-            moq.Setup(s => s.StoringInfoAboutNewUser(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
+            moq.Setup(s => s.StoringInfoAboutNewUser(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
             moqService = moq.Object;
             controller= new RegistrationController(moqService);
 
@@ -39,7 +39,7 @@ namespace HoReD.Tests.Controllers
             var model = GetFakeBindingModel();
             var result = controller.CreateNewUser(model);
 
-            Assert.IsInstanceOf<OkResult>(result);
+            Assert.IsInstanceOf<UnauthorizedResult>(result);
         }
 
         [Test]
