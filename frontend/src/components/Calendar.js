@@ -39,6 +39,7 @@ class Calendar extends React.Component{
         center: 'title',
         right: 'agendaDay,agendaWeek,month'
         },
+        defaultView: "agendaDay",
         selectable: true,
         selectHelper: true,
         editable: true,
@@ -93,11 +94,10 @@ class Calendar extends React.Component{
       }
 
     render(){
-      return  (<div id = "calendar"> 
-                
-              </div>
-                  );
-  }
+      return (
+       <div id = "calendar"> </div>
+      );
+    }
   }
 
   export default Calendar;
