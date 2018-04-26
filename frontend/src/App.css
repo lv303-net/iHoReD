@@ -82,6 +82,10 @@
 .form-control:focus, input:focus{
   outline: none;
 }
+
+#invalidFname, #invalidLname, #invalidPhone, #invalidEmail, #invalidPassword, #invalidConfirmPassword {
+  font-size: 14px;
+}
   
 #editInfoWindow {
   background-color: white;
@@ -143,6 +147,44 @@ div.profDocTable:hover {
 }
 
 #doctors, #professions {
-  
   margin-left: 15px;
 }
+
+.logo{
+ max-height: 3em;
+ width: auto;
+}
+
+h5{
+  font-size: 0.8em;
+}
+
+h4{
+  font-size: 1.2em;
+}
+
+h3{
+  font-size: 1.5em;
+}
+
+h3{
+  font-size: 1.7em;
+}
+
+.vertical{
+  margin-top:0.7em;
+  }
+
+/* .navbar-toggle .icon-bar {
+    display: block;
+    width: auto;
+    height: auto;
+    border-radius: 0.2em;
+} */
+.btn-custom {
+  color: #ccfff5;
+  background-color:#80bfff;
+  border-radius: 0%;
+  border: 2px 1px 2px 1px solid #adc9ff;
+}
+
