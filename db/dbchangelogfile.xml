@@ -174,7 +174,7 @@
   </changeSet>
   
   <changeSet author="Maksym Sikorskyi" id="V3.52">
-    <sqlFile path="V3.52_ALTER_PROCEDURE_GET_ALL_USER_INFO" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.52_ALTER_PROCEDURE_GET_ALL_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
      
 </databaseChangeLog>
