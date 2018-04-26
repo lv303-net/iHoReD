@@ -21,17 +21,13 @@ else if(process.env.NODE_ENV==="production")
 class App extends Component {
 render() {
     return (
-        <div className="App container-fluid">
-        {(localStorage.getItem("currentUserFirstName")==null) ? (
-        <LogbarUnauth/>
-        ) : (
-          <LogbarAuth/>
-        )}
+        <div>
+        {(localStorage.getItem("currentUserFirstName")==null) ? (<LogbarUnauth/>) : (<LogbarAuth/>)}
         <div className="wrapper row">
-        <div className="col-sm-4">
+        <div className="col-sm-4 mt-5">
         <ProfessionsTable/>
         </div>
-        <div className="col-sm-8 mt-3">
+        <div className="col-sm-8 mt-5">
         <Calendar />
         </div>
         </div>

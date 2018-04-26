@@ -37,13 +37,13 @@ class DoctorsListWithSomeRule extends Component {
       render(){
         this.getDoctors();
         return  (
-                  <div className='container'>
-                    <div className="col-sm-6 list-group mt-4" id = "doctors">
-                    <div className="list-group-item active bg-info">Doctors:</div>
-                    {this.state.doc.map(doc => <div className='list-group-item list-group-active'key={doc.toString()}>{doc.FirstName + ' ' + doc.LastName}</div>)}                  
-                    </div>
-                    </div>
-                    );
+          <div className='container'>
+            <div className="col-sm-6 list-group mt-4" id = "doctors">
+              <div className="list-group-item active bg-info">Doctors:</div>
+              {this.state.doc.map(doc => <div className='list-group-item list-group-active'key={doc.toString()}>{doc.FirstName + ' ' + doc.LastName}</div>)}                  
+            </div>
+          </div>
+        );
     }
 }
 

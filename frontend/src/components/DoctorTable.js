@@ -40,9 +40,9 @@ class DoctorTable extends React.Component{
     render(){
       return  <div className = "container">
                   <div className="row justify-content-center">
-                  <div className="col-md-5 list-group mt-4" id="professions">
-                  <div className="list-group-item active bg-info profDocHeader">Doctors:</div>
-                  {this.state.doc.map(doc => <div className='list-group-item list-group-active profDocTable' key={doc.toString()} onClick={() => this.eventHandler(doc[2])}>{doc[1] + ' ' + doc[0]}</div>)}                  
+                  <div className="list-group" role="tablist" id="professions">
+                  <div className="list-group-item bg-info profDocHeader">Doctors:</div>
+                  {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={doc.toString()} onClick={() => this.eventHandler(doc[2])}><div>{doc[1] + ' ' + doc[0]}</div></a>)}                  
                   </div>
               
               </div>
