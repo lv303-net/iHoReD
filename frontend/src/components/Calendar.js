@@ -28,6 +28,7 @@ class Calendar extends React.Component{
     componentDidMount()
     {
       var _that = this;
+      $('#calendar').fullCalendar('changeView', 'agendaDay');
       $(document).ready(function() {
         $('#calendar').fullCalendar({
         eventLimit:true,
@@ -37,7 +38,7 @@ class Calendar extends React.Component{
         header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'agendaDay,agendaWeek,month'
+        right: 'agendaDay,agendaWeek,month',
         },
         defaultView: "agendaDay",
         selectable: true,
@@ -63,7 +64,6 @@ class Calendar extends React.Component{
                 },
                 true 
             );
-        
             $('#calendar').fullCalendar('unselect');
         },
          
@@ -85,19 +85,29 @@ class Calendar extends React.Component{
 
       componentWillUpdate(nextProps, nextState)
       {
-        //console.log(window.location.pathname + ' ' + window.location.host.slice(-1));
+        console.log(window.location.pathname + ' ' + window.location.host.slice(-1));
+
         $('#calendar').fullCalendar( 'removeEvents');
         axios.get(server_url+'/DoctorEvents/' + nextProps.idDoctor +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
         .then(response => {
-            response.data.map(event => {this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2])})
+            // this.setState({
+            //   events: response.data
+            // })
+            //response.data.map(event => {this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2])})
+            response.data.map(event => { var e={
+              start  : event[0]+'T'+event[1],
+              end  : event[0]+'T'+event[2],
+            }
+              $('#calendar').fullCalendar( 'renderEvent', e, true)})
             });
       }
 
     render(){
-      return (
-       <div id = "calendar"> </div>
-      );
-    }
+      return  (<div id = "calendar"> 
+                
+              </div>
+                  );
+  }
   }
 
   export default Calendar;
