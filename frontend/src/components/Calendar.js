@@ -39,6 +39,7 @@ class Calendar extends React.Component{
         center: 'title',
         right: 'agendaDay,agendaWeek,month'
         },
+        defaultView: "agendaDay",
         selectable: true,
         selectHelper: true,
         editable: true,

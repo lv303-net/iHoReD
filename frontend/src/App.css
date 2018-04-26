@@ -82,6 +82,10 @@
 .form-control:focus, input:focus{
   outline: none;
 }
+
+#invalidFname, #invalidLname, #invalidPhone, #invalidEmail, #invalidPassword, #invalidConfirmPassword {
+  font-size: 14px;
+}
   
 #editInfoWindow {
   background-color: white;
