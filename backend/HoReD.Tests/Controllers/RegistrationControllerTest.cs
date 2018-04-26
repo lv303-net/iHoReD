@@ -39,7 +39,7 @@ namespace HoReD.Tests.Controllers
             var model = GetFakeBindingModel();
             var result = controller.CreateNewUser(model);
 
-            Assert.IsInstanceOf<OkResult>(result);
+            Assert.IsInstanceOf<UnauthorizedResult>(result);
         }
 
         [Test]

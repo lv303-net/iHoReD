@@ -32,7 +32,7 @@ namespace HoReD.Controllers
                 
                 _userService.StoringInfoAboutNewUser(model.FirstName, model.LastName, model.Email, model.Password, model.Phone);
 
-                EmailNotificationService.sendEmail(_userService.GetUserInfo(model.Email));
+             EmailNotificationService.sendEmail(_userService.GetUserInfo(model.Email));
 
                 return Ok();
             }
@@ -42,13 +42,13 @@ namespace HoReD.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("Registration/{encryptedUserId}")]
-        public IHttpActionResult ActivateUser(string encryptedUserId)
+        [HttpGet]
+        [Route("Registration/{IdUser}")]
+        public IHttpActionResult ActivateUser(string IdUser)
         {
             try
             {
-                int decryptedUserId = Convert.ToInt32(EncryptionService.Decrypt(encryptedUserId));
+                int decryptedUserId = Convert.ToInt32(EncryptionService.Decrypt(IdUser));
                 _userService.ActivateUser(decryptedUserId);
                 return Ok();
             }   
