@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Net.Mail;
 using System.Text;
+using System.Configuration;
 
 namespace Entities.Services
 {
@@ -48,12 +49,13 @@ namespace Entities.Services
         }
 
         public static void sendEmail(User user)
-        {
+        {         
             SmtpClient client = SetSmtpClient();
-            MailMessage mm = new MailMessage(Credentials.Email, user.Email);
-            mm.IsBodyHtml = true;
-            mm.Subject = subject;
-            client.Send(mm);
+            MailMessage mailmessage = new MailMessage(Credentials.Email, user.Email);
+            mailmessage.IsBodyHtml = true;
+            mailmessage.Subject = subject;
+            mailmessage.Body = body + "<a href="+ConfigurationManager.AppSettings["Path"]+ "/activation/"+ user.Id+">click here</a>";
+            client.Send(mailmessage);
         }    
     }
 }
