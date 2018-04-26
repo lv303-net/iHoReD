@@ -5,6 +5,7 @@ import axios from 'axios';
 import validator from 'validator';
 import logo from '../images/logo.png';
 
+
 var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
@@ -17,20 +18,16 @@ class Authorization extends React.Component {
 
   render() {
     return(
-      <div className='divRender'>
-        <form className="navbarForm">
-          <div className="container">
+          <div className="col-xs-12 col-sm-12 col-md-4">
             <div className="row">
-              <div className="col-xs-12 col-sm-12 col-md-3 mb-2 text-center">
+              <div className="col-xs-12 col-sm-12 col-md-6 mt-3 pr-0 float-right">
                 <button type="button" className="btn btn-info" data-toggle="modal" data-target="#SignInModal">Sign in</button>
               </div>
-              <div className="col-xs-12 col-sm-12 col-md-3 mb-2 text-center">
+              <div className="col-xs-12 col-sm-12 col-md-6 mt-3 float-right">
                 <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal">Sign up</button> 
               </div>
             </div>
           </div>          
-        </form>
-      </div>
     );
   }
     
@@ -197,25 +194,52 @@ class LogbarUnauth extends Component {
    
   render() {
   return (
-  <div>
-      <nav className="navbar navbar-expand-sm navbar-custom  navbar-default sticky-top navbar-toggleable-md ">
-        <div className = "container-fluid justify-content-center align-items-center navbar-collapse collapse navbarContainer">
-          <a className="navbar-brand" rel="home" href="#">
-            <img className="logo" src={logo}></img>
-          </a> 
-          <div className="col-xs-12 col-sm-12 col-md-3">
-            <h4>Lviv Regoinal Hospital</h4>
-            <h3>Registration Desk</h3>
+  <div className="mb-4 navbar-custom">
+     <nav className="navbar navbar-expand-sm navbar-custom  navbar-default sticky-top navbar-toggleable-md">
+        <div className = "container-fluid justify-content-center navbar-collapse collapse navbarContainer">
+          <div className = "container-fluid">
+            <div className="row">
+              <div className="col-xs-12 col-sm-12 col-md-8 text-center">
+                <div className="row">
+                  <div className="col-xs-12 col-sm-12 col-md-2">
+                    <a className="navbar-brand" href="#">
+                      <img className="logo" src={logo}></img>
+                    </a> 
+                  </div>    
+                  <div className="col-xs-12 col-sm-12 col-md-5">
+                    <h2>Lviv Regional Hospital</h2>
+                  </div>
+                  <div className="col-xs-12 col-sm-12 col-md-4 vertical">
+                    <h5>9, Mykolaychuk Str.</h5>
+                    <h5>(032) 252 70 11</h5>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xs-12 col-sm-12 col-md-4 text-center">
+                <div className="row">
+                  <div className="col-xs-12 col-sm-12 col-md-6"></div>
+                  <Authorization/>
+                  <div className="col-xs-12 col-sm-12 col-md-2 mt-3">
+                  <button class="btn btn-info align-right" type="button" data-toggle="collapse" data-target="#collapsedMenu" aria-expanded="false" aria-controls="collapseExample">
+                    ham</button> 
+                  </div>
+                </div >
+              </div>
+            </div>
           </div>
-
-          <div className="col-xs-12 col-sm-12 col-md-3">
-            <h8>Topol`na 4, Str  </h8>
-            <h8>(096) 167 01 03  </h8>
-            <h8>(093) 167 01 03  </h8>
-          </div>
-          <Authorization/>
         </div>
       </nav>
+
+      <div class="collapse container-fluid pl-0 pr-0" id="collapsedMenu">
+            <ul className="nav justify-content-center btn-group btn-group-lg">
+                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">Home</a></li>
+                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">Contacts</a></li>
+                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">Doctors</a></li>
+                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">News</a></li>
+                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">Illnes prevention</a></li>
+                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">National medicine program</a></li>
+            </ul>  
+      </div>
 
       <div className="modal fade" id="myModal">
         <div className="modal-dialog">
