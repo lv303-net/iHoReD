@@ -79,6 +79,7 @@
     <Compile Include="Services\DbContext.cs" />
     <Compile Include="Services\DoctorService.cs" />
     <Compile Include="Services\EmailNotificationService.cs" />
+    <Compile Include="Services\EncryptionServise.cs" />
     <Compile Include="Services\FakeDbContext.cs" />
     <Compile Include="Services\FakeDoctorService.cs" />
     <Compile Include="Services\IDbContext.cs" />

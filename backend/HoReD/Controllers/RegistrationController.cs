@@ -43,13 +43,14 @@ namespace HoReD.Controllers
         }
 
         [HttpPost]
-        [Route("Registration/{IdUser}")]
-        public IHttpActionResult ActivateUser(int IdUser)
+        [Route("Registration/{encryptedUserId}")]
+        public IHttpActionResult ActivateUser(string encryptedUserId)
         {
             try
             {
-                _userService.ActivateUser(IdUser);
-                return this.Redirect("/"); //redirect to user page
+                int decryptedUserId = Convert.ToInt32(EncryptionService.Decrypt(encryptedUserId));
+                _userService.ActivateUser(decryptedUserId);
+                return Ok();
             }   
             catch (Exception)
             {

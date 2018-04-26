@@ -49,11 +49,15 @@ namespace Entities.Services
 
         public static void sendEmail(User user)
         {
+            string userId = user.Id.ToString();
+
+            string encryptedUserId = EncryptionService.Encrypt(userId);
+            
             SmtpClient client = SetSmtpClient();
             MailMessage mm = new MailMessage(Credentials.Email, user.Email);
             mm.IsBodyHtml = true;
             mm.Subject = subject;
-            mm.Body = body + "<a href='http://localhost:3000/Registration/ActivateUser/" + user.Id.ToString() + "'>click here</a>";
+            mm.Body = body + "<a href='http://localhost:3000/Registration/ActivateUser/" + encryptedUserId + "'>click here</a>";
             client.Send(mm);
         }    
     }
