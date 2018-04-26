@@ -8,10 +8,6 @@ using System.Security.Cryptography;
 
 namespace Entities.Services
 {
-    using System.IO;
-    using System.Text;
-    using System.Security.Cryptography;
-
     public static class EncryptionService
     {
         public static string Encrypt(string clearText)
