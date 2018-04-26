@@ -161,7 +161,7 @@ class LogbarUnauth extends Component {
         this.divPassRegistr.current.textContent="Please enter a valid password";
       }
       console.log(this.validConfirmPassword);
-      if (this.validConfirmPasword) {
+      if (this.validConfirmPassword) {
         this.divConfirmPassRegistr.current.textContent='';
       }
       else {
