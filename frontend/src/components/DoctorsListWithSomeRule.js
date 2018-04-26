@@ -12,30 +12,25 @@ else if(process.env.NODE_ENV==="production")
 class DoctorsListWithSomeRule extends Component {
     constructor(props){      
         super(props);
-        this.state = { doc: [], idRule: 1 };      
-        }
-  
-        static getDerivedStateFromProps(nextProps, prevState) {
-          return {
-            idRule: nextProps.idRule,
-          }
+        this.state = { doc: [], idRule: 0 };      
         }
   
         shouldComponentUpdate(nextProps, nextState) {
-          return (this.state.doc !== nextState.doc); 
+          return (this.state.idRule !== nextProps.idRule); 
         }
-  
-        getDoctors(){
-        axios.get(server_url+'/rule/' + this.state.idRule + '/DoctorHasRule')
+        
+
+        componentWillUpdate(nextProps, nextState){
+        axios.get(server_url+'/rule/' + nextProps.idRule + '/DoctorHasRule')
         .then(res => {
           this.setState({
+            idRule: nextProps.idRule,
             doc: res.data
           })
         });
       }
         
       render(){
-        this.getDoctors();
         return  (
           <div className='container'>
             <div className="col-sm-6 list-group mt-4" id = "doctors">
