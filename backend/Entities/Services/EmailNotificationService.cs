@@ -49,27 +49,15 @@ namespace Entities.Services
         }
 
         public static void sendEmail(User user)
-<<<<<<< HEAD
-        {
+        {       
             string userId = user.Id.ToString();
-
             string encryptedUserId = EncryptionService.Encrypt(userId);
-            
-            SmtpClient client = SetSmtpClient();
-            MailMessage mm = new MailMessage(Credentials.Email, user.Email);
-            mm.IsBodyHtml = true;
-            mm.Subject = subject;
-            mm.Body = body + "<a href='http://localhost:3000/Registration/ActivateUser/" + encryptedUserId + "'>click here</a>";
-            client.Send(mm);
-=======
-        {         
             SmtpClient client = SetSmtpClient();
             MailMessage mailmessage = new MailMessage(Credentials.Email, user.Email);
             mailmessage.IsBodyHtml = true;
             mailmessage.Subject = subject;
-            mailmessage.Body = body + "<a href="+ConfigurationManager.AppSettings["Path"]+ "/activation/"+ user.Id+">click here</a>";
+            mailmessage.Body = body + "<a href="+ConfigurationManager.AppSettings["Path"]+ "/activation/"+ encryptedUserId +">click here</a>";
             client.Send(mailmessage);
->>>>>>> 67af52d167f0ebd481eb4d493b4622e44689622c
         }    
     }
 }
