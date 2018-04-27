@@ -1,6 +1,10 @@
 App {
   text-align: center;
 }
+body {
+  border-radius: 0%;  
+}
+
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -77,9 +81,6 @@ App {
   visibility:visible;
 }
 
-.form-control {
-  border-color: aqua;
-}
 .form-control:focus, input:focus{
   outline: none;
 }
@@ -88,6 +89,11 @@ App {
   font-size: 14px;
 }
   
+.labelForm {
+  /*letter-spacing: 1px;*/
+  margin-bottom: 0;
+  margin-top: 0.5em;
+}
 #editInfoWindow {
   background-color: white;
   border-radius: 10px;
@@ -132,23 +138,9 @@ App {
   width: 100% important;
 }
 
-@media (min-width: 768px) {
-.navbarForm [type="submit"]{
-  margin-right: 60%;
-}
-
-.navbarForm [type="button"]{
-  margin-left: 60%;
-}
-}
-
 div.profDocTable:hover {
   background-color: #E3E3E3;
   cursor: pointer;
-}
-
-#doctors, #professions {
-  margin-left: 15px;
 }
 
 .logo{

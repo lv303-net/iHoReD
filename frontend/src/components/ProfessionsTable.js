@@ -3,6 +3,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
 import DoctorTable from './DoctorTable';
+import '../style/Professions.css'
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -39,14 +40,16 @@ constructor(props){
     }
 
     render(){
-      return <div className = "container">
-      <div className="row justify-content-center">
-       <div className="list-group" role="tablist" id="professions">
-       <div className="list-group-item bg-info">Professions:</div>
-        {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => this.eventHandler(professionsArr[0])}><div>{professionsArr[1]}</div></a>)}
-       </div> 
-        <DoctorTable idProf={this.state.id}/> 
-        </div>  
+      return <div className="col-sm-12 col-md-3 mr-5 divTwo">
+              <div className="row">
+              <div className="list-group mb-2 col-sm-6 col-md-12" id="professions">
+                <div className="list-group-item bg-info">Professions</div>
+                  <div className='listA'>
+                    {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => this.eventHandler(professionsArr[0])}><div>{professionsArr[1]}</div></a>)}
+                  </div>
+                </div> 
+                <DoctorTable idProf={this.state.id}/> 
+                </div>
         </div>
 
     

@@ -41,7 +41,6 @@ class App extends Component {
           </button>        
         </nav>
 
-
         <div class="pos-f-t container-fluid navbar-custom border border-top-2 p-0">
           <div class="collapse" id="navbarToggleExternalContent">
             <ul className="nav nav-justified">
@@ -69,12 +68,11 @@ class App extends Component {
             <div className="col-sm-4">
               <ProfessionsTable/>
             </div>
-            <div className="col-sm-8">
+            <div className="col-sm-12 col-md-8 mr-1" id="calendarDiv">
               <Calendar />
             </div>
-          </div>
+          </div> 
         </div>
-
       </div>
     );
   }

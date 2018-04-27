@@ -114,6 +114,10 @@ class LogbarUnauth extends Component {
     }
   }
 
+  hideError(divName) {
+    divName.current.textContent = '';
+  }
+
   showError() {
     if (this.validFirstName && this.validLastName && this.validPhone && this.validEmail && this.validPasword && this.validConfirmPassword) {
       this.validAll = true;
@@ -125,40 +129,44 @@ class LogbarUnauth extends Component {
         this.divFNameRegistr.current.textContent='';
       }
       else {
+        document.getElementById("firstName").style.borderColor = '#f74131';
         this.divFNameRegistr.current.textContent='Please enter a valid firstname';
       }
       if (this.validLastName) {
         this.divLNameRegistr.current.textContent='';
       }
       else {
+        document.getElementById("lastName").style.borderColor = '#f74131';
         this.divLNameRegistr.current.textContent='Please enter a valid lastname';
       }
       if (this.validPhone) {
         this.divPhoneRegistr.current.textContent='';
       }
       else {
+        document.getElementById("phone").style.borderColor = '#f74131';
         this.divPhoneRegistr.current.textContent='Please enter a valid phone number';
       }
       if (this.validEmail) {
         this.divEmailRegistr.current.textContent='';
       }
       else {
+        document.getElementById("email").style.borderColor = '#f74131';
         this.divEmailRegistr.current.textContent="Please enter a valid email";
       }
       if (this.validPasword) {
         this.divPassRegistr.current.textContent='';
       }
       else {
+        document.getElementById("password").style.borderColor = '#f74131';
         this.divPassRegistr.current.textContent="Please enter a valid password";
       }
-      console.log(this.validConfirmPassword);
       if (this.validConfirmPassword) {
         this.divConfirmPassRegistr.current.textContent='';
       }
       else {
+        document.getElementById("confirmPassword").style.borderColor = '#f74131';
         this.divConfirmPassRegistr.current.textContent="Your passwords don't match";
-      }
-      
+      }      
     }
   }
   
@@ -211,7 +219,6 @@ class LogbarUnauth extends Component {
       return false;
     }
   }
-
   render() {
     return(
       <div>

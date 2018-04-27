@@ -15,6 +15,7 @@ import Menu from 'react-burger-menu';
 import BM from './components/BurgerMenu';
 
 
+
 class Home extends Component {
     render() {
       return (
@@ -24,8 +25,8 @@ class Home extends Component {
         <Route path="/allDiagnoses" component={Diagnoses}/>
         <Route path="/startPage" component={StartPatientPage}/>
         <Route path="/admin" component={AdminRulesPage}/>
-        <Route path="/activate/:id" component={ActivationLink}/>
-      </Switch>
+        <Route path="/activation/:id" component={ActivationLink}/>
+             </Switch>
            );
     }
   }
