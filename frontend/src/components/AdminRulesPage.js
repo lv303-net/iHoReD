@@ -31,8 +31,8 @@ class RulesList extends Component {
         super();
         this.state = {
             idArr: [],
-            id: -1,
-            idForInfo: -1
+            id: 0,
+            idForInfo: 0
         };
 
         this.IdRule = -1;
@@ -102,6 +102,29 @@ class RulesList extends Component {
         })
     }
 
+    ShowShorterValueName(text) {
+        var newText = '';
+        var i;
+        for(i=0;i<3;i++){
+            newText += text[i];
+        }
+        return newText;
+    }
+
+    DeleteRuleByID(id)
+    {
+        axios.post(server_url + "/rule/" + id + "/delete")
+        .then(function (response) {
+            //handle success
+            window.location.reload();
+            console.log(response);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+    }
+
     render() {
         return (
             <div className = "container">
@@ -115,9 +138,8 @@ class RulesList extends Component {
                         {this.state.idArr.map(idr => <div className='list-group-item list-group-item-active' key={idr.IdRule.toString()}>
                         <div className='col-sm-9 float-left' onClick={() => this.eventHandler(idr.IdRule)}>{idr.RuleName}</div>
                         <div className='col-sm-3 float-right justify-content-end'>
-                            <i class="fas fa-info-circle" onClick={() => this.ChangeIdForInfo(idr.IdRule)} data-toggle="modal" href="#myModal"></i>
-                            <i class="fas fa-pencil-alt"></i>
-                            <i class="fas fa-times"></i>
+                            <i class="fas fa-pencil-alt"  onClick={() => this.ChangeIdForInfo(idr.IdRule)} data-toggle="modal" href="#myModal"></i>
+                            <i class="fas fa-times" onClick={() => this.DeleteRuleByID(idr.IdRule)}></i>
                         </div>
                     </div>)}
                 </div>
@@ -168,9 +190,10 @@ class RulesList extends Component {
                                     </div>
                                     <div className="form-row mb-3 justify-content-center">
                                         <div className="form-group col-sm-6 col-xs-12">
-                                        {Object.keys(this.Week).map((key) => <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" onChange={x=> {this.Week[key] = x.target.checked;}}/>
-                                                <label class="form-check-label" for="defaultCheck1" >{key}</label>
+                                        {Object.keys(this.Week).map((key) => <div class="form-check form-check-inline">
+                                                <label class="form-check-label" for="defaultCheck1" >{this.ShowShorterValueName(key)}
+                                                    <input class="form-check-input" type="checkbox" value="" onChange={x=> {this.Week[key] = x.target.checked;}}/>
+                                                </label>
                                             </div>)}
                                         </div>
                                     </div>
@@ -196,8 +219,8 @@ class RulesList extends Component {
                                 {this.state.idArr.map(rule => {if(rule.IdRule == this.state.idForInfo){
                                     return (
                                     <div>
-                                        <p>Id:<b> {rule.IdRule} </b></p>
-                                        <p>Name:<b> {rule.RuleName}</b></p>
+                                        <p>Id: <b>{rule.IdRule}</b></p>                                        
+                                        <label><p>Name:</p><input type="text" className="form-control" value="" name="firstName" onChange={this.handleChange} /></label>
                                         <p>Hour start:<b> {rule.HourStart}</b></p>
                                         <p>Hour end:<b> {rule.HourFinish}</b></p>
                                         <p>Period start: <b>{rule.PeriodStart}</b></p>
