@@ -280,8 +280,7 @@ namespace Entities.Services
                         tempDateStart = tempDateStart.Add(TimeSpan.FromDays(1));
                     }
                 }
-            }
-            
+            }          
             return events;
         }
     }

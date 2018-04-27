@@ -44,11 +44,12 @@ namespace HoReD.Controllers
 
         [HttpGet]
         [Route("Registration/{IdUser}")]
-        public IHttpActionResult ActivateUser(int IdUser)
+        public IHttpActionResult ActivateUser(string IdUser)
         {
             try
             {
-                _userService.ActivateUser(IdUser);
+                int decryptedUserId = Convert.ToInt32(EncryptionService.Decrypt(IdUser));
+                _userService.ActivateUser(decryptedUserId);
                 return Ok();
             }   
             catch (Exception)
