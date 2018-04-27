@@ -38,8 +38,10 @@ class Calendar extends React.Component{
         header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'agendaDay,agendaWeek,month',
+        right: 'agendaDay, agendaWeek, month',
+        
         },
+        allDaySlot: false,
         defaultView: "agendaDay",
         selectable: true,
         selectHelper: true,
