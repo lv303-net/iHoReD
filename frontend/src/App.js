@@ -24,15 +24,13 @@ render() {
       <div>
         {(localStorage.getItem("currentUserFirstName")==null) ? (<LogbarUnauth/>) : (<LogbarAuth/>)}
 
-        <div class="container-fluid">
-          <div className="row">
-            <div className="col-sm-3">
+        <div className="container">
+          <div className='row'>
               <ProfessionsTable/>
-            </div>
-            <div className="col-sm-8 mr-1" id="calendarDiv">
+            <div className="col-sm-12 col-md-8 mr-1" id="calendarDiv">
               <Calendar />
             </div>
-          </div>
+            </div>
         </div>
       </div>
     ); 

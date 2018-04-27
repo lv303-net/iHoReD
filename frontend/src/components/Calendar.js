@@ -3,6 +3,7 @@ import { Component } from 'react';
 import $ from 'jquery';
 import 'fullcalendar';
 import axios from 'axios';
+import '../style/Calendar.css'
 
 var server_url;
 if(process.env.NODE_ENV==="development")

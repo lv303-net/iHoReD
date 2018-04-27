@@ -1,3 +1,6 @@
+body {
+  border-radius: 0%;  
+}
 .App {
   text-align: center;
 }
@@ -138,10 +141,6 @@ div.profDocTable:hover {
   cursor: pointer;
 }
 
-#doctors, #professions {
-  margin-left: 15px;
-}
-
 .logo{
  max-height: 3em;
  width: auto;
@@ -173,20 +172,4 @@ h2{
     height: auto;
     border-radius: 0.2em;
 } */
-.btn-custom {
-  color: #ccfff5;
-  background-color:#80bfff;
-  border-radius: 0%;
-  border: 2px 1px 2px 1px solid #adc9ff;
-}
 
-#calendarDiv {
-  background-color: white;
-  padding: 15px;
-  box-shadow: 5px 10px 18px #888888
-}
-
-.bg-info {
-  background-color: #007bff !important;
-  color: white;
-}
