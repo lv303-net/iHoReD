@@ -113,7 +113,7 @@ class RulesList extends Component {
 
     DeleteRuleByID(id)
     {
-        axios.post(server_url + "/" + id + "/delete")
+        axios.post(server_url + "/rule/" + id + "/delete")
     }
 
     render() {
