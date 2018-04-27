@@ -111,6 +111,11 @@ class RulesList extends Component {
         return newText;
     }
 
+    DeleteRuleByID(id)
+    {
+        axios.post(server_url + "/" + id + "/delete")
+    }
+
     render() {
         return (
             <div className = "container">
@@ -124,9 +129,8 @@ class RulesList extends Component {
                         {this.state.idArr.map(idr => <div className='list-group-item list-group-item-active' key={idr.IdRule.toString()}>
                         <div className='col-sm-9 float-left' onClick={() => this.eventHandler(idr.IdRule)}>{idr.RuleName}</div>
                         <div className='col-sm-3 float-right justify-content-end'>
-                            <i class="fas fa-info-circle" onClick={() => this.ChangeIdForInfo(idr.IdRule)} data-toggle="modal" href="#myModal"></i>
-                            <i class="fas fa-pencil-alt"></i>
-                            <i class="fas fa-times"></i>
+                            <i class="fas fa-pencil-alt"  onClick={() => this.ChangeIdForInfo(idr.IdRule)} data-toggle="modal" href="#myModal"></i>
+                            <i class="fas fa-times" onClick={() => this.DeleteRuleByID(idr.IdRule)}></i>
                         </div>
                     </div>)}
                 </div>
@@ -206,8 +210,8 @@ class RulesList extends Component {
                                 {this.state.idArr.map(rule => {if(rule.IdRule == this.state.idForInfo){
                                     return (
                                     <div>
-                                        <p>Id:<b> {rule.IdRule} </b></p>
-                                        <p>Name:<b> {rule.RuleName}</b></p>
+                                        <p>Id: <b>{rule.IdRule}</b></p>                                        
+                                        <label><p>Name:</p><input type="text" className="form-control" value="" name="firstName" onChange={this.handleChange} /></label>
                                         <p>Hour start:<b> {rule.HourStart}</b></p>
                                         <p>Hour end:<b> {rule.HourFinish}</b></p>
                                         <p>Period start: <b>{rule.PeriodStart}</b></p>
