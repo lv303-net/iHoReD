@@ -31,8 +31,8 @@ class RulesList extends Component {
         super();
         this.state = {
             idArr: [],
-            id: -1,
-            idForInfo: -1
+            id: 0,
+            idForInfo: 0
         };
 
         this.IdRule = -1;
@@ -102,6 +102,15 @@ class RulesList extends Component {
         })
     }
 
+    ShowShorterValueName(text) {
+        var newText = '';
+        var i;
+        for(i=0;i<3;i++){
+            newText += text[i];
+        }
+        return newText;
+    }
+
     render() {
         return (
             <div className = "container">
@@ -168,9 +177,10 @@ class RulesList extends Component {
                                     </div>
                                     <div className="form-row mb-3 justify-content-center">
                                         <div className="form-group col-sm-6 col-xs-12">
-                                        {Object.keys(this.Week).map((key) => <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" onChange={x=> {this.Week[key] = x.target.checked;}}/>
-                                                <label class="form-check-label" for="defaultCheck1" >{key}</label>
+                                        {Object.keys(this.Week).map((key) => <div class="form-check form-check-inline">
+                                                <label class="form-check-label" for="defaultCheck1" >{this.ShowShorterValueName(key)}
+                                                    <input class="form-check-input" type="checkbox" value="" onChange={x=> {this.Week[key] = x.target.checked;}}/>
+                                                </label>
                                             </div>)}
                                         </div>
                                     </div>
