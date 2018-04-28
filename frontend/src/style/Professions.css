@@ -1,6 +1,26 @@
 [class*="col-"] {
     width: 100%;
 }
-@media (min-width: 576px) and (max-width: 768px) {
+.fas {
+    display: none;
+}
 
+.list-group-item p {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+.list-group-item i {
+    
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+    .listA {
+        display: none;
+    }
+    .fas {
+        display: inline;
+        right: 0;
+    }
 }
