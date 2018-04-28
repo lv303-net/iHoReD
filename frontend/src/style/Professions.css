@@ -1,26 +1,49 @@
-[class*="col-"] {
-    width: 100%;
-}
-.fas {
+.fa-angle-down, .fa-angle-right {
     display: none;
+}
+
+div#professions {
+    padding-left: 15px;
 }
 
 .list-group-item p {
     margin: 0;
+    margin-right: 1em;
     padding: 0;
     display: inline;
 }
 
-.list-group-item i {
-    
-}
-
 @media (min-width: 576px) and (max-width: 768px) {
-    .listA {
+    #listDoc, #listProf {
         display: none;
     }
-    .fas {
+
+    #profButton:hover {
+        color: #0062cc;
+    }
+    /* .fa-angle-down {
         display: inline;
         right: 0;
+    }        
+    #docButton:hover, #profButton:hover {
+        background-color: white;
+        box-shadow: 5px 10px 18px red;
+    }
+    #docButton:focus ~ .listA, #profButton:focus ~ .listA {
+        display: block;
+    } */
+}
+
+@media (max-width: 576px) and (min-width: 768px) {
+    #listDoc, #listProf {
+        display: block;
     }
 }
+
+#listProf, #listDoc {
+    box-shadow: 5px 10px 18px #888888;
+}
+
+/* #profButton, #docButton {
+    box-shadow: 5px 0px 18px  #888888; 
+} */

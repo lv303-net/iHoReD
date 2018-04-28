@@ -30,7 +30,6 @@ class Home extends Component {
       );
     }
   }
-
   
   ReactDOM.render((
     <BrowserRouter>
