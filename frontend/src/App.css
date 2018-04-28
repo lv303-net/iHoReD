@@ -1,6 +1,10 @@
-.App {
+App {
   text-align: center;
 }
+body {
+  border-radius: 0%;  
+}
+
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -28,8 +32,9 @@
 }
 
 .navbar-custom {
-  color: #ccfff5;
-  background-color:#80bfff;
+  color: white;
+  /* background-color: #49A2FF; */
+  background-color: #74B8FF;
 }
 
 .modal-header {
@@ -76,13 +81,19 @@
   visibility:visible;
 }
 
-.form-control {
-  border-color: aqua;
-}
 .form-control:focus, input:focus{
   outline: none;
 }
+
+#invalidFname, #invalidLname, #invalidPhone, #invalidEmail, #invalidPassword, #invalidConfirmPassword {
+  font-size: 14px;
+}
   
+.labelForm {
+  /*letter-spacing: 1px;*/
+  margin-bottom: 0;
+  margin-top: 0.5em;
+}
 #editInfoWindow {
   background-color: white;
   border-radius: 10px;
@@ -127,24 +138,9 @@
   width: 100% important;
 }
 
-@media (min-width: 768px) {
-.navbarForm [type="submit"]{
-  margin-right: 60%;
-}
-
-.navbarForm [type="button"]{
-  margin-left: 60%;
-}
-}
-
 div.profDocTable:hover {
   background-color: #E3E3E3;
   cursor: pointer;
-}
-
-#doctors, #professions {
-  
-  margin-left: 15px;
 }
 
 .logo{
@@ -152,6 +148,19 @@ div.profDocTable:hover {
  width: auto;
 }
 
-.btn {
-  position: inherit; 
+.btn-custom {
+  color: white;
+  border-radius: 0%;
+  border: 2px 1px 2px 1px solid #adc9ff;
+}
+
+.btn-custom :hover {
+  background-color:#80bfff;
+}
+
+ul li a {
+  color: white;
+}
+ul li a :hover {
+  color: white;
 }

@@ -3,37 +3,28 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import validator from 'validator';
-import logo from '../images/logo.png';
+import HamburgerMenu from 'react-hamburger-menu';
+
 
 var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
+
 class Authorization extends React.Component {
   constructor(props){
     super(props);
   }
 
   render() {
-    return(
-      <div className='divRender'>
-        <form className="navbarForm">
-          <div className="container">
-            <div className="row">
-              <div className="col-xs-12 col-sm-12 col-md-3 mb-2 text-center">
-                <button type="button" className="btn btn-info" data-toggle="modal" data-target="#SignInModal">Sign in</button>
-              </div>
-              <div className="col-xs-12 col-sm-12 col-md-3 mb-2 text-center">
-                <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal">Sign up</button> 
-              </div>
-            </div>
-          </div>          
-        </form>
-      </div>
+    return(    
+      <div>
+        <li><button type="button" className="btn btn-info" data-toggle="modal" data-target="#SignInModal">Sign in</button></li>
+        <li><button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal">Sign up</button> </li>
+      </div>         
     );
   }
-    
 }
 
 class LogbarUnauth extends Component { 
@@ -57,12 +48,18 @@ class LogbarUnauth extends Component {
     this.loginAuth='';
     this.passwordAuth='';
     this.btnSubmitAuth= React.createRef();
+
+    this.validAll = false;
+    this.validFirstName = false;
+    this.validLastName = false;
+    this.validPhone = false;
+    this.validEmail = false;
+    this.validPasword = false;
+    this.validConfirmPassword = false;
   }
 
-  handleSubmitAuth = event => 
-  {
+  handleSubmitAuth = event => {
     event.preventDefault();
-  //const 
     var userAuth ={
       email: this.loginAuth,
       password: this.passwordAuth
@@ -73,13 +70,11 @@ class LogbarUnauth extends Component {
           window.location.reload();
           localStorage.setItem("currentUserFirstName", (response.data.FirstName));
           localStorage.setItem("currentUserLastName", (response.data.LastName));
-      })
+      });
   }
   
-  handleSubmitRegistr = event => 
-  {
+  handleSubmitRegistr = event => {
     event.preventDefault();
-    //const
     var userRegister = {
       firstName: this.firstNameRegistr,
       lastName: this.lastNameRegistr,
@@ -88,235 +83,282 @@ class LogbarUnauth extends Component {
       phone: this.phoneRegistr
     };
     
-    
+    if (this.validAll)  {
     localStorage.setItem("currentUserFirstName", (this.firstNameRegistr));
     localStorage.setItem("currentUserLastName", (this.lastNameRegistr));
 
-    axios.post(server_url + '/api/Registration',userRegister)
-      .then(function (response) {
-          //handle success
-          window.location.reload();
-          console.log(response);
-      })
-      .catch(function (response) {
-          //handle error
-          console.log(response);
-      });
+      axios.post(server_url + '/api/Registration',userRegister)
+        .then(function (response) {
+            //handle success
+            window.location.reload();
+            console.log(response);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+    }
   }
 
   checkPassword() {
     var password = this.passwordRegistr;
     var confirmPassword = this.confirmPasswordRegistr;
-    this.divConfirmPassRegistr.current.textContent="";
     if (password != confirmPassword) {
-      this.divConfirmPassRegistr.current.textContent="Your passwords don't match!";
+      console.log("Password isn't the same");
+      this.validConfirmPassword = false;
       return false;
     }
-    return true;
+    else {
+      this.validConfirmPassword = true;  
+      return true;
+    }
   }
 
+  hideError(divName) {
+    divName.current.textContent = '';
+  }
+
+  showError() {
+    if (this.validFirstName && this.validLastName && this.validPhone && this.validEmail && this.validPasword && this.validConfirmPassword) {
+      this.validAll = true;
+    }
+    else {
+      this.validAll = false;
+
+      if (this.validFirstName) {
+        this.divFNameRegistr.current.textContent='';
+      }
+      else {
+        document.getElementById("firstName").style.borderColor = '#f74131';
+        this.divFNameRegistr.current.textContent='Please enter a valid firstname';
+      }
+      if (this.validLastName) {
+        this.divLNameRegistr.current.textContent='';
+      }
+      else {
+        document.getElementById("lastName").style.borderColor = '#f74131';
+        this.divLNameRegistr.current.textContent='Please enter a valid lastname';
+      }
+      if (this.validPhone) {
+        this.divPhoneRegistr.current.textContent='';
+      }
+      else {
+        document.getElementById("phone").style.borderColor = '#f74131';
+        this.divPhoneRegistr.current.textContent='Please enter a valid phone number';
+      }
+      if (this.validEmail) {
+        this.divEmailRegistr.current.textContent='';
+      }
+      else {
+        document.getElementById("email").style.borderColor = '#f74131';
+        this.divEmailRegistr.current.textContent="Please enter a valid email";
+      }
+      if (this.validPasword) {
+        this.divPassRegistr.current.textContent='';
+      }
+      else {
+        document.getElementById("password").style.borderColor = '#f74131';
+        this.divPassRegistr.current.textContent="Please enter a valid password";
+      }
+      if (this.validConfirmPassword) {
+        this.divConfirmPassRegistr.current.textContent='';
+      }
+      else {
+        document.getElementById("confirmPassword").style.borderColor = '#f74131';
+        this.divConfirmPassRegistr.current.textContent="Your passwords don't match";
+      }      
+    }
+  }
+  
   validateFirstName() {
-    var tempFName=false;
     if ( validator.isAlpha(this.firstNameRegistr,'en-GB')) {
-      tempFName=true;
-      this.divFNameRegistr.current.textContent="";
+      this.validFirstName = true;
       return true;
     } else {
-      tempFName=false;
-      this.divFNameRegistr.current.textContent="Your first name is not valid!";
+      this.validFirstName = false;
       return false;
     }
   }
 
   validateLastName() {
-    var tempLName=false;
     if ( validator.isAlpha(this.lastNameRegistr,'en-GB')) {
-      tempLName=true;
-      this.divLNameRegistr.current.textContent="";
+      this.validLastName=true;
       return true;
     } else {
-      tempLName=false;
-      this.divLNameRegistr.current.textContent="Your last name is not valid!";
+      this.validLastName=false;
       return false;
     }
   }
 
   validatePhone() {
-    var tempPhone=false;
     if ( validator.isMobilePhone(this.phoneRegistr, 'uk-UA')) {
-      var tempPhone=true;
-      this.divPhoneRegistr.current.textContent="";
-      console.log(this.phoneRegistr);
+      this.validPhone = true;
       return true;
     } else {
-      var tempPhone=false;
-      this.divPhoneRegistr.current.textContent="Your phone is not valid!";
+      this.validPhone = false;
       return false;
     }        
   }
 
   validateEmail() {
-    var tempEmail=false;
     if ( validator.isEmail(this.emailRegistr)) {
-      var tempEmail=true;
-      this.divEmailRegistr.current.textContent="";
+      this.validEmail=true;
       return true;
     } else {
-      var tempEmail=false;
-      this.divEmailRegistr.current.textContent="Your email is not valid!";
+      this.validEmail=false;
       return false;
     }
   }
   
   validatePassword() {   
-    var tempPass=false;
     if ( validator.isEmpty(this.passwordRegistr)==false) {
-      var tempPass=true;
-      this.divPassRegistr.current.textContent="";
+      this.validPasword=true;
       return true;
     } else {
-      var tempPass=false;
-      this.divPassRegistr.current.textContent="You have not enter the password!";
+      this.validPasword=false;
       return false;
     }
   }
-
-  validateAll() {    
-    if(this.validateFirstName() && this.validateLastName() && this.validatePhone() && 
-        this.validateEmail() && this.validatePassword() && this.checkPassword())
-    {
-      this.btnSubmitRegistr.current.disabled=false;
-      return false
-    }
-    else
-    {
-      this.btnSubmitRegistr.current.disabled=true; 
-      return true;
-    }    
-  }
-   
   render() {
-  return (
-  <div>
-      <nav className="navbar navbar-expand-sm navbar-custom  navbar-default sticky-top navbar-toggleable-md ">
-        <div className = "container-fluid justify-content-center align-items-center navbar-collapse collapse navbarContainer">
-          <a className="navbar-brand" rel="home" href="#">
-            <img className="logo" src={logo}></img>
-          </a> 
-          <div className="col-xs-12 col-sm-12 col-md-3">
-            <h4>Lviv Regoinal Hospital</h4>
-            <h3>Registration Desk</h3>
-          </div>
-
-          <div className="col-xs-12 col-sm-12 col-md-3">
-            <h8>Topol`na 4, Str  </h8>
-            <h8>(096) 167 01 03  </h8>
-            <h8>(093) 167 01 03  </h8>
-          </div>
+    return(
+      <div>
+        <div className="col-xs-12 col-sm-12 col-md-4">
           <Authorization/>
         </div>
-      </nav>
 
-      <div className="modal fade" id="myModal">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header mb-5">
-              <h4 className="modal-title">Registration Form</h4>
-              <button type="button" className="close" data-dismiss="modal">&times;</button>
+        <div className="modal fade" id="myModal">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header mb-5">
+                <h4 className="modal-title">Registration Form</h4>
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+              </div>
+              <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate>    
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputFName">
+                    <input type="text" 
+                      className="form-control"
+                      onChange={(x => {this.firstNameRegistr=x.target.value; this.validateFirstName()})}  
+                      name="FIRSTNAME" 
+                      placeholder="First Name" 
+                      required/>
+                    <div id="invalidFname" className="text-muted" ref={this.divFNameRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputLName">
+                    <input type="text" 
+                      className="form-control" 
+                      onChange={(x => {this.lastNameRegistr=x.target.value; this.validateLastName()})} 
+                      placeholder="Last Name" 
+                      name="LASTNAME" 
+                      required/>
+                    <div id="invalidLname" className="text-muted" ref={this.divLNameRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputPhone">
+                    <input type="tel"  
+                      className="form-control" 
+                      onChange={x=> {this.phoneRegistr=x.target.value; this.validatePhone()}} 
+                      placeholder="Phone" 
+                      name="phone" 
+                      required/>
+                    <div id="invalidPhone" className="text-muted" ref={this.divPhoneRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputEmail">
+                    <input type="email"  
+                      className="form-control" 
+                      onChange={x=> {this.emailRegistr=x.target.value; this.validateEmail()}} 
+                      id="inputEmailtext" 
+                      placeholder="Email" 
+                      name="email" 
+                      required/>
+                    <div id="invalidEmail" className="text-muted" ref={this.divEmailRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputPassword">
+                    <input type="password"  
+                      className="form-control" 
+                      placeholder="Password" 
+                      onChange={(x => {this.passwordRegistr=x.target.value; this.validatePassword()})}
+                      name="password" 
+                      required/>
+                    <div id="invalidPassword" className="text-muted" ref={this.divPassRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12" id="inputConfirmPassword">
+                    <input type="password"  
+                      className="form-control" 
+                      placeholder="Confirm Password" 
+                      onChange={(x => {this.confirmPasswordRegistr=x.target.value; this.checkPassword()})} 
+                      onPaste={x => {x.preventDefault()}} 
+                      name="confirmPassword" 
+                      required/>
+                    <div id="invalidConfirmPassword" className="text-muted" ref={this.divConfirmPassRegistr}>
+                    </div>
+                  </div>
+                </div>
+                <div className="row mb-3 mt-5 justify-content-center">
+                  <div className="col-xs-3 col-sm-3 col-md-3 text-center">
+                    <button type="submit" ref={this.btnSubmitRegistr} onClick={(x=>this.showError())} className="btn btn-info btn-lg mb-3">Sign up
+                    </button>
+                  </div>
+                  <div className="col-xs-3 col-sm-3 col-md-3 text-center" >   
+                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-            <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate>    
-              <div className="form-row mb-3 justify-content-center">
-                <div className="form-group col-sm-6 col-xs-12" id="inputFName">
-                  <input type="text" className="form-control" onBlur={(x => {this.firstNameRegistr=x.target.value; this.validateFirstName()})} name="FIRSTNAME" placeholder="First Name" required/>
-                  <div id="invalidFname" ref={this.divFNameRegistr}>
-                  </div>
-                </div>
-              </div>
-              <div className="form-row mb-3 justify-content-center">
-                <div className="form-group col-sm-6 col-xs-12" id="inputLName">
-                  <input type="text" className="form-control" onBlur={(x => {this.lastNameRegistr=x.target.value; this.validateLastName()})} placeholder="Last Name" name="LASTNAME" required/>
-                  <div id="invalidLname" ref={this.divLNameRegistr}>
-                  </div>
-                </div>
-              </div>
-              <div className="form-row mb-3 justify-content-center">
-                <div className="form-group col-sm-6 col-xs-12" id="inputPhone">
-                  <input type="tel"  className="form-control" onBlur={x=> {this.phoneRegistr=x.target.value; this.validatePhone()}} placeholder="Phone" name="phone" required/>
-                  <div id="invalidPhone" ref={this.divPhoneRegistr}>
-                  </div>
-                </div>
-              </div>
-              <div className="form-row mb-3 justify-content-center">
-                <div className="form-group col-sm-6 col-xs-12" id="inputEmail">
-                  <input type="email"  className="form-control" onBlur={x=> {this.emailRegistr=x.target.value; this.validateEmail()}} id="inputEmailtext" placeholder="Email" name="email" required/>
-                  <div id="invalidEmail" ref={this.divEmailRegistr}>
-                  </div>
-                </div>
-              </div>
-              <div className="form-row mb-3 justify-content-center">
-                <div className="form-group col-sm-6 col-xs-12" id="inputPassword">
-                  <input type="password"  className="form-control" placeholder="Password" onBlur={(x => {this.passwordRegistr=x.target.value; this.validatePassword() })} name="password" required/>
-                  <div id="invalidPassword" ref={this.divPassRegistr}>
-                  </div>
-                </div>
-              </div>
-              <div className="form-row mb-3 justify-content-center">
-                <div className="form-group col-sm-6 col-xs-12" id="inputConfirmPassword">
-                  <input type="password"  className="form-control" placeholder="Confirm Password" onChange={(x => {this.confirmPasswordRegistr=x.target.value; this.checkPassword(); this.validateAll()})} onPaste={x => {x.preventDefault()}} name="confirmPassword" required/>
-                  <div id="invalidConfirmPassword" ref={this.divConfirmPassRegistr}>
-                  </div>
-                </div>
-              </div>
-              <div className="row mb-3 mt-5 justify-content-center">
-                <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                  <button type="submit"  ref={this.btnSubmitRegistr} disabled className="btn btn-info btn-lg mb-3">Sign up
-                  </button>
-                </div>
-                <div className="col-xs-3 col-sm-3 col-md-3 text-center" >   
-                  <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
-                  </button>
-                </div>
-              </div>
-            </form>
           </div>
-        </div> 
-      </div>
+        </div>
 
-      <div className="modal fade" id="SignInModal">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header mb-5">
-              <h4 className="modal-title">Please, enter Your creds</h4>
-              <button type="button" className="close" data-dismiss="modal">&times;</button>
+        <div className="modal fade" id="SignInModal">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header mb-5">
+                <h4 className="modal-title">Please, enter Your creds</h4>
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+              </div>
+              <form className="ml-3 mr-3" onSubmit={this.handleSubmitAuth}>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12">
+                    <input className="form-control"  type="text" placeholder="Email" onBlur={(x => {this.loginAuth=x.target.value; })} required/>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12">
+                    <input className="form-control"  type="password" placeholder="Password" onBlur={(x => {this.passwordAuth=x.target.value; })} required/> 
+                  </div>
+                </div>
+                <div className="row mb-3 mt-5 justify-content-center">
+                  <div className="col-xs-3 col-sm-3 col-md-3 text-center">
+                    <button type="submit" className="btn btn-info btn-lg mb-3">Sign in
+                    </button>
+                  </div>
+                  <div className="col-xs-3 col-sm-3 col-md-3 text-center" >   
+                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-            <form className="ml-3 mr-3" onSubmit={this.handleSubmitAuth}>
-              <div className="form-row mb-3 justify-content-center">
-                <div className="form-group col-sm-6 col-xs-12">
-                  <input className="form-control"  type="text" placeholder="Email" onBlur={(x => {this.loginAuth=x.target.value; })} required/>
-                </div>
-              </div>
-              <div className="form-row mb-3 justify-content-center">
-                <div className="form-group col-sm-6 col-xs-12">
-                  <input className="form-control"  type="password" placeholder="Password" onBlur={(x => {this.passwordAuth=x.target.value; })} required/> 
-                </div>
-              </div>
-              <div className="row mb-3 mt-5 justify-content-center">
-                <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                  <button type="submit" className="btn btn-info btn-lg mb-3">Sign in
-                  </button>
-                </div>
-                <div className="col-xs-3 col-sm-3 col-md-3 text-center" >   
-                  <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div> 
+          </div> 
+        </div>
       </div>
-
-  </div>);
+    );
   }
 }
-    
+
+     
 export default LogbarUnauth;
