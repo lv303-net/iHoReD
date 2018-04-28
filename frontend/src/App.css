@@ -1,9 +1,10 @@
+App {
+  text-align: center;
+}
 body {
   border-radius: 0%;  
 }
-.App {
-  text-align: center;
-}
+
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -31,8 +32,9 @@ body {
 }
 
 .navbar-custom {
-  /*color: #ccfff5;*/
-  background-color:#80bfff;
+  color: white;
+  /* background-color: #49A2FF; */
+  background-color: #74B8FF;
 }
 
 .modal-header {
@@ -146,30 +148,19 @@ div.profDocTable:hover {
  width: auto;
 }
 
-h5{
-  font-size: 0.8em;
+.btn-custom {
+  color: white;
+  border-radius: 0%;
+  border: 2px 1px 2px 1px solid #adc9ff;
 }
 
-h4{
-  font-size: 1.2em;
+.btn-custom :hover {
+  background-color:#80bfff;
 }
 
-h3{
-  font-size: 1.5em;
+ul li a {
+  color: white;
 }
-
-h2{
-  font-size: 1.7em;
+ul li a :hover {
+  color: white;
 }
-
-.vertical{
-  margin-top:0.7em;
-  }
-
-/* .navbar-toggle .icon-bar {
-    display: block;
-    width: auto;
-    height: auto;
-    border-radius: 0.2em;
-} */
-

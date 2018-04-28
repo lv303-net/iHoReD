@@ -14,7 +14,7 @@ else if(process.env.NODE_ENV==="production")
 class Calendar extends React.Component{
     constructor(props){      
       super(props);
-      this.state = { idDoc: 0, startPeriod: '', endPeriod: '', events:[]};  
+      this.state = { idDoc: 0, startPeriod: '', endPeriod: '', events:[], isOpen: false};  
     }
 
     save(start, end)
@@ -26,6 +26,16 @@ class Calendar extends React.Component{
       })
     }
 
+    toggleModal = () => {
+      this.setState({
+        isOpen: !this.state.isOpen
+      });
+    }
+    mod(){
+      return {
+        __html: '<Modal/>'
+      }
+    }
     componentDidMount()
     {
       var _that = this;
@@ -36,13 +46,12 @@ class Calendar extends React.Component{
         theme: true,
         businessHours: true,
         editable: true,
+        //color: '#FF0000', backgroundColor: '#000000' ,
         header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'agendaDay, agendaWeek, month',
-        
+        right: 'agendaDay,agendaWeek,month',
         },
-        allDaySlot: false,
         defaultView: "agendaDay",
         selectable: true,
         selectHelper: true,
@@ -77,14 +86,13 @@ class Calendar extends React.Component{
             //$('#calendar').fullCalendar('unselect');
         },
         
-        
+        eventClick: function(event, jsEvent, view ) {
+          // need button because issue related with opening modal from fullcalendar
+          $("#modButton").trigger("click");
+          //$('#mModal').modal("show"); 
 
-        eventClick: function(calEvent, jsEvent, view) {
-          alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-          // change the border color just for fun
-          $(this).css('background', 'red');
-        },
-        
+            //$( "p" ).trigger( "myCustomEvent", [ "John" ] );
+      }, 
         }) 
       });
     }
@@ -136,8 +144,31 @@ class Calendar extends React.Component{
       }
 
     render(){
-      return  (<div id = "calendar"> 
+      return  (
+        <div>
+        <div id = "calendar">
+        {/* need button because issue related with opening modal from fullcalendar */}
+          <button data-toggle="modal" data-target="#mModal" id = "modButton" style={{display: "none"}}>
+          </button>
+          </div>
+          <div className="modal fade" id="mModal">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button>
+                <h4 className="modal-title" id="mModalLabel">Modal title</h4>
               </div>
+              <div className="modal-body">
+                ...
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-info btn-lg">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
                   );
   }
   }

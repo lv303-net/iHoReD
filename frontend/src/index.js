@@ -11,6 +11,9 @@ import StartPatientPage from './components/StartPatientPage';
 import registerServiceWorker from './registerServiceWorker';
 import AdminRulesPage from './components/AdminRulesPage';
 import ActivationLink from './components/ActivationLink';
+import Menu from 'react-burger-menu';
+import BM from './components/BurgerMenu';
+
 
 
 class Home extends Component {
