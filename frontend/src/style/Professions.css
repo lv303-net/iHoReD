@@ -18,32 +18,22 @@ div#professions {
         display: none;
     }
 
-    #profButton:hover {
-        color: #0062cc;
-    }
-    /* .fa-angle-down {
-        display: inline;
-        right: 0;
-    }        
-    #docButton:hover, #profButton:hover {
-        background-color: white;
-        box-shadow: 5px 10px 18px red;
-    }
-    #docButton:focus ~ .listA, #profButton:focus ~ .listA {
-        display: block;
-    } */
-}
-
-@media (max-width: 576px) and (min-width: 768px) {
-    #listDoc, #listProf {
-        display: block;
+    #profButton:hover ~ p#tableLabel{
+        outline-style: dashed;
+        color: red;
     }
 }
 
-#listProf, #listDoc {
+#tableProf, #tableDoc {
     box-shadow: 5px 10px 18px #888888;
 }
 
-/* #profButton, #docButton {
-    box-shadow: 5px 0px 18px  #888888; 
-} */
+#tablesBlock {
+    margin-right: 3em;
+}
+
+@media (max-width: 576px) { 
+    #tablesBlock {
+        margin-right: 0;
+    }
+}

@@ -226,102 +226,120 @@ class LogbarUnauth extends Component {
           <Authorization/>
         </div>
 
-        <div className="modal fade" id="myModal">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header mb-5">
-                <h4 className="modal-title">Registration Form</h4>
-                <button type="button" className="close" data-dismiss="modal">&times;</button>
-              </div>
-              <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate>    
-                <div className="form-row mb-3 justify-content-center">
-                  <div className="form-group col-sm-6 col-xs-12" id="inputFName">
-                    <input type="text" 
-                      className="form-control"
-                      onChange={(x => {this.firstNameRegistr=x.target.value; this.validateFirstName()})}  
-                      name="FIRSTNAME" 
-                      placeholder="First Name" 
-                      required/>
-                    <div id="invalidFname" className="text-muted" ref={this.divFNameRegistr}>
-                    </div>
-                  </div>
-                </div>
-                <div className="form-row mb-3 justify-content-center">
-                  <div className="form-group col-sm-6 col-xs-12" id="inputLName">
-                    <input type="text" 
-                      className="form-control" 
-                      onChange={(x => {this.lastNameRegistr=x.target.value; this.validateLastName()})} 
-                      placeholder="Last Name" 
-                      name="LASTNAME" 
-                      required/>
-                    <div id="invalidLname" className="text-muted" ref={this.divLNameRegistr}>
-                    </div>
-                  </div>
-                </div>
-                <div className="form-row mb-3 justify-content-center">
-                  <div className="form-group col-sm-6 col-xs-12" id="inputPhone">
-                    <input type="tel"  
-                      className="form-control" 
-                      onChange={x=> {this.phoneRegistr=x.target.value; this.validatePhone()}} 
-                      placeholder="Phone" 
-                      name="phone" 
-                      required/>
-                    <div id="invalidPhone" className="text-muted" ref={this.divPhoneRegistr}>
-                    </div>
-                  </div>
-                </div>
-                <div className="form-row mb-3 justify-content-center">
-                  <div className="form-group col-sm-6 col-xs-12" id="inputEmail">
-                    <input type="email"  
-                      className="form-control" 
-                      onChange={x=> {this.emailRegistr=x.target.value; this.validateEmail()}} 
-                      id="inputEmailtext" 
-                      placeholder="Email" 
-                      name="email" 
-                      required/>
-                    <div id="invalidEmail" className="text-muted" ref={this.divEmailRegistr}>
-                    </div>
-                  </div>
-                </div>
-                <div className="form-row mb-3 justify-content-center">
-                  <div className="form-group col-sm-6 col-xs-12" id="inputPassword">
-                    <input type="password"  
-                      className="form-control" 
-                      placeholder="Password" 
-                      onChange={(x => {this.passwordRegistr=x.target.value; this.validatePassword()})}
-                      name="password" 
-                      required/>
-                    <div id="invalidPassword" className="text-muted" ref={this.divPassRegistr}>
-                    </div>
-                  </div>
-                </div>
-                <div className="form-row mb-3 justify-content-center">
-                  <div className="form-group col-sm-6 col-xs-12" id="inputConfirmPassword">
-                    <input type="password"  
-                      className="form-control" 
-                      placeholder="Confirm Password" 
-                      onChange={(x => {this.confirmPasswordRegistr=x.target.value; this.checkPassword()})} 
-                      onPaste={x => {x.preventDefault()}} 
-                      name="confirmPassword" 
-                      required/>
-                    <div id="invalidConfirmPassword" className="text-muted" ref={this.divConfirmPassRegistr}>
-                    </div>
-                  </div>
-                </div>
-                <div className="row mb-3 mt-5 justify-content-center">
-                  <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                    <button type="submit" ref={this.btnSubmitRegistr} onClick={(x=>this.showError())} className="btn btn-info btn-lg mb-3">Sign up
-                    </button>
-                  </div>
-                  <div className="col-xs-3 col-sm-3 col-md-3 text-center" >   
-                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
-                    </button>
-                  </div>
-                </div>
-              </form>
+      <div className="modal fade" id="myModal">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header mb-2">
+              <h4 className="modal-title">Registration Form</h4>
+              <button type="button" className="close" data-dismiss="modal">&times;</button>
             </div>
+            <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate>    
+              <div className="form-row ml-3">
+                <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
+                  <p className="labelForm">First Name</p>
+                </div>
+                <div className="form-group col-sm-8 col-xs-12" id="inputFName">
+                  <input type="text" 
+                          className="form-control"
+                          onChange={(x => {this.firstNameRegistr=x.target.value; this.validateFirstName(); this.hideError(this.divFNameRegistr)})}  
+                          id="firstName" 
+                          placeholder="First Name" 
+                          required/>
+                  <div id="invalidFname" className="text-muted" ref={this.divFNameRegistr}>
+                  </div>
+                </div>
+              </div>
+              <div className="form-row ml-3">
+              <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
+                  <p className="labelForm">Last Name</p>
+                </div>
+                <div className="form-group col-sm-8 col-xs-12" id="inputLName">
+                  <input type="text" 
+                          className="form-control" 
+                          onChange={(x => {this.lastNameRegistr=x.target.value; this.validateLastName(); this.hideError(this.divLNameRegistr)})} 
+                          id="lastName" 
+                          placeholder="Last Name"                           
+                          required/>
+                  <div id="invalidLname" className="text-muted" ref={this.divLNameRegistr}>
+                  </div>
+                </div>
+              </div>
+              <div className="form-row ml-3">
+              <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
+                  <p className="labelForm">Phone number</p>
+                </div>
+                <div className="form-group col-sm-8 col-xs-12" id="inputPhone">
+                  <input type="tel"  
+                          className="form-control" 
+                          onChange={x=> {this.phoneRegistr=x.target.value; this.validatePhone();  this.hideError(this.divPhoneRegistr)}} 
+                          id="phone" 
+                          placeholder="Phone"                           
+                          required/>
+                  <div id="invalidPhone" className="text-muted" ref={this.divPhoneRegistr}>
+                  </div>
+                </div>
+              </div>
+              <div className="form-row ml-3">
+              <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
+                  <p className="labelForm">Email</p>
+                </div>
+                <div className="form-group col-sm-8 col-xs-12" id="inputEmail">
+                  <input type="email"  
+                          className="form-control" 
+                          onChange={x=> {this.emailRegistr=x.target.value; this.validateEmail(); this.hideError(this.divEmailRegistr)}} 
+                          id="inputEmailText" 
+                          placeholder="Email" 
+                          id="email" 
+                          required/>
+                  <div id="invalidEmail" className="text-muted" ref={this.divEmailRegistr}>
+                  </div>
+                </div>
+              </div>
+              <div className="form-row ml-3">
+              <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
+                  <p className="labelForm">Password</p>
+                </div>
+                <div className="form-group col-sm-8 col-xs-12" id="inputPassword">
+                  <input type="password"  
+                          className="form-control" 
+                          placeholder="Password" 
+                          onChange={(x => {this.passwordRegistr=x.target.value; this.validatePassword(); this.hideError(this.divPassRegistr)})}
+                          id="password" 
+                          required/>
+                  <div id="invalidPassword" className="text-muted" ref={this.divPassRegistr}>
+                  </div>
+                </div>
+              </div>
+              <div className="form-row ml-3">
+              <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
+                  <p className="labelForm">Confirm Password</p>
+                </div>
+                <div className="form-group col-sm-8 col-xs-12" id="inputConfirmPassword">
+                  <input type="password"  
+                          className="form-control" 
+                          placeholder="Confirm Password" 
+                          onChange={(x => {this.confirmPasswordRegistr=x.target.value; this.checkPassword(); this.hideError(this.divConfirmPassRegistr)})} 
+                          onPaste={x => {x.preventDefault()}} 
+                          id="confirmPassword" 
+                          required/>
+                  <div id="invalidConfirmPassword" className="text-muted" ref={this.divConfirmPassRegistr}>
+                  </div>
+                </div>
+              </div>
+              <div className="row mb-3 mt-5 justify-content-center">
+                <div className="col-xs-3 col-sm-3 col-md-3 text-center">
+                  <button type="submit" ref={this.btnSubmitRegistr} onClick={(x=>this.showError())} className="btn btn-info btn-lg mb-3">Sign up
+                  </button>
+                </div>
+                <div className="col-xs-3 col-sm-3 col-md-3 text-center" >   
+                  <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
-        </div>
+          </div>
+          </div>
 
         <div className="modal fade" id="SignInModal">
           <div className="modal-dialog">
