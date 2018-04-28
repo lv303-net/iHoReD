@@ -3,6 +3,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
 import Calendar from './Calendar';
+
 var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
@@ -39,7 +40,10 @@ class DoctorTable extends React.Component{
       
     render(){
       return  <div className="list-group mb-2 col-sm-6 col-md-12" id="professions">
-                  <div className="list-group-item bg-info profDocHeader">Doctors</div>
+                  <div className="list-group-item bg-info profDocHeader">
+                    <p>Doctors</p>
+                    <i className="fas fa-angle-down"></i>
+                  </div>
                     <div className='listA'>
                      {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={doc.toString()} onClick={() => this.eventHandler(doc[2])}><div>{doc[1] + ' ' + doc[0]}</div></a>)}                                   
                     </div>              
