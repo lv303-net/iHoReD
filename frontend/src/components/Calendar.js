@@ -3,75 +3,73 @@ import { Component } from 'react';
 import $ from 'jquery';
 import 'fullcalendar';
 import axios from 'axios';
-import { months } from 'moment';
+import '../style/Calendar.css'
+
 var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 
-class Calendar extends Component {
+class Calendar extends React.Component{
     constructor(props){      
       super(props);
-      this.state = { idDoc: 1};     
-    };
+      this.state = { idDoc: 0, startPeriod: '', endPeriod: '', events:[], isOpen: false};  
+    }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
+    save(start, end)
+    {
+      this.setState({
+        startPeriod: start,
+        endPeriod: end,
+        idDoc : this.props.idDoctor
+      })
+    }
+
+    toggleModal = () => {
+      this.setState({
+        isOpen: !this.state.isOpen
+      });
+    }
+    mod(){
       return {
-        idDoc: nextProps.idDoctor,
+        __html: '<Modal/>'
       }
     }
-
-    shouldComponentUpdate(nextProps, nextState) {
-      console.log(nextProps.idDoctor);
-      console.log(this.props.idDoctor);
-      return (this.state.idDoc !== nextState.idDoc); 
-    }
-
-    addEvent(newstart, newend) {
-        var event={
-        start  : newstart,
-        end  : newend
-    };
-        $('#calendar').fullCalendar( 'renderEvent', event, true);
-    }
-    getRules(){
-    axios.get(server_url+'/GetDoctorSchedule/' + this.state.idDoc)
-        .then(response => {
-            response.data.forEach(startEndTime => {
-               this.addEvent(startEndTime[0], startEndTime[1]);
-            });
-        });
-      }
-    
-    componentDidMount(){
-        
-      const { calendar } = this.refs;
-
+    componentDidMount()
+    {
+      var _that = this;
+      $('#calendar').fullCalendar('changeView', 'agendaDay');
       $(document).ready(function() {
-        // page is ready
-        
         $('#calendar').fullCalendar({
-            // enable theme
         eventLimit:true,
         theme: true,
-        // emphasizes business hours
         businessHours: true,
-        // event dragging & resizing
         editable: true,
-        // header
+        //color: '#FF0000', backgroundColor: '#000000' ,
         header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,agendaDay'
+        right: 'agendaDay,agendaWeek,month',
         },
-        
+        defaultView: "agendaDay",
         selectable: true,
         selectHelper: true,
         editable: true,
+        themeSystem: 'bootstrap4',
+        events: [ // put the array in the `events` property
+            {
+                title  : 'event1',
+                start  : '2018-04-29',
+                allDay: true
+            }
+          ],
         viewRender: function(view)
         {
-            var view = $('#calendar').fullCalendar('getView');        
+            var view = $('#calendar').fullCalendar('getView');
+            localStorage.setItem("startPeriod", view.intervalStart.format())
+            localStorage.setItem("endPeriod", view.intervalEnd.format())
+            _that.save(view.intervalStart.format(), view.intervalEnd.format())
           },
         select: function(start, end) {
             end =  $.fullCalendar.moment(start);
@@ -83,32 +81,96 @@ class Calendar extends Component {
                 end: end,
                 allDay: false
                 },
-                true // stick the event
+                true 
             );
-            
-            $('#calendar').fullCalendar('unselect');
-             
+            //$('#calendar').fullCalendar('unselect');
         },
-        events: [
-          {
-            title  : 'Conference',
-            start  : '2018-04-22T20:30:00',
-            end    : '2018-04-23T23:30:00',
-          }
-        ]
         
-        })
+        eventClick: function(event, jsEvent, view ) {
+          // need button because issue related with opening modal from fullcalendar
+          $("#modButton").trigger("click");
+          //$('#mModal').modal("show"); 
+
+            //$( "p" ).trigger( "myCustomEvent", [ "John" ] );
+      }, 
+        }) 
       });
     }
 
-    render() {
-      this.getRules();
-      return (
-        <div id='calendar'></div>
-        
-      );
+      addEvent(newstart, newend, isMonth) {
+        var event
+        if(isMonth)
+        {
+          $($('#calendar').fullCalendar('getView').el[0]).find('.fc-day[data-date=' + newstart.slice(0, 10)+ ']').css('background-color', 'red');
+        }
+          
+        else
+        {
+          event={
+            start  : newstart,
+            end  : newend,
+            eventColor : "green"
+          };
+          $('#calendar').fullCalendar( 'renderEvent', event, true);
+        }    
     }
-  
+      shouldComponentUpdate(nextProps, nextState) {
+        return (this.props.idDoctor!== nextProps.idDoctor || (this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod)); 
+      }
+
+      componentWillUpdate(nextProps, nextState)
+      {
+        console.log(window.location.pathname + ' ' + window.location.host.slice(-1));
+
+        $('#calendar').fullCalendar( 'removeEvents');
+        var isMonth;
+        if($('#calendar').fullCalendar('getView').name=='month')
+          isMonth = true;
+        else 
+          isMonth = false;
+        axios.get(server_url+'/DoctorEvents/' + nextProps.idDoctor +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
+        .then(response => {
+            // this.setState({
+            //   events: response.data
+            // })
+            response.data.map(event => {this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2], isMonth)})
+            // response.data.map(event => { var e={
+            //   start  : event[0]+'T'+event[1],
+            //   end  : event[0]+'T'+event[2],
+            //   allDay: isAllDay
+            // }
+            //   $('#calendar').fullCalendar( 'renderEvent', e, true)})
+            });
+      }
+
+    render(){
+      return  (
+        <div>
+        <div id = "calendar">
+        {/* need button because issue related with opening modal from fullcalendar */}
+          <button data-toggle="modal" data-target="#mModal" id = "modButton" style={{display: "none"}}>
+          </button>
+          </div>
+          <div className="modal fade" id="mModal">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button>
+                <h4 className="modal-title" id="mModalLabel">Modal title</h4>
+              </div>
+              <div className="modal-body">
+                ...
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-info btn-lg">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+                  );
+  }
   }
 
-export default Calendar;
+  export default Calendar;

@@ -3,12 +3,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
 import Calendar from './Calendar';
-import ProfessionsTable from './ProfessionsTable'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+
 var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
@@ -49,15 +44,18 @@ class DoctorTable extends React.Component{
       }
       
     render(){
-      return  <div className = "container">
-                  <div className="row justify-content-center">
-                  <div className="list-group" role="tablist" id="professions">
-                  <div className="list-group-item bg-info profDocHeader">Doctors:</div>
-                  {this.state.doc.map(doc => <button className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={doc.toString()} onClick={() => {this.eventHandler(doc[2]),this.addUrl(doc[2])} }>{doc[1] + ' ' + doc[0]}</button>)}                  
+
+      return  <div className="list-group mb-2 col-sm-6 col-md-12" id="professions">
+                  <div id='tableDoc'>
+                    <div className="list-group-item" id="docButton" tabindex="1">
+                      <p>Doctors</p>
+                    </div>
+                      <div id='listDoc'>
+                      {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={doc.toString()} onClick={() => {this.eventHandler(doc[2]),this.addUrl(doc[2])}}><div>{doc[1] + ' ' + doc[0]}</div></a>)}                                   
+                      </div>
+                    </div>              
                   </div>
-              </div>
-              </div>
-  }
+         }
   }
 
   export default DoctorTable;

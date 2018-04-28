@@ -1,4 +1,4 @@
-.App {
+App {
   text-align: center;
 }
 
@@ -11,7 +11,6 @@
   background-color: #222;
   height: 150px;
   padding: 20px;
-  color: white;
 }
 
 .App-title {
@@ -28,8 +27,8 @@
 }
 
 .navbar-custom {
-  color: #ccfff5;
-  background-color:#80bfff;
+  /* background-color: #49A2FF; */
+  background-color: #74B8FF;
 }
 
 .modal-header {
@@ -76,13 +75,19 @@
   visibility:visible;
 }
 
-.form-control {
-  border-color: aqua;
-}
 .form-control:focus, input:focus{
   outline: none;
 }
+
+#invalidFname, #invalidLname, #invalidPhone, #invalidEmail, #invalidPassword, #invalidConfirmPassword {
+  font-size: 14px;
+}
   
+.labelForm {
+  /*letter-spacing: 1px;*/
+  margin-bottom: 0;
+  margin-top: 0.5em;
+}
 #editInfoWindow {
   background-color: white;
   border-radius: 10px;
@@ -127,38 +132,29 @@
   width: 100% important;
 }
 
-@media (min-width: 768px) {
-.navbarForm [type="submit"]{
-  margin-right: 60%;
-}
-
-.navbarForm [type="button"]{
-  margin-left: 60%;
-}
-}
-
 div.profDocTable:hover {
   background-color: #E3E3E3;
   cursor: pointer;
 }
 
-#doctors, #professions {
-  
-  margin-left: 15px;
+.logo{
+ max-height: 3em;
+ width: auto;
 }
 
-.list-group-item:hover,
-.list-group-item:selected {
-  color: red;
-  background: #efefef;
+.btn-custom {
+  color: white;
+  border-radius: 0%;
+  border: 2px 1px 2px 1px solid #adc9ff;
 }
 
-.active {
-  color: red;
-  background-color: red;
-  }
+.btn-custom :hover {
+  background-color:#80bfff;
+}
 
-  Link.active {
-    color: red;
-  background-color: red;
-  }
+ul li a {
+  color: white;
+}
+ul li a :hover {
+  color: white;
+}
