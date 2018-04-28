@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import validator from 'validator';
 import LogbarAuth from './LogbarAuth';
+import Footerbar from './Footerbar';
 
 class StartPatientPage extends Component {
   render() {

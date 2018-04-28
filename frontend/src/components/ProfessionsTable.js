@@ -3,7 +3,11 @@ import { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
 import DoctorTable from './DoctorTable';
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 var server_url;
 if(process.env.NODE_ENV==="development")
   server_url="http://localhost:58511"
@@ -31,6 +35,11 @@ constructor(props){
         });
     };
     
+    addUrl(val) {
+      var url = window.location.href;
+      window.history.pushState( {} , '', '?prof='+val )
+  };
+
     eventHandler(idP) {
       localStorage.setItem("currentProfession", idP)
       this.setState({
@@ -39,15 +48,17 @@ constructor(props){
     }
 
     render(){
-      return <div className = "container">
+      return <Router>
+      <div className = "container">
       <div className="row justify-content-center">
        <div className="list-group" role="tablist" id="professions">
        <div className="list-group-item bg-info">Professions:</div>
-        {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => this.eventHandler(professionsArr[0])}><div>{professionsArr[1]}</div></a>)}
+        {this.state.professionsArr.map(professionsArr => <button className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => {this.eventHandler(professionsArr[0]),this.addUrl(professionsArr[1]);}}>{professionsArr[1]}</button>)}
        </div> 
         <DoctorTable idProf={this.state.id}/> 
         </div>  
         </div>
+        </Router>
 
     
   }

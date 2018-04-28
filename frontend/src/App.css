@@ -146,3 +146,19 @@ div.profDocTable:hover {
   
   margin-left: 15px;
 }
+
+.list-group-item:hover,
+.list-group-item:selected {
+  color: red;
+  background: #efefef;
+}
+
+.active {
+  color: red;
+  background-color: red;
+  }
+
+  Link.active {
+    color: red;
+  background-color: red;
+  }

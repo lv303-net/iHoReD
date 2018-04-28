@@ -10,7 +10,7 @@ import LogbarUnauth from './components/LogbarUnauth';
 import LogbarAuth from './components/LogbarAuth';
 import ProfessionsTable from './components/ProfessionsTable';
 import DoctorTable from './components/DoctorTable';
-
+import Footerbar from './components/Footerbar';
 const base_api_url = process.env.REACT_APP_BASE_API_URL;
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -27,7 +27,7 @@ render() {
         ) : (
           <LogbarAuth/>
         )}
-        <div className="wrapper row">
+        <div className="wrapper row container-fluid">
         <div className="col-sm-4">
         <ProfessionsTable/>
         </div>
@@ -35,6 +35,7 @@ render() {
         <Calendar />
         </div>
         </div>
+        <Footerbar/>
       </div>
     ); 
   }
