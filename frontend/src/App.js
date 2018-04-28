@@ -65,11 +65,9 @@ class App extends Component {
 
         <div class="container-fluid mt-5">
           <div className="row">
-            <div className="col-sm-4">
-              <ProfessionsTable/>
-            </div>
+            <ProfessionsTable/>            
             <div className="col-sm-12 col-md-8 mr-1" id="calendarDiv">
-              <Calendar />
+              <Calendar idDoctor={1}/>
             </div>
           </div> 
         </div>

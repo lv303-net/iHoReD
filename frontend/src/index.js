@@ -26,8 +26,8 @@ class Home extends Component {
         <Route path="/startPage" component={StartPatientPage}/>
         <Route path="/admin" component={AdminRulesPage}/>
         <Route path="/activation/:id" component={ActivationLink}/>
-             </Switch>
-           );
+      </Switch>
+      );
     }
   }
 
@@ -35,6 +35,7 @@ class Home extends Component {
   ReactDOM.render((
     <BrowserRouter>
     <Home />
-    </BrowserRouter>   )
-    , document.getElementById('root'));
+    </BrowserRouter>   
+    ), 
+  document.getElementById('root'));
   registerServiceWorker();
