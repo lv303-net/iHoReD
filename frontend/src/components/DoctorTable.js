@@ -29,7 +29,7 @@ class DoctorTable extends React.Component{
 
        addUrl(val) {
         var url = window.location.href;
-        window.location.hash = 'doc='+val;
+        window.history.pushState(null, null, `${window.location.pathname}?${window.location.search}&doc=${val}`);
     };
 
       componentWillUpdate(nextProps, nextState)
