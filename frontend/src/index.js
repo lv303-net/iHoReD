@@ -22,7 +22,7 @@ class Home extends Component {
         <Route path="/allDiagnoses" component={Diagnoses}/>
         <Route path="/startPage" component={StartPatientPage}/>
         <Route path="/admin" component={AdminRulesPage}/>
-        <Route path="/activation/:id" component={ActivationLink}/>
+        <Route path="/activation/:id" component={ActivationLink} />
              </Switch>
            );
     }
