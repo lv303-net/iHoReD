@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import validator from 'validator';
-import logo from '../images/logo.png';
+import HamburgerMenu from 'react-hamburger-menu';
 
 
 var server_url;
@@ -18,20 +18,15 @@ class Authorization extends React.Component {
   }
 
   render() {
-    return(
-          <div className="col-xs-12 col-sm-12 col-md-4">
-            <div className="row">
-              <div className="col-xs-12 col-sm-12 col-md-6 mt-3 float-right">
-                <button type="button" className="btn btn-info" data-toggle="modal" data-target="#SignInModal">Sign in</button>
-              </div>
-              <div className="col-xs-12 col-sm-12 col-md-6 mt-3 float-right">
-                <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal">Sign up</button> 
-              </div>
-            </div>
-          </div>          
+    return(    
+      <div>
+        <li><button type="button" className="btn btn-info" data-toggle="modal" data-target="#SignInModal">Sign in</button></li>
+        <li><button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal">Sign up</button> </li>
+      </div>         
     );
   }
 }
+
 class LogbarUnauth extends Component { 
   constructor(props){
     super(props);
@@ -63,10 +58,8 @@ class LogbarUnauth extends Component {
     this.validConfirmPassword = false;
   }
 
-  handleSubmitAuth = event => 
-  {
+  handleSubmitAuth = event => {
     event.preventDefault();
-  //const 
     var userAuth ={
       email: this.loginAuth,
       password: this.passwordAuth
@@ -77,13 +70,11 @@ class LogbarUnauth extends Component {
           window.location.reload();
           localStorage.setItem("currentUserFirstName", (response.data.FirstName));
           localStorage.setItem("currentUserLastName", (response.data.LastName));
-      })
+      });
   }
   
-  handleSubmitRegistr = event => 
-  {
+  handleSubmitRegistr = event => {
     event.preventDefault();
-    //const
     var userRegister = {
       firstName: this.firstNameRegistr,
       lastName: this.lastNameRegistr,
@@ -96,16 +87,16 @@ class LogbarUnauth extends Component {
     localStorage.setItem("currentUserFirstName", (this.firstNameRegistr));
     localStorage.setItem("currentUserLastName", (this.lastNameRegistr));
 
-    axios.post(server_url + '/api/Registration',userRegister)
-      .then(function (response) {
-          //handle success
-          window.location.reload();
-          console.log(response);
-      })
-      .catch(function (response) {
-          //handle error
-          console.log(response);
-      });
+      axios.post(server_url + '/api/Registration',userRegister)
+        .then(function (response) {
+            //handle success
+            window.location.reload();
+            console.log(response);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
     }
   }
 
@@ -228,55 +219,12 @@ class LogbarUnauth extends Component {
       return false;
     }
   }
-   
   render() {
-  return (
-  <div className="mb-4 navbar-custom">
-     <nav className="navbar navbar-expand-sm navbar-custom  navbar-default sticky-top navbar-toggleable-md">
-        <div className = "container-fluid justify-content-center navbar-collapse collapse navbarContainer">
-          <div className = "container-fluid">
-            <div className="row">
-              <div className="col-xs-12 col-sm-12 col-md-8 text-center">
-                <div className="row">
-                  <div className="col-xs-12 col-sm-12 col-md-2">
-                    <a className="navbar-brand" href="#">
-                      <img className="logo" src={logo}></img>
-                    </a> 
-                  </div>    
-                  <div className="col-xs-12 col-sm-12 col-md-5">
-                    <h2>Lviv Regional Hospital</h2>
-                  </div>
-                  <div className="col-xs-12 col-sm-12 col-md-4 vertical">
-                    <h5>9, Mykolaychuk Str.</h5>
-                    <h5>(032) 252 70 11</h5>
-                  </div>
-                </div>
-              </div>
-              <div className="col-xs-12 col-sm-12 col-md-4 text-center">
-                <div className="row">
-                  <div className="col-xs-12 col-sm-12 col-md-6"></div>
-                  <Authorization/>
-                  <div className="col-xs-12 col-sm-12 col-md-2 mt-3">
-                  <button class="btn btn-info align-right" type="button" data-toggle="collapse" data-target="#collapsedMenu" aria-expanded="false" aria-controls="collapseExample">
-                    ham</button> 
-                  </div>
-                </div >
-              </div>
-            </div>
-          </div>
+    return(
+      <div>
+        <div className="col-xs-12 col-sm-12 col-md-4">
+          <Authorization/>
         </div>
-      </nav>
-
-      <div class="collapse container-fluid pl-0 pr-0" id="collapsedMenu">
-            <ul className="nav justify-content-center btn-group btn-group-lg">
-                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">Home</a></li>
-                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">Contacts</a></li>
-                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">Doctors</a></li>
-                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">News</a></li>
-                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">Illnes prevention</a></li>
-                <li><a href="#" class="btn btn-custom btn-lg active" role="button" aria-pressed="true">National medicine program</a></li>
-            </ul>  
-      </div>
 
       <div className="modal fade" id="myModal">
         <div className="modal-dialog">
@@ -394,44 +342,41 @@ class LogbarUnauth extends Component {
           </div>
 
         <div className="modal fade" id="SignInModal">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header mb-5">
-              <h4 className="modal-title">Please, enter Your creds</h4>
-              <button type="button" className="close" data-dismiss="modal">&times;</button>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header mb-5">
+                <h4 className="modal-title">Please, enter Your creds</h4>
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+              </div>
+              <form className="ml-3 mr-3" onSubmit={this.handleSubmitAuth}>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12">
+                    <input className="form-control"  type="text" placeholder="Email" onBlur={(x => {this.loginAuth=x.target.value; })} required/>
+                  </div>
+                </div>
+                <div className="form-row mb-3 justify-content-center">
+                  <div className="form-group col-sm-6 col-xs-12">
+                    <input className="form-control"  type="password" placeholder="Password" onBlur={(x => {this.passwordAuth=x.target.value; })} required/> 
+                  </div>
+                </div>
+                <div className="row mb-3 mt-5 justify-content-center">
+                  <div className="col-xs-3 col-sm-3 col-md-3 text-center">
+                    <button type="submit" className="btn btn-info btn-lg mb-3">Sign in
+                    </button>
+                  </div>
+                  <div className="col-xs-3 col-sm-3 col-md-3 text-center" >   
+                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-            <form className="ml-3 mr-3" onSubmit={this.handleSubmitAuth}>
-              <div className="form-row mb-3 justify-content-center">
-                <div className="form-group col-sm-6 col-xs-12">
-                  <input className="form-control"  type="text" placeholder="Email" onBlur={(x => {this.loginAuth=x.target.value; })} required/>
-                </div>
-              </div>
-              <div className="form-row mb-3 justify-content-center">
-                <div className="form-group col-sm-6 col-xs-12">
-                  <input className="form-control"  type="password" placeholder="Password" onBlur={(x => {this.passwordAuth=x.target.value; })} required/> 
-                </div>
-              </div>
-              <div className="row mb-3 mt-5 justify-content-center">
-                <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                  <button type="submit" className="btn btn-info btn-lg mb-3">Sign in
-                  </button>
-                </div>
-                <div className="col-xs-3 col-sm-3 col-md-3 text-center" >   
-                  <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div> 
+          </div> 
+        </div>
       </div>
+    );
+  }
+}
 
-          </div>
-        );
-      }
-      
-    }
-
-
-    
+     
 export default LogbarUnauth;

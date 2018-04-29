@@ -11,6 +11,9 @@ import StartPatientPage from './components/StartPatientPage';
 import registerServiceWorker from './registerServiceWorker';
 import AdminRulesPage from './components/AdminRulesPage';
 import ActivationLink from './components/ActivationLink';
+import Menu from 'react-burger-menu';
+import BM from './components/BurgerMenu';
+
 
 
 class Home extends Component {
@@ -22,16 +25,22 @@ class Home extends Component {
         <Route path="/allDiagnoses" component={Diagnoses}/>
         <Route path="/startPage" component={StartPatientPage}/>
         <Route path="/admin" component={AdminRulesPage}/>
+<<<<<<< HEAD
         <Route path="/activation/:id" component={ActivationLink} />
              </Switch>
            );
+=======
+        <Route path="/activation/:id" component={ActivationLink}/>
+      </Switch>
+      );
+>>>>>>> 1e2d079b3ec9924a82911488060fd101333fa3d2
     }
   }
-
   
   ReactDOM.render((
     <BrowserRouter>
     <Home />
-    </BrowserRouter>   )
-    , document.getElementById('root'));
+    </BrowserRouter>   
+    ), 
+  document.getElementById('root'));
   registerServiceWorker();

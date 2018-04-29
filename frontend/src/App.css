@@ -1,4 +1,4 @@
-.App {
+App {
   text-align: center;
 }
 
@@ -11,7 +11,6 @@
   background-color: #222;
   height: 150px;
   padding: 20px;
-  color: white;
 }
 
 .App-title {
@@ -28,8 +27,8 @@
 }
 
 .navbar-custom {
-  /*color: #ccfff5;*/
-  background-color:#80bfff;
+  /* background-color: #49A2FF; */
+  background-color: #74B8FF;
 }
 
 .modal-header {
@@ -138,45 +137,24 @@ div.profDocTable:hover {
   cursor: pointer;
 }
 
-#doctors, #professions {
-  margin-left: 15px;
-}
-
 .logo{
  max-height: 3em;
  width: auto;
 }
 
-h5{
-  font-size: 0.8em;
-}
-
-h4{
-  font-size: 1.2em;
-}
-
-h3{
-  font-size: 1.5em;
-}
-
-h3{
-  font-size: 1.7em;
-}
-
-.vertical{
-  margin-top:0.7em;
-  }
-
-/* .navbar-toggle .icon-bar {
-    display: block;
-    width: auto;
-    height: auto;
-    border-radius: 0.2em;
-} */
 .btn-custom {
-  color: #ccfff5;
-  background-color:#80bfff;
+  color: white;
   border-radius: 0%;
   border: 2px 1px 2px 1px solid #adc9ff;
 }
 
+.btn-custom :hover {
+  background-color:#80bfff;
+}
+
+ul li a {
+  color: white;
+}
+ul li a :hover {
+  color: white;
+}
