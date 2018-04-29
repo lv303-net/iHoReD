@@ -2,8 +2,10 @@ import React from 'react';
 import { Component } from 'react';
 import $ from 'jquery';
 import 'fullcalendar';
+import validator from 'validator';
 import axios from 'axios';
-import '../style/Calendar.css'
+import Modal from'./BookingModal';
+import modal from'jquery-modal';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -87,12 +89,18 @@ class Calendar extends React.Component{
         },
         
         eventClick: function(event, jsEvent, view ) {
-          // need button because issue related with opening modal from fullcalendar
-          $("#modButton").trigger("click");
-          //$('#mModal').modal("show"); 
-
-            //$( "p" ).trigger( "myCustomEvent", [ "John" ] );
-      }, 
+          // Display the modal and set the values to the event values.
+          //_that.mod();
+          //$('#myModal').show(); 
+          //(<any>$("#mModal")).modal("show");
+          $('#mModal').modal("show");
+          //8_that.mod();
+          // $('.modal').find('#title').val(event.title);
+          // $('.modal').find('#starts-at').val(event.start);
+          // $('.modal').find('#ends-at').val(event.end);
+          //(<any>$("#AAAA")).modal("show");
+      },
+        
         }) 
       });
     }
@@ -145,30 +153,28 @@ class Calendar extends React.Component{
 
     render(){
       return  (
-        <div>
         <div id = "calendar">
-        {/* need button because issue related with opening modal from fullcalendar */}
-          <button data-toggle="modal" data-target="#mModal" id = "modButton" style={{display: "none"}}>
-          </button>
-          </div>
-          <div className="modal fade" id="mModal">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button>
-                <h4 className="modal-title" id="mModalLabel">Modal title</h4>
-              </div>
-              <div className="modal-body">
-                ...
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-info btn-lg">Save changes</button>
+          {/* <button type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#mModal">
+            Launch demo modal
+          </button> */}
+          <div className="modal fade" id="mModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button>
+                  <h4 className="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div className="modal-body">
+                  ...
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" className="btn btn-primary">Save changes</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        </div>
+          </div>
                   );
   }
   }
