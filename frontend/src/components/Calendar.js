@@ -4,6 +4,7 @@ import $ from 'jquery';
 import 'fullcalendar';
 import validator from 'validator';
 import axios from 'axios';
+import '../style/Calendar.css'
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -68,24 +69,25 @@ class Calendar extends React.Component{
         $('#calendar').fullCalendar({
         eventLimit:true,
         theme: true,
-        businessHours: true,
-        editable: true,
         //color: '#FF0000', backgroundColor: '#000000' ,
         header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'agendaDay,agendaWeek,month',
+          left: 'prev,next today',
+          center: 'title',
+          right: 'agendaDay, agendaWeek, month',
         },
         defaultView: "agendaDay",
-        selectable: true,
         selectHelper: true,
         editable: true,
         themeSystem: 'bootstrap4',
+        allDaySlot: false,
+        lazyFetching: true,
+        minTime: '07:00:00',
+        blocked: true,
         events: [ // put the array in the `events` property
             {
-                title  : 'event1',
-                start  : '2018-04-29',
-                allDay: true
+              title: '',
+              backgroundColor: "gray", 
+              blocked: true,
             }
           ],
         viewRender: function(view)
@@ -95,6 +97,7 @@ class Calendar extends React.Component{
             localStorage.setItem("endPeriod", view.intervalEnd.format())
             _that.saveCurrentDayStartEnd(view.intervalStart.format(), view.intervalEnd.format())
           },
+
         select: function(start, end) {
             end =  $.fullCalendar.moment(start);
             end.add(30, 'minutes');
@@ -107,16 +110,20 @@ class Calendar extends React.Component{
                 },
                 true 
             );
-            //$('#calendar').fullCalendar('unselect');
+            $('#calendar').fullCalendar('unselect');
         },
         
         eventClick: function(event, jsEvent, view ) {
           // need button because issue related with opening modal from fullcalendar
+          if (jsEvent.blocked == true) {
+              alert("This time is not available!");
+          } else {
           $("#modButton").trigger("click");
           console.log(event.start._i);
           console.log(event.end._i);
           localStorage.setItem("starTime", event.start._i);
           localStorage.setItem("endTime", event.end._i);
+          }
           // __that.setState({
           //   starttime: event.start._i,
           //   endTime: event.end._i,
@@ -130,6 +137,7 @@ class Calendar extends React.Component{
 
       addEvent(newstart, newend, isMonth) {
         var event
+        var dayoff
         if(isMonth)
         {
           $($('#calendar').fullCalendar('getView').el[0]).find('.fc-day[data-date=' + newstart.slice(0, 10)+ ']').css('background-color', 'red');
@@ -140,9 +148,18 @@ class Calendar extends React.Component{
           event={
             start  : newstart,
             end  : newend,
-            eventColor : "green"
+            color : "red",
+            blocked: false,
           };
           $('#calendar').fullCalendar( 'renderEvent', event, true);
+          dayoff={
+            start: newstart,
+              end: newend,
+              rendering: 'inverse-background',
+              color: "#DCDCDC"
+          },
+         
+           $('#calendar').fullCalendar( 'renderEvent', dayoff, true);
         }    
     }
       shouldComponentUpdate(nextProps, nextState) {
