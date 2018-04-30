@@ -64,7 +64,10 @@ constructor(props){
     
     addUrl(val) {
       var url = window.location.href;
-      window.history.pushState( {} , '', '?prof='+val )
+      var searchParameter=new URLSearchParams(window.location.search);
+      searchParameter.set('prof',val);
+      searchParameter.delete('doc');
+      window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
   };
 
     componentDidMount(){
@@ -95,7 +98,7 @@ constructor(props){
                     <i className="fas fa-angle-down"></i>  
                     <i class="fas fa-angle-right"></i>              
                   </div>                  
-                  <div id='listProf'>
+                  <div id='listProf' className="list-group">
                     {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => {this.eventHandler(professionsArr[0]),this.addUrl(professionsArr[1])}}><div>{professionsArr[1]}</div></a>)}
                   </div>
                   </div> 

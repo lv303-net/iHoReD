@@ -12,6 +12,7 @@ import ProfessionsTable from './components/ProfessionsTable';
 import DoctorTable from './components/DoctorTable';
 import Footerbar from './components/Footerbar';
 
+import LogbarWrapper from './components/LogbarWrapper';
 const base_api_url = process.env.REACT_APP_BASE_API_URL;
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -28,6 +29,30 @@ class App extends Component {
         {(localStorage.getItem("currentUserFirstName")==null) ? (<LogbarUnauth/>) : (<LogbarAuth/>)}
 
         <div className="container-fluid mt-5">
+
+        <div class="pos-f-t container-fluid navbar-custom border border-top-2 p-0">
+          <div class="collapse" id="navbarToggleExternalContent">
+            <ul className="nav nav-justified">
+              <li class="nav-item btn-custom">
+                <a class="nav-link" href="#">Home</a>
+              </li>
+              <li class="nav-item btn-custom">
+                <a class="nav-link" href="#">Contacts</a>
+              </li>
+              <li class="nav-item btn-custom">
+                <a class="nav-link dropdown" href="#">Doctors</a>
+              </li>
+              <li class="nav-item btn-custom">
+                <a class="nav-link" href="#">Illnes prevention</a>
+              </li>
+              <li class="nav-item btn-custom">
+                <a class="nav-link" href="#">National medicine program</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="container-fluid mt-5">
           <div className="row">
             <ProfessionsTable/>            
             <div className="col-sm-12 col-md-8 mr-1" id="calendarDiv">
@@ -35,7 +60,6 @@ class App extends Component {
             </div>
           </div> 
         </div>
-
         <Footerbar/>
       </div>
     );

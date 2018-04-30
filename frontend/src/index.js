@@ -11,18 +11,28 @@ import StartPatientPage from './components/StartPatientPage';
 import registerServiceWorker from './registerServiceWorker';
 import AdminRulesPage from './components/AdminRulesPage';
 import ActivationLink from './components/ActivationLink';
+import LogbarAuth from './components/LogbarAuth';
+import LogbarUnauth from './components/LogbarUnauth';
+import LogbarWrapper from './components/LogbarWrapper';
+import Footerbar from './components/Footerbar';
+import DoctorCalendar from './components/DoctorCalendar';
 
 class Home extends Component {
     render() {
       return (
-     <Switch>
-        <Route exact path="/" component={App}/>
-        <Route path="/editUserInfo" component={Edit}/>
-        <Route path="/allDiagnoses" component={Diagnoses}/>
-        <Route path="/startPage" component={StartPatientPage}/>
-        <Route path="/admin" component={AdminRulesPage}/>
-        <Route path="/activation/:id" component={ActivationLink}/>
-      </Switch>
+        <div>
+            <LogbarWrapper/>
+            <Switch>
+                <Route exact path="/" component={App}/>
+                <Route path="/editUserInfo" component={Edit}/>
+                <Route path="/allDiagnoses" component={Diagnoses}/>
+                <Route path="/startPage" component={StartPatientPage}/>
+                <Route path="/admin" component={AdminRulesPage}/>
+                <Route path="/activation/:id" component={ActivationLink}/>
+                <Route path="/doctorCalendar" component={DoctorCalendar}/>
+              </Switch>
+              <Footerbar/>
+      </div>
       );
     }
   }

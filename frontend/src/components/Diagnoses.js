@@ -4,13 +4,13 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import validator from 'validator';
-import LogbarAuth from './LogbarAuth';
+import LogbarWrapper from './LogbarWrapper';
 
 class Diagnoses extends Component {
   render() {
     return (
         <div className="App container-fluid">
-        <LogbarAuth/>
+        <LogbarWrapper/>
         <div className="wrapper row mt-4">
         <AllDiagnoses/>
         </div>
