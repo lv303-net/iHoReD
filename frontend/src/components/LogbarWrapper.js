@@ -17,12 +17,12 @@ else if(process.env.NODE_ENV==="production")
         return(
             <div>
                 <nav className="navbar navbar-custom p-0 pl-5 pr-5">
-          <div className="navbar-brand p-0">
+          {/* <div className="navbar-brand p-0">
             <a href="/">
               <img className="logo" src={logo}></img>
             </a>
             <span className="pl-5">Lviv Regional Hospital</span>
-          </div>  
+          </div>   */}
 
           <ul class="nav navbar-nav navbar-right">
             {(localStorage.getItem("currentUserFirstName")==null) ? (<LogbarUnauth/>) : (<LogbarAuth/>)}

@@ -25,33 +25,6 @@ class App extends Component {
   render() {
     return(
       <div>
-
-        {(localStorage.getItem("currentUserFirstName")==null) ? (<LogbarUnauth/>) : (<LogbarAuth/>)}
-
-        <div className="container-fluid mt-5">
-
-        <div class="pos-f-t container-fluid navbar-custom border border-top-2 p-0">
-          <div class="collapse" id="navbarToggleExternalContent">
-            <ul className="nav nav-justified">
-              <li class="nav-item btn-custom">
-                <a class="nav-link" href="#">Home</a>
-              </li>
-              <li class="nav-item btn-custom">
-                <a class="nav-link" href="#">Contacts</a>
-              </li>
-              <li class="nav-item btn-custom">
-                <a class="nav-link dropdown" href="#">Doctors</a>
-              </li>
-              <li class="nav-item btn-custom">
-                <a class="nav-link" href="#">Illnes prevention</a>
-              </li>
-              <li class="nav-item btn-custom">
-                <a class="nav-link" href="#">National medicine program</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
         <div class="container-fluid mt-5">
           <div className="row">
             <ProfessionsTable/>            
@@ -61,7 +34,6 @@ class App extends Component {
           </div> 
         </div>
         <Footerbar/>
-      </div>
       </div>
     );
   }
