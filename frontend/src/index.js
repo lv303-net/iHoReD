@@ -17,7 +17,9 @@ import LogbarWrapper from './components/LogbarWrapper';
 import Footerbar from './components/Footerbar';
 import DoctorCalendar from './components/DoctorCalendar';
 
+
 var url = window.location.href;
+
 class Home extends Component {
     render() {
       return (
@@ -32,7 +34,7 @@ class Home extends Component {
                 <Route path="/activation/:id" component={ActivationLink}/>
                 <Route path="/doctorCalendar" component={DoctorCalendar}/>
               </Switch>
-              <Footerbar/>
+            <Footerbar/>
       </div>
       );
     }
