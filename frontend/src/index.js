@@ -25,9 +25,15 @@ class Home extends Component {
         <Route path="/allDiagnoses" component={Diagnoses}/>
         <Route path="/startPage" component={StartPatientPage}/>
         <Route path="/admin" component={AdminRulesPage}/>
+<<<<<<< HEAD
+        <Route path="/activation/:id" component={ActivationLink} />
+             </Switch>
+           );
+=======
         <Route path="/activation/:id" component={ActivationLink}/>
       </Switch>
       );
+>>>>>>> 1e2d079b3ec9924a82911488060fd101333fa3d2
     }
   }
   
