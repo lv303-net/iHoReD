@@ -5,10 +5,6 @@ import axios from 'axios';
 import validator from 'validator';
 import logo from '../images/logo.png';
 import '../style/Navbar.css';
-<<<<<<< HEAD
-=======
-
->>>>>>> d7cc166145e2c87b215a29fa4a328653b0b4f4dc
 
 var server_url;
 if (process.env.NODE_ENV === "development")
@@ -16,10 +12,7 @@ if (process.env.NODE_ENV === "development")
 else if (process.env.NODE_ENV === "production")
   server_url = "https://hored.azurewebsites.net"
 
-<<<<<<< HEAD
-=======
 
->>>>>>> d7cc166145e2c87b215a29fa4a328653b0b4f4dc
 class LogbarUnauth extends Component { 
   constructor(props){
     super(props);
@@ -217,10 +210,6 @@ class LogbarUnauth extends Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
-
-=======
->>>>>>> d7cc166145e2c87b215a29fa4a328653b0b4f4dc
         <nav className="navbar navbar-dark navbar-custom py-0 px-5">
           <div className="navbar-brand p-0">
             <a href="/">
@@ -272,21 +261,15 @@ class LogbarUnauth extends Component {
                 <h4 className="modal-title">Registration Form</h4>
                 <button type="button" className="close" data-dismiss="modal">&times;</button>
               </div>
-<<<<<<< HEAD
-              <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate>
-=======
 
-              <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate>    
->>>>>>> d7cc166145e2c87b215a29fa4a328653b0b4f4dc
+              <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate>
+
                 <div className="form-row ml-3">
                   <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
                     <p className="labelForm">First Name</p>
                   </div>
                   <div className="form-group col-sm-8 col-xs-12" id="inputFName">
-<<<<<<< HEAD
-=======
 
->>>>>>> d7cc166145e2c87b215a29fa4a328653b0b4f4dc
                     <input type="text" 
                         className="form-control"
                         onChange={(x => {this.firstNameRegistr=x.target.value; this.validateFirstName(); this.hideError(this.divFNameRegistr)})}  
@@ -298,10 +281,7 @@ class LogbarUnauth extends Component {
                   </div>
                 </div>
                 <div className="form-row ml-3">
-<<<<<<< HEAD
-=======
 
->>>>>>> d7cc166145e2c87b215a29fa4a328653b0b4f4dc
                 <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
                     <p className="labelForm">Last Name</p>
                   </div>
@@ -316,8 +296,8 @@ class LogbarUnauth extends Component {
                     </div>
                   </div>
                 </div>
+
                 <div className="form-row ml-3">
-<<<<<<< HEAD
                   <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
                     <p className="labelForm">Phone number</p>
                   </div>
@@ -350,55 +330,6 @@ class LogbarUnauth extends Component {
                 </div>
                 <div className="form-row ml-3">
                   <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
-                    <p className="labelForm">Password</p>
-                  </div>
-                  <div className="form-group col-sm-8 col-xs-12" id="inputPassword">
-                    <input type="password"
-                      className="form-control"
-                      placeholder="Password"
-                      onChange={(x => { this.passwordRegistr = x.target.value; this.validatePassword(); this.hideError(this.divPassRegistr) })}
-                      id="password"
-                      required />
-                    <div id="invalidPassword" className="text-muted" ref={this.divPassRegistr}>
-=======
-
-                <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
-                    <p className="labelForm">Phone number</p>
-                  </div>
-                  <div className="form-group col-sm-8 col-xs-12" id="inputPhone">
-                    <input type="tel"  
-                            className="form-control" 
-                            onChange={x=> {this.phoneRegistr=x.target.value; this.validatePhone();  this.hideError(this.divPhoneRegistr)}} 
-                            id="phone" 
-                            placeholder="Phone"                           
-                            required/>
-                    <div id="invalidPhone" className="text-muted" ref={this.divPhoneRegistr}>
->>>>>>> d7cc166145e2c87b215a29fa4a328653b0b4f4dc
-                    </div>
-                  </div>
-                </div>
-                <div className="form-row ml-3">
-                <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
-<<<<<<< HEAD
-=======
-                    <p className="labelForm">Email</p>
-                  </div>
-                  <div className="form-group col-sm-8 col-xs-12" id="inputEmail">
-                    <input type="email"  
-                            className="form-control" 
-                            onChange={x=> {this.emailRegistr=x.target.value; this.validateEmail(); this.hideError(this.divEmailRegistr)}} 
-                            id="inputEmailText" 
-                            placeholder="Email" 
-                            id="email" 
-                            required/>
-                    <div id="invalidEmail" className="text-muted" ref={this.divEmailRegistr}>
-                    </div>
-                  </div>
-                </div>
-                <div className="form-row ml-3">
-
-                <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
->>>>>>> d7cc166145e2c87b215a29fa4a328653b0b4f4dc
                     <p className="labelForm">Password</p>
                   </div>
                   <div className="form-group col-sm-8 col-xs-12" id="inputPassword">
