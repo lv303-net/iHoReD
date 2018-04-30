@@ -1,0 +1,34 @@
+.logo{
+    max-height: 3em;
+    width: auto;
+}
+
+li.btn-custom {
+    color: white;
+    border-radius: 0%;
+    border: .001rem solid rgba(255, 255, 255, 0.1);
+    background-color:#74b8ff;
+}
+
+li.btn-custom:hover {
+    background-color: #49A2FF;
+}
+
+a:link, a:visited {
+    color:white;
+}
+
+a{
+    height: 100%;
+}
+.navbar-custom {
+    color: white;
+    background-color:#74B8FF;
+    align-items: stretch;
+
+}
+
+.navbar-toggler-icon{
+    width: 1.5em;
+    height: 1.5em;
+}
