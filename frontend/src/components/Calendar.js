@@ -16,13 +16,31 @@ class Calendar extends React.Component{
     constructor(props){      
       super(props);
       this.state = { idDoc: 0, startPeriod: '', endPeriod: '', events:[], startTime:'', endTime:''};  
-      
     }
+
+    handleSubmitBooking = event => {
+      var bookingEvent = {
+        IdDoctor: this.state.idDoc,
+        IdPatient: localStorage.getItem("currentUserId"),
+        startDateTime: this.state.startTime,
+        endDateTime:this.state.endTime
+      }
+  
+        axios.post(server_url + '/api/Schedule',bookingEvent)
+          .then(function (response) {
+              //handle success
+
+              console.log(response);
+          })
+          .catch(function (response) {
+              //handle error
+              console.log(response);
+          });
+      }
 
     saveCurrentDayStartEnd(start, end)
     {
-      console.log(window.location.pathname + ' ' + window.location.host.slice(-1));
-        var url_string = window.location.href
+        var url_string = window.location.href;
         var url = new URL(url_string);
         var Doctor = url.searchParams.get("doc");
         console.log(this.state.idDoc);
@@ -193,6 +211,7 @@ class Calendar extends React.Component{
               <h4 className="modal-title" id="mModalLabel">Confirm your booking</h4>
                 <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
               </div>
+              <form className="ml-3 mr-3" onSubmit={this.handleSubmitBooking}>
               <div className="modal-body">
                 DoctorId - {this.state.idDoc}<br/>
                 Start - {this.state.startTime}<br/>
@@ -200,10 +219,11 @@ class Calendar extends React.Component{
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-info btn-lg">Save changes</button>
+                <button type="submit" className="btn btn-info btn-lg">Confirm booking</button>
               </div>
-            </div>
+            </form>
           </div>
+        </div>
         </div>
         </div>
                   );
