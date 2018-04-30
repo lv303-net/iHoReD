@@ -16,35 +16,31 @@ class Calendar extends React.Component{
     constructor(props){      
       super(props);
       this.state = { idDoc: 0, startPeriod: '', endPeriod: '', events:[], startTime:'', endTime:''};  
-      $(document).on("VadikKrasava", this.showModal);
-      $( "p" ).on( "myCustomEvent", function( event, myName ) {
-        $( this ).text( myName + ", hi there!" );
-        $( "span" )
-          .stop()
-          .css( "opacity", 1 )
-          .text( "myName = " + myName )
-          .fadeIn( 30 )
-          .fadeOut( 1000 );
-      });
+      
     }
 
     saveCurrentDayStartEnd(start, end)
     {
       console.log(window.location.pathname + ' ' + window.location.host.slice(-1));
-        var url_string = window.location.href;//"http://localhost:3000/?a=1&b=3&idDoctor=2"; //window.location.href
+        var url_string = window.location.href
         var url = new URL(url_string);
         var Doctor = url.searchParams.get("doc");
         console.log(this.state.idDoc);
         console.log(Doctor);
         console.log(window.location.href);
-        this.setState({
-          idDoc :Doctor
-        })
+
       this.setState({
         startPeriod: start,
         endPeriod: end,
-        //idDoc : this.props.idDoctor
         idDoc :Doctor
+      })
+    }
+    
+    saveCurrentTimeStartEnd(start, end)
+    {
+      this.setState({
+        endTime: end,
+        startTime: start
       })
     }
 
@@ -115,21 +111,17 @@ class Calendar extends React.Component{
         
         eventClick: function(event, jsEvent, view ) {
           // need button because issue related with opening modal from fullcalendar
-          if (jsEvent.blocked == true) {
-              alert("This time is not available!");
-          } else {
-          $("#modButton").trigger("click");
-          console.log(event.start._i);
-          console.log(event.end._i);
-          localStorage.setItem("starTime", event.start._i);
-          localStorage.setItem("endTime", event.end._i);
-          }
-          // __that.setState({
-          //   starttime: event.start._i,
-          //   endTime: event.end._i,
-          // })
-          //$('#mModal').modal("show"); 
-          //$( "p" ).trigger( "myCustomEvent", [ "John" ] );
+            if (jsEvent.blocked == true) {
+                alert("This time is not available!");
+            } else {
+            
+            console.log(event.start._i);
+            console.log(event.end._i);
+            localStorage.setItem("starTime", event.start._i);
+            localStorage.setItem("endTime", event.end._i);
+            _that.saveCurrentTimeStartEnd(event.start._i, event.end._i);
+            $("#modButton").trigger("click");
+            }
       }, 
         }) 
       });
@@ -163,40 +155,27 @@ class Calendar extends React.Component{
         }    
     }
       shouldComponentUpdate(nextProps, nextState) {
-        //return (this.props.idDoctor!== nextProps.idDoctor || (this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod)); 
-        return ((this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod));       
+        return ((this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod) 
+        || (this.state.idDoc!== nextState.idDoc) || (this.state.startTime!== nextState.startTime) || (this.state.endTime!== nextState.endTime) );       
       }
 
       componentWillUpdate(nextProps, nextState)
       {
-        // console.log(window.location.pathname + ' ' + window.location.host.slice(-1));
-        // var url_string = "http://localhost:3000/?a=1&b=3&idDoctor=1"; //window.location.href
-        // var url = new URL(url_string);
-        // var Doctor = url.searchParams.get("idDoctor");
-        // console.log(Doctor);
-        // this.setState({
-        //   idDoc :Doctor
-        // })
-        console.log(this.state.idDoc);
-        $('#calendar').fullCalendar( 'removeEvents');
-        var isMonth;
-        if($('#calendar').fullCalendar('getView').name=='month')
-          isMonth = true;
-        else 
-          isMonth = false;
-        axios.get(server_url+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
-        .then(response => {
-            // this.setState({
-            //   events: response.data
-            // })
-            response.data.map(event => {this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2], isMonth)})
-            // response.data.map(event => { var e={
-            //   start  : event[0]+'T'+event[1],
-            //   end  : event[0]+'T'+event[2],
-            //   allDay: isAllDay
-            // }
-            //   $('#calendar').fullCalendar( 'renderEvent', e, true)})
-            });
+        var getData = (this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.state.idDoc!== nextState.idDoc); 
+          if(getData)
+          {      
+          console.log(this.state.idDoc);
+          $('#calendar').fullCalendar( 'removeEvents');
+          var isMonth;
+          if($('#calendar').fullCalendar('getView').name=='month')
+            isMonth = true;
+          else 
+            isMonth = false;
+          axios.get(server_url+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
+          .then(response => {
+              response.data.map(event => {this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2], isMonth)})
+              });
+          }
       }
 
     render(){
@@ -215,9 +194,9 @@ class Calendar extends React.Component{
                 <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
               </div>
               <div className="modal-body">
-                DoctorId - {this.state.idDoc}
-                Start - {this.state.startTime}
-                End - {console.log(localStorage.getItem("endTime"))}
+                DoctorId - {this.state.idDoc}<br/>
+                Start - {this.state.startTime}<br/>
+                End - {this.state.endTime}<br/>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
