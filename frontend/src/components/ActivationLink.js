@@ -19,13 +19,13 @@ class Direction extends React.Component {
       text: ""
     };
   }
-  // componentDidMount() {
-  //   console.log(this.props.status);
-  //   var url = window.location.origin;
-  //   setTimeout(() => {
-  //     if (this.props.status == 1 || this.props.status == 0) window.location.href = url + "/startPage";
-  //   }, 4000);
-  // }
+  componentDidMount() {
+    console.log(this.props.status);
+    var url = window.location.origin;
+    setTimeout(() => {
+      if (this.props.status == 1 || this.props.status == 0) window.location.href = url + "/startPage";
+    }, 4000);
+  }
   render() {
     return (
       this.props.redirect ? (
@@ -76,19 +76,6 @@ class ActivationLink extends React.Component {
         break;
     }
   }
-  componentDidCatch(error, info) {
-  
-    this.setState({ hasError: true });
-    console.log(this.state.hasError);
-    console.log("Heloooo");
-     }
-  errorHandler() {
-    if (this.props.hasError) {
-      this.setState({
-        text: "Something went wrong!!!"
-      })
-    }
-  }
   userId = this.props.match.params.id;
   componentDidMount() {
     setTimeout(() => {
@@ -99,7 +86,6 @@ class ActivationLink extends React.Component {
         })
         .catch(err => console.log(err.response.status));
       this.setState({ loading: false });
-      this.errorHandler();
     }, 2000);
   }
   render() {

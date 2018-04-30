@@ -26,11 +26,6 @@ App {
   to { transform: rotate(360deg); }
 }
 
-.navbar-custom {
-  /* background-color: #49A2FF; */
-  background-color: #74B8FF;
-}
-
 .modal-header {
   border-bottom: none;
 }
@@ -120,21 +115,10 @@ App {
   width: 100%;
 }
 
-.navbarDiv {
-  width: 100%;
-}
-
-.divRender {
-  width: 100% !important;
-}
-
-.navbarContainer {
-  width: 100% important;
-}
-
 div.profDocTable:hover {
   background-color: #E3E3E3;
   cursor: pointer;
+<<<<<<< HEAD
 }
 
 .logo{
@@ -162,3 +146,6 @@ ul li a :hover {
   text-shadow: 2px 2px 4px #000000;
   color:red;
 }
+=======
+}
+>>>>>>> fd1a3aac1ae37a860eb64c3267ac7c3eb9fe919c
