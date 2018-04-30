@@ -127,7 +127,7 @@ namespace Entities.Services
 
         public List<DoctorRules> GetDoctorAllRules(int doctorId,DateTime dateStart,DateTime dateFinish)
         {
-            if((dateFinish.DayOfYear-dateStart.DayOfYear)<7)
+            if((dateFinish.DayOfYear-dateStart.DayOfYear)<6)
             {
                 dateFinish = dateStart;
             }
@@ -169,13 +169,13 @@ namespace Entities.Services
 
         public List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
         {
-            if ((dateFinish.DayOfYear - dateStart.DayOfYear) < 7)
+            if ((dateFinish.DayOfYear - dateStart.DayOfYear) < 6)
             {
                 dateFinish = dateStart;
             }
             var events = new List<string[]>();
             string pattern = "yyyy-MM-dd";
-            if ((dateFinish.DayOfYear-dateStart.DayOfYear)<28)
+            if ((dateFinish.DayOfYear-dateStart.DayOfYear)<27)
             {
                 foreach (var rule in allRules)
                 {
@@ -208,12 +208,17 @@ namespace Entities.Services
                                 if (rule.IfInclusive)
                                 {
                                     var convertDate = tempDateStart.ToString(pattern);
+                                    
                                     var inclEvent = new[]
                                     {
                                     convertDate.ToString(), tempHour.ToString(),
                                     (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
                                 };
-                                    events.Add(inclEvent);
+                                    var tempInclEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) == tempHour && TimeSpan.Parse(u[2]) == tempHour.Add(TimeSpan.FromMinutes(30)));
+                                    if(tempInclEvent==null)
+                                    {
+                                        events.Add(inclEvent);
+                                    }
                                 }
                                 else
                                 {

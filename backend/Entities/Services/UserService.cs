@@ -55,15 +55,17 @@ namespace Entities.Services
             return user;
         }
 
-        public void ActivateUser(int Id)
+        public int ActivateUser(int Id)
         {
             const string cmd = "ACTIVATE_USER";
+            string outparam = "@IS_RESULT";
             var param = new Dictionary<string, object>()
             {
                 {"ID_USER", Id},
             };
 
-            _dbContext.ExecuteSqlQuery(cmd, param);
+            int outval = _dbContext.ExecuteSqlQuery(cmd,outparam, param);
+            return outval;
         }
 
         public void ApdateInfoAboutUser(string id,string firstname, string lastname, string email, string password, string isActivated,
