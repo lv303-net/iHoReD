@@ -18,9 +18,9 @@ a:link, a:visited {
     color:white;
 }
 
-a{
+/* a{
     height: 100%;
-}
+} */
 .navbar-custom {
     color: white;
     background-color:#74B8FF;
