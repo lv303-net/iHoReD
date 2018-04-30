@@ -49,11 +49,12 @@ namespace HoReD.Controllers
             try
             {
                 int decryptedUserId = Convert.ToInt32(EncryptionService.Decrypt(IdUser));
-                _userService.ActivateUser(decryptedUserId);
-                return Ok();
+               int result=_userService.ActivateUser(decryptedUserId);
+                return Ok(result);
             }   
-            catch (Exception)
+            catch (Exception )
             {
+             
                 return Unauthorized();
             }
         }
