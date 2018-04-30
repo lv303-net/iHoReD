@@ -32,5 +32,10 @@ namespace Entities.Services
         }
 
         public void ExecuteSqlQuery(string cmd, IDictionary<string, object> data) { }
+
+        public int ExecuteSqlQuery(string cmd, string outparam, IDictionary<string, object> data)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace Entities.Services
         public static string Decrypt(string cipherText)
         {
             string EncryptionKey = "abc123";
-            cipherText = cipherText.Replace(" ", "+");
+            cipherText = cipherText.Replace(" ", "+").Replace("/","_");
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
             using (Aes encryptor = Aes.Create())
             {

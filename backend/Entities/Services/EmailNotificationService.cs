@@ -50,13 +50,13 @@ namespace Entities.Services
 
         public static void sendEmail(User user)
         {       
-            string userId = user.Id.ToString();
+           string userId = user.Id.ToString();
             string encryptedUserId = EncryptionService.Encrypt(userId);
             SmtpClient client = SetSmtpClient();
             MailMessage mailmessage = new MailMessage(Credentials.Email, user.Email);
             mailmessage.IsBodyHtml = true;
             mailmessage.Subject = subject;
-            mailmessage.Body = body + "<a href="+ConfigurationManager.AppSettings["Path"]+ "/activation/"+ encryptedUserId +">click here</a>";
+            mailmessage.Body = body + "<a href="+ConfigurationManager.AppSettings["Path"]+ "/activation/"+ encryptedUserId  + ">click here</a>";
             client.Send(mailmessage);
         }    
     }

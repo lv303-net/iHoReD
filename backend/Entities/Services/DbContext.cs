@@ -59,7 +59,27 @@ namespace Entities.Services
                 }
             _myConnection.Close();
         }
-        
+
+        public int ExecuteSqlQuery(string cmd,string outparam, IDictionary<string, object> data)
+        {
+            int outval=0;
+            _myConnection.Open();
+           
+            using (var sqlCommand = new SqlCommand(cmd, _myConnection))
+            {
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                foreach (var d in data)
+                {
+                    sqlCommand.AddParameter(d.Key, d.Value);
+                    sqlCommand.Parameters.Add(outparam, SqlDbType.Int).Direction = ParameterDirection.Output;
+                }
+                sqlCommand.ExecuteNonQuery();
+                 outval =(int)sqlCommand.Parameters[outparam].Value;
+                
+            }
+            _myConnection.Close();
+            return outval;
+        }
         public void Dispose()
         {
             _myConnection?.Dispose();

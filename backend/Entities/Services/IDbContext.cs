@@ -8,5 +8,6 @@ namespace Entities.Services
         string ExecuteSqlQuery(string cmd, char separatedChar, Dictionary<string, object> param);
 
         void ExecuteSqlQuery(string cmd, IDictionary<string, object> data);
+        int ExecuteSqlQuery(string cmd,string outparam, IDictionary<string, object> data);
     }
 }
