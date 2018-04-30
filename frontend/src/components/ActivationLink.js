@@ -12,6 +12,30 @@ if(process.env.NODE_ENV==="development")
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 
+  class Direction extends React.Component{
+    constructor(props){      
+      super(props);
+      this.state = {
+        text: ""
+      };
+    }
+
+    render() {
+      return (
+        this.props.redirect ? (
+          <div className = "container m-5">
+            <div className="row justify-content-center"><h1 className='text-success'>{this.props.text}</h1></div>            
+          </div>
+        )
+      : 
+        <div className = "container m-5">
+        <div className="row justify-content-center"><h1 className='text-warning'>{this.props.text}</h1></div>            
+      </div>
+      
+      );
+    }
+  }
+  
   class ActivationLink extends React.Component{
     constructor(props){      
       super(props);
@@ -20,6 +44,7 @@ else if(process.env.NODE_ENV==="production")
             loading: true,
             text: "",
             isRegistrated:"",
+            redirect:"",
            
       };
       this.eventHandler=this.eventHandler.bind(this);           
@@ -27,13 +52,22 @@ else if(process.env.NODE_ENV==="production")
   eventHandler(isReg) {
         switch(isReg){
         case 0: 
-        this.setState({text:"You are already registered!"}); 
+        this.setState({
+          text:"You are already registered!",
+          redirect: true
+        }); 
         break;    
         case -1:
-        this.setState({text:"Please go to the main page and sign up."})
+        this.setState({
+          text:"Please go to the main page and sign up.",
+          redirect: false
+        })
         break;
         case 1:
-         this.setState({text:"Congratulations, you have successfully registered in HoReD!"}); 
+         this.setState({
+           text:"Congratulations, you have successfully registered in HoReD!",
+           redirect: true
+          }); 
          break;   
         }      
       } 
@@ -55,12 +89,16 @@ else if(process.env.NODE_ENV==="production")
       const { isRegistrated } = this.state;
       const { redirect} = this.state;
        
-                 return  (
-            this.state.loading  ? <Loader />: 
-            <div className = "container m-5">
-            <div className="row justify-content-center"><h1 className='text-success'>{text}</h1></div>            
-            </div>   
-           );
+          //        return  (
+          //   this.state.loading  ? <Loader />: 
+          //   <div className = "container m-5">
+          //   <div className="row justify-content-center"><h1 className='text-success'>{text}</h1></div>            
+          //   </div>   
+          //  );
+
+      return (
+        this.state.loading ? <Loader/> : <Direction text={text} redirect={redirect}/>
+      )
       }           
 }
 export default ActivationLink;

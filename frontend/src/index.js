@@ -24,17 +24,17 @@ class Home extends Component {
     render() {
       return (
         <div>
-               <LogbarWrapper/>
-     <Switch>
-        <Route exact path="/" component={App}/>
-        <Route path="/editUserInfo" component={Edit}/>
-        <Route path="/allDiagnoses" component={Diagnoses}/>
-        <Route path="/startPage" component={StartPatientPage}/>
-        <Route path="/admin" component={AdminRulesPage}/>
-        <Route path="/activation/:id" component={ActivationLink}/>
-        <Route path="/doctorCalendar" component={DoctorCalendar}/>
-      </Switch>
-      <Footerbar/>
+            <LogbarWrapper/>
+            <Switch>
+                <Route exact path="/" component={App}/>
+                <Route path="/editUserInfo" component={Edit}/>
+                <Route path="/allDiagnoses" component={Diagnoses}/>
+                <Route path="/startPage" component={StartPatientPage}/>
+                <Route path="/admin" component={AdminRulesPage}/>
+                <Route path="/activation/:id" component={ActivationLink}/>
+                <Route path="/doctorCalendar" component={DoctorCalendar}/>
+              </Switch>
+              <Footerbar/>
       </div>
       );
     }
