@@ -3,13 +3,9 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import validator from 'validator';
-<<<<<<< HEAD
-// import HamburgerMenu from 'react-hamburger-menu';
-
-=======
 import logo from '../images/logo.png';
 import '../style/Navbar.css';
->>>>>>> fd1a3aac1ae37a860eb64c3267ac7c3eb9fe919c
+
 
 var server_url;
 if (process.env.NODE_ENV === "development")
@@ -17,28 +13,9 @@ if (process.env.NODE_ENV === "development")
 else if (process.env.NODE_ENV === "production")
   server_url = "https://hored.azurewebsites.net"
 
-<<<<<<< HEAD
-class Authorization extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
-  render() {
-    return (
-      <div>
-        <li><button type="button" className="btn btn-info" data-toggle="modal" data-target="#SignInModal">Sign in</button></li>
-        <li><button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal">Sign up</button> </li>
-      </div>
-    );
-  }
-}
-
-class LogbarUnauth extends Component {
-  constructor(props) {
-=======
 class LogbarUnauth extends Component { 
   constructor(props){
->>>>>>> fd1a3aac1ae37a860eb64c3267ac7c3eb9fe919c
     super(props);
     this.firstNameRegistr = '';
     this.lastNameRegistr = '';
@@ -77,16 +54,10 @@ class LogbarUnauth extends Component {
 
     axios.post(server_url + '/api/Login', userAuth)
       .then(function (response) {
-<<<<<<< HEAD
-        window.location.reload();
-        localStorage.setItem("currentUserFirstName", (response.data.FirstName));
-        localStorage.setItem("currentUserLastName", (response.data.LastName));
-=======
           window.location.reload();
           localStorage.setItem("currentUserId", (response.data.Id));
           localStorage.setItem("currentUserFirstName", (response.data.FirstName));
           localStorage.setItem("currentUserLastName", (response.data.LastName));
->>>>>>> fd1a3aac1ae37a860eb64c3267ac7c3eb9fe919c
       });
   }
 
@@ -240,10 +211,6 @@ class LogbarUnauth extends Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
-        <div className="col-xs-12 col-sm-12 col-md-4">
-          <Authorization />
-=======
         <nav className="navbar navbar-dark navbar-custom py-0 px-5">
           <div className="navbar-brand p-0">
             <a href="/">
@@ -286,7 +253,6 @@ class LogbarUnauth extends Component {
               <a className="nav-link" href="#">National medicine program</a>
             </li>
           </ul>
->>>>>>> fd1a3aac1ae37a860eb64c3267ac7c3eb9fe919c
         </div>
 
         <div className="modal fade" id="myModal">
@@ -296,48 +262,26 @@ class LogbarUnauth extends Component {
                 <h4 className="modal-title">Registration Form</h4>
                 <button type="button" className="close" data-dismiss="modal">&times;</button>
               </div>
-<<<<<<< HEAD
-              <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate>
-=======
+
               <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate>    
->>>>>>> fd1a3aac1ae37a860eb64c3267ac7c3eb9fe919c
                 <div className="form-row ml-3">
                   <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
                     <p className="labelForm">First Name</p>
                   </div>
                   <div className="form-group col-sm-8 col-xs-12" id="inputFName">
-<<<<<<< HEAD
-                    <input type="text"
-                      className="form-control"
-                      onChange={(x => { this.firstNameRegistr = x.target.value; this.validateFirstName(); this.hideError(this.divFNameRegistr) })}
-                      id="firstName"
-                      placeholder="First Name"
-                      required />
-=======
+
                     <input type="text" 
                         className="form-control"
                         onChange={(x => {this.firstNameRegistr=x.target.value; this.validateFirstName(); this.hideError(this.divFNameRegistr)})}  
                         id="firstName" 
                         placeholder="First Name" 
                         required/>
->>>>>>> fd1a3aac1ae37a860eb64c3267ac7c3eb9fe919c
                     <div id="invalidFname" className="text-muted" ref={this.divFNameRegistr}>
                     </div>
                   </div>
                 </div>
                 <div className="form-row ml-3">
-<<<<<<< HEAD
-                  <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
-                    <p className="labelForm">Last Name</p>
-                  </div>
-                  <div className="form-group col-sm-8 col-xs-12" id="inputLName">
-                    <input type="text"
-                      className="form-control"
-                      onChange={(x => { this.lastNameRegistr = x.target.value; this.validateLastName(); this.hideError(this.divLNameRegistr) })}
-                      id="lastName"
-                      placeholder="Last Name"
-                      required />
-=======
+
                 <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
                     <p className="labelForm">Last Name</p>
                   </div>
@@ -348,56 +292,12 @@ class LogbarUnauth extends Component {
                             id="lastName" 
                             placeholder="Last Name"                           
                             required/>
->>>>>>> fd1a3aac1ae37a860eb64c3267ac7c3eb9fe919c
                     <div id="invalidLname" className="text-muted" ref={this.divLNameRegistr}>
                     </div>
                   </div>
                 </div>
                 <div className="form-row ml-3">
-<<<<<<< HEAD
-                  <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
-                    <p className="labelForm">Phone number</p>
-                  </div>
-                  <div className="form-group col-sm-8 col-xs-12" id="inputPhone">
-                    <input type="tel"
-                      className="form-control"
-                      onChange={x => { this.phoneRegistr = x.target.value; this.validatePhone(); this.hideError(this.divPhoneRegistr) }}
-                      id="phone"
-                      placeholder="Phone"
-                      required />
-                    <div id="invalidPhone" className="text-muted" ref={this.divPhoneRegistr}>
-                    </div>
-                  </div>
-                </div>
-                <div className="form-row ml-3">
-                  <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
-                    <p className="labelForm">Email</p>
-                  </div>
-                  <div className="form-group col-sm-8 col-xs-12" id="inputEmail">
-                    <input type="email"
-                      className="form-control"
-                      onChange={x => { this.emailRegistr = x.target.value; this.validateEmail(); this.hideError(this.divEmailRegistr) }}
-                      id="inputEmailText"
-                      placeholder="Email"
-                      id="email"
-                      required />
-                    <div id="invalidEmail" className="text-muted" ref={this.divEmailRegistr}>
-                    </div>
-                  </div>
-                </div>
-                <div className="form-row ml-3">
-                  <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
-                    <p className="labelForm">Password</p>
-                  </div>
-                  <div className="form-group col-sm-8 col-xs-12" id="inputPassword">
-                    <input type="password"
-                      className="form-control"
-                      placeholder="Password"
-                      onChange={(x => { this.passwordRegistr = x.target.value; this.validatePassword(); this.hideError(this.divPassRegistr) })}
-                      id="password"
-                      required />
-                    <div id="invalidPassword" className="text-muted" ref={this.divPassRegistr}>
-=======
+
                 <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
                     <p className="labelForm">Phone number</p>
                   </div>
@@ -425,36 +325,11 @@ class LogbarUnauth extends Component {
                             id="email" 
                             required/>
                     <div id="invalidEmail" className="text-muted" ref={this.divEmailRegistr}>
->>>>>>> fd1a3aac1ae37a860eb64c3267ac7c3eb9fe919c
                     </div>
                   </div>
                 </div>
                 <div className="form-row ml-3">
-<<<<<<< HEAD
-                  <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
-                    <p className="labelForm">Confirm Password</p>
-                  </div>
-                  <div className="form-group col-sm-8 col-xs-12" id="inputConfirmPassword">
-                    <input type="password"
-                      className="form-control"
-                      placeholder="Confirm Password"
-                      onChange={(x => { this.confirmPasswordRegistr = x.target.value; this.checkPassword(); this.hideError(this.divConfirmPassRegistr) })}
-                      onPaste={x => { x.preventDefault() }}
-                      id="confirmPassword"
-                      required />
-                    <div id="invalidConfirmPassword" className="text-muted" ref={this.divConfirmPassRegistr}>
-                    </div>
-                  </div>
-                </div>
-                <div className="row mb-3 mt-5 justify-content-center">
-                  <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                    <button type="submit" ref={this.btnSubmitRegistr} onClick={(x => this.showError())} className="btn btn-info btn-lg mb-3">Sign up
-                  </button>
-                  </div>
-                  <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
-                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
-                  </button>
-=======
+
                 <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
                     <p className="labelForm">Password</p>
                   </div>
@@ -493,7 +368,6 @@ class LogbarUnauth extends Component {
                   <div className="col-xs-3 col-sm-3 col-md-3 text-center" >   
                     <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
                     </button>
->>>>>>> fd1a3aac1ae37a860eb64c3267ac7c3eb9fe919c
                   </div>
                 </div>
               </form>
