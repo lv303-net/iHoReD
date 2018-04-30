@@ -28,8 +28,11 @@ class DoctorTable extends React.Component{
       }
 
        addUrl(val) {
+        var stateObj = "doc=";
         var url = window.location.href;
-        window.history.pushState(null, null, `${window.location.pathname}?${window.location.search}&doc=${val}`);
+        var searchParameter=new URLSearchParams(window.location.search);
+        searchParameter.set('doc',val);
+        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`); 
     };
 
       componentWillUpdate(nextProps, nextState)
@@ -50,8 +53,8 @@ class DoctorTable extends React.Component{
                     <div className="list-group-item" id="docButton" tabindex="1">
                       <p>Doctors</p>
                     </div>
-                      <div id='listDoc'>
-                      {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={doc.toString()} onClick={() => {this.eventHandler(doc[2]),this.addUrl(doc[2])}}><div>{doc[1] + ' ' + doc[0]}</div></a>)}                                   
+                      <div id='listDoc' className="list-group">
+                      {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={doc.toString()} onClick={() =>{this.eventHandler(doc[2]),this.addUrl(doc[2])}}> <div>{doc[1] + ' ' + doc[0]}</div></a>)}                                   
                       </div>
                     </div>              
                   </div>

@@ -12,7 +12,7 @@ if(process.env.NODE_ENV==="development")
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 
-class Calendar extends React.Component{
+class DoctorCalendar extends React.Component{
     constructor(props){      
       super(props);
       this.state = { idDoc: 0, startPeriod: '', endPeriod: '', events:[], startTime:'', endTime:''};  
@@ -231,4 +231,4 @@ class Calendar extends React.Component{
   }
   }
 
-  export default Calendar;
+  export default DoctorCalendar;
