@@ -26,16 +26,14 @@ class LogbarAuth extends Component {
           <ul className="nav">
             <li className="nav-item btn-custom">
               <form className="form-inline" action="/action_page.php">
-                <div>
                   {localStorage.getItem("currentUserFirstName") + " " + localStorage.getItem("currentUserLastName") + " "} 
                   <Link to="/">   
-                    <button type="button" className="btn btn-info btn-custom" onClick={this.SignOut}>Sign out</button> 
+                    <button type="button" id ="link-custom" className="btn btn-info btn-custom" onClick={this.SignOut}>Sign out</button> 
                   </Link>
-                </div>
               </form>
             </li>
             <li className="nav-item btn-custom">
-              <a className="navbar-toggler nav-link" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+              <a className="navbar-toggler nav-link" id ="link-custom" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </a>  
             </li>          

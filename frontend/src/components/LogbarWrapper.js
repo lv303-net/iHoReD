@@ -16,22 +16,7 @@ else if(process.env.NODE_ENV==="production")
     render(){
         return(
             <div>
-                <nav className="navbar navbar-custom p-0 pl-5 pr-5">
-          {/* <div className="navbar-brand p-0">
-            <a href="/">
-              <img className="logo" src={logo}></img>
-            </a>
-            <span className="pl-5">Lviv Regional Hospital</span>
-          </div>   */}
-
-          <ul class="nav navbar-nav navbar-right">
-            {(localStorage.getItem("currentUserFirstName")==null) ? (<LogbarUnauth/>) : (<LogbarAuth/>)}
-          </ul>
-
-          <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon text-white"></span>
-          </button>        
-        </nav>
+              {(localStorage.getItem("currentUserFirstName")==null) ? (<LogbarUnauth/>) : (<LogbarAuth/>)}
             </div>
         );
     }

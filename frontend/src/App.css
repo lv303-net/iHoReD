@@ -118,7 +118,6 @@ App {
 div.profDocTable:hover {
   background-color: #E3E3E3;
   cursor: pointer;
-<<<<<<< HEAD
 }
 
 .logo{
@@ -132,20 +131,8 @@ div.profDocTable:hover {
   border: 2px 1px 2px 1px solid #adc9ff;
 }
 
-.btn-custom :hover {
-  background-color:#80bfff;
-}
 
-ul li a {
-  color: white;
-}
-ul li a :hover {
-  color: white;
-}
 #shaddow{
   text-shadow: 2px 2px 4px #000000;
   color:red;
 }
-=======
-}
->>>>>>> fd1a3aac1ae37a860eb64c3267ac7c3eb9fe919c

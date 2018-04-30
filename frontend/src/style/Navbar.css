@@ -1,4 +1,4 @@
-.logo{
+npm.logo{
     max-height: 3em;
     width: auto;
 }
@@ -18,9 +18,10 @@ a:link, a:visited {
     color:white;
 }
 
-/* a{
+#link-custom{
     height: 100%;
-} */
+}
+
 .navbar-custom {
     color: white;
     background-color:#74B8FF;
