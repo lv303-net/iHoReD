@@ -45,23 +45,23 @@ else if(process.env.NODE_ENV==="production")
     }
   }
 
-  var Menu = require('react-burger-menu').push;
-  var createReactClass = require('create-react-class');
+//  var Menu = require('react-burger-menu').push;
+//   var createReactClass = require('create-react-class');
  
-  var BM = createReactClass({
-    showSettings: function(event) {
-      event.preventDefault();
-    },
-    render: function() {
-      return (
-        <Menu styles={ styles } position='right' >
-          <a id="home" className="menu-item" href="/">Home</a>
-          <a id="about" className="menu-item" href="/">About</a>
-          <a id="contact" className="menu-item" href="/">Contact</a>
-          <a className="menu-item--small" href="/">Settings</a>
-        </Menu>
-      );
-    }
-  });
+//   var BM = createReactClass({
+//     showSettings: function(event) {
+//       event.preventDefault();
+//     },
+//     render: function() {
+//       return (
+//         <Menu styles={ styles } position='right' >
+//           <a id="home" className="menu-item" href="/">Home</a>
+//           <a id="about" className="menu-item" href="/">About</a>
+//           <a id="contact" className="menu-item" href="/">Contact</a>
+//           <a className="menu-item--small" href="/">Settings</a>
+//         </Menu>
+//       );
+//     }
+//   });
 
-export default BM;
+// export default BM;
