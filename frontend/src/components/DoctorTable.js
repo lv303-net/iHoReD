@@ -28,8 +28,6 @@ class DoctorTable extends React.Component{
       }
 
        addUrl(val) {
-        var stateObj = "doc=";
-        var url = window.location.href;
         var searchParameter=new URLSearchParams(window.location.search);
         searchParameter.set('doc',val);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`); 
@@ -51,7 +49,7 @@ class DoctorTable extends React.Component{
 
       return  <div className="list-group mb-2 col-sm-6 col-md-12" id="professions">
                   <div id='tableDoc'>
-                    <div className="list-group-item" id="docButton" tabindex="1">
+                    <div className="list-group-item" id="docButton" tabIndex="1">
                       <p>Doctors</p>
                     </div>
                       <div id='listDoc' className="list-group">

@@ -132,3 +132,15 @@ div.profDocTable:hover {
   text-shadow: 2px 2px 2px #000000;
   color:red;
 }
+
+#adminMainDiv  {
+  min-height: calc(100vh - 84px);
+}
+
+#editMainDiv {
+  min-height: calc(100vh - 84px);
+}
+
+#mainDiv {
+  min-height: calc(100vh - 84px);
+}
