@@ -37,3 +37,10 @@ div#professions {
         margin-right: 0;
     }
 }
+
+#tableProf #listProf .active,
+#tableDoc #listDoc .active {
+    border-color: #DCDCDC;
+    background-color: #DCDCDC;
+    color: white;
+}
