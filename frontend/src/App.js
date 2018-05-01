@@ -24,7 +24,7 @@ else if(process.env.NODE_ENV==="production")
 class App extends Component {
   render() {
     return(
-      <div>
+      <div id="mainDiv">
         <div class="container-fluid mt-5">
           <div className="row">
             <ProfessionsTable/>            

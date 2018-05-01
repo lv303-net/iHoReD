@@ -46,3 +46,7 @@ a:link, a:visited {
 .navbar-toggler span.shorter-line {
     width: .75em;
 }
+
+.nav-item a#link-custom {
+    margin-top: 0.5em;
+}
