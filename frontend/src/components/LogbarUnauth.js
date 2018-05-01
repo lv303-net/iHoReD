@@ -227,11 +227,13 @@ class LogbarUnauth extends Component {
             </li>
             <li className="nav-item btn-custom">
               <a className="navbar-toggler nav-link" id ="link-custom" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+                {/* <span className="navbar-toggler-icon"></span> */}
+                <span className="shorter-line"></span>
+                <span></span>
+                <span></span>
               </a>  
             </li>           
-          </ul>
-                
+          </ul>                
         </nav>
 
         <div className="collapse pos-f-t container-fluid navbar-custom border border-top-2 p-0" id="navbarToggleExternalContent">
