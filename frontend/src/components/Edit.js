@@ -78,7 +78,8 @@ class Edit extends React.Component {
   }
   render() {
     return (
-       <div className="container col-sm-8" id="editInfoWindow">
+      <div id="editMainDiv">
+       <div className="container col-sm-8 mt-3" id="editInfoWindow">
       <div id="editUserInfoHeader">
         <p className="col-sm-5 offset-sm-1" id="basicInfoID"><b>Basic info</b></p>
         <div>
@@ -149,6 +150,7 @@ class Edit extends React.Component {
             </Link>
         <button type="button" className="btn btn-primary btn-md btn-clr" onClick={this.submitForm}>Submit</button>
       </div>
+    </div>
     </div>
     );
   }

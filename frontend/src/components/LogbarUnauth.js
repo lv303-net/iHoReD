@@ -113,6 +113,7 @@ class LogbarUnauth extends Component {
       this.validAll = false;
 
       if (this.validFirstName) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divFNameRegistr.current.textContent = '';
       }
       else {
@@ -120,6 +121,7 @@ class LogbarUnauth extends Component {
         this.divFNameRegistr.current.textContent = 'Please enter a valid firstname';
       }
       if (this.validLastName) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divLNameRegistr.current.textContent = '';
       }
       else {
@@ -127,6 +129,7 @@ class LogbarUnauth extends Component {
         this.divLNameRegistr.current.textContent = 'Please enter a valid lastname';
       }
       if (this.validPhone) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divPhoneRegistr.current.textContent = '';
       }
       else {
@@ -134,6 +137,7 @@ class LogbarUnauth extends Component {
         this.divPhoneRegistr.current.textContent = 'Please enter a valid phone number';
       }
       if (this.validEmail) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divEmailRegistr.current.textContent = '';
       }
       else {
@@ -141,6 +145,7 @@ class LogbarUnauth extends Component {
         this.divEmailRegistr.current.textContent = "Please enter a valid email";
       }
       if (this.validPasword) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divPassRegistr.current.textContent = '';
       }
       else {
@@ -148,6 +153,7 @@ class LogbarUnauth extends Component {
         this.divPassRegistr.current.textContent = "Please enter a valid password";
       }
       if (this.validConfirmPassword) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divConfirmPassRegistr.current.textContent = '';
       }
       else {
@@ -227,11 +233,13 @@ class LogbarUnauth extends Component {
             </li>
             <li className="nav-item btn-custom">
               <a className="navbar-toggler nav-link" id ="link-custom" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+                {/* <span className="navbar-toggler-icon"></span> */}
+                <span className="shorter-line"></span>
+                <span></span>
+                <span></span>
               </a>  
             </li>           
-          </ul>
-                
+          </ul>                
         </nav>
 
         <div className="collapse pos-f-t container-fluid navbar-custom border border-top-2 p-0" id="navbarToggleExternalContent">

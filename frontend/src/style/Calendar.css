@@ -14,5 +14,9 @@
   div#professions div#profButton, div#professions div#docButton{
     background-color: #007bff;
     color: white;
-
   }
+
+  .fc-day {
+    background-color: #DCDCDC;
+    opacity: 0.5;
+}

@@ -63,7 +63,6 @@ constructor(props){
     }
     
     addUrl(val) {
-      var url = window.location.href;
       var searchParameter=new URLSearchParams(window.location.search);
       searchParameter.set('prof',val);
       searchParameter.delete('doc');
@@ -71,6 +70,14 @@ constructor(props){
   };
 
     componentDidMount(){
+      var url_string = window.location.href;
+      var url = new URL(url_string);
+      var idProf = url.searchParams.get("prof");
+      
+      this.setState({
+        id: idProf
+      })
+
       var _that = this;
       $(document).ready(function() {
         _that.responsiveTables();
@@ -80,6 +87,10 @@ constructor(props){
       });
     }
 
+    componentDidUpdate(prevProps, prevState) {
+      var idForDiv = "#prof"+this.state.id;
+      $(idForDiv).addClass("active");
+    }
 
     eventHandler(idP) {
       localStorage.setItem("currentProfession", idP)
@@ -93,13 +104,13 @@ constructor(props){
               <div className="row">
               <div className="list-group mb-2 col-sm-6 col-md-12" id="professions">
                 <div id='tableProf'>
-                  <div className="list-group-item" id="profButton" tabindex='1'>
+                  <div className="list-group-item" id="profButton" tabIndex='1'>
                     <p id='tableLabel'>Professions</p>
                     <i className="fas fa-angle-down"></i>  
-                    <i class="fas fa-angle-right"></i>              
+                    <i className="fas fa-angle-right"></i>              
                   </div>                  
                   <div id='listProf' className="list-group">
-                    {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => {this.eventHandler(professionsArr[0]),this.addUrl(professionsArr[1])}}><div>{professionsArr[1]}</div></a>)}
+                    {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' id={"prof"+professionsArr[0]} data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => {this.eventHandler(professionsArr[0]),this.addUrl(professionsArr[0])}}><div>{professionsArr[1]}</div></a>)}
                   </div>
                   </div> 
                 </div>

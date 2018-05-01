@@ -33,3 +33,20 @@ a:link, a:visited {
     width: 1.5em;
     height: 1.5em;
 }
+
+.navbar-toggler span {
+    display: block;
+    width: 1.2em;
+    height: .085em;
+    left: 0;
+    background: #fff;
+    margin: .45rem 0rem;
+}
+
+.navbar-toggler span.shorter-line {
+    width: .75em;
+}
+
+.nav-item a#link-custom {
+    margin-top: 0.5em;
+}
