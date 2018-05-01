@@ -11,6 +11,7 @@ import StartPatientPage from './components/StartPatientPage';
 import registerServiceWorker from './registerServiceWorker';
 import AdminRulesPage from './components/AdminRulesPage';
 import ActivationLink from './components/ActivationLink';
+import PatientDiagnosesTable from './components/PatientDiagnosesTable';
 import LogbarAuth from './components/LogbarAuth';
 import LogbarUnauth from './components/LogbarUnauth';
 import LogbarWrapper from './components/LogbarWrapper';
@@ -33,6 +34,7 @@ class Home extends Component {
                 <Route path="/admin" component={AdminRulesPage}/>
                 <Route path="/activation/:id" component={ActivationLink}/>
                 <Route path="/doctorCalendar" component={DoctorCalendar}/>
+                <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
               </Switch>
             <Footerbar/>
       </div>
