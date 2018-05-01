@@ -85,9 +85,11 @@
     <Compile Include="Services\FakeDoctorService.cs" />
     <Compile Include="Services\IDbContext.cs" />
     <Compile Include="Services\IDoctorService.cs" />
+    <Compile Include="Services\IMedicalCardService.cs" />
     <Compile Include="Services\IRuleService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\IScheduleService.cs" />
+    <Compile Include="Services\MedicalCardService.cs" />
     <Compile Include="Services\RuleService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\ScheduleService.cs" />
