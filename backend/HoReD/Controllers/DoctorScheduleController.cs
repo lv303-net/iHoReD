@@ -26,12 +26,11 @@ namespace HoReD.Controllers
         /// <example>http://localhost:*****/GetDoctorSchedule/{doctorId}</example>
         /// 
 
-
         [HttpGet]
         [Route("GetDoctorSchedule/{doctorId}")]
-        public List<string[]> GetDoctorSchedule(int doctorId)
+        public IHttpActionResult GetDoctorSchedule(int doctorId)
         {
-            return _doctorService.GetDoctorSchedule(doctorId);
+            return Ok(_doctorService.GetDoctorSchedule(doctorId));
         }
 
     }

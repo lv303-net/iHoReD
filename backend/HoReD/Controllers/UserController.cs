@@ -29,9 +29,9 @@ namespace HoReD.Controllers
 
         [HttpGet]
         [Route("GetUserInfoById/{UserInfoId}")]
-        public UserInfo GetUserInfoById(int UserInfoId)
+        public IHttpActionResult GetUserInfoById(int UserInfoId)
         {
-            return _userService.GetUserInfoById(UserInfoId);
+            return Ok(_userService.GetUserInfoById(UserInfoId));
         }
 
     }

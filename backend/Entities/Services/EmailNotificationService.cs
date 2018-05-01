@@ -22,7 +22,7 @@ namespace Entities.Services
 
 
         const string subject = "Hospital Registaration Desk";
-        const string body = "Congratulations,you are registered in HoReD";
+        const string body = "To activate in HoReD go to the link";
 
         /// <summary>
         ///	Credentials that are used for sending emails.
@@ -56,7 +56,7 @@ namespace Entities.Services
             MailMessage mailmessage = new MailMessage(Credentials.Email, user.Email);
             mailmessage.IsBodyHtml = true;
             mailmessage.Subject = subject;
-            mailmessage.Body = body + "<a href="+ConfigurationManager.AppSettings["Path"]+ "/activation/"+ encryptedUserId  + ">click here</a>";
+            mailmessage.Body = body + "<a href="+ConfigurationManager.AppSettings["Linkpath"] + "/activation/"+ encryptedUserId+">"+" "+ "click here</a>";
             client.Send(mailmessage);
         }    
     }

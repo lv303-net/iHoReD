@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Results;
 using Entities;
 using Entities.Services;
+using HoReD.Models;
 
 namespace HoReD.Controllers
 {
@@ -20,39 +22,61 @@ namespace HoReD.Controllers
         }
 
         /// <summary>
-        /// Gets full infiormation about Doctors in database
+        /// Gets full information about Doctors in database
         /// </summary>
         /// <returns>List of instances of the class DoctorInfo</returns>
         /// <example>http://localhost:*****/api/Doctor/</example>
         [HttpGet]
-        public List<DoctorInfo> GetDoctors()
+        public IHttpActionResult GetDoctors()
         {
-            return _doctorService.GetDoctors();
+            return Ok(_doctorService.GetDoctors());
         }
 
         [HttpGet]
         [Route("GetDoctors/{professionId}")]
-         public List<string[]> GetDoctorsByProfession(int professionId)
+         public IHttpActionResult GetDoctorsByProfession(int professionId)
         {
-             return _doctorService.GetDoctorsByProfessionId(professionId);
+             return Ok(_doctorService.GetDoctorsByProfessionId(professionId));
         }
 
         [HttpGet]
         [ActionName("GetProfessions")]
         [Route("ProfessionsStatic/{isStatic=true}")]
         [Route("ProfessionsNotStatic/{isStatic=false}")]
-        public List<string[]> GetProfessions(bool isStatic)
+        public IHttpActionResult GetProfessions(bool isStatic)
         {
-            return _doctorService.GetProfessions(isStatic);
+            return Ok(_doctorService.GetProfessions(isStatic));
         }
 
+        /// <summary>
+        /// Gets information about Doctor events
+        /// </summary>
+        /// <returns>List of instances of the class Event</returns>
+        /// <example>http://localhost:*****/DoctorEvents/{doctorId}/{dateStart}/{dateFinish}</example>
         [HttpGet]
         [Route("DoctorEvents/{doctorId}/{dateStart}/{dateFinish}")]
-        public List<string[]> GetDoctorEvents(int doctorId,DateTime dateStart,DateTime dateFinish)
+        public IHttpActionResult GetDoctorEvents(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
             var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
-            return _doctorService.ConvertToEvents(rules, dateStart, dateFinish);
-        }
 
+            var fakedEvents = _doctorService.GetPrimaryEventsAsFaked(_doctorService.ConvertToEvents(rules, dateStart, dateFinish));
+
+            var bookedEvents = _doctorService.GetDoctorBookedEvents(doctorId, dateStart, dateFinish);
+
+            var generalEvents = _doctorService.GetGeneralEventsList(fakedEvents, bookedEvents);
+
+            List<EventBindingModel> result = new List<EventBindingModel>();
+            foreach (var general in generalEvents)
+            {
+                EventBindingModel eventModel = new EventBindingModel()
+                {
+                    dateTime = general.dateTime,
+                    isFake = general.isFake
+                };
+                result.Add(eventModel);
+            }
+
+            return Ok(result);
+        }
     }
 }
