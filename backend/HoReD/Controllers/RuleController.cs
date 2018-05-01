@@ -17,11 +17,11 @@ namespace HoReD.Controllers
 
         [HttpGet]
         [Route("Rule")]
-        public List<DoctorRules> GetRules()
+        public IHttpActionResult GetRules()
         {
             try
             {
-                return _ruleService.GetRules();
+                return Ok(_ruleService.GetRules());
             }
             catch (Exception e)
             {
@@ -99,11 +99,11 @@ namespace HoReD.Controllers
 
         [HttpGet]
         [Route("Rule/{IdRule}/DoctorHasRule/{hasRule=true}")]
-        public List<DoctorInfo> GetDoctorsBYIdRule(int IdRule, bool hasRule)
+        public IHttpActionResult GetDoctorsBYIdRule(int IdRule, bool hasRule)
         {
             try
             {
-                return _ruleService.GetDoctorsByIdRule(IdRule, hasRule);
+                return Ok(_ruleService.GetDoctorsByIdRule(IdRule, hasRule));
             }
             catch (Exception e)
             {

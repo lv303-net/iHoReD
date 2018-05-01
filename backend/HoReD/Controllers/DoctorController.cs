@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Results;
 using Entities;
 using Entities.Services;
 using HoReD.Models;
@@ -26,25 +27,25 @@ namespace HoReD.Controllers
         /// <returns>List of instances of the class DoctorInfo</returns>
         /// <example>http://localhost:*****/api/Doctor/</example>
         [HttpGet]
-        public List<DoctorInfo> GetDoctors()
+        public IHttpActionResult GetDoctors()
         {
-            return _doctorService.GetDoctors();
+            return Ok(_doctorService.GetDoctors());
         }
 
         [HttpGet]
         [Route("GetDoctors/{professionId}")]
-         public List<string[]> GetDoctorsByProfession(int professionId)
+         public IHttpActionResult GetDoctorsByProfession(int professionId)
         {
-             return _doctorService.GetDoctorsByProfessionId(professionId);
+             return Ok(_doctorService.GetDoctorsByProfessionId(professionId));
         }
 
         [HttpGet]
         [ActionName("GetProfessions")]
         [Route("ProfessionsStatic/{isStatic=true}")]
         [Route("ProfessionsNotStatic/{isStatic=false}")]
-        public List<string[]> GetProfessions(bool isStatic)
+        public IHttpActionResult GetProfessions(bool isStatic)
         {
-            return _doctorService.GetProfessions(isStatic);
+            return Ok(_doctorService.GetProfessions(isStatic));
         }
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace HoReD.Controllers
         /// <example>http://localhost:*****/DoctorEvents/{doctorId}/{dateStart}/{dateFinish}</example>
         [HttpGet]
         [Route("DoctorEvents/{doctorId}/{dateStart}/{dateFinish}")]
-        public List<EventBindingModel> GetDoctorEvents(int doctorId,DateTime dateStart,DateTime dateFinish)
+        public IHttpActionResult GetDoctorEvents(int doctorId,DateTime dateStart,DateTime dateFinish)
         {
             var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
 
@@ -75,7 +76,7 @@ namespace HoReD.Controllers
                 result.Add(eventModel);
             }
 
-            return result;
+            return Ok(result);
         }
     }
 }
