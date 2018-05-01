@@ -181,4 +181,12 @@
     <sqlFile path="V3.10_UPDATE_PROCEDURE_ACTIVATE_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
+  <changeSet author="Mariia Shkolyk" id="V3.11">
+    <sqlFile path="V3.11_PROCEDURE_GET_DOCTOR_SCHEDULE_BOOKED.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.12">
+    <sqlFile path="V3.12_ALTERED_PROCEDURE_GET_DOCTOR_SCHEDULE_BOOKED.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
 </databaseChangeLog>
