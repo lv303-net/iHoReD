@@ -25,31 +25,6 @@ class Calendar extends React.Component{
     this.handleSubmitBooking=this.handleSubmitBooking.bind(this);   
   }
 
-<<<<<<< HEAD
-    handleSubmitBooking() {
-      var bookingEvent = {
-        IdDoctor: this.state.idDoc,
-        IdPatient: localStorage.getItem("currentUserId"),
-        startDateTime: this.state.startTime,
-        endDateTime:this.state.endTime
-      }
-  
-        axios.post(server_url + '/api/Schedule',bookingEvent);
-      }
-
-    saveCurrentDayStartEnd(start, end)
-    {
-        var url_string = window.location.href;
-        var url = new URL(url_string);
-        var Doctor = url.searchParams.get("doc");
-        // $("#doc3").addClass("active");
-      this.setState({
-        startPeriod: start,
-        endPeriod: end,
-        idDoc :Doctor
-      })
-    }
-=======
   handleSubmitBooking() {
     var bookingEvent = {
       IdDoctor: this.state.idDoc,
@@ -72,7 +47,6 @@ class Calendar extends React.Component{
       idDoc :Doctor
     })
   }
->>>>>>> fbe4e653d5f064c3a6691311f1f10b2ba020c253
     
   saveCurrentTimeStartEnd(start, end){
     this.setState({
