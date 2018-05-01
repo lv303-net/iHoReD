@@ -13,7 +13,7 @@ import AdminRulesPage from './components/AdminRulesPage';
 import ActivationLink from './components/ActivationLink';
 import Menu from 'react-burger-menu';
 import BM from './components/BurgerMenu';
-
+import PatientDiagnosesTable from './components/PatientDiagnosesTable';
 
 
 class Home extends Component {
@@ -25,7 +25,7 @@ class Home extends Component {
         <Route path="/allDiagnoses" component={Diagnoses}/>
         <Route path="/startPage" component={StartPatientPage}/>
         <Route path="/admin" component={AdminRulesPage}/>
-        <Route path="/activation/:id" component={ActivationLink}/>
+        <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
       </Switch>
       );
     }

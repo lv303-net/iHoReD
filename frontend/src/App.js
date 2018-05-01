@@ -32,38 +32,38 @@ class App extends Component {
             <span className="pl-5">Lviv Regional Hospital</span>
           </div>  
 
-          <ul class="nav navbar-nav navbar-right">
+          <ul className="nav navbar-nav navbar-right">
             {(localStorage.getItem("currentUserFirstName")==null) ? (<LogbarUnauth/>) : (<LogbarAuth/>)}
           </ul>
 
-          <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon text-white"></span>
+          <button className="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon text-white"></span>
           </button>        
         </nav>
 
-        <div class="pos-f-t container-fluid navbar-custom border border-top-2 p-0">
-          <div class="collapse" id="navbarToggleExternalContent">
+        <div className="pos-f-t container-fluid navbar-custom border border-top-2 p-0">
+          <div className="collapse" id="navbarToggleExternalContent">
             <ul className="nav nav-justified">
-              <li class="nav-item btn-custom">
-                <a class="nav-link" href="#">Home</a>
+              <li className="nav-item btn-custom">
+                <a className="nav-link" href="#">Home</a>
               </li>
-              <li class="nav-item btn-custom">
-                <a class="nav-link" href="#">Contacts</a>
+              <li className="nav-item btn-custom">
+                <a className="nav-link" href="#">Contacts</a>
               </li>
-              <li class="nav-item btn-custom">
-                <a class="nav-link dropdown" href="#">Doctors</a>
+              <li className="nav-item btn-custom">
+                <a className="nav-link dropdown" href="#">Doctors</a>
               </li>
-              <li class="nav-item btn-custom">
-                <a class="nav-link" href="#">Illnes prevention</a>
+              <li className="nav-item btn-custom">
+                <a className="nav-link" href="#">Illnes prevention</a>
               </li>
-              <li class="nav-item btn-custom">
-                <a class="nav-link" href="#">National medicine program</a>
+              <li className="nav-item btn-custom">
+                <a className="nav-link" href="#">National medicine program</a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="container-fluid mt-5">
+        <div className="container-fluid mt-5">
           <div className="row">
             <ProfessionsTable/>            
             <div className="col-sm-12 col-md-8 mr-1" id="calendarDiv">
