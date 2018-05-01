@@ -95,14 +95,7 @@ class Calendar extends React.Component{
               alert(isLoading);
           }
         },
-        events: [ // put the array in the `events` property
-            {
-              title: '',
-              backgroundColor: "gray", 
-              blocked: true,
-            }
-          ],
-        
+       
         viewRender: function(view)
         {
             var view = $('#calendar').fullCalendar('getView');
@@ -145,6 +138,7 @@ class Calendar extends React.Component{
 
     addEvents(newEvents, isMonth)
     {
+      var events
       if(isMonth)
         {
           newEvents.map(event => {
@@ -152,7 +146,21 @@ class Calendar extends React.Component{
         })
       }
       else
-         $('#calendar').fullCalendar( 'addEventSource', newEvents);
+      {
+        newEvents.map(event => {
+          $($('#calendar').fullCalendar('getView').el[0]).find('.fc-day[data-date=' + event.start.slice(0, 10)+ ']').css('background-color', 'white');
+        })
+        
+        $('#calendar').fullCalendar( 'addEventSource', newEvents); 
+      //   events: [ // put the array in the `events` property
+      //   {
+      //     start: '2018-01-01',
+      //     end: '2030-01-01',
+      //     backgroundColor: "gray",
+      //   }
+      // ]
+      //   $('#calendar').fullCalendar( 'addEventSource', events);   
+      }         
      }
 
     //   addEvent(newstart, newend, isMonth) {
@@ -210,9 +218,9 @@ class Calendar extends React.Component{
           {
             
             return{
-              start: event[0]+'T'+event[1],
-              end: event[0]+'T'+event[2],
-              color : col
+              start: event.dateTime[0]+'T'+event.dateTime[1],
+              end: event.dateTime[0]+'T'+event.dateTime[2],
+              color : col, 
             }
           })
           console.log(building);
