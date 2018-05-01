@@ -18,5 +18,7 @@ namespace Entities.Services
         List<DoctorRules> GetDoctorAllRules(int doctorId, DateTime dateStart, DateTime dateFinish);
 
         List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish);
+
+        List<Event> GetPrimaryEventsAsFaked(List<string[]> eve);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Entities;
 using Entities.Services;
+using HoReD.Models;
 
 namespace HoReD.Controllers
 {
@@ -48,11 +49,24 @@ namespace HoReD.Controllers
 
         [HttpGet]
         [Route("DoctorEvents/{doctorId}/{dateStart}/{dateFinish}")]
-        public List<string[]> GetDoctorEvents(int doctorId,DateTime dateStart,DateTime dateFinish)
+        public List<EventBindingModel> GetDoctorEvents(int doctorId,DateTime dateStart,DateTime dateFinish)
         {
             var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
-            return _doctorService.ConvertToEvents(rules, dateStart, dateFinish);
-        }
 
+            var fakedEvents = _doctorService.GetPrimaryEventsAsFaked(_doctorService.ConvertToEvents(rules, dateStart, dateFinish));
+
+            List<EventBindingModel> result = new List<EventBindingModel>();
+            foreach (var fe in fakedEvents)
+            {
+                EventBindingModel eventModel = new EventBindingModel()
+                {
+                    dateTime = fe.dateTime,
+                    isFake = fe.isFake
+                };
+                result.Add(eventModel);
+            }
+
+            return result;
+        }
     }
 }
