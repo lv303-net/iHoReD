@@ -6,6 +6,7 @@ using Entities;
 using Entities.Services;
 using NUnit.Framework;
 using Moq;
+using System.Web.Http.Results;
 
 namespace HoReDTests.Controllers
 {
@@ -33,7 +34,7 @@ namespace HoReDTests.Controllers
             var controller = new DoctorController(mock.Object);
 
             // Act
-            var response = controller.GetDoctors().Count;
+            var response = (controller.GetDoctors() as OkNegotiatedContentResult<List<DoctorInfo>>).Content.Count;
 
             // Assert
             Assert.AreEqual(response, fake_list.Count);
@@ -48,7 +49,7 @@ namespace HoReDTests.Controllers
             var controller = new DoctorController(mock.Object);
 
             // Act
-            var result = controller.GetDoctors();
+            var result = (controller.GetDoctors() as OkNegotiatedContentResult<List<DoctorInfo>>).Content;
 
             // Assert
             Assert.AreEqual(result[0].FirstName, fake_list[0].FirstName);
@@ -67,7 +68,7 @@ namespace HoReDTests.Controllers
             var controller = new DoctorController(mock.Object);
 
             // Act
-            var result = controller.GetDoctorsByProfession(profession);
+            var result = (controller.GetDoctorsByProfession(profession) as OkNegotiatedContentResult<List<string[]>>).Content;
 
             // Assert
             Assert.AreEqual(result[0][0].ToString(), fake_list[0][0]);
@@ -86,7 +87,7 @@ namespace HoReDTests.Controllers
             var controller = new DoctorController(mock.Object);
 
             // Act
-            var response = controller.GetDoctorsByProfession(prof).Count;
+            var response = (controller.GetDoctorsByProfession(prof) as OkNegotiatedContentResult<List<string[]>>).Content.Count;
 
             // Assert
             Assert.AreEqual(response, fake_list.Count);
@@ -103,7 +104,7 @@ namespace HoReDTests.Controllers
             var controller = new DoctorController(mock.Object);
 
             // Act
-            var result = controller.GetProfessions(stat);
+            var result = (controller.GetProfessions(stat) as OkNegotiatedContentResult<List<string[]>>).Content;
 
 
             // Assert
@@ -122,7 +123,7 @@ namespace HoReDTests.Controllers
             var controller = new DoctorController(mock.Object);
 
             // Act
-            var response = controller.GetProfessions(stat).Count;
+            var response = (controller.GetProfessions(stat) as OkNegotiatedContentResult<List<string[]>>).Content.Count;
 
             // Assert
             Assert.AreEqual(response, fake_list.Count);

@@ -88,5 +88,10 @@ namespace Entities.Services
         {
             throw new NotImplementedException();
         }
+
+        public List<Event> GetPrimaryEventsAsFaked(List<string[]> eve)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

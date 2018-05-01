@@ -77,6 +77,7 @@ namespace Entities.Services
             }
             return list;
         }
+
         public List<string[]> GetDoctorsByProfessionId(int professionId)
         {
             const string cmd = "GET_DOCTORS_BY_PROFESSION_ID";
@@ -286,6 +287,18 @@ namespace Entities.Services
                     }
                 }
             }          
+            return events;
+        }
+
+        public List<Event> GetPrimaryEventsAsFaked(List<string[]> primaryEvents)
+        {
+            bool isFake = true;
+            var events = new List<Event>();
+
+            foreach(var e in primaryEvents)
+            {
+                events.Add(new Event(e, isFake));
+            }
             return events;
         }
     }

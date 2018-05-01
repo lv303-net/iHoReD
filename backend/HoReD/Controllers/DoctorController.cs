@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using Entities;
 using Entities.Services;
+using HoReD.Models;
 
 namespace HoReD.Controllers
 {
@@ -52,8 +53,21 @@ namespace HoReD.Controllers
         public IHttpActionResult GetDoctorEvents(int doctorId,DateTime dateStart,DateTime dateFinish)
         {
             var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
-            return Ok(_doctorService.ConvertToEvents(rules, dateStart, dateFinish));
-        }
 
+            var fakedEvents = _doctorService.GetPrimaryEventsAsFaked(_doctorService.ConvertToEvents(rules, dateStart, dateFinish));
+
+            List<EventBindingModel> result = new List<EventBindingModel>();
+            foreach (var fe in fakedEvents)
+            {
+                EventBindingModel eventModel = new EventBindingModel()
+                {
+                    dateTime = fe.dateTime,
+                    isFake = fe.isFake
+                };
+                result.Add(eventModel);
+            }
+
+            return Ok(result);
+        }
     }
 }
