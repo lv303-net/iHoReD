@@ -19,6 +19,10 @@ namespace Entities.Services
 
         List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish);
 
-        List<Event> GetPrimaryEventsAsFaked(List<string[]> eve);
+        List<Event> GetPrimaryEventsAsFaked(List<string[]> events);
+
+        List<Event> GetDoctorBookedEvents(int IdDoctor);
+
+        List<Event> GetGeneralEventsList(List<Event> fakedEvents, List<Event> bookedEvents);
     }
 }

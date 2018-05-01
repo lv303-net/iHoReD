@@ -9,12 +9,7 @@ namespace Entities
     public class Event
     {
         public string[] dateTime { get; set; }
-        public bool isFake { get; set; }
 
-        public Event(string[] dateTime, bool isFake)
-        {
-            this.dateTime = dateTime;
-            this.isFake = isFake;
-        }
+        public bool isFake { get; set; }
     }
 }

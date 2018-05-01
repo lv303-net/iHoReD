@@ -57,5 +57,27 @@ namespace Entities.Utils
             }
             return list;
         }
+
+        public static List<Event> GetDoctorBookedEvents(string str)
+        {
+            var values = str.Split('*');
+            var list = new List<Event>();
+            string datePattern = "yyyy-MM-dd";
+            string timePattern = "HH:mm:ss";
+            for (int i = 0; i < (values.Length - 1); i += 3)
+            {
+                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(datePattern),
+                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(timePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(timePattern) };
+                var bookedEvent = new Event()
+                {
+                    dateTime = startEndDateTime,
+                    isFake = false
+                };
+
+                list.Add(bookedEvent);
+            }
+
+            return list;
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace HoReD.Controllers
         }
 
         /// <summary>
-        /// Gets full infiormation about Doctors in database
+        /// Gets full information about Doctors in database
         /// </summary>
         /// <returns>List of instances of the class DoctorInfo</returns>
         /// <example>http://localhost:*****/api/Doctor/</example>
@@ -47,6 +47,11 @@ namespace HoReD.Controllers
             return _doctorService.GetProfessions(isStatic);
         }
 
+        /// <summary>
+        /// Gets information about Doctor events
+        /// </summary>
+        /// <returns>List of instances of the class Event</returns>
+        /// <example>http://localhost:*****/DoctorEvents/{doctorId}/{dateStart}/{dateFinish}</example>
         [HttpGet]
         [Route("DoctorEvents/{doctorId}/{dateStart}/{dateFinish}")]
         public List<EventBindingModel> GetDoctorEvents(int doctorId,DateTime dateStart,DateTime dateFinish)
@@ -55,13 +60,17 @@ namespace HoReD.Controllers
 
             var fakedEvents = _doctorService.GetPrimaryEventsAsFaked(_doctorService.ConvertToEvents(rules, dateStart, dateFinish));
 
+            var bookedEvents = _doctorService.GetDoctorBookedEvents(doctorId);
+
+            var generalEvents = _doctorService.GetGeneralEventsList(fakedEvents, bookedEvents);
+
             List<EventBindingModel> result = new List<EventBindingModel>();
-            foreach (var fe in fakedEvents)
+            foreach (var ge in generalEvents)
             {
                 EventBindingModel eventModel = new EventBindingModel()
                 {
-                    dateTime = fe.dateTime,
-                    isFake = fe.isFake
+                    dateTime = ge.dateTime,
+                    isFake = ge.isFake
                 };
                 result.Add(eventModel);
             }

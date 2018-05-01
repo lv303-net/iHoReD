@@ -292,14 +292,55 @@ namespace Entities.Services
 
         public List<Event> GetPrimaryEventsAsFaked(List<string[]> primaryEvents)
         {
-            bool isFake = true;
             var events = new List<Event>();
 
             foreach(var e in primaryEvents)
             {
-                events.Add(new Event(e, isFake));
+                var fakedEvent = new Event()
+                {
+                    dateTime = e,
+                    isFake = true
+                };
+                events.Add(fakedEvent);
             }
             return events;
+        }
+
+        public List<Event> GetDoctorBookedEvents(int IdDoctor)
+        {
+            const string cmd = "GET_DOCTOR_SCHEDULE_BOOKED";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@IDDOCTOR", IdDoctor}
+            };
+            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+
+            return Utils.ParseSqlQuery.GetDoctorBookedEvents(str);
+        }
+
+        public List<Event> GetGeneralEventsList(List<Event> fakedEvents, List<Event> bookedEvents)
+        {
+            var generalEvents = new List<Event>();
+            bool isBooked;
+            foreach (var faked in fakedEvents)
+            {
+                isBooked = false;
+                foreach (var booked in bookedEvents)
+                {
+                    if(faked.dateTime[0].Equals(booked.dateTime[0]) && faked.dateTime[1].Equals(booked.dateTime[1]) && faked.dateTime[2].Equals(booked.dateTime[2]))
+                    {
+                        generalEvents.Add(booked);
+                        isBooked = true;
+                        break;
+                    }
+                }
+                if(!isBooked)
+                {
+                    generalEvents.Add(faked);
+                }
+            }
+            return generalEvents;
         }
     }
 }
