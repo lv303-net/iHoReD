@@ -169,6 +169,12 @@ class Calendar extends React.Component{
   }
 
     render(){
+      var doctor
+      // $(document).ready(function() {
+      doctor = $("#doc"+this.state.idDoc).text();
+      console.log(doctor);
+      // });
+      
       let content;
         content = 
       <div>
@@ -182,13 +188,14 @@ class Calendar extends React.Component{
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-              <h4 className="modal-title" id="mModalLabel">Confirm Your booking</h4>
+              <h4 className="modal-title" id="mModalLabel">Confirm your booking</h4>
                 <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
               </div>
               <div className="modal-body">
-                DoctorId - {this.state.idDoc}<br/>
-                Start - {this.state.startTime}<br/>
-                End - {this.state.endTime}<br/>
+                Doctor - {$("#doc"+this.state.idDoc).text()}<br/>
+                Date - {this.state.startTime.slice(0, 10)}<br/>
+                Start - {this.state.startTime.slice(-8)}<br/>
+                End - {this.state.endTime.slice(-8)}<br/>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
