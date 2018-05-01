@@ -34,8 +34,8 @@ namespace Entities.Services
         public static string Decrypt(string cipherText)
         {
             string EncryptionKey = "abc123";
-            cipherText = cipherText.Replace(" ", "+").Replace("/","_");
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            cipherText = cipherText.Replace(' ', '+').Replace('_', '/');
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
