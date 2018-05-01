@@ -88,5 +88,20 @@ namespace Entities.Services
         {
             throw new NotImplementedException();
         }
+
+        public List<Event> GetPrimaryEventsAsFaked(List<string[]> events)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Event> GetDoctorBookedEvents(int IdDoctor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Event> GetGeneralEventsList(List<Event> fakedEvents, List<Event> bookedEvents)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

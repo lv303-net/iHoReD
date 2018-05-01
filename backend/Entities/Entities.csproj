@@ -71,6 +71,7 @@
     <Compile Include="Doctor.cs" />
     <Compile Include="DoctorInfo.cs" />
     <Compile Include="DoctorRules.cs" />
+    <Compile Include="Event.cs" />
     <Compile Include="Hashing.cs" />
     <Compile Include="Profession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
