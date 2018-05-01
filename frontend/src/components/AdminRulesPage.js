@@ -8,7 +8,7 @@ import DoctorsListWithSomeRule from './DoctorsListWithSomeRule';
 class AdminRulesPage extends Component {
     render () {
         return (
-            <div>
+            <div id='adminMainDiv'>
                 <RulesList/>
             </div>
         );
