@@ -16,8 +16,14 @@ else if(process.env.NODE_ENV==="production")
 class Calendar extends React.Component{
     constructor(props){      
       super(props);
-      this.state = { idDoc: 0, startPeriod: '', endPeriod: '', events:[], startTime:'', endTime:'', loading: false};  
+      this.state = { idDoc: 0, 
+        startPeriod: '', 
+        endPeriod: '', 
+        events:[], 
+        startTime:'', 
+        endTime:''};  
       this.handleSubmitBooking=this.handleSubmitBooking.bind(this);
+      
     }
 
     handleSubmitBooking() {
@@ -52,23 +58,9 @@ class Calendar extends React.Component{
       })
     }
 
-    showModal(){
-      $('#SignInModal').modal("show");
-    }
-    toggleModal = () => {
-      this.setState({
-        isOpen: !this.state.isOpen
-      });
-    }
-    mod(){
-      return {
-        __html: '<Modal/>'
-      }
-    }
     componentDidMount()
     {
       var _that = this;
-      
       $('#calendar').fullCalendar('changeView', 'agendaDay');
       $(document).ready(function() {
         $('#calendar').fullCalendar({
@@ -88,13 +80,6 @@ class Calendar extends React.Component{
         lazyFetching: true,
         minTime: '07:00:00',
         blocked: true,
-        loading: function(isLoading, view) {
-          if (isLoading) {
-              alert(isLoading);
-          } else {
-              alert(isLoading);
-          }
-        },
         events: [ // put the array in the `events` property
             {
               title: '',
@@ -155,33 +140,6 @@ class Calendar extends React.Component{
          $('#calendar').fullCalendar( 'addEventSource', newEvents);
      }
 
-    //   addEvent(newstart, newend, isMonth) {
-    //     var event
-    //     var dayoff
-    //     if(isMonth)
-    //     {
-    //       $($('#calendar').fullCalendar('getView').el[0]).find('.fc-day[data-date=' + newstart.slice(0, 10)+ ']').css('background-color', 'red');
-    //     }
-          
-    //     else
-    //     {
-    //       event={
-    //         start  : newstart,
-    //         end  : newend,
-    //         color : "green",
-    //         blocked: false,
-    //       };
-    //       $('#calendar').fullCalendar( 'addEventSource', event);
-    //       dayoff={
-    //         start: newstart,
-    //           end: newend,
-    //           rendering: 'inverse-background',
-    //           color: "#DCDCDC"
-    //       },
-         
-    //        $('#calendar').fullCalendar( 'addEventSource', dayoff);
-    //     }    
-    // }
       shouldComponentUpdate(nextProps, nextState) {
         return ((this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod) 
         || (this.state.idDoc!== nextState.idDoc) || (this.state.startTime!== nextState.startTime) || (this.state.endTime!== nextState.endTime) );       
