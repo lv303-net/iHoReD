@@ -56,7 +56,7 @@ class App extends Component {
           <div className="row">
             <ProfessionsTable/>            
             <div className="col-sm-12 col-md-8 mr-1" id="calendarDiv">
-              <Calendar idDoctor={1}/>
+              <Calendar />
             </div>
           </div> 
         </div>

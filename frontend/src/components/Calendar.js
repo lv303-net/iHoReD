@@ -4,7 +4,8 @@ import $ from 'jquery';
 import 'fullcalendar';
 import validator from 'validator';
 import axios from 'axios';
-import '../style/Calendar.css'
+import '../style/Calendar.css';
+import Loader from 'react-loader';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -15,7 +16,7 @@ else if(process.env.NODE_ENV==="production")
 class Calendar extends React.Component{
     constructor(props){      
       super(props);
-      this.state = { idDoc: 0, startPeriod: '', endPeriod: '', events:[], startTime:'', endTime:''};  
+      this.state = { idDoc: 0, startPeriod: '', endPeriod: '', events:[], startTime:'', endTime:'', loading: false};  
       this.handleSubmitBooking=this.handleSubmitBooking.bind(this);
     }
 
@@ -98,6 +99,13 @@ class Calendar extends React.Component{
         lazyFetching: true,
         minTime: '07:00:00',
         blocked: true,
+        loading: function(isLoading, view) {
+          if (isLoading) {
+              alert(isLoading);
+          } else {
+              alert(isLoading);
+          }
+        },
         events: [ // put the array in the `events` property
             {
               title: '',
@@ -105,6 +113,7 @@ class Calendar extends React.Component{
               blocked: true,
             }
           ],
+        
         viewRender: function(view)
         {
             var view = $('#calendar').fullCalendar('getView');
@@ -137,12 +146,22 @@ class Calendar extends React.Component{
             console.log(event.start._i);
             console.log(event.end._i);
             _that.saveCurrentTimeStartEnd(event.start._i, event.end._i);
+            
             $("#modButton").trigger("click");
             }
       }, 
         }) 
       });
     }
+
+    Events(newEvents, isMonth)
+    {
+    //   if(isMonth)
+    //     {
+    //       $($('#calendar').fullCalendar('getView').el[0]).find('.fc-day[data-date=' + newstart.slice(0, 10)+ ']').css('background-color', 'red');
+    //     }
+         $('#calendar').fullCalendar( 'addEventSource', newEvents);
+     }
 
       addEvent(newstart, newend, isMonth) {
         var event
@@ -160,7 +179,7 @@ class Calendar extends React.Component{
             color : "green",
             blocked: false,
           };
-          $('#calendar').fullCalendar( 'renderEvent', event, true);
+          $('#calendar').fullCalendar( 'addEventSource', event);
           dayoff={
             start: newstart,
               end: newend,
@@ -168,7 +187,7 @@ class Calendar extends React.Component{
               color: "#DCDCDC"
           },
          
-           $('#calendar').fullCalendar( 'renderEvent', dayoff, true);
+           $('#calendar').fullCalendar( 'addEventSource', dayoff);
         }    
     }
       shouldComponentUpdate(nextProps, nextState) {
@@ -178,7 +197,15 @@ class Calendar extends React.Component{
 
       componentWillUpdate(nextProps, nextState)
       {
-        
+        // $('#calendar').fullCalendar({
+        //   loading: function( isLoading, view ) {
+        //     if(isLoading) {// isLoading gives boolean value
+        //         alert("gggg") 
+        //     } else {
+        //         alert("ddddd")
+        //     }
+        // }
+        // })
         var getData = (this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.state.idDoc!== nextState.idDoc); 
           if(getData)
           {      
@@ -189,16 +216,58 @@ class Calendar extends React.Component{
             isMonth = true;
           else 
             isMonth = false;
+            // this.setState({
+            //   loading: true
+            // }, () =>
           axios.get(server_url+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
           .then(response => {
-              response.data.map(event => {this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2], isMonth)})
-              });
-          }
-          
+              // response.data.map(event => {   
+              //   this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2], isMonth) 
+              // })
+            var col;
+            if(isMonth)
+              col="red"
+            else 
+            col = 'green'
+            var building = $.map(response.data, function(event)
+          {
+            
+            return{
+              start: event[0]+'T'+event[1],
+              end: event[0]+'T'+event[2],
+              color : col
+            }
+          })
+          console.log(building);
+          this.Events(building, isMonth);
+            // this.setState({
+            //   events: response.data,
+            //   loading: false
+            // }, () =>
+            // this.state.events.map(event => {   
+            //   this.addEvent(event[0]+'T'+event[1], event[0]+'T'+event[2], isMonth) 
+            // }))
+                
+                // ,
+                // this.setState({loading: false});
+              //}))
+              //this.setState({loading: false});
+              //this.setState({loading: false});
+              //});
+            
+          })
+          //this.setState({loading: false})
       }
+    }
 
     render(){
-      return  (
+      let content;
+      // const { loading } = this.state;
+      // if(this.state.loading)
+      //   content = <Loader/>
+      // else
+      // {
+        content = 
         <div>
         <div id = "calendar">
         {/* need button because issue related with opening modal from fullcalendar */}
@@ -227,7 +296,8 @@ class Calendar extends React.Component{
         </div>
         </div>
         </div>
-                  );
+          //}
+          return <div>{content}</div>
   }
   }
 
