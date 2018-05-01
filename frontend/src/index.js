@@ -33,7 +33,7 @@ class Home extends Component {
                 <Route path="/admin" component={AdminRulesPage}/>
                 <Route path="/activation/:id" component={ActivationLink}/>
                 <Route path="/doctorCalendar" component={DoctorCalendar}/>
-              </Switch>
+            </Switch>
             <Footerbar/>
       </div>
       );

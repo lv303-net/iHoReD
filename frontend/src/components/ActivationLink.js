@@ -3,9 +3,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import { Route, Switch, BrowserRouter, Router } from 'react-router-dom';
 import Loader from 'react-loader';
-import StartPatientPage from './StartPatientPage';
-import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
+
 var server_url;
 if (process.env.NODE_ENV === "development")
   server_url = "http://localhost:58511"
@@ -20,41 +18,45 @@ class Direction extends React.Component {
     };
   }
   componentDidMount() {
-    console.log(this.props.status);
     var url = window.location.origin;
     setTimeout(() => {
       if (this.props.status == 1 || this.props.status == 0) window.location.href = url + "/startPage";
     }, 4000);
   }
   render() {
-    return (
-      this.props.redirect ? (
-        <div className="container m-5">
-          <h1 id="shaddow" className='font-italic text-center text-success'>{this.props.text}</h1>>
+    if (this.props.hasError) {
+      // You can render any custom fallback UI
+      return <div className="container mt-5">
+        <h2 id="shaddow" className='font-italic text-center text-muted'>Something went wrong...</h2>>
+    </div>
+    }
+    else
+      return (
+        this.props.redirect ? (
+          <div className="container mt-5">
+            <h2 id="shaddow" className='font-italic text-center text-success'>{this.props.text}</h2>>
           </div>
-      )
-        :
-        <div className="container-fluid mt-5">
-          <h1 id="shaddow" className='font-italic text-center text-danger'>{this.props.text}</h1>
-        </div>
-    );
+        )
+          :
+          <div className="container-fluid mt-5">
+            <h2 id="shaddow" className='font-italic text-center text-danger'>{this.props.text}</h2>
+          </div>
+      );
   }
 }
-
 class ActivationLink extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
       text: "",
-      isRegistrated: " ",
+      isRegistrated: 401,
       redirect: "",
-      hasError: false 
+      hasError: false
     };
     this.eventHandler = this.eventHandler.bind(this);
-    this.errorHandler=this.errorHandler.bind(this);  
   }
-   eventHandler(isReg) {
+  eventHandler(isReg) {
     switch (isReg) {
       case 0:
         this.setState({
@@ -84,7 +86,7 @@ class ActivationLink extends React.Component {
           this.setState({ isRegistrated: rez.data });
           this.eventHandler(this.state.isRegistrated);
         })
-        .catch(err => console.log(err.response.status));
+        .catch(err => this.setState({ hasError: true }));
       this.setState({ loading: false });
     }, 2000);
   }
@@ -96,7 +98,7 @@ class ActivationLink extends React.Component {
     const { hasError } = this.state;
     console.log(this.state.hasError);
     return (
-      this.state.loading ? <Loader /> : <Direction text={text} redirect={redirect} status={isRegistrated}/>
+      this.state.loading ? <Loader /> : <Direction hasError={hasError} text={text} redirect={redirect} status={isRegistrated} />
     )
   }
 }
