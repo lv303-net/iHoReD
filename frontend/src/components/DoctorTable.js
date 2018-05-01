@@ -31,6 +31,7 @@ class DoctorTable extends React.Component{
         var searchParameter=new URLSearchParams(window.location.search);
         searchParameter.set('doc',val);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`); 
+        window.location.reload();
     };
 
       componentWillUpdate(nextProps, nextState)

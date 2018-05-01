@@ -20,7 +20,7 @@ class Edit extends React.Component {
       firstName:"Name1",
       lastName:"Surname1",
       email:"example@gmail.com",
-      phoneNumber:"88005553535",
+      phone:"88005553535",
       password:"qwerty",
       country:"Ukraine",
       city:"Lviv",
@@ -56,7 +56,7 @@ class Edit extends React.Component {
             firstName : res.data.FirstName,
             lastName: res.data.LastName,
             email:res.data.Email,
-            phoneNumber:res.data.Phone,
+            phone:res.data.Phone,
             password:res.data.Password,
             country:res.data.Country,
             city:res.data.City,
@@ -68,7 +68,7 @@ class Edit extends React.Component {
         document.getElementsByName('firstName')[0].value=this.state.firstName;
         document.getElementsByName('lastName')[0].value=this.state.lastName;
         document.getElementsByName('email')[0].value=this.state.email;
-        document.getElementsByName('phoneNumber')[0].value=this.state.phoneNumber;
+        document.getElementsByName('phone')[0].value=this.state.phone;
         document.getElementsByName('country')[0].value=this.state.country;
         document.getElementsByName('city')[0].value=this.state.city;
         document.getElementsByName('street')[0].value=this.state.street;
@@ -78,7 +78,8 @@ class Edit extends React.Component {
   }
   render() {
     return (
-       <div className="container col-sm-8" id="editInfoWindow">
+      <div id="editMainDiv">
+       <div className="container col-sm-8 mt-3" id="editInfoWindow">
       <div id="editUserInfoHeader">
         <p className="col-sm-5 offset-sm-1" id="basicInfoID"><b>Basic info</b></p>
         <div>
@@ -117,7 +118,7 @@ class Edit extends React.Component {
           </div>
           <div className="col-sm-4 offset-sm-1">
             <label>Phone number</label>
-            <input type="text" className="form-control" placeholder="Phone number" name="phoneNumber" onChange={this.handleChange}/>
+            <input type="text" className="form-control" placeholder="Phone number" name="phone" onChange={this.handleChange}/>
           </div>
         </div>
       </div>
@@ -144,8 +145,12 @@ class Edit extends React.Component {
         </div>
       </div>
       <div className="form-row mb-2 justify-content-end col-sm-10 padding">
-        <button type="button" className="btn btn-primary btn-md btn-clr btn-info" onClick={this.submitForm}>Submit</button>
+      <Link to="/">   
+              <button type="button" className="btn btn-error mr-3">Go back</button> 
+            </Link>
+        <button type="button" className="btn btn-primary btn-md btn-clr" onClick={this.submitForm}>Submit</button>
       </div>
+    </div>
     </div>
     );
   }

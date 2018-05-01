@@ -26,11 +26,6 @@ App {
   to { transform: rotate(360deg); }
 }
 
-.navbar-custom {
-  /* background-color: #49A2FF; */
-  background-color: #74B8FF;
-}
-
 .modal-header {
   border-bottom: none;
 }
@@ -120,27 +115,11 @@ App {
   width: 100%;
 }
 
-.navbarDiv {
-  width: 100%;
-}
-
-.divRender {
-  width: 100% !important;
-}
-
-.navbarContainer {
-  width: 100% important;
-}
-
 div.profDocTable:hover {
   background-color: #E3E3E3;
   cursor: pointer;
 }
 
-.logo{
- max-height: 3em;
- width: auto;
-}
 
 .btn-custom {
   color: white;
@@ -148,13 +127,20 @@ div.profDocTable:hover {
   border: 2px 1px 2px 1px solid #adc9ff;
 }
 
-.btn-custom :hover {
-  background-color:#80bfff;
+
+#shaddow{
+  text-shadow: 2px 2px 4px #000000;
+  color:red;
 }
 
-ul li a {
-  color: white;
+#adminMainDiv  {
+  min-height: calc(100vh - 84px);
 }
-ul li a :hover {
-  color: white;
+
+#editMainDiv {
+  min-height: calc(100vh - 84px);
+}
+
+#mainDiv {
+  min-height: calc(100vh - 84px);
 }
