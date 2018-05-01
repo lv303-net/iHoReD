@@ -33,7 +33,7 @@ class Calendar extends React.Component{
       endDateTime:this.state.endTime
     }  
 
-    axios.post(server_url + '/api/Schedule',bookingEvent);
+    axios.post(server_url + '/api/Schedule', bookingEvent);
   }
 
   saveCurrentDayStartEnd(start, end){
@@ -102,17 +102,14 @@ class Calendar extends React.Component{
       
       eventClick: function(event, jsEvent, view ) {
         // need button because issue related with opening modal from fullcalendar
-        if (jsEvent.blocked == true) {
-          alert("This time is not available!");
-        } else {
-          console.log(event.start._i);
-          console.log(event.end._i);
-          _that.saveCurrentTimeStartEnd(event.start._i, event.end._i);
-          
+        if (event.selectable) {
+          _that.saveCurrentTimeStartEnd(event.start._i, event.end._i);  
           $("#modButton").trigger("click");
+        } else {
+          // alert("This time is not available!");
+          $("#blockClickButton").trigger("click");
         }
       }, 
-
     }) 
   });
 
@@ -129,7 +126,7 @@ class Calendar extends React.Component{
         $($('#calendar').fullCalendar('getView').el[0]).find('.fc-day[data-date=' + event.start.slice(0, 10)+ ']').css('background-color', 'white');
       })
       
-      $('#calendar').fullCalendar( 'addEventSource', newEvents);  
+      $('#calendar').fullCalendar('addEventSource', newEvents);  
     }         
   }
 
@@ -168,7 +165,6 @@ class Calendar extends React.Component{
             selectable: isSelectable,
           }
         })
-        console.log(building);
         this.addEvents(building, isMonth);   
       })
     }
@@ -180,6 +176,8 @@ class Calendar extends React.Component{
       <div>
         <div id = "calendar">
           <button data-toggle="modal" data-target="#mModal" id = "modButton" style={{display: "none"}}>
+          </button>
+          <button data-toggle="modal" data-target="#BlockClickModal" id = "blockClickButton" style={{display: "none"}}>
           </button>
         </div>
         <div className="modal fade" id="mModal">
@@ -195,8 +193,22 @@ class Calendar extends React.Component{
                 End - {this.state.endTime}<br/>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
                 <button type="button" className="btn btn-info btn-lg" data-dismiss="modal" onClick={() =>{this.handleSubmitBooking()}}>Confirm booking</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <div className="modal fade" id="BlockClickModal">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+              <h4 className="modal-title" id="mModalLabel">This time is not available for booking. Choose another time slot, please.</h4>
+                <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-info btn-lg" data-dismiss="modal">Ok</button>
               </div>
             </div>
           </div>
