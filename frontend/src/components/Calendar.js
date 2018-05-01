@@ -42,7 +42,7 @@ class Calendar extends React.Component{
         var url_string = window.location.href;
         var url = new URL(url_string);
         var Doctor = url.searchParams.get("doc");
-
+        // $("#doc3").addClass("active");
       this.setState({
         startPeriod: start,
         endPeriod: end,
