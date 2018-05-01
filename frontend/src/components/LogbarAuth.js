@@ -23,40 +23,40 @@ class LogbarAuth extends Component {
             <span className="logo-name">Lviv Regional Hospital</span>
           </div>
 
-          <ul className="nav">
-            <li className="nav-item btn-custom">
-              <form className="form-inline" action="/action_page.php">
-                  {localStorage.getItem("currentUserFirstName") + " " + localStorage.getItem("currentUserLastName") + " "} 
-                  <Link to="/">   
-                    <button type="button" id ="link-custom" className="btn btn-info btn-custom" onClick={this.SignOut}>Sign out</button> 
-                  </Link>
-              </form>
-            </li>
-            <li className="nav-item btn-custom">
-              <a className="navbar-toggler nav-link" id ="link-custom" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-              </a>  
-            </li>          
-          </ul>
-                
+          <form className="form-inline" action="/action_page.php">
+            <ul className="nav">
+              <li className="nav-item btn-custom">
+                <a className="nav-link" id ="link-custom">{localStorage.getItem("currentUserFirstName") + " " + localStorage.getItem("currentUserLastName") + " "}</a>
+              </li>
+              <li className="nav-item btn-custom">
+                {/* <Link to="/">    */}
+                <a className="nav-link" id ="link-custom"  href="/" onClick={this.SignOut}>Sign out</a> 
+                {/* </Link> */}
+              </li>
+              <li className="nav-item btn-custom">
+                <a className="navbar-toggler nav-link" id ="link-custom" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span className="shorter-line"></span>
+                  <span></span>
+                  <span></span>
+                </a>
+              </li>
+            </ul>
+          </form>            
         </nav>
 
         <div className="collapse pos-f-t container-fluid navbar-custom border border-top-2 p-0" id="navbarToggleExternalContent">
           <ul className="nav nav-justified">
             <li className="nav-item btn-custom">
-              <a className="nav-link" href="/">Home</a>
+              <a className="nav-link" id ="link-custom" href="/">Home</a>
             </li>
             <li className="nav-item btn-custom">
-              <a className="nav-link" href="#">Contacts</a>
+              <a className="nav-link" id ="link-custom" href="#">Contacts</a>
             </li>
             <li className="nav-item btn-custom">
-              <a className="nav-link" href="#">Doctors</a>
+              <a className="nav-link" id ="link-custom" href="#">Illnes prevention</a>
             </li>
             <li className="nav-item btn-custom">
-              <a className="nav-link" href="#">Illnes prevention</a>
-            </li>
-            <li className="nav-item btn-custom">
-              <a className="nav-link" href="#">National medicine program</a>
+              <a className="nav-link" id ="link-custom" href="#">National medicine program</a>
             </li>
           </ul>
         </div>

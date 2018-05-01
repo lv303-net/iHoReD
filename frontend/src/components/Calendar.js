@@ -40,11 +40,10 @@ class Calendar extends React.Component{
     var url_string = window.location.href;
     var url = new URL(url_string);
     var Doctor = url.searchParams.get("doc");
-
     this.setState({
       startPeriod: start,
       endPeriod: end,
-      idDoc :Doctor
+      idDoc :Doctor,
     })
   }
     
@@ -69,7 +68,7 @@ class Calendar extends React.Component{
         right: 'agendaDay, agendaWeek, month',
       },
       defaultView: "agendaDay",
-      selectable: true,
+      selectable: false,
       selectHelper: true,
       editable: true,
       themeSystem: 'bootstrap4',
@@ -106,7 +105,6 @@ class Calendar extends React.Component{
           _that.saveCurrentTimeStartEnd(event.start._i, event.end._i);  
           $("#modButton").trigger("click");
         } else {
-          // alert("This time is not available!");
           $("#blockClickButton").trigger("click");
         }
       }, 
