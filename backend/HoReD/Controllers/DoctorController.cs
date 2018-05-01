@@ -55,23 +55,23 @@ namespace HoReD.Controllers
         /// <example>http://localhost:*****/DoctorEvents/{doctorId}/{dateStart}/{dateFinish}</example>
         [HttpGet]
         [Route("DoctorEvents/{doctorId}/{dateStart}/{dateFinish}")]
-        public IHttpActionResult GetDoctorEvents(int doctorId,DateTime dateStart,DateTime dateFinish)
+        public IHttpActionResult GetDoctorEvents(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
             var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
 
             var fakedEvents = _doctorService.GetPrimaryEventsAsFaked(_doctorService.ConvertToEvents(rules, dateStart, dateFinish));
 
-            var bookedEvents = _doctorService.GetDoctorBookedEvents(doctorId);
+            var bookedEvents = _doctorService.GetDoctorBookedEvents(doctorId, dateStart, dateFinish);
 
             var generalEvents = _doctorService.GetGeneralEventsList(fakedEvents, bookedEvents);
 
             List<EventBindingModel> result = new List<EventBindingModel>();
-            foreach (var ge in generalEvents)
+            foreach (var general in generalEvents)
             {
                 EventBindingModel eventModel = new EventBindingModel()
                 {
-                    dateTime = ge.dateTime,
-                    isFake = ge.isFake
+                    dateTime = general.dateTime,
+                    isFake = general.isFake
                 };
                 result.Add(eventModel);
             }

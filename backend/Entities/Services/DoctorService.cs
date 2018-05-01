@@ -306,13 +306,15 @@ namespace Entities.Services
             return events;
         }
 
-        public List<Event> GetDoctorBookedEvents(int IdDoctor)
+        public List<Event> GetDoctorBookedEvents(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
             const string cmd = "GET_DOCTOR_SCHEDULE_BOOKED";
 
             var param = new Dictionary<string, object>()
             {
-                {"@IDDOCTOR", IdDoctor}
+                {"@IDDOCTOR", IdDoctor},
+                {"@PERIOD_START", dateStart},
+                {"@PERIOD_END",  dateFinish}
             };
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
 

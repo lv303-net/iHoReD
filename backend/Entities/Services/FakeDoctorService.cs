@@ -94,7 +94,7 @@ namespace Entities.Services
             throw new NotImplementedException();
         }
 
-        public List<Event> GetDoctorBookedEvents(int IdDoctor)
+        public List<Event> GetDoctorBookedEvents(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
             throw new NotImplementedException();
         }

@@ -21,7 +21,7 @@ namespace Entities.Services
 
         List<Event> GetPrimaryEventsAsFaked(List<string[]> events);
 
-        List<Event> GetDoctorBookedEvents(int IdDoctor);
+        List<Event> GetDoctorBookedEvents(int IdDoctor, DateTime dateStart, DateTime dateFinish);
 
         List<Event> GetGeneralEventsList(List<Event> fakedEvents, List<Event> bookedEvents);
     }
