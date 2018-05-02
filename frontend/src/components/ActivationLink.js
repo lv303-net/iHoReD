@@ -25,8 +25,7 @@ class Direction extends React.Component {
   }
   render() {
     if (this.props.hasError) {
-      // You can render any custom fallback UI
-      return <div className="container mt-5">
+           return <div className="container mt-5">
         <h2 id="shaddow" className='font-italic text-center text-muted'>Something went wrong...</h2>>
     </div>
     }

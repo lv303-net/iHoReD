@@ -17,6 +17,8 @@ import LogbarUnauth from './components/LogbarUnauth';
 import LogbarWrapper from './components/LogbarWrapper';
 import Footerbar from './components/Footerbar';
 import DoctorCalendar from './components/DoctorCalendar';
+import PatientInfo from './components/PatientInfo';
+
 
 
 var url = window.location.href;
@@ -35,6 +37,7 @@ class Home extends Component {
                 <Route path="/activation/:id" component={ActivationLink}/>
                 <Route path="/doctorCalendar" component={DoctorCalendar}/>
                 <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
+                <Route path="/patientInfo" component={PatientInfo}/>
               </Switch>
             <Footerbar/>
       </div>
