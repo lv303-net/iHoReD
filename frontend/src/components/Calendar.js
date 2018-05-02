@@ -75,6 +75,8 @@ class Calendar extends React.Component{
       lazyFetching: true,
       minTime: '07:00:00',
       blocked: true,
+      eventStartEditable : false,
+      droppable : false,
     
       viewRender: function(view){
         var view = $('#calendar').fullCalendar('getView');

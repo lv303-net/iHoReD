@@ -5,10 +5,10 @@ import axios from 'axios';
 import validator from 'validator';
 import logo from '../images/logo.png';
 import '../style/Navbar.css';
-import Alert from 'react-s-alert';
+// import Alert from 'react-s-alert';
 
-import 'react-s-alert/dist/s-alert-default.css';
-import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+// import 'react-s-alert/dist/s-alert-default.css';
+// import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 
 
 var server_url;
@@ -65,13 +65,13 @@ class LogbarUnauth extends Component {
           localStorage.setItem("currentUserLastName", (response.data.LastName));
       });
     }
-    alertForMailMess() {
-      Alert.info('Test message 2', {
-        position: 'bottom-left',
-        effect: 'bouncyflip',
-        timeout: 'none'
-    });
-    }
+    // alertForMailMess() {
+    //   Alert.info('Test message 2', {
+    //     position: 'bottom-left',
+    //     effect: 'bouncyflip',
+    //     timeout: 'none'
+    // });
+    // }
   
 
   handleSubmitRegistr = event => {

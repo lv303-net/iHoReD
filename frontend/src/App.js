@@ -11,7 +11,7 @@ import LogbarAuth from './components/LogbarAuth';
 import ProfessionsTable from './components/ProfessionsTable';
 import DoctorTable from './components/DoctorTable';
 import Footerbar from './components/Footerbar';
-import Alert from 'react-s-alert';
+// import Alert from 'react-s-alert';
 
 import LogbarWrapper from './components/LogbarWrapper';
 const base_api_url = process.env.REACT_APP_BASE_API_URL;
