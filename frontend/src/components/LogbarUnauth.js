@@ -5,6 +5,11 @@ import axios from 'axios';
 import validator from 'validator';
 import logo from '../images/logo.png';
 import '../style/Navbar.css';
+import Alert from 'react-s-alert';
+
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+
 
 var server_url;
 if (process.env.NODE_ENV === "development")
@@ -42,6 +47,7 @@ class LogbarUnauth extends Component {
     this.validEmail = false;
     this.validPasword = false;
     this.validConfirmPassword = false;
+      this.alertForMailMess= this.alertForMailMess.bind(this);
   }
 
   handleSubmitAuth = event => {
@@ -58,7 +64,15 @@ class LogbarUnauth extends Component {
           localStorage.setItem("currentUserFirstName", (response.data.FirstName));
           localStorage.setItem("currentUserLastName", (response.data.LastName));
       });
-  }
+    }
+    alertForMailMess() {
+      Alert.info('Test message 2', {
+        position: 'bottom-left',
+        effect: 'bouncyflip',
+        timeout: 'none'
+    });
+    }
+  
 
   handleSubmitRegistr = event => {
     event.preventDefault();
@@ -75,10 +89,11 @@ class LogbarUnauth extends Component {
       localStorage.setItem("currentUserLastName", (this.lastNameRegistr));
 
       axios.post(server_url + '/api/Registration', userRegister)
-        .then(function (response) {
-          //handle success
-          // window.location.reload();
-          // console.log(response);
+        .then(rez=> {
+          //handle success 
+          this.alertForMailMess();
+         window.location.reload();  
+       
         })
         .catch(function (response) {
           //handle error
@@ -113,6 +128,7 @@ class LogbarUnauth extends Component {
       this.validAll = false;
 
       if (this.validFirstName) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divFNameRegistr.current.textContent = '';
       }
       else {
@@ -120,6 +136,7 @@ class LogbarUnauth extends Component {
         this.divFNameRegistr.current.textContent = 'Please enter a valid firstname';
       }
       if (this.validLastName) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divLNameRegistr.current.textContent = '';
       }
       else {
@@ -208,8 +225,8 @@ class LogbarUnauth extends Component {
   }
 
   render() {
-    return (
-      <div>
+      return (
+      <div>        
         <nav className="navbar navbar-dark navbar-custom py-0 px-5">
           <div className="navbar-brand p-0">
             <a href="/">
@@ -370,6 +387,7 @@ class LogbarUnauth extends Component {
                     <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
                     </button>
                   </div>
+                 
                 </div>
               </form>
             </div>
@@ -408,7 +426,9 @@ class LogbarUnauth extends Component {
             </div>
           </div>
         </div>
+      
       </div>
+      
     );
   }
 }
