@@ -108,6 +108,8 @@ namespace Entities.Utils
             }
             return list;
         }
+
+
         public static UserInfo GetAllUserInfo(string str)
         {
             var values = str.Split('*');
@@ -134,7 +136,9 @@ namespace Entities.Utils
                 return new UserInfo() { Id = 0 };
             }
         }
-        public static List<MedicalCard> GetMedicalCards(string bdResult)
+
+
+        public static List<MedicalCard> GetMedicalCards(string dbResult)
         {
             var values = dbResult.Split('*');
             var result = new List<MedicalCard>();
