@@ -81,9 +81,9 @@ namespace Entities.Utils
             return list;
         }
 
-        public static List<MedicalCard> GetMedicalCards(string bdResult)
+        public static List<MedicalCard> GetMedicalCards(string dbResult)
         {
-            var values = bdResult.Split('*');
+            var values = dbResult.Split('*');
             var result = new List<MedicalCard>();
             for (int i = 0; i < values.Length - 1; i += 8)
             {
