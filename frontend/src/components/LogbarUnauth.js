@@ -144,6 +144,7 @@ class LogbarUnauth extends Component {
         this.divLNameRegistr.current.textContent = 'Please enter a valid lastname';
       }
       if (this.validPhone) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divPhoneRegistr.current.textContent = '';
       }
       else {
@@ -151,6 +152,7 @@ class LogbarUnauth extends Component {
         this.divPhoneRegistr.current.textContent = 'Please enter a valid phone number';
       }
       if (this.validEmail) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divEmailRegistr.current.textContent = '';
       }
       else {
@@ -158,6 +160,7 @@ class LogbarUnauth extends Component {
         this.divEmailRegistr.current.textContent = "Please enter a valid email";
       }
       if (this.validPasword) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divPassRegistr.current.textContent = '';
       }
       else {
@@ -165,6 +168,7 @@ class LogbarUnauth extends Component {
         this.divPassRegistr.current.textContent = "Please enter a valid password";
       }
       if (this.validConfirmPassword) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divConfirmPassRegistr.current.textContent = '';
       }
       else {

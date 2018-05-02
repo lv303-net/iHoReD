@@ -70,6 +70,14 @@ constructor(props){
   };
 
     componentDidMount(){
+      var url_string = window.location.href;
+      var url = new URL(url_string);
+      var idProf = url.searchParams.get("prof");
+      
+      this.setState({
+        id: idProf
+      })
+
       var _that = this;
       $(document).ready(function() {
         _that.responsiveTables();
@@ -79,6 +87,10 @@ constructor(props){
       });
     }
 
+    componentDidUpdate(prevProps, prevState) {
+      var idForDiv = "#prof"+this.state.id;
+      $(idForDiv).addClass("active");
+    }
 
     eventHandler(idP) {
       localStorage.setItem("currentProfession", idP)
@@ -98,7 +110,7 @@ constructor(props){
                     <i className="fas fa-angle-right"></i>              
                   </div>                  
                   <div id='listProf' className="list-group">
-                    {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => {this.eventHandler(professionsArr[0]),this.addUrl(professionsArr[1])}}><div>{professionsArr[1]}</div></a>)}
+                    {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' id={"prof"+professionsArr[0]} data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => {this.eventHandler(professionsArr[0]),this.addUrl(professionsArr[0])}}><div>{professionsArr[1]}</div></a>)}
                   </div>
                   </div> 
                 </div>
