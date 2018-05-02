@@ -19,6 +19,17 @@ namespace Entities.Services
 
         List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish);
 
+        List<Event> GetPrimaryEventsAsFaked(List<string[]> events);
+
+        List<Event> GetDoctorBookedEvents(int IdDoctor, DateTime dateStart, DateTime dateFinish);
+
+        List<Tuple<Event, User>> GetGeneralEventsListForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish);
+
+        List<Tuple<Event,User>> GetDoctorBookedEventsForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish);
+
+        List<Tuple<Event, User>> GeneralEventsListFillUserData(List<Tuple<Event, User>> general);
+
         List<Event> GetGeneralEventsList(int IdDoctor, DateTime dateStart, DateTime dateFinish);
+
     }
 }

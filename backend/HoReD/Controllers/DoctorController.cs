@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Entities;
@@ -71,6 +72,33 @@ namespace HoReD.Controllers
             }
 
             return Ok(result);
+        }
+        /// <summary>
+        /// Similar to GetDoctorEvents, but also returns id and name of user, that has session in relevant event
+        /// </summary>
+        /// <param name="doctorId"></param>
+        /// <param name="dateStart"></param>
+        /// <param name="dateFinish"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("DoctorEventsForDoctor/{doctorId}/{dateStart}/{dateFinish}")]
+        public IHttpActionResult GetDoctorEventsForDoctor(int doctorId, DateTime dateStart, DateTime dateFinish)
+        {
+            var toParse = _doctorService.GetGeneralEventsListForDoctor(doctorId, dateStart, dateFinish);
+            List<BookedEventBindingModel> toRet = new List<BookedEventBindingModel>();
+            
+            foreach (var g in toParse)
+            {
+                BookedEventBindingModel eventModel = new BookedEventBindingModel()
+                {
+                    dateTime = g.Item1.dateTime,
+                    isFake = g.Item1.isFake,
+                    PatientId = g.Item2.Id,
+                    PatientName = (g.Item2.Id == 0) ? null : g.Item2.FirstName+" "+g.Item2.LastName
+                };
+                toRet.Add(eventModel);
+            }
+            return Ok(toRet);
         }
     }
 }
