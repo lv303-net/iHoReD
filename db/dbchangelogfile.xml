@@ -217,10 +217,6 @@
     <changeSet author="Vadym Ivanov" id="V3.18">
       <sqlFile path="V3.18_ADDED_COLUMN_BLOOD_TYPE_INTO_TABLE_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
       <sqlFile path="V3.18_CREATED_PROCEDURE_GET_PATIENT_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
-      <sqlFile path="V3.18_UPDATED_PROCEDURE_GET_PATIENT_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
     </changeSet>
 
-    <changeSet author="Vadym Ivanov" id="V3.19">
-      <sqlFile path="V3.19_UPDATED_PROCEDURE_GET_PATIENT_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
-    </changeSet>
 </databaseChangeLog>
