@@ -12,8 +12,7 @@ namespace Entities.Services
 
         public MedicalCardService(IDbContext dbContext)
         {
-             //_dbContext = dbContext;
-            _dbContext = new FakeDbContext();
+            _dbContext = dbContext;
         }
 
         public List<MedicalCard> GetUserCardById(int id)
