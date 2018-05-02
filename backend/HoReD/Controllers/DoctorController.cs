@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Entities;
@@ -57,13 +58,7 @@ namespace HoReD.Controllers
         [Route("DoctorEvents/{doctorId}/{dateStart}/{dateFinish}")]
         public IHttpActionResult GetDoctorEvents(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
-            var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
-
-            var fakedEvents = _doctorService.GetPrimaryEventsAsFaked(_doctorService.ConvertToEvents(rules, dateStart, dateFinish));
-
-            var bookedEvents = _doctorService.GetDoctorBookedEvents(doctorId, dateStart, dateFinish);
-
-            var generalEvents = _doctorService.GetGeneralEventsList(fakedEvents, bookedEvents);
+            var generalEvents = _doctorService.GetGeneralEventsList(doctorId, dateStart, dateFinish);
 
             List<EventBindingModel> result = new List<EventBindingModel>();
             foreach (var general in generalEvents)
@@ -77,6 +72,33 @@ namespace HoReD.Controllers
             }
 
             return Ok(result);
+        }
+        /// <summary>
+        /// Similar to GetDoctorEvents, but also returns id and name of user, that has session in relevant event
+        /// </summary>
+        /// <param name="doctorId"></param>
+        /// <param name="dateStart"></param>
+        /// <param name="dateFinish"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("DoctorEventsForDoctor/{doctorId}/{dateStart}/{dateFinish}")]
+        public IHttpActionResult GetDoctorEventsForDoctor(int doctorId, DateTime dateStart, DateTime dateFinish)
+        {
+            var toParse = _doctorService.GetGeneralEventsListForDoctor(doctorId, dateStart, dateFinish);
+            List<BookedEventBindingModel> toRet = new List<BookedEventBindingModel>();
+            
+            foreach (var g in toParse)
+            {
+                BookedEventBindingModel eventModel = new BookedEventBindingModel()
+                {
+                    dateTime = g.Item1.dateTime,
+                    isFake = g.Item1.isFake,
+                    PatientId = g.Item2.Id,
+                    PatientName = (g.Item2.Id == 0) ? null : g.Item2.FirstName+" "+g.Item2.LastName
+                };
+                toRet.Add(eventModel);
+            }
+            return Ok(toRet);
         }
     }
 }

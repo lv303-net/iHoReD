@@ -85,15 +85,22 @@
     <Compile Include="Services\FakeDoctorService.cs" />
     <Compile Include="Services\IDbContext.cs" />
     <Compile Include="Services\IDoctorService.cs" />
+    <Compile Include="Services\IPatientDataService.cs" />
+    <Compile Include="Services\IMedicalCardService.cs" />
     <Compile Include="Services\IRuleService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\IScheduleService.cs" />
+    <Compile Include="Services\PatientData.cs" />
+    <Compile Include="Services\MedicalCard.cs" />
+    <Compile Include="Services\PatientDataService.cs" />
+    <Compile Include="Services\MedicalCardService.cs" />
     <Compile Include="Services\RuleService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\ScheduleService.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="Utils\ParseSqlQuery.cs" />
+    <Compile Include="Utils\StaticData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

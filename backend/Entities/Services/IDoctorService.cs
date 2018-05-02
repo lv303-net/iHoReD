@@ -23,6 +23,13 @@ namespace Entities.Services
 
         List<Event> GetDoctorBookedEvents(int IdDoctor, DateTime dateStart, DateTime dateFinish);
 
-        List<Event> GetGeneralEventsList(List<Event> fakedEvents, List<Event> bookedEvents);
+        List<Tuple<Event, User>> GetGeneralEventsListForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish);
+
+        List<Tuple<Event,User>> GetDoctorBookedEventsForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish);
+
+        List<Tuple<Event, User>> GeneralEventsListFillUserData(List<Tuple<Event, User>> general);
+
+        List<Event> GetGeneralEventsList(int IdDoctor, DateTime dateStart, DateTime dateFinish);
+
     }
 }

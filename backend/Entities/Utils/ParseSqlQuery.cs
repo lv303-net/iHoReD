@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.Services;
 
 namespace Entities.Utils
 {
@@ -62,12 +63,11 @@ namespace Entities.Utils
         {
             var values = str.Split('*');
             var list = new List<Event>();
-            string datePattern = "yyyy-MM-dd";
-            string timePattern = "HH:mm:ss";
+
             for (int i = 0; i < (values.Length - 1); i += 3)
             {
-                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(datePattern),
-                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(timePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(timePattern) };
+                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.DatePattern),
+                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.TimePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(StaticData.TimePattern) };
                 var bookedEvent = new Event()
                 {
                     dateTime = startEndDateTime,
@@ -78,6 +78,104 @@ namespace Entities.Utils
             }
 
             return list;
+        }
+
+        /// <summary>
+        /// Almost identical to GetDoctorBookedEvents, but also returns name,surname & id of user, that booked session
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static List<Tuple<Event,User>> GetDoctorBookedEventsForDoctor(string str)
+        {
+            var values = str.Split('*');
+            var list = new List<Tuple<Event,User>>();
+            string datePattern = "yyyy-MM-dd";
+            string timePattern = "HH:mm:ss";
+            for (int i = 0; i < (values.Length - 1); i += 6)
+            {
+                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(datePattern),
+                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(timePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(timePattern) };
+                var eventToPaste = new Event()
+                {
+                    dateTime = startEndDateTime,
+                    isFake = false
+                };
+                var userToPaste = new User()
+                {
+                    Id = (values.GetValue(i) == null) ? 0 : Convert.ToInt32(values.GetValue(i)),
+                };
+                list.Add(new Tuple<Event, User>(eventToPaste,userToPaste));
+            }
+            return list;
+        }
+
+
+        public static UserInfo GetAllUserInfo(string str)
+        {
+            var values = str.Split('*');
+            try
+            {
+                var userInfo = new UserInfo
+                {
+                    Id = Convert.ToInt32(values.GetValue(0)),
+                    FirstName = values.GetValue(1).ToString(),
+                    LastName = values.GetValue(2).ToString(),
+                    Password = values.GetValue(3).ToString(),
+                    Email = values.GetValue(4).ToString(),
+                    Phone = values.GetValue(5).ToString(),
+                    Sex = (values.GetValue(6) == "") ? false : Convert.ToBoolean(values.GetValue(6).ToString()),
+                    Country = values.GetValue(7).ToString(),
+                    City = values.GetValue(8).ToString(),
+                    Street = values.GetValue(9).ToString(),
+                    Apartment = values.GetValue(10).ToString()
+                };
+                return userInfo;
+            }
+            catch (Exception)
+            {
+                return new UserInfo() { Id = 0 };
+            }
+        }
+
+
+        public static List<MedicalCard> GetMedicalCards(string dbResult)
+        {
+            var values = dbResult.Split('*');
+            var result = new List<MedicalCard>();
+            for (int i = 0; i < values.Length - 1; i += 8)
+            {
+                var medicalCard = new MedicalCard
+                {
+                    CardId = Convert.ToInt32(values.GetValue(i)),
+                    Description = values.GetValue(1 + i).ToString(),
+                    Cure = values.GetValue(2 + i).ToString(),
+                    IdDoctor = Convert.ToInt32(values.GetValue(3 + i)),
+                    IdPatient = Convert.ToInt32(values.GetValue(4 + i)),
+                    StartDateTime = Convert.ToDateTime(values.GetValue(5 + i)),
+                    IdVisit = Convert.ToInt32(values.GetValue(6 + i)),
+                    DiseaseCode = values.GetValue(7 + i).ToString(),
+                };
+                result.Add(medicalCard);
+            }
+            return result;
+        }
+        public static List<PatientData> GetPatientData(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<PatientData>();
+            for (int i = 0; i < values.Length - 1; i += 5)
+            {
+                var patientData = new PatientData
+                {
+                    FirstName = values.GetValue(i).ToString(),
+                    LastName = values.GetValue(1 + i).ToString(),
+                    Birthday = Convert.ToDateTime(values.GetValue(2 + i)),
+                    Phone = values.GetValue(3 + i).ToString(),
+                    BloodType = values.GetValue(4 + i).ToString(),
+                };
+                result.Add(patientData);
+            }
+            return result;
         }
     }
 }
