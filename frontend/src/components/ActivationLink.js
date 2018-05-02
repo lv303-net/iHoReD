@@ -78,17 +78,20 @@ class ActivationLink extends React.Component {
     }
   }
   userId = this.props.match.params.id;
+ 
   componentDidMount() {
     setTimeout(() => {
       axios.get(server_url + '/Registration/' + this.userId)
         .then(rez => {
           this.setState({ isRegistrated: rez.data });
           this.eventHandler(this.state.isRegistrated);
+         
         })
         .catch(err => this.setState({ hasError: true }));
       this.setState({ loading: false });
-    }, 2000);
+       }, 2000);
   }
+ 
   render() {
     const { loading } = this.state;
     const { text } = this.state;
@@ -96,6 +99,7 @@ class ActivationLink extends React.Component {
     const { redirect } = this.state;
     const { hasError } = this.state;
     console.log(this.state.hasError);
+    console.log(this.userId);
     return (
       this.state.loading ? <Loader /> : <Direction hasError={hasError} text={text} redirect={redirect} status={isRegistrated} />
     )

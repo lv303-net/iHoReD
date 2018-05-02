@@ -172,5 +172,23 @@ div.profDocTable:hover {
 }
 
 #buttonCancelForMessage {
-  display:none;
+  display: none;
+border: 2px solid #adc9ff;
+background: #17a2b8;;
+text-align: center;
+width: 40%;
+position: relative;
+right: -30%;
+margin-bottom: 10px;
+font-size: 1.25rem;
+line-height: 1.5;
+border-radius: .3rem;
+}
+
+#textOutp{
+font-weight: bold;
+text-align: center;
+padding: 20px;
+font-size: 1.25rem;
+font-family: sans-serif;
 }
