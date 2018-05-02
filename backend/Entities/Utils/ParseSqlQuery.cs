@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.Services;
 
 namespace Entities.Utils
 {
@@ -133,7 +134,27 @@ namespace Entities.Utils
             {
                 return new UserInfo() { Id = 0 };
             }
-            
+        }
+        public static List<MedicalCard> GetMedicalCards(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<MedicalCard>();
+            for (int i = 0; i < values.Length - 1; i += 8)
+            {
+                var medicalCard = new MedicalCard
+                {
+                    CardId = Convert.ToInt32(values.GetValue(i)),
+                    Description = values.GetValue(1 + i).ToString(),
+                    Cure = values.GetValue(2 + i).ToString(),
+                    IdDoctor = Convert.ToInt32(values.GetValue(3 + i)),
+                    IdPatient = Convert.ToInt32(values.GetValue(4 + i)),
+                    StartDateTime = Convert.ToDateTime(values.GetValue(5 + i)),
+                    IdVisit = Convert.ToInt32(values.GetValue(6 + i)),
+                    DiseaseCode = values.GetValue(7 + i).ToString(),
+                };
+                result.Add(medicalCard);
+            }
+            return result;
         }
     }
 }

@@ -89,6 +89,7 @@
     <Compile Include="Services\IRuleService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\IScheduleService.cs" />
+    <Compile Include="Services\MedicalCard.cs" />
     <Compile Include="Services\MedicalCardService.cs" />
     <Compile Include="Services\RuleService.cs" />
     <Compile Include="Services\UserService.cs" />

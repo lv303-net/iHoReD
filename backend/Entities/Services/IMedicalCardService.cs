@@ -8,6 +8,6 @@ namespace Entities.Services
 {
     public interface IMedicalCardService
     {
-        List<string[]> GetUserCardByIdAsync(int id);
+        List<MedicalCard> GetUserCardById(int id);
     }
 }

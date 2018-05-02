@@ -12,45 +12,27 @@ namespace Entities.Services
 
         public MedicalCardService(IDbContext dbContext)
         {
-             _dbContext = dbContext;
+             //_dbContext = dbContext;
+            _dbContext = new FakeDbContext();
         }
 
-        public List<string[]> GetUserCardByIdAsync(int id)
+        public List<MedicalCard> GetUserCardById(int id)
         {
             string cmd = "GET_MEDICAL_CARD_BY_USER_ID";
             var param = new Dictionary<string,object>()
             {
                 {"ID_USER", id }
             };
-            List<string[]> result = new List<string[]>();
 
             try
             {
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
-                var values = data.Split('*');
-                int dataIndex = 0;
-                string[] oneRecord = new string[8];
-                foreach (var value in values)
-                {
-                    if (dataIndex < 8)
-                    {
-                        oneRecord[dataIndex] = value;
-                        dataIndex++;
-                    }
-                    else
-                    {
-                        result.Add(oneRecord);
-                        dataIndex = 0;
-                    }
-                }
+                return Utils.ParseSqlQuery.GetMedicalCards(data);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
                 throw;
             }
-
-            return result;
         }
     }
 }
