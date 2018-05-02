@@ -5,6 +5,7 @@ import axios from 'axios';
 import validator from 'validator';
 import logo from '../images/logo.png';
 import '../style/Navbar.css';
+import $ from 'jquery';
 // import Alert from 'react-s-alert';
 
 // import 'react-s-alert/dist/s-alert-default.css';
@@ -47,7 +48,6 @@ class LogbarUnauth extends Component {
     this.validEmail = false;
     this.validPasword = false;
     this.validConfirmPassword = false;
-      this.alertForMailMess= this.alertForMailMess.bind(this);
   }
 
   handleSubmitAuth = event => {
@@ -83,7 +83,6 @@ class LogbarUnauth extends Component {
       password: this.passwordRegistr,
       phone: this.phoneRegistr
     };
-
     if (this.validAll) {
       localStorage.setItem("currentUserFirstName", (this.firstNameRegistr));
       localStorage.setItem("currentUserLastName", (this.lastNameRegistr));
@@ -91,8 +90,12 @@ class LogbarUnauth extends Component {
       axios.post(server_url + '/api/Registration', userRegister)
         .then(rez=> {
           //handle success 
-          this.alertForMailMess();
-         window.location.reload();  
+          //this.alertForMailMess();
+          //window.location.reload();            
+          
+          $('#formRegistr').remove();
+          $('#textOutp').text("Please check your email");
+          $('#buttonCancelForMessage').show();
        
         })
         .catch(function (response) {
@@ -275,7 +278,7 @@ class LogbarUnauth extends Component {
                 <button type="button" className="close" data-dismiss="modal">&times;</button>
               </div>
 
-              <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate>
+              <form className="ml-3 mr-3" onSubmit={this.handleSubmitRegistr} noValidate id="formRegistr">
 
                 <div className="form-row ml-3">
                   <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0" id="inputFName">
@@ -381,9 +384,12 @@ class LogbarUnauth extends Component {
                     <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
                     </button>
                   </div>
-                 
                 </div>
               </form>
+              <div id="textOutp">
+              </div>
+              <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal" id="buttonCancelForMessage">Cancel
+              </button>
             </div>
           </div>
         </div>

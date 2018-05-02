@@ -170,3 +170,7 @@ div.profDocTable:hover {
   border-right:2px solid #adc9ff;
   height: auto;
 }
+
+#buttonCancelForMessage {
+  display:none;
+}
