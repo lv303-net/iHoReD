@@ -176,14 +176,9 @@ namespace Entities.Services
 
         public List<string[]> ConvertToEventsForDays(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
         {
-            //for days and weeks, not months
 
-            if ((dateFinish.DayOfYear - dateStart.DayOfYear) < 6)
-            {
-                dateFinish = dateStart;
-            }
             var events = new List<string[]>();
-            string pattern = "yyyy-MM-dd";
+            string pattern = Utils.StaticData.DatePattern;
 
             foreach (var rule in allRules)
             {
@@ -251,7 +246,8 @@ namespace Entities.Services
         public List<string[]> ConvertToEventsForMonth(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
         {
             var events = new List<string[]>();
-            string pattern = "yyyy-MM-dd";
+
+            string pattern = Utils.StaticData.DatePattern;
 
             foreach (var rule in allRules)
             {

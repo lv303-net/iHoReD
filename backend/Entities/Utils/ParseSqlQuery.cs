@@ -62,12 +62,11 @@ namespace Entities.Utils
         {
             var values = str.Split('*');
             var list = new List<Event>();
-            string datePattern = "yyyy-MM-dd";
-            string timePattern = "HH:mm:ss";
+
             for (int i = 0; i < (values.Length - 1); i += 3)
             {
-                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(datePattern),
-                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(timePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(timePattern) };
+                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.DatePattern),
+                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.TimePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(StaticData.TimePattern) };
                 var bookedEvent = new Event()
                 {
                     dateTime = startEndDateTime,
