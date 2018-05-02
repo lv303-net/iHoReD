@@ -79,5 +79,61 @@ namespace Entities.Utils
 
             return list;
         }
+
+        /// <summary>
+        /// Almost identical to GetDoctorBookedEvents, but also returns name,surname & id of user, that booked session
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static List<Tuple<Event,User>> GetDoctorBookedEventsForDoctor(string str)
+        {
+            var values = str.Split('*');
+            var list = new List<Tuple<Event,User>>();
+            string datePattern = "yyyy-MM-dd";
+            string timePattern = "HH:mm:ss";
+            for (int i = 0; i < (values.Length - 1); i += 6)
+            {
+                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(datePattern),
+                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(timePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(timePattern) };
+                var eventToPaste = new Event()
+                {
+                    dateTime = startEndDateTime,
+                    isFake = false
+                };
+                var userToPaste = new User()
+                {
+                    Id = (values.GetValue(i) == null) ? 0 : Convert.ToInt32(values.GetValue(i)),
+                };
+                list.Add(new Tuple<Event, User>(eventToPaste,userToPaste));
+            }
+            return list;
+        }
+        public static UserInfo GetAllUserInfo(string str)
+        {
+            var values = str.Split('*');
+            try
+            {
+                var userInfo = new UserInfo
+                {
+                    Id = Convert.ToInt32(values.GetValue(0)),
+                    FirstName = values.GetValue(1).ToString(),
+                    LastName = values.GetValue(2).ToString(),
+                    Password = values.GetValue(3).ToString(),
+                    Email = values.GetValue(4).ToString(),
+                    Phone = values.GetValue(5).ToString(),
+                    Sex = bool.Parse(values.GetValue(6).ToString()),
+                    Country = values.GetValue(7).ToString(),
+                    City = values.GetValue(8).ToString(),
+                    Street = values.GetValue(9).ToString(),
+                    Apartment = values.GetValue(10).ToString()
+                };
+                return userInfo;
+            }
+            catch (Exception)
+            {
+                return new UserInfo() { Id = 0 };
+            }
+            
+        }
     }
 }

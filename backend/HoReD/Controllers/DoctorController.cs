@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Entities;
@@ -77,6 +78,36 @@ namespace HoReD.Controllers
             }
 
             return Ok(result);
+        }
+        [HttpGet]
+        [Route("DoctorEventsForDoctor/{doctorId}/{dateStart}/{dateFinish}")]
+        public IHttpActionResult GetDoctorEventsForDoctor(int doctorId, DateTime dateStart, DateTime dateFinish)
+        {
+            var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
+
+            var fakedEvents = _doctorService.GetPrimaryEventsAsFaked(_doctorService.ConvertToEvents(rules, dateStart, dateFinish));
+
+            var bookedEvents = _doctorService.GetDoctorBookedEventsForDoctor(doctorId, dateStart, dateFinish);
+            
+            var generalEvents = _doctorService.GetGeneralEventsListForDoctor(fakedEvents, bookedEvents);
+            
+            generalEvents = _doctorService.GeneralEventsListFillUserData(generalEvents);
+            
+            List<BookedEventBindingModel> toRet = new List<BookedEventBindingModel>();
+            
+            foreach (var g in generalEvents)
+            {
+                BookedEventBindingModel eventModel = new BookedEventBindingModel()
+                {
+                    dateTime = g.Item1.dateTime,
+                    isFake = g.Item1.isFake,
+                    PatientId = g.Item2.Id,
+                    PatientName = (g.Item2.Id == 0) ? null : g.Item2.FirstName+" "+g.Item2.LastName
+                };
+                toRet.Add(eventModel);
+            }
+            //int count = toRet.Where(x => x.PatientId != 0).Count();
+            return Ok(toRet);
         }
     }
 }

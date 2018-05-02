@@ -344,5 +344,84 @@ namespace Entities.Services
             }
             return generalEvents;
         }
+
+        /// <summary>
+        /// Almost equal for GetDoctorBookedEvents, although returns also name,surname and id of patient, that booked smth relevant session in schedule
+        /// </summary>
+        /// <param name="IdDoctor"></param>
+        /// <param name="dateStart"></param>
+        /// <param name="dateFinish"></param>
+        /// <returns></returns>
+        public List<Tuple<Event,User>> GetDoctorBookedEventsForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            
+            const string cmd = "GET_DOCTOR_SCHEDULE_BOOKED";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@IDDOCTOR", IdDoctor},
+                {"@PERIOD_START", dateStart},
+                {"@PERIOD_END",  dateFinish}
+            };
+            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var toRet = Utils.ParseSqlQuery.GetDoctorBookedEventsForDoctor(str);
+            
+            return toRet;
+        }
+
+        /// <summary>
+        /// Almost identical to GetGeneralEventsList, but also returns name,surname and id of user, that booked the session, where possible
+        /// </summary>
+        /// <param name="fakedEvents"></param>
+        /// <param name="bookedEvents"></param>
+        /// <returns></returns>
+        public List<Tuple<Event,User>> GetGeneralEventsListForDoctor(List<Event> fakedEvents, List<Tuple<Event,User>> bookedEvents)
+        {
+            var generalEvents = new List<Tuple<Event,User>>();
+            bool isBooked;
+            foreach (var faked in fakedEvents)
+            {
+                isBooked = false;
+                foreach (var booked in bookedEvents)
+                {
+                    if (faked.dateTime[0].Equals(booked.Item1.dateTime[0]) && faked.dateTime[1].Equals(booked.Item1.dateTime[1]) && faked.dateTime[2].Equals(booked.Item1.dateTime[2]))
+                    {
+                        generalEvents.Add(booked);
+                        isBooked = true;
+                        break;
+                    }
+                }
+                if (!isBooked)
+                {
+                    generalEvents.Add(new Tuple<Event, User>(faked, new User() { Id=0,FirstName="",LastName=""}));
+                }
+            }
+            return generalEvents;
+        }
+        
+        /// <summary>
+        /// Fills Users' firstname and lastname, based on their Id
+        /// </summary>
+        /// <param name="general"></param>
+        /// <returns></returns>
+        public List<Tuple<Event,User>> GeneralEventsListFillUserData(List<Tuple<Event,User>> general)
+        {
+            var toRet = new List<Tuple<Event, User>>();
+            foreach (var g in general)
+            {
+                if (g.Item2.Id == 0) continue;
+                const string cmd = "GET_ALL_USER_INFO";
+                var param = new Dictionary<string, object>()
+                {
+                    {"@ID", g.Item2.Id},
+                };
+                var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+                UserInfo userInfo = Utils.ParseSqlQuery.GetAllUserInfo(str);
+                g.Item2.FirstName = userInfo.FirstName;
+                g.Item2.LastName = userInfo.LastName;
+            }
+            toRet = general;
+            return toRet;
+        }
     }
 }
