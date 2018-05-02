@@ -121,7 +121,7 @@ namespace Entities.Utils
                     Password = values.GetValue(3).ToString(),
                     Email = values.GetValue(4).ToString(),
                     Phone = values.GetValue(5).ToString(),
-                    Sex = bool.Parse(values.GetValue(6).ToString()),
+                    Sex = (values.GetValue(6) == "") ? false : Convert.ToBoolean(values.GetValue(6).ToString()),
                     Country = values.GetValue(7).ToString(),
                     City = values.GetValue(8).ToString(),
                     Street = values.GetValue(9).ToString(),

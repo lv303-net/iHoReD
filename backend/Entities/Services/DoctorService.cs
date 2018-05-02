@@ -170,123 +170,141 @@ namespace Entities.Services
 
         public List<string[]> ConvertToEvents(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
         {
+            return ((dateFinish.DayOfYear - dateStart.DayOfYear) >= Utils.StaticData.MinimalNumberOfDaysInMonth ?
+                ConvertToEventsForMonth(allRules, dateStart, dateFinish) : ConvertToEventsForDays(allRules, dateStart, dateFinish));
+        }
+
+        public List<string[]> ConvertToEventsForDays(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
+        {
+            //for days and weeks, not months
+
             if ((dateFinish.DayOfYear - dateStart.DayOfYear) < 6)
             {
                 dateFinish = dateStart;
             }
             var events = new List<string[]>();
             string pattern = "yyyy-MM-dd";
-            if ((dateFinish.DayOfYear-dateStart.DayOfYear)<27)
+
+            foreach (var rule in allRules)
             {
-                foreach (var rule in allRules)
+                var tempHour = rule.HourStart;
+                var tempDateStart = new DateTime();
+                var tempDateFinish = new DateTime();
+                if (dateStart > rule.PeriodStart)
                 {
-                    var tempHour = rule.HourStart;
-                    var tempDateStart = new DateTime();
-                    var tempDateFinish = new DateTime();
-                    if (dateStart > rule.PeriodStart)
-                    {
-                        tempDateStart = dateStart;
-                    }
-                    else
-                    {
-                        tempDateStart = rule.PeriodStart;
-                    }
-                    if (dateFinish < rule.PeriodFinish)
-                    {
-                        tempDateFinish = dateFinish;
-                    }
-                    else
-                    {
-                        tempDateFinish = rule.PeriodFinish;
-                    }
-                    while (tempDateStart <= tempDateFinish)
-                    {
-                        if (rule.Week[tempDateStart.DayOfWeek])
-                        {
-                            tempHour = rule.HourStart;
-                            while (tempHour <= rule.HourFinish)
-                            {
-                                if (rule.IfInclusive)
-                                {
-                                    var convertDate = tempDateStart.ToString(pattern);
-                                    
-                                    var inclEvent = new[]
-                                    {
-                                    convertDate.ToString(), tempHour.ToString(),
-                                    (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
-                                };
-                                    var tempInclEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) == tempHour && TimeSpan.Parse(u[2]) == tempHour.Add(TimeSpan.FromMinutes(30)));
-                                    if(tempInclEvent==null)
-                                    {
-                                        events.Add(inclEvent);
-                                    }
-                                }
-                                else
-                                {
-                                    var convertDate = tempDateStart.ToString(pattern);
-                                    var excEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
-                                    if (excEvent != null)
-                                    {
-                                        events.Remove(excEvent);
-                                    }
-                                }
-                                tempHour = tempHour.Add(TimeSpan.FromMinutes(30));
-                            }
-                        }
-                        tempDateStart = tempDateStart.Add(TimeSpan.FromDays(1));
-                    }
+                    tempDateStart = dateStart;
                 }
-            }
-            else
-            {
-                foreach (var rule in allRules)
+                else
                 {
-                    var tempDateStart = new DateTime();
-                    var tempDateFinish = new DateTime();
-                    if (dateStart > rule.PeriodStart)
+                    tempDateStart = rule.PeriodStart;
+                }
+                if (dateFinish < rule.PeriodFinish)
+                {
+                    tempDateFinish = dateFinish;
+                }
+                else
+                {
+                    tempDateFinish = rule.PeriodFinish;
+                }
+                while (tempDateStart < tempDateFinish)
+                {
+                    if (rule.Week[tempDateStart.DayOfWeek])
                     {
-                        tempDateStart = dateStart;
-                    }
-                    else
-                    {
-                        tempDateStart = rule.PeriodStart;
-                    }
-                    if (dateFinish < rule.PeriodFinish)
-                    {
-                        tempDateFinish = dateFinish;
-                    }
-                    else
-                    {
-                        tempDateFinish = rule.PeriodFinish;
-                    }
-                    while (tempDateStart <= tempDateFinish)
-                    {
-                        if (rule.Week[tempDateStart.DayOfWeek])
+                        tempHour = rule.HourStart;
+                        while (tempHour < rule.HourFinish)
                         {
                             if (rule.IfInclusive)
                             {
                                 var convertDate = tempDateStart.ToString(pattern);
+
                                 var inclEvent = new[]
                                 {
-                                    convertDate.ToString(), rule.HourStart.ToString(),
-                                    rule.HourFinish.ToString()
+                                convertDate.ToString(), tempHour.ToString(),
+                                (tempHour.Add(TimeSpan.FromMinutes(30))).ToString()
                                 };
-                                events.Add(inclEvent);
+
+                                var tempInclEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) == tempHour && TimeSpan.Parse(u[2]) == tempHour.Add(TimeSpan.FromMinutes(30)));
+                                if (tempInclEvent == null)
+                                {
+                                    events.Add(inclEvent);
+                                }
                             }
                             else
                             {
                                 var convertDate = tempDateStart.ToString(pattern);
-                                var excEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) >= rule.HourStart && TimeSpan.Parse(u[2]) <= rule.HourFinish);
+                                var excEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) <= tempHour && TimeSpan.Parse(u[2]) >= tempHour.Add(TimeSpan.FromMinutes(30)));
                                 if (excEvent != null)
                                 {
                                     events.Remove(excEvent);
                                 }
                             }
+                            tempHour = tempHour.Add(TimeSpan.FromMinutes(30));
                         }
-                        tempDateStart = tempDateStart.Add(TimeSpan.FromDays(1));
                     }
+                    tempDateStart = tempDateStart.Add(TimeSpan.FromDays(1));
                 }
-            }          
+                
+            }
+            return events;
+        }
+
+        public List<string[]> ConvertToEventsForMonth(List<DoctorRules> allRules, DateTime dateStart, DateTime dateFinish)
+        {
+            var events = new List<string[]>();
+            string pattern = "yyyy-MM-dd";
+
+            foreach (var rule in allRules)
+            {
+                var tempDateStart = new DateTime();
+                var tempDateFinish = new DateTime();
+                if (dateStart > rule.PeriodStart)
+                {
+                    tempDateStart = dateStart;
+                }
+                else
+                {
+                    tempDateStart = rule.PeriodStart;
+                }
+                if (dateFinish < rule.PeriodFinish)
+                {
+                    tempDateFinish = dateFinish;
+                }
+                else
+                {
+                    tempDateFinish = rule.PeriodFinish;
+                }
+                while (tempDateStart < tempDateFinish)
+                {
+                    if (rule.Week[tempDateStart.DayOfWeek])
+                    {
+                        if (rule.IfInclusive)
+                        {
+                            var convertDate = tempDateStart.ToString(pattern);
+                            var inclEvent = new[]
+                            {
+                                convertDate.ToString(), rule.HourStart.ToString(),
+                                rule.HourFinish.ToString()
+                            };
+
+                            var tempInclEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) == rule.HourStart && TimeSpan.Parse(u[2]) == rule.HourFinish.Add(TimeSpan.FromMinutes(30)));
+                            if (tempInclEvent == null)
+                            {
+                                events.Add(inclEvent);
+                            }
+                        }
+                        else
+                        {
+                            var convertDate = tempDateStart.ToString(pattern);
+                            var excEvent = events.FirstOrDefault(u => u[0] == convertDate.ToString() && TimeSpan.Parse(u[1]) >= rule.HourStart && TimeSpan.Parse(u[2]) <= rule.HourFinish);
+                            if (excEvent != null)
+                            {
+                                events.Remove(excEvent);
+                            }
+                        }
+                    }
+                    tempDateStart = tempDateStart.Add(TimeSpan.FromDays(1));
+                }
+            }
             return events;
         }
 
@@ -321,10 +339,15 @@ namespace Entities.Services
             return Utils.ParseSqlQuery.GetDoctorBookedEvents(str);
         }
 
-        public List<Event> GetGeneralEventsList(List<Event> fakedEvents, List<Event> bookedEvents)
+        public List<Event> GetEventsListForDays(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
+            var rules = GetDoctorAllRules(IdDoctor, dateStart, dateFinish);
+            var fakedEvents = GetPrimaryEventsAsFaked(ConvertToEventsForDays(rules, dateStart, dateFinish));
+            var bookedEvents = GetDoctorBookedEvents(IdDoctor, dateStart, dateFinish);
+
             var generalEvents = new List<Event>();
             bool isBooked;
+
             foreach (var faked in fakedEvents)
             {
                 isBooked = false;
@@ -370,41 +393,11 @@ namespace Entities.Services
         }
 
         /// <summary>
-        /// Almost identical to GetGeneralEventsList, but also returns name,surname and id of user, that booked the session, where possible
-        /// </summary>
-        /// <param name="fakedEvents"></param>
-        /// <param name="bookedEvents"></param>
-        /// <returns></returns>
-        public List<Tuple<Event,User>> GetGeneralEventsListForDoctor(List<Event> fakedEvents, List<Tuple<Event,User>> bookedEvents)
-        {
-            var generalEvents = new List<Tuple<Event,User>>();
-            bool isBooked;
-            foreach (var faked in fakedEvents)
-            {
-                isBooked = false;
-                foreach (var booked in bookedEvents)
-                {
-                    if (faked.dateTime[0].Equals(booked.Item1.dateTime[0]) && faked.dateTime[1].Equals(booked.Item1.dateTime[1]) && faked.dateTime[2].Equals(booked.Item1.dateTime[2]))
-                    {
-                        generalEvents.Add(booked);
-                        isBooked = true;
-                        break;
-                    }
-                }
-                if (!isBooked)
-                {
-                    generalEvents.Add(new Tuple<Event, User>(faked, new User() { Id=0,FirstName="",LastName=""}));
-                }
-            }
-            return generalEvents;
-        }
-        
-        /// <summary>
         /// Fills Users' firstname and lastname, based on their Id
         /// </summary>
         /// <param name="general"></param>
         /// <returns></returns>
-        public List<Tuple<Event,User>> GeneralEventsListFillUserData(List<Tuple<Event,User>> general)
+        public List<Tuple<Event, User>> GeneralEventsListFillUserData(List<Tuple<Event, User>> general)
         {
             var toRet = new List<Tuple<Event, User>>();
             foreach (var g in general)
@@ -423,5 +416,136 @@ namespace Entities.Services
             toRet = general;
             return toRet;
         }
+
+        public List<Event> GetEventsListForMonth(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            var generalEvents = GetEventsListForDays(IdDoctor, dateStart, dateFinish);
+            var generalEventsForMonth = new List<Event>();
+
+            bool isAvailibleForBooking;
+            int j = 0;
+            for (int i = 0; i < generalEvents.Count(); i = j)
+            {
+                var perDayEvent = new Event()
+                {
+                    dateTime = generalEvents[i].dateTime,
+                    isFake = generalEvents[i].isFake
+                };
+
+                isAvailibleForBooking = perDayEvent.isFake;
+
+                for (j = i + 1; j < generalEvents.Count(); j++)
+                {
+                    if (generalEvents[i].dateTime[0].ToString().Equals(generalEvents[j].dateTime[0].ToString()))
+                    {
+                        perDayEvent.dateTime[2] = generalEvents[j].dateTime[2];
+                        if (generalEvents[j].isFake)
+                        {
+                            isAvailibleForBooking = true;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                }
+                perDayEvent.isFake = isAvailibleForBooking;
+                generalEventsForMonth.Add(perDayEvent);
+            }
+
+            return generalEventsForMonth;
+        }
+
+        public List<Event> GetGeneralEventsList(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            return ((dateFinish.DayOfYear - dateStart.DayOfYear) >= Utils.StaticData.MinimalNumberOfDaysInMonth ? 
+                GetEventsListForMonth(IdDoctor, dateStart, dateFinish) : GetEventsListForDays(IdDoctor, dateStart, dateFinish));
+        }
+
+        public List<Tuple<Event,User>> GetEventsListForDaysForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            List<Tuple<Event, User>> toRet = new List<Tuple<Event, User>>();
+
+            var rules = GetDoctorAllRules(IdDoctor, dateStart, dateFinish);
+            var fakedEvents = GetPrimaryEventsAsFaked(ConvertToEventsForDays(rules, dateStart, dateFinish));
+            var bookedEvents = GetDoctorBookedEventsForDoctor(IdDoctor, dateStart, dateFinish);
+
+            var generalEvents = new List<Tuple<Event, User>>();
+            bool isBooked;
+            foreach (var faked in fakedEvents)
+            {
+                isBooked = false;
+                foreach (var booked in bookedEvents)
+                {
+                    if (faked.dateTime[0].Equals(booked.Item1.dateTime[0]) && faked.dateTime[1].Equals(booked.Item1.dateTime[1]) && faked.dateTime[2].Equals(booked.Item1.dateTime[2]))
+                    {
+                        generalEvents.Add(booked);
+                        isBooked = true;
+                        break;
+                    }
+                }
+                if (!isBooked)
+                {
+                    generalEvents.Add(new Tuple<Event, User>(faked, new User() { Id = 0, FirstName = "", LastName = "" }));
+                }
+            }
+
+            generalEvents = GeneralEventsListFillUserData(generalEvents);
+
+            return generalEvents;
+        }
+        public List<Tuple<Event,User>> GetEventsListForMonthForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            var generalEvents = GetEventsListForDaysForDoctor(IdDoctor, dateStart, dateFinish);
+            var generalEventsForMonth = new List<Tuple<Event,User>>();
+
+            bool isAvailibleForBooking;
+            int j = 0;
+            for (int i = 0; i < generalEvents.Count(); i = j)
+            {
+                var perDayTuple = new Tuple<Event, User>(new Event()
+                {
+                    dateTime = generalEvents[i].Item1.dateTime,
+                    isFake = generalEvents[i].Item1.isFake
+                },
+                new User()
+                {
+                    Id = generalEvents[i].Item2.Id,
+                    FirstName = generalEvents[i].Item2.FirstName,
+                    LastName = generalEvents[i].Item2.LastName
+                }
+                );
+
+                isAvailibleForBooking = perDayTuple.Item1.isFake;
+
+                for (j = i + 1; j < generalEvents.Count(); j++)
+                {
+                    if (generalEvents[i].Item1.dateTime[0].ToString().Equals(generalEvents[j].Item1.dateTime[0].ToString()))
+                    {
+                        perDayTuple.Item1.dateTime[2] = generalEvents[j].Item1.dateTime[2];
+                        if (generalEvents[j].Item1.isFake)
+                        {
+                            isAvailibleForBooking = true;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                }
+                perDayTuple.Item1.isFake = isAvailibleForBooking;
+                generalEventsForMonth.Add(perDayTuple);
+            }
+            var count = generalEventsForMonth.Count(x => x.Item2.Id != 0);
+            return generalEventsForMonth;
+        }
+        public List<Tuple<Event,User>> GetGeneralEventsListForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            return ((dateFinish.DayOfYear - dateStart.DayOfYear) >= Utils.StaticData.MinimalNumberOfDaysInMonth ?
+                GetEventsListForMonthForDoctor(IdDoctor, dateStart, dateFinish) : GetEventsListForDaysForDoctor(IdDoctor, dateStart, dateFinish));
+        }
+
     }
 }

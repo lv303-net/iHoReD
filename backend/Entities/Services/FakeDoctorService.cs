@@ -84,7 +84,22 @@ namespace Entities.Services
             return list;
         }
 
-        public List<DayOfWeek> CompareWeek(IDictionary<DayOfWeek, bool> exWeek, IDictionary<DayOfWeek, bool> inWeek)
+        public List<Event> GetGeneralEventsList(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Tuple<Event, User>> GetDoctorBookedEventsForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Tuple<Event, User>> GetGeneralEventsListForDoctor(List<Event> fakedEvents, List<Tuple<Event, User>> bookedEvents)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Tuple<Event, User>> GeneralEventsListFillUserData(List<Tuple<Event, User>> general)
         {
             throw new NotImplementedException();
         }
@@ -104,17 +119,7 @@ namespace Entities.Services
             throw new NotImplementedException();
         }
 
-        public List<Tuple<Event, User>> GetDoctorBookedEventsForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Tuple<Event, User>> GetGeneralEventsListForDoctor(List<Event> fakedEvents, List<Tuple<Event, User>> bookedEvents)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Tuple<Event, User>> GeneralEventsListFillUserData(List<Tuple<Event, User>> general)
+        public List<Tuple<Event, User>> GetGeneralEventsListForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
             throw new NotImplementedException();
         }

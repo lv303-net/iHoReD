@@ -96,6 +96,7 @@
     <Compile Include="User.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="Utils\ParseSqlQuery.cs" />
+    <Compile Include="Utils\StaticData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
