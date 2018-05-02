@@ -84,22 +84,7 @@ namespace Entities.Services
             return list;
         }
 
-        public List<DayOfWeek> CompareWeek(IDictionary<DayOfWeek, bool> exWeek, IDictionary<DayOfWeek, bool> inWeek)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Event> GetPrimaryEventsAsFaked(List<string[]> events)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Event> GetDoctorBookedEvents(int IdDoctor, DateTime dateStart, DateTime dateFinish)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Event> GetGeneralEventsList(List<Event> fakedEvents, List<Event> bookedEvents)
+        public List<Event> GetGeneralEventsList(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
             throw new NotImplementedException();
         }

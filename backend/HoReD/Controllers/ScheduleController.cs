@@ -32,7 +32,7 @@ namespace HoReD.Controllers
             }
             catch (Exception)
             {
-                return Unauthorized();
+                return BadRequest();
             }
         }
     }

@@ -57,13 +57,7 @@ namespace HoReD.Controllers
         [Route("DoctorEvents/{doctorId}/{dateStart}/{dateFinish}")]
         public IHttpActionResult GetDoctorEvents(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
-            var rules = _doctorService.GetDoctorAllRules(doctorId, dateStart, dateFinish);
-
-            var fakedEvents = _doctorService.GetPrimaryEventsAsFaked(_doctorService.ConvertToEvents(rules, dateStart, dateFinish));
-
-            var bookedEvents = _doctorService.GetDoctorBookedEvents(doctorId, dateStart, dateFinish);
-
-            var generalEvents = _doctorService.GetGeneralEventsList(fakedEvents, bookedEvents);
+            var generalEvents = _doctorService.GetGeneralEventsList(doctorId, dateStart, dateFinish);
 
             List<EventBindingModel> result = new List<EventBindingModel>();
             foreach (var general in generalEvents)
