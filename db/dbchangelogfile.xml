@@ -205,5 +205,5 @@
 
     <changeSet author="Vadym Ivanov" id="V3.16">
     <sqlFile path="V3.16_ALTERED_TABLE_USER_INFO_ADDED_COLUMN_BIRTHDAY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
-  </changeSet>
+    <sqlFile path="V3.16_CREATED_TABLE_BLOOD_TYPES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>  </changeSet>
 </databaseChangeLog>
