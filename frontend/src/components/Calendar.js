@@ -61,7 +61,6 @@ class Calendar extends React.Component{
       $('#calendar').fullCalendar({
       eventLimit:true,
       theme: true,
-      //color: '#FF0000', backgroundColor: '#000000' ,
       header: {
         left: 'prev,next today',
         center: 'title',
@@ -92,7 +91,7 @@ class Calendar extends React.Component{
         {
           start: start,
           end: end,
-          allDay: false
+          allDay: false,
           },
           true 
         );
@@ -110,22 +109,14 @@ class Calendar extends React.Component{
       }, 
     }) 
   });
-
 }
 
   addEvents(newEvents, isMonth){
     var events
-    if(isMonth){
-      newEvents.map(event => {
-      $($('#calendar').fullCalendar('getView').el[0]).find('.fc-day[data-date=' + event.start.slice(0, 10)+ ']').css('background-color', 'red');
+    newEvents.map(event => {
+      $($('#calendar').fullCalendar('getView').el[0]).find('.fc-day[data-date=' + event.start.slice(0, 10)+ ']');
       })
-    } else {
-      newEvents.map(event => {
-        $($('#calendar').fullCalendar('getView').el[0]).find('.fc-day[data-date=' + event.start.slice(0, 10)+ ']').css('background-color', 'white');
-      })
-      
-      $('#calendar').fullCalendar('addEventSource', newEvents);  
-    }         
+    $('#calendar').fullCalendar('addEventSource', newEvents);       
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -135,8 +126,7 @@ class Calendar extends React.Component{
 
   componentWillUpdate(nextProps, nextState){
     var getData = (this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.state.idDoc!== nextState.idDoc); 
-    if(getData){      
-      console.log(this.state.idDoc);
+    if(getData){
       $('#calendar').fullCalendar( 'removeEvents');
       var isMonth;
       if($('#calendar').fullCalendar('getView').name=='month')
@@ -146,21 +136,38 @@ class Calendar extends React.Component{
       axios.get(server_url+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
       .then(response => {
         var col;
-        var isSelectable;
         var building = $.map(response.data, function(event){
-          if(event.isFake){
-            col = 'green';
-            isSelectable = true;
+          var isSelectable = false;
+          if($('#calendar').fullCalendar('getView').name=='month')
+          {
+            if(event.isFake){
+              col = 'green';
+            }else {
+              col = 'red';
+            }  
+            return{
+              start: event.dateTime[0],
+              end: event.dateTime[0],            
+              selectable: isSelectable,
+              rendering: 'background',
+              color : col, 
+            }
+            
           }else {
-            col = 'red';
-            isSelectable = false;
-          }
 
-          return{
-            start: event.dateTime[0]+'T'+event.dateTime[1],
-            end: event.dateTime[0]+'T'+event.dateTime[2],
-            color : col, 
-            selectable: isSelectable,
+            if(event.isFake){
+              col = 'green';
+              isSelectable = true;
+            }else {
+              col = 'red';
+              isSelectable = false;
+            }
+            return{
+              start: event.dateTime[0]+'T'+event.dateTime[1],
+              end: event.dateTime[0]+'T'+event.dateTime[2],
+              color : col, 
+              selectable: isSelectable,
+            }
           }
         })
         this.addEvents(building, isMonth);   
@@ -188,8 +195,8 @@ class Calendar extends React.Component{
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-              <h4 className="modal-title" id="mModalLabel">Confirm your booking</h4>
-                <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
+              <h4 className="modal-title" id="mModalLabel">Confirm Your booking</h4>
+                <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Cancel</span></button> 
               </div>
               <div className="modal-body">
                 Doctor - {$("#doc"+this.state.idDoc).text()}<br/>
@@ -199,7 +206,7 @@ class Calendar extends React.Component{
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
-                <button type="button" className="btn btn-info btn-lg" data-dismiss="modal" onClick={() =>{this.handleSubmitBooking()}}>Confirm booking</button>
+                <button type="button" className="btn btn-info btn-lg" data-dismiss="modal" onClick={() =>{this.handleSubmitBooking()}}>Confirm</button>
               </div>
             </div>
           </div>
