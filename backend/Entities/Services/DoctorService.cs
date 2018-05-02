@@ -364,6 +364,55 @@ namespace Entities.Services
             return generalEvents;
         }
 
+        /// <summary>
+        /// Almost equal for GetDoctorBookedEvents, although returns also name,surname and id of patient, that booked smth relevant session in schedule
+        /// </summary>
+        /// <param name="IdDoctor"></param>
+        /// <param name="dateStart"></param>
+        /// <param name="dateFinish"></param>
+        /// <returns></returns>
+        public List<Tuple<Event,User>> GetDoctorBookedEventsForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            
+            const string cmd = "GET_DOCTOR_SCHEDULE_BOOKED";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@IDDOCTOR", IdDoctor},
+                {"@PERIOD_START", dateStart},
+                {"@PERIOD_END",  dateFinish}
+            };
+            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var toRet = Utils.ParseSqlQuery.GetDoctorBookedEventsForDoctor(str);
+            
+            return toRet;
+        }
+
+        /// <summary>
+        /// Fills Users' firstname and lastname, based on their Id
+        /// </summary>
+        /// <param name="general"></param>
+        /// <returns></returns>
+        public List<Tuple<Event, User>> GeneralEventsListFillUserData(List<Tuple<Event, User>> general)
+        {
+            var toRet = new List<Tuple<Event, User>>();
+            foreach (var g in general)
+            {
+                if (g.Item2.Id == 0) continue;
+                const string cmd = "GET_ALL_USER_INFO";
+                var param = new Dictionary<string, object>()
+                {
+                    {"@ID", g.Item2.Id},
+                };
+                var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+                UserInfo userInfo = Utils.ParseSqlQuery.GetAllUserInfo(str);
+                g.Item2.FirstName = userInfo.FirstName;
+                g.Item2.LastName = userInfo.LastName;
+            }
+            toRet = general;
+            return toRet;
+        }
+
         public List<Event> GetEventsListForMonth(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
             var generalEvents = GetEventsListForDays(IdDoctor, dateStart, dateFinish);
@@ -409,5 +458,90 @@ namespace Entities.Services
             return ((dateFinish.DayOfYear - dateStart.DayOfYear) >= Utils.StaticData.MinimalNumberOfDaysInMonth ? 
                 GetEventsListForMonth(IdDoctor, dateStart, dateFinish) : GetEventsListForDays(IdDoctor, dateStart, dateFinish));
         }
+
+        public List<Tuple<Event,User>> GetEventsListForDaysForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            List<Tuple<Event, User>> toRet = new List<Tuple<Event, User>>();
+
+            var rules = GetDoctorAllRules(IdDoctor, dateStart, dateFinish);
+            var fakedEvents = GetPrimaryEventsAsFaked(ConvertToEventsForDays(rules, dateStart, dateFinish));
+            var bookedEvents = GetDoctorBookedEventsForDoctor(IdDoctor, dateStart, dateFinish);
+
+            var generalEvents = new List<Tuple<Event, User>>();
+            bool isBooked;
+            foreach (var faked in fakedEvents)
+            {
+                isBooked = false;
+                foreach (var booked in bookedEvents)
+                {
+                    if (faked.dateTime[0].Equals(booked.Item1.dateTime[0]) && faked.dateTime[1].Equals(booked.Item1.dateTime[1]) && faked.dateTime[2].Equals(booked.Item1.dateTime[2]))
+                    {
+                        generalEvents.Add(booked);
+                        isBooked = true;
+                        break;
+                    }
+                }
+                if (!isBooked)
+                {
+                    generalEvents.Add(new Tuple<Event, User>(faked, new User() { Id = 0, FirstName = "", LastName = "" }));
+                }
+            }
+
+            generalEvents = GeneralEventsListFillUserData(generalEvents);
+
+            return generalEvents;
+        }
+        public List<Tuple<Event,User>> GetEventsListForMonthForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            var generalEvents = GetEventsListForDaysForDoctor(IdDoctor, dateStart, dateFinish);
+            var generalEventsForMonth = new List<Tuple<Event,User>>();
+
+            bool isAvailibleForBooking;
+            int j = 0;
+            for (int i = 0; i < generalEvents.Count(); i = j)
+            {
+                var perDayTuple = new Tuple<Event, User>(new Event()
+                {
+                    dateTime = generalEvents[i].Item1.dateTime,
+                    isFake = generalEvents[i].Item1.isFake
+                },
+                new User()
+                {
+                    Id = generalEvents[i].Item2.Id,
+                    FirstName = generalEvents[i].Item2.FirstName,
+                    LastName = generalEvents[i].Item2.LastName
+                }
+                );
+
+                isAvailibleForBooking = perDayTuple.Item1.isFake;
+
+                for (j = i + 1; j < generalEvents.Count(); j++)
+                {
+                    if (generalEvents[i].Item1.dateTime[0].ToString().Equals(generalEvents[j].Item1.dateTime[0].ToString()))
+                    {
+                        perDayTuple.Item1.dateTime[2] = generalEvents[j].Item1.dateTime[2];
+                        if (generalEvents[j].Item1.isFake)
+                        {
+                            isAvailibleForBooking = true;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                }
+                perDayTuple.Item1.isFake = isAvailibleForBooking;
+                generalEventsForMonth.Add(perDayTuple);
+            }
+            var count = generalEventsForMonth.Count(x => x.Item2.Id != 0);
+            return generalEventsForMonth;
+        }
+        public List<Tuple<Event,User>> GetGeneralEventsListForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            return ((dateFinish.DayOfYear - dateStart.DayOfYear) >= Utils.StaticData.MinimalNumberOfDaysInMonth ?
+                GetEventsListForMonthForDoctor(IdDoctor, dateStart, dateFinish) : GetEventsListForDaysForDoctor(IdDoctor, dateStart, dateFinish));
+        }
+
     }
 }

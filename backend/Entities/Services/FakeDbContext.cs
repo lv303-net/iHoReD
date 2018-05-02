@@ -16,19 +16,7 @@ namespace Entities.Services
         //Execute query, which return one string, where values separated by char
         public string ExecuteSqlQuery(string cmd, char separatedChar, Dictionary<string, object> param)
         {
-            var command = new SqlCommand(cmd, _myConnection);
-            var reader = command.ExecuteReader();
-            var result = new StringBuilder();
-            if (reader.Read())
-            {
-                foreach (var value in reader)
-                {
-                    result.Append(value);
-                    result.Append(separatedChar);
-                }
-            }
-
-            return result.ToString();
+            return "1***1*67*2018-04-30T09:00:00*4*A00.0*2***1*67*2018-04-30T09:00:00*5*A00.0";
         }
 
         public void ExecuteSqlQuery(string cmd, IDictionary<string, object> data) { }
