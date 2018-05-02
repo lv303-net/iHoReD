@@ -80,10 +80,10 @@ namespace Entities.Services
             _myConnection.Close();
             return outval;
         }
+
         public void Dispose()
         {
             _myConnection?.Dispose();
-        }
-        
+        }  
     }
 }
