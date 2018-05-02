@@ -20,7 +20,7 @@ namespace Entities.Services
             string cmd = "GET_MEDICAL_CARD_BY_USER_ID";
             var param = new Dictionary<string,object>()
             {
-                {"ID", id }
+                {"ID_USER", id }
             };
             List<string[]> result = new List<string[]>();
 
@@ -29,7 +29,7 @@ namespace Entities.Services
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
                 var values = data.Split('*');
                 int dataIndex = 0;
-                string[] oneRecord = new string[] { };
+                string[] oneRecord = new string[8];
                 foreach (var value in values)
                 {
                     if (dataIndex < 8)
