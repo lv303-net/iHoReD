@@ -34,6 +34,7 @@ namespace HoReD.App_Start
             container.Register<IScheduleService, ScheduleService>(Lifestyle.Scoped);
             container.Register<IRuleService, RuleService>(Lifestyle.Scoped); 
             container.Register<IMedicalCardService, MedicalCardService>(Lifestyle.Scoped);
+            container.Register<IPatientDataService, PatientDataService>(Lifestyle.Scoped);
             // For instance:
             // container.Register<IUserRepository, SqlUserRepository>(Lifestyle.Scoped);
         }

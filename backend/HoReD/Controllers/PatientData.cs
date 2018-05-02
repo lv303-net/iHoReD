@@ -12,13 +12,13 @@ namespace HoReD.Controllers
     /// <summary>
     /// Controller that represents information about patient medical card
     /// </summary>
-    public class MedicalCardController : ApiController
+    public class PatientDataController : ApiController
     {
-        private readonly IMedicalCardService _medicalCard;
+        private readonly IPatientDataService _patientData;
 
-        public MedicalCardController(IMedicalCardService medicalCard)
+        public PatientDataController(IPatientDataService patientData)
         {
-            _medicalCard = medicalCard;
+            _patientData = patientData;
         }
 
         /// <summary>
@@ -26,11 +26,11 @@ namespace HoReD.Controllers
         /// </summary>
         /// 
         [HttpGet]
-        public IHttpActionResult GetMedicalCardByPatientId(int id)
+        public IHttpActionResult GetPatientDataByPatientId(int id)
         {
             try
             {
-                var result = _medicalCard.GetUserCardById(id);
+                var result = _patientData.GetPatientDataById(id);
                 return Ok(result);
             }
             catch (Exception e)

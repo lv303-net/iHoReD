@@ -155,5 +155,23 @@ namespace Entities.Utils
             }
             return result;
         }
+        public static List<PatientData> GetPatientData(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<PatientData>();
+            for (int i = 0; i < values.Length - 1; i += 5)
+            {
+                var patientData = new PatientData
+                {
+                    FirstName = values.GetValue(i).ToString(),
+                    LastName = values.GetValue(1 + i).ToString(),
+                    Birthday = Convert.ToDateTime(values.GetValue(2 + i)),
+                    Phone = values.GetValue(3 + i).ToString(),
+                    BloodType = values.GetValue(4 + i).ToString(),
+                };
+                result.Add(patientData);
+            }
+            return result;
+        }
     }
 }
