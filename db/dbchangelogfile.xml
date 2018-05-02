@@ -208,5 +208,10 @@
     <sqlFile path="V3.16_CREATED_TABLE_BLOOD_TYPES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>  
     <sqlFile path="V3.16_INSERTED_BLOOD_TYPES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Oleh Rakus" id="V3.17">
+    <sqlFile path="V3.17_CREATED_PROCEDURE_INSERT_ALLERGY_NAME_ALLERGY_DESCRIPTION_INTO_ALLERGY_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.17_INSERTE_SOME_BASIC_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 
 </databaseChangeLog>
