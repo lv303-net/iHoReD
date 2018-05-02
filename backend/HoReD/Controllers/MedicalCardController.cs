@@ -28,7 +28,7 @@ namespace HoReD.Controllers
         {
             try
             {
-                var result = _medicalCard.GetUserCardByIdAsync(id);
+                var result = _medicalCard.GetUserCardById(id);
                 return Ok(result);
             }
             catch (Exception e)
