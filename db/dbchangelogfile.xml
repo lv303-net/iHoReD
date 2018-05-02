@@ -188,5 +188,25 @@
   <changeSet author="Mariia Shkolyk" id="V3.12">
     <sqlFile path="V3.12_ALTERED_PROCEDURE_GET_DOCTOR_SCHEDULE_BOOKED.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
-  
+
+  <changeSet author="Oleh Rakus" id="V3.13">
+    <sqlFile path="V3.13_CREATE_MEDICAL_CARD_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.13_CREATE_GET_SHEDULE_BY_USER_ID_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.13_CREATE_GET_MEDICAL_CARD_BY_USER_ID_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.14">
+    <sqlFile path="V3.14_INSERT_SOME_VALUES_INTO_SCHEDULE_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.15">
+    <sqlFile path="V3.15_INSERT_SOME_VALUES_INTO_MEDICAL_MEDICAL_CARD_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Vadym Ivanov" id="V3.16">
+    <sqlFile path="V3.16_ALTERED_TABLE_USER_INFO_ADDED_COLUMN_BIRTHDAY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.16_CREATED_TABLE_BLOOD_TYPES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>  
+    <sqlFile path="V3.16_INSERTED_BLOOD_TYPES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
