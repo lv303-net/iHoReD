@@ -206,4 +206,9 @@
     <changeSet author="Vadym Ivanov" id="V3.16">
     <sqlFile path="V3.16_ALTERED_TABLE_USER_INFO_ADDED_COLUMN_BIRTHDAY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.17">
+    <sqlFile path="V3.17_CREATED_PROCEDURE_INSERT_ALLERGY_NAME_ALLERGY_DESCRIPTION_INTO_ALLERGY_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.17_INSERTE_SOME_BASIC_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>
