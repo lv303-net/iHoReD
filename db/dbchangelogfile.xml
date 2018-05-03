@@ -219,4 +219,7 @@
       <sqlFile path="V3.18_CREATED_PROCEDURE_GET_PATIENT_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
     </changeSet>
 
+  <changeSet author="Maksym Sikorskyi" id="V3.19">
+      <sqlFile path="V3.19_ALTERED_PROCEDURE_EDIT_USER_INFO_TRANSCTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    </changeSet>
 </databaseChangeLog>
