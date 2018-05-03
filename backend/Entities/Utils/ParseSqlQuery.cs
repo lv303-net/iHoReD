@@ -177,5 +177,15 @@ namespace Entities.Utils
             }
             return result;
         }
+        public static List<string> GetPatientAllergies(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<string>();
+            for (int i = 0; i < values.Length; i++)
+            {
+                result.Add(values.GetValue(i).ToString());
+            }
+            return result;
+        }
     }
 }

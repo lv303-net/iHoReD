@@ -28,6 +28,26 @@ namespace Entities.Services
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
                 return Utils.ParseSqlQuery.GetPatientData(data);
             }
+
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public List<string> GetPatientAllergies(int id)
+        {
+            string cmd = "GET_USER_ALLERGIES";
+            var param = new Dictionary<string, object>()
+            {
+                {"USER_ID", id }
+            };
+
+            try
+            {
+                var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+                return Utils.ParseSqlQuery.GetPatientAllergies(data);
+            }
+
             catch (Exception e)
             {
                 throw;

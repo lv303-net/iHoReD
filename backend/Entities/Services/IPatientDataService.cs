@@ -9,5 +9,6 @@ namespace Entities.Services
     public interface IPatientDataService
     {
         List<PatientData> GetPatientDataById(int id);
+        List<string> GetPatientAllergies(int id);
     }
 }
