@@ -223,4 +223,8 @@
       <sqlFile path="V3.19_ALTERED_PROCEDURE_EDIT_USER_INFO_TRANSACTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet author="Vadym Ivanov" id="V3.20">
+      <sqlFile path="V3.20_CREATED_PROCEDURE_GET_USER_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
