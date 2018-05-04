@@ -219,8 +219,14 @@
       <sqlFile path="V3.18_CREATED_PROCEDURE_GET_PATIENT_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
     </changeSet>
 
-  <changeSet author="Maksym Sikorskyi" id="V3.19">
+    <changeSet author="Maksym Sikorskyi" id="V3.19">
       <sqlFile path="V3.19_ALTERED_PROCEDURE_EDIT_USER_INFO_TRANSACTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    </changeSet>
+  
+    <changeSet author="Vadym Ivanov" id="V3.20">
+      <sqlFile path="V3.20_ALTERED_TABLE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+      <sqlFile path="V3.20_INSERTS_INTO_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>  
+      <sqlFile path="V3.20_PROCEDURE_GET_USER_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
     </changeSet>
 
 </databaseChangeLog>
