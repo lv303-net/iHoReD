@@ -16,21 +16,51 @@ class DoctorTable extends React.Component{
       super(props);
       this.state = { doc: [], idProf: 0, idDoc: 0};     
       this.eventHandler=this.eventHandler.bind(this);
+      this.func=this.func.bind(this);
     };
 
-    componentDidMount() {
-      var url_string = window.location.href;
-      var url = new URL(url_string);
-      var idDoc = url.searchParams.get("doc");
+    responsiveTables(){
+      if ($(window).width() <= 768) {
+        if (this.state.idDoc != 0) {
+          var idForDiv = "#doc"+this.state.idDoc;
+          var idForDivText = $(idForDiv).text();    
+          $('#nameDoc').text(idForDivText);
+        }             
+    }
+    else {
+      // $('#nameDoc').text('Doctors');
+    }
+    }
 
-      this.setState({
-        idDoc: idDoc
-      })
+    componentDidMount() {
+      var url_string = window.location.href;      
+      var url = new URL(url_string);
+      if (url.search != '') {
+        var idDoc = url.searchParams.get("doc");  
+        this.setState({
+          idDoc: idDoc
+        })
+      }
+      else {
+        // $('#nameDoc').text('Doctors');
+      }
+      var _that = this;
+      $(document).ready(function() {
+        _that.responsiveTables();
+        $(window).resize(function() {          
+          _that.responsiveTables();
+        });
+      });
     }
    
     componentDidUpdate(prevPros, prevState) {
       var idForDiv = "#doc"+this.state.idDoc;
       $(idForDiv).addClass("active");
+      var idForDivText = $(idForDiv).text();    
+      if ($(window).width() <= 768) {  
+        $('#nameDoc').text(idForDivText);
+      }
+      // $('#docButton').text(idForDivText);
     }
       eventHandler(idDoctor) {
         this.setState({
@@ -59,16 +89,25 @@ class DoctorTable extends React.Component{
         })
       });
       }
+
+      func(e) {
+        e.preventDefault();
+        var caller = e.target || e.srcElement;
+        var id = caller.id;
+        var idDoc = caller.id.split('doc')[1];
+        alert(caller.id);
+      }
       
     render(){
-
       return  <div className="list-group mb-2 col-sm-6 col-md-12" id="professions">
                   <div id='tableDoc'>
                     <div className="list-group-item" id="docButton" tabIndex="1">
                       <p>Doctors</p>
+                      <i className="fas"></i>  
+                      <span id='nameDoc'> </span>  
                     </div>
-                      <div id='listDoc' className="list-group">
-                      {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable'id={"doc"+doc[2]} data-toggle="list" role="tab" key={doc.toString()} onClick={() =>{this.eventHandler(doc[2]),this.addUrl(doc[2])}}> <div>{doc[1] + ' ' + doc[0]}</div></a>)}                                   
+                      <div id='listDoc' className="list-group" onClick={this.func}>
+                      {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable'id={"doc"+doc[2]} role="tab" key={doc.toString()} onClick={() =>{this.eventHandler(doc[2]),this.addUrl(doc[2])}}> <div>{doc[1] + ' ' + doc[0]}</div></a>)}                                   
                       </div>
                     </div>              
                   </div>

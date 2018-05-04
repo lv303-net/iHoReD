@@ -101,6 +101,7 @@ class LogbarUnauth extends Component {
         .catch(function (response) {
           //handle error
           console.log(response);
+
         });
     }
   }
@@ -131,6 +132,7 @@ class LogbarUnauth extends Component {
       this.validAll = false;
 
       if (this.validFirstName) {
+        document.getElementById("firstName").style.borderColor = 'green';
         this.divFNameRegistr.current.textContent = '';
       }
       else {
@@ -138,6 +140,7 @@ class LogbarUnauth extends Component {
         this.divFNameRegistr.current.textContent = 'Please enter a valid firstname';
       }
       if (this.validLastName) {
+        document.getElementById("lastName").style.borderColor = 'green';
         this.divLNameRegistr.current.textContent = '';
       }
       else {
@@ -145,6 +148,7 @@ class LogbarUnauth extends Component {
         this.divLNameRegistr.current.textContent = 'Please enter a valid lastname';
       }
       if (this.validPhone) {
+        document.getElementById("phone").style.borderColor = 'green';
         this.divPhoneRegistr.current.textContent = '';
       }
       else {
@@ -152,6 +156,7 @@ class LogbarUnauth extends Component {
         this.divPhoneRegistr.current.textContent = 'Please enter a valid phone number';
       }
       if (this.validEmail) {
+        document.getElementById("email").style.borderColor = 'green';
         this.divEmailRegistr.current.textContent = '';
       }
       else {
@@ -159,6 +164,7 @@ class LogbarUnauth extends Component {
         this.divEmailRegistr.current.textContent = "Please enter a valid email";
       }
       if (this.validPasword) {
+        document.getElementById("password").style.borderColor = 'green';
         this.divPassRegistr.current.textContent = '';
       }
       else {
@@ -166,6 +172,7 @@ class LogbarUnauth extends Component {
         this.divPassRegistr.current.textContent = "Please enter a valid password";
       }
       if (this.validConfirmPassword) {
+        document.getElementById("confirmPassword").style.borderColor = 'green';
         this.divConfirmPassRegistr.current.textContent = '';
       }
       else {

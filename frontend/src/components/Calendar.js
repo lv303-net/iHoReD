@@ -39,12 +39,14 @@ class Calendar extends React.Component{
   saveCurrentDayStartEnd(start, end){
     var url_string = window.location.href;
     var url = new URL(url_string);
-    var Doctor = url.searchParams.get("doc");
-    this.setState({
-      startPeriod: start,
-      endPeriod: end,
-      idDoc :Doctor,
-    })
+    if (url.search != '') { 
+      var Doctor = url.searchParams.get("doc");
+      this.setState({
+        startPeriod: start,
+        endPeriod: end,
+        idDoc :Doctor,
+      })
+    }
   }
     
   saveCurrentTimeStartEnd(start, end){
@@ -88,7 +90,6 @@ class Calendar extends React.Component{
       select: function(start, end) {
         end =  $.fullCalendar.moment(start);
         end.add(30, 'minutes');
-        alert('Clicked on: ' + start.format() + 'to' + end.format());
         $('#calendar').fullCalendar('renderEvent',
         {
           start: start,

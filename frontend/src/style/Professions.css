@@ -1,6 +1,6 @@
-.fa-angle-down, .fa-angle-right {
+/* .fa-angle-down, .fa-angle-right {
     display: none;
-}
+} */
 
 div#professions {
     padding-left: 15px;
@@ -13,14 +13,9 @@ div#professions {
     display: inline;
 }
 
-@media (min-width: 576px) and (max-width: 768px) {
-    #listDoc, #listProf {
+@media (min-width: 768px) {
+    #nameProf, #nameDoc {
         display: none;
-    }
-
-    #profButton:hover ~ p#tableLabel{
-        outline-style: dashed;
-        color: red;
     }
 }
 
