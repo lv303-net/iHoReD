@@ -29,9 +29,7 @@ class LogbarAuth extends Component {
                 <a className="nav-link" id ="link-custom">{localStorage.getItem("currentUserFirstName") + " " + localStorage.getItem("currentUserLastName") + " "}</a>
               </li>
               <li className="nav-item btn-custom">
-                {/* <Link to="/">    */}
                 <a className="nav-link" id ="link-custom"  href="/" onClick={this.SignOut}>Sign out</a> 
-                {/* </Link> */}
               </li>
               <li className="nav-item btn-custom">
                 <a className="navbar-toggler nav-link" id ="link-custom" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
