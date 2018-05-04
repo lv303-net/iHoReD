@@ -233,4 +233,8 @@
     <sqlFile path="V3.21_Create_SALARY_RATES_AND_SALARY_COEFFICIENT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Oleh Rakus" id="V3.22">
+    <sqlFile path="V3.22_REWRITED_GET_MEDICAL_CARD_BY_USER_ID_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
