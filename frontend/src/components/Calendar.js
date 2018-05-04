@@ -150,7 +150,6 @@ class Calendar extends React.Component{
             return{
               start: event.dateTime[0],
               end: event.dateTime[0],            
-              selectable: isSelectable,
               rendering: 'background',
               color : col, 
             }
@@ -164,12 +163,23 @@ class Calendar extends React.Component{
               col = 'red';
               isSelectable = false;
             }
-            return{
-              start: event.dateTime[0]+'T'+event.dateTime[1],
-              end: event.dateTime[0]+'T'+event.dateTime[2],
-              color : col, 
-              selectable: isSelectable,
-            }
+            if(new Date(event.dateTime[0]+'T'+event.dateTime[2]) <= (new Date()))
+            {
+              return{
+                start: event.dateTime[0]+'T'+event.dateTime[1],
+                end: event.dateTime[0]+'T'+event.dateTime[2],
+                rendering: 'background',
+                color : col, 
+              }
+            }else{
+              return{
+                start: event.dateTime[0]+'T'+event.dateTime[1],
+                end: event.dateTime[0]+'T'+event.dateTime[2],
+                selectable: isSelectable,
+                color : col, 
+              }
+             }
+
           }
         })
         this.addEvents(building, isMonth);   
