@@ -22,8 +22,8 @@ constructor(props){
         professionsArr: [],
         id: 0
       };
-      this.eventHandler=this.eventHandler.bind(this);
-      this.responsiveTables=this.responsiveTables.bind(this);
+      this.setStateID=this.setStateID.bind(this);
+      this.responsiveTables=this.responsiveTables.bind(this);      
       axios.get(server_url+'/ProfessionsStatic')
         .then(res => {
           res.data.forEach(profession => {
@@ -111,19 +111,22 @@ constructor(props){
 
     }
 
-    eventHandler(idP) {
+    setStateID(idP) {
       localStorage.setItem("currentProfession", idP)
       this.setState({
         id: idP
       })
+      alert("setState");
     }
 
-    func(e) {
+    getIdProf(e) {
       e.preventDefault();
       var caller = e.target;
       var id = caller.id;
-      var idDoc = caller.id.split('prof')[1];
-      alert(caller.id);
+      var idProf = caller.id.split('prof')[1];
+      alert(idProf);
+      this.setStateID(idProf);
+      this.addUrl(idProf);
     }
 
     render(){
@@ -136,9 +139,10 @@ constructor(props){
                     <i className="fas fa-angle-down"></i>  
                     <span id='nameProf'> </span>           
                   </div>                  
-                  <div id='listProf' className="list-group" onClick={this.func}>
-                    {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' id={"prof"+professionsArr[0]} data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => {this.eventHandler(professionsArr[0]),this.addUrl(professionsArr[0])}} value='{professionsArr[1]}'>{professionsArr[1]}</a>)}
-                    {/* {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' id={"prof"+professionsArr[0]} data-toggle="list" role="tab" key={professionsArr.toString()} value='{professionsArr[1]}'>{professionsArr[1]}</a>)}*/}
+                  <div id='listProf' className="list-group" onClick= { e => this.getIdProf(e)}>
+                    {/* {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' id={"prof"+professionsArr[0]} data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => {this.setState(professionsArr[0]),this.addUrl(professionsArr[0])}} value='{professionsArr[1]}'>{professionsArr[1]}</a>)} */}
+                    {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' id={"prof"+professionsArr[0]} data-toggle="list" role="tab" key={professionsArr.toString()} value='{professionsArr[1]}'>{professionsArr[1]}</a>)}
+
                     </div>
                   </div> 
                 </div>

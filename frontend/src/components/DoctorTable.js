@@ -15,8 +15,10 @@ class DoctorTable extends React.Component{
     constructor(props){      
       super(props);
       this.state = { doc: [], idProf: 0, idDoc: 0};     
-      this.eventHandler=this.eventHandler.bind(this);
-      this.func=this.func.bind(this);
+      this.setStateID=this.setStateID.bind(this);
+      this.addUrl=this.addUrl.bind(this);
+      this.getIdDoc=this.getIdDoc.bind(this);
+
     };
 
     responsiveTables(){
@@ -62,22 +64,10 @@ class DoctorTable extends React.Component{
       }
       // $('#docButton').text(idForDivText);
     }
-      eventHandler(idDoctor) {
-        this.setState({
-          idDoc: idDoctor
-        })
-      }
 
       shouldComponentUpdate(nextProps, nextState) {
         return (this.state.idProf !== nextProps.idProf); 
       }
-
-       addUrl(val) {
-        var searchParameter=new URLSearchParams(window.location.search);
-        searchParameter.set('doc',val);
-        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`); 
-        window.location.reload();
-    };
 
       componentWillUpdate(nextProps, nextState)
       {
@@ -90,12 +80,27 @@ class DoctorTable extends React.Component{
       });
       }
 
-      func(e) {
+      setStateID(idDoctor) {
+        this.setState({
+          idDoc: idDoctor
+        })
+      }
+
+      addUrl(val) {
+        var searchParameter=new URLSearchParams(window.location.search);
+        searchParameter.set('doc',val);
+        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`); 
+        window.location.reload();
+    };
+
+      getIdDoc(e) {
         e.preventDefault();
         var caller = e.target || e.srcElement;
         var id = caller.id;
         var idDoc = caller.id.split('doc')[1];
-        alert(caller.id);
+        alert(idDoc);        
+        this.setStateID(idDoc);
+        this.addUrl(idDoc);
       }
       
     render(){
@@ -106,8 +111,8 @@ class DoctorTable extends React.Component{
                       <i className="fas"></i>  
                       <span id='nameDoc'> </span>  
                     </div>
-                      <div id='listDoc' className="list-group" onClick={this.func}>
-                      {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable'id={"doc"+doc[2]} role="tab" key={doc.toString()} onClick={() =>{this.eventHandler(doc[2]),this.addUrl(doc[2])}}> <div>{doc[1] + ' ' + doc[0]}</div></a>)}                                   
+                      <div id='listDoc' className="list-group" onClick={e => this.getIdDoc(e)}>
+                      {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable'id={"doc"+doc[2]} role="tab" key={doc.toString()}>{doc[1] + ' ' + doc[0]}</a>)}                                   
                       </div>
                     </div>              
                   </div>
