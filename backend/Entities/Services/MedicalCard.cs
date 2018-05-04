@@ -6,15 +6,22 @@ using System.Threading.Tasks;
 
 namespace Entities.Services
 {
-    public class MedicalCard
+    public class MedicalCard : IComparable<MedicalCard>
     {
         public int CardId { get; set; }
         public string Description { get; set; }
         public string Cure { get; set; }
-        public int IdDoctor { get; set; }
+        public string DoctorFirstname { get; set; }
+        public string Doctorlastname { get; set; }
         public int IdPatient { get; set; }
         public DateTime StartDateTime { get; set; }
         public int IdVisit { get; set; }
-        public string DiseaseCode { get; set; }
+
+        public string DiseaseName { get; set; }
+
+        public int CompareTo(MedicalCard other)
+        {
+            return StartDateTime.CompareTo(other.StartDateTime);
+        }
     }
 }
