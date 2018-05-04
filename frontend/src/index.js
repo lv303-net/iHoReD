@@ -18,6 +18,7 @@ import LogbarWrapper from './components/LogbarWrapper';
 import Footerbar from './components/Footerbar';
 import DoctorCalendar from './components/DoctorCalendar';
 import PatientInfo from './components/PatientInfo';
+import MedicalCard from './components/MedicalCard';
 
 
 
@@ -37,6 +38,7 @@ class Home extends Component {
                 <Route path="/activation/:id" component={ActivationLink}/>
                 <Route path="/doctorCalendar" component={DoctorCalendar}/>
                 <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
+                <Route path="/medicalCard" component={MedicalCard}/>
                 <Route path="/patientInfo" component={PatientInfo}/>
               </Switch>
             <Footerbar/>

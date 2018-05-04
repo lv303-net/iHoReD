@@ -15,12 +15,25 @@ localStorage.removeItem("currentProfession");
 //console.log(localStorage.getItem("currentProfession"));
 
 class PatientDiagnosesTable extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+          diagnosesArr: [],
+          id: 1
+        };
+
+        axios.get(server_url+'/GetMedicalCard/1')
+          .then(res => {
+               //const diagnosesArr = res.data;
+               this.setState({
+                diagnosesArr: res.data
+               })
+          });
+      };
+
     render(){
       return <div className="card-columns">
-      <CardDisease treatment="1" treatmentDescr="TreatmentDescr1" diseaseDescr="DiseaseDescr1" doctor="Doctor1" date="01.05.2018" diagnosis="diagnosis1"/>
-      <CardDisease treatment="2" treatmentDescr="TreatmentDescr2" diseaseDescr="DiseaseDescr2" doctor="Doctor2" date="02.05.2018" diagnosis="diagnosis2"/>
-      <CardDisease treatment="3" treatmentDescr="TreatmentDescr3" diseaseDescr="DiseaseDescr3" doctor="Doctor3" date="03.05.2018" diagnosis="diagnosis3"/>
-      <CardDisease treatment="4" treatmentDescr="TreatmentDescr4" diseaseDescr="DiseaseDescr4" doctor="Doctor4" date="04.05.2018" diagnosis="diagnosis4"/>
+      {this.state.diagnosesArr.map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.IdDoctor} date={diagnoses.StartDateTime} diagnosis={diagnoses.DiseaseCode}/>)}
       </div>
    }
   }
