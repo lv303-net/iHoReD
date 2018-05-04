@@ -23,11 +23,17 @@ class DoctorTable extends React.Component{
 
     responsiveTables(){
       if ($(window).width() <= 768) {
+        $(".fasDoc").toggle("fa-angle-down");
+        $(".fasDoc").toggle("fa-angle-right");
         if (this.state.idDoc != 0) {
           var idForDiv = "#doc"+this.state.idDoc;
           var idForDivText = $(idForDiv).text();    
           $('#nameDoc').text(idForDivText);
-        }             
+        } 
+        $("#docButton")
+        .click(function() {
+          $("#listDoc").toggle();
+        })            
     }
     else {
       // $('#nameDoc').text('Doctors');
@@ -43,9 +49,6 @@ class DoctorTable extends React.Component{
           idDoc: idDoc
         })
       }
-      else {
-        // $('#nameDoc').text('Doctors');
-      }
       var _that = this;
       $(document).ready(function() {
         _that.responsiveTables();
@@ -56,10 +59,12 @@ class DoctorTable extends React.Component{
     }
    
     componentDidUpdate(prevPros, prevState) {
+      var _that = this;
       var idForDiv = "#doc"+this.state.idDoc;
       $(idForDiv).addClass("active");
       var idForDivText = $(idForDiv).text();    
       if ($(window).width() <= 768) {  
+        // _that.responsiveTables();
         $('#nameDoc').text(idForDivText);
       }
       // $('#docButton').text(idForDivText);
@@ -97,19 +102,18 @@ class DoctorTable extends React.Component{
         e.preventDefault();
         var caller = e.target || e.srcElement;
         var id = caller.id;
-        var idDoc = caller.id.split('doc')[1];
-        alert(idDoc);        
+        var idDoc = caller.id.split('doc')[1];        
         this.setStateID(idDoc);
         this.addUrl(idDoc);
       }
       
     render(){
-      return  <div className="list-group mb-2 col-sm-6 col-md-12" id="professions">
+      return  <div className="list-group mb-2 col-sm-6 col-md-6" id="professions">
                   <div id='tableDoc'>
                     <div className="list-group-item" id="docButton" tabIndex="1">
                       <p>Doctors</p>
-                      <i className="fas"></i>  
-                      <span id='nameDoc'> </span>  
+                      <i className="fas fasDoc"></i>  
+                      <i><span id='nameDoc'> </span> </i>
                     </div>
                       <div id='listDoc' className="list-group" onClick={e => this.getIdDoc(e)}>
                       {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable'id={"doc"+doc[2]} role="tab" key={doc.toString()}>{doc[1] + ' ' + doc[0]}</a>)}                                   
