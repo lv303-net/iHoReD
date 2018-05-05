@@ -237,4 +237,8 @@
     <sqlFile path="V3.22_REWRITED_GET_MEDICAL_CARD_BY_USER_ID_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Oleh Rakus" id="V3.23">
+    <sqlFile path="V3.23_CHENGED_ORDERING_DATA_IN_PROCEDURE_VERSION_V3-22.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
