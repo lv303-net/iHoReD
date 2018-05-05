@@ -158,10 +158,7 @@ namespace Entities.Utils
                 };
                 result.Add(medicalCard);
             }
-
-            result.Sort();
-            result.Reverse();
-
+            
             return result;
         }
         public static List<PatientData> GetPatientData(string bdResult)

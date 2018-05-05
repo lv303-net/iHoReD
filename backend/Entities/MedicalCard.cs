@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entities.Services
+namespace Entities
 {
-    public class MedicalCard : IComparable<MedicalCard>
+    public class MedicalCard
     {
         public int CardId { get; set; }
         public string Description { get; set; }
@@ -16,12 +12,6 @@ namespace Entities.Services
         public int IdPatient { get; set; }
         public DateTime StartDateTime { get; set; }
         public int IdVisit { get; set; }
-
         public string DiseaseName { get; set; }
-
-        public int CompareTo(MedicalCard other)
-        {
-            return StartDateTime.CompareTo(other.StartDateTime);
-        }
     }
 }

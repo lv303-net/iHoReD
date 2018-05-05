@@ -15,12 +15,14 @@ namespace Entities.Services
             _dbContext = dbContext;
         }
 
-        public List<MedicalCard> GetUserCardById(int id)
+        public List<MedicalCard> GetUserCardById(int userId, int pageNumber, int elementOnPageCount)
         {
             string cmd = "GET_MEDICAL_CARD_BY_USER_ID";
             var param = new Dictionary<string,object>()
             {
-                {"ID_USER", id }
+                {"ID_USER", userId },
+                {"ELEMENT_COUNT", elementOnPageCount},
+                {"PAGE_NUMBER", pageNumber}
             };
 
             try
