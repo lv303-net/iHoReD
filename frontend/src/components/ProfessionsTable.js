@@ -12,7 +12,6 @@ if(process.env.NODE_ENV==="development")
 else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 localStorage.removeItem("currentProfession");
-//console.log(localStorage.getItem("currentProfession"));
 
 class ProfessionsTable extends React.Component{
 constructor(props){
@@ -112,18 +111,14 @@ constructor(props){
       if (!prevState.shouldShow) {
         var idForDiv = "#prof"+this.state.id;
         $(idForDiv).addClass("active");
-        var idForDivText = $(idForDiv).text();  
-        $('#nameProf').text(idForDivText);
-      }
-      else {
-        // $('#nameProf').text("");
       }
     }
 
     componentWillUpdate(nextProps, nextState) {
-      if (!nextState.shouldShow) {
-        var idForDiv = "#prof"+this.state.id;
-        var idForDivText = $(idForDiv).text();  
+      let idSt = this.state.id;
+      let id = nextState.professionsArr.find(professionsArr=> professionsArr[0] === idSt);
+      if (!nextState.shouldShow && this.state.id != 0) {
+        var idForDivText = id[1];  
         $('#nameProf').text(idForDivText);
       }
       else {
@@ -132,7 +127,6 @@ constructor(props){
     }
 
     setStateID(idP) {
-//      localStorage.setItem("currentProfession", idP)
       this.setState({
         id: idP,
         shouldDocBeShown: true
@@ -187,10 +181,9 @@ constructor(props){
                     <i className="fas fasProf"></i>  
                     <i><span id='nameProf'> </span></i>           
                   </div>                  
-                  {/* <div id='listProf' className="list-group" onClick= { e => this.getIdProf(e)}> */}
-                    {basicButtons}
-                  </div> 
-                </div>
+                  {basicButtons}
+                </div> 
+              </div>
                 <DoctorTable idProf={this.state.id} callback={this.formChild1.bind(this)} shouldShow={this.state.shouldDocBeShown}/> 
                 <div className=" col-sm-12 col-md-11 mr-1" id="calendarDiv">
                 <Calendar idDoctor = {this.state.idDoctor}/>

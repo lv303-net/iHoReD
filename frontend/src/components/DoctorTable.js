@@ -69,10 +69,8 @@ class DoctorTable extends React.Component{
    
     componentDidUpdate(prevPros, prevState) { 
       if (!prevState.shouldShow) {
-      var idForDiv = "#doc"+this.state.idDoc;
-      $(idForDiv).addClass("active");
-      var idForDivText = $(idForDiv).text();    
-      $('#nameDoc').text(idForDivText);
+        var idForDiv = "#doc"+this.state.idDoc;
+        $(idForDiv).addClass("active");
       }
     }
 
@@ -88,6 +86,16 @@ class DoctorTable extends React.Component{
           this.setState({
             shouldShow: !this.state.shouldShow
           })
+        }
+
+        let idSt = this.state.idDoc;
+        let id = nextState.doc.find(doc=> doc[2] === idSt);
+        if (!nextState.shouldShow && this.state.idDoc != 0) {
+          var idForDivText = id[1] + id[0];  
+          $('#nameProf').text(idForDivText);
+        }
+        else {
+          //$('#nameProf').text("");
         }
         
         axios.get(server_url+'/GetDoctors/' + nextProps.idProf)
@@ -137,7 +145,7 @@ class DoctorTable extends React.Component{
         {this.state.doc.map(
           doc => 
           <a className='list-group-item list-group-item-action profDocTable'
-              id={"doc"+doc[2]} 
+              id={"doc"+doc[2]} data-toggle="list" role="tab" 
               role="tab" key={doc.toString()}>{doc[1] + ' ' + doc[0]}</a>)}                                   
         </div>
       }
