@@ -84,7 +84,7 @@ class DoctorTable extends React.Component{
 
       componentWillUpdate(nextProps, nextState)
       {        
-        if (this.props.shouldShow !== nextProps.shouldShow || this.state.shouldShow !== nextState.shouldShow) {
+        if (this.state.shouldShow !== nextProps.shouldShow || this.state.shouldShow !== nextState.shouldShow) {
           this.setState({
             shouldShow: !this.state.shouldShow
           })
