@@ -80,6 +80,28 @@ namespace Entities.Utils
             return list;
         }
 
+        public static List<SalaryStatistics> GetDoctorSalaryStatistics(string str)
+        {
+            var values = str.Split('*');
+            var list = new List<SalaryStatistics>();
+
+            for (int i = 0; i < (values.Length - 1); i += 5)
+            {
+                SalaryStatistics salaryPerDay = new SalaryStatistics()
+                {
+                    Day = Convert.ToDateTime(values.GetValue(i)),
+                    WorkedHours = Convert.ToDouble(values.GetValue(i + 1)),
+                    SalaryRate = Convert.ToDouble(values.GetValue(i + 2)),
+                    SalaryCoefficient = Convert.ToDouble(values.GetValue(i + 3)),
+                    EarnedMoney = Convert.ToDouble(values.GetValue(i + 4))
+                };
+
+                list.Add(salaryPerDay);
+            }
+
+            return list;
+        }
+
         /// <summary>
         /// Almost identical to GetDoctorBookedEvents, but also returns name,surname & id of user, that booked session
         /// </summary>

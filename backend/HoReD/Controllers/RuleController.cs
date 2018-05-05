@@ -23,10 +23,9 @@ namespace HoReD.Controllers
             {
                 return Ok(_ruleService.GetRules());
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string message = e.Message;
-                return null;
+                return BadRequest();
             }
         }
 

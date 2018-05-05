@@ -491,6 +491,7 @@ namespace Entities.Services
 
             return generalEvents;
         }
+
         public List<Tuple<Event,User>> GetEventsListForMonthForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
             var generalEvents = GetEventsListForDaysForDoctor(IdDoctor, dateStart, dateFinish);
@@ -537,10 +538,26 @@ namespace Entities.Services
             var count = generalEventsForMonth.Count(x => x.Item2.Id != 0);
             return generalEventsForMonth;
         }
+
         public List<Tuple<Event,User>> GetGeneralEventsListForDoctor(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
             return ((dateFinish.DayOfYear - dateStart.DayOfYear) >= Utils.StaticData.MinimalNumberOfDaysInMonth ?
                 GetEventsListForMonthForDoctor(IdDoctor, dateStart, dateFinish) : GetEventsListForDaysForDoctor(IdDoctor, dateStart, dateFinish));
+        }
+
+        public List<SalaryStatistics> GetDoctorSalaryStatistics(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            const string cmd = "GET_SALARY_STATISTICS_FOR_PERIOD";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@DOCTOR_ID", IdDoctor},
+                {"@START_DATE", dateStart},
+                {"@END_DATE",  dateFinish}
+            };
+            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+
+            return Utils.ParseSqlQuery.GetDoctorSalaryStatistics(str);
         }
 
     }
