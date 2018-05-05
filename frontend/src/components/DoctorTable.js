@@ -1,5 +1,4 @@
 import React from 'react';
-import { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
 import Calendar from './Calendar';
@@ -14,31 +13,36 @@ else if(process.env.NODE_ENV==="production")
 class DoctorTable extends React.Component{
     constructor(props){      
       super(props);
-      this.state = { doc: [], idProf: 0, idDoc: 0};     
+      this.state = { 
+        doc: [], 
+        idProf: 0,
+        idDoc: 0,
+        shouldShow: false
+      };     
       this.setStateID=this.setStateID.bind(this);
       this.addUrl=this.addUrl.bind(this);
       this.getIdDoc=this.getIdDoc.bind(this);
 
     };
 
-    responsiveTables(){
-      if ($(window).width() <= 768) {
-        $(".fasDoc").toggle("fa-angle-down");
-        $(".fasDoc").toggle("fa-angle-right");
-        if (this.state.idDoc != 0) {
-          var idForDiv = "#doc"+this.state.idDoc;
-          var idForDivText = $(idForDiv).text();    
-          $('#nameDoc').text(idForDivText);
-        } 
-        $("#docButton")
-        .click(function() {
-          $("#listDoc").toggle();
-        })            
-    }
-    else {
-      // $('#nameDoc').text('Doctors');
-    }
-    }
+    // responsiveTables(){
+    //   if ($(window).width() <= 768) {
+    //     $(".fasDoc").toggle("fa-angle-down");
+    //     $(".fasDoc").toggle("fa-angle-right");
+    //     if (this.state.idDoc != 0) {
+    //       var idForDiv = "#doc"+this.state.idDoc;
+    //       var idForDivText = $(idForDiv).text();    
+    //       $('#nameDoc').text(idForDivText);
+    //     } 
+    //     $("#docButton")
+    //     .click(function() {
+    //       $("#listDoc").toggle();
+    //     })            
+    // }
+    // else {
+    //   // $('#nameDoc').text('Doctors');
+    // }
+    // }
 
     componentDidMount() {
       var url_string = window.location.href;      
@@ -50,32 +54,35 @@ class DoctorTable extends React.Component{
         })
       }
       var _that = this;
-      $(document).ready(function() {
-        _that.responsiveTables();
-        $(window).resize(function() {          
-          _that.responsiveTables();
-        });
-      });
+      // $(document).ready(function() {
+      //   _that.responsiveTables();
+      //   $(window).resize(function() {          
+      //     _that.responsiveTables();
+      //   });
+      // });
     }
    
-    componentDidUpdate(prevPros, prevState) {
-      var _that = this;
+    componentDidUpdate(prevPros, prevState) {    
       var idForDiv = "#doc"+this.state.idDoc;
       $(idForDiv).addClass("active");
       var idForDivText = $(idForDiv).text();    
-      if ($(window).width() <= 768) {  
-        // _that.responsiveTables();
-        $('#nameDoc').text(idForDivText);
-      }
-      // $('#docButton').text(idForDivText);
+      $('#nameDoc').text(idForDivText);
     }
 
       shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.idProf !== nextProps.idProf); 
+        return (this.state.idProf !== nextProps.idProf || 
+          this.state.shouldShow !== nextState.shouldShow || 
+          this.props.shouldShow !== nextProps.shouldShow);           
       }
 
       componentWillUpdate(nextProps, nextState)
       {
+        
+        if (this.props.shouldShow !== nextProps.shouldShow || this.state.shouldShow !== nextState.shouldShow) {
+          this.setState({
+            shouldShow: !this.state.shouldShow
+          })
+        }
         axios.get(server_url+'/GetDoctors/' + nextProps.idProf)
         .then(res => {
         this.setState({
@@ -95,7 +102,7 @@ class DoctorTable extends React.Component{
         var searchParameter=new URLSearchParams(window.location.search);
         searchParameter.set('doc',val);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`); 
-        window.location.reload();
+        //window.location.reload();
     };
 
       getIdDoc(e) {
@@ -106,18 +113,37 @@ class DoctorTable extends React.Component{
         this.setStateID(idDoc);
         this.addUrl(idDoc);
       }
+
+      showList() {
+        this.setState({
+          shouldShow: !this.state.shouldShow
+        })
+      }
       
     render(){
+      let basicButtons;
+      if (this.state.shouldShow) {
+        basicButtons =                   
+        <div id='listDoc' className="list-group" onClick={e => this.getIdDoc(e)}>
+        {this.state.doc.map(
+          doc => 
+          <a className='list-group-item list-group-item-action profDocTable'
+              id={"doc"+doc[2]} 
+              role="tab" key={doc.toString()}>{doc[1] + ' ' + doc[0]}</a>)}                                   
+        </div>
+      }
+      else {
+        basicButtons = ""
+      }
+
       return  <div className="list-group mb-2 col-sm-6 col-md-6" id="professions">
                   <div id='tableDoc'>
-                    <div className="list-group-item" id="docButton" tabIndex="1">
+                    <div className="list-group-item" id="docButton" tabIndex="1" onClick={()=>{this.showList()}}>
                       <p>Doctors</p>
                       <i className="fas fasDoc"></i>  
                       <i><span id='nameDoc'> </span> </i>
                     </div>
-                      <div id='listDoc' className="list-group" onClick={e => this.getIdDoc(e)}>
-                      {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable'id={"doc"+doc[2]} role="tab" key={doc.toString()}>{doc[1] + ' ' + doc[0]}</a>)}                                   
-                      </div>
+                      {basicButtons}
                     </div>              
                   </div>
          }
