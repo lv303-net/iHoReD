@@ -219,4 +219,32 @@
       <sqlFile path="V3.18_CREATED_PROCEDURE_GET_PATIENT_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet author="Maksym Sikorskyi" id="V3.19">
+      <sqlFile path="V3.19_ALTERED_PROCEDURE_EDIT_USER_INFO_TRANSACTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    </changeSet>
+  
+    <changeSet author="Vadym Ivanov" id="V3.20">
+      <sqlFile path="V3.20_ALTERED_TABLE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+      <sqlFile path="V3.20_INSERTS_INTO_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>  
+      <sqlFile path="V3.20_PROCEDURE_GET_USER_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    </changeSet>
+  
+   <changeSet author="Tetiana Usyk" id="V3.21">
+    <sqlFile path="V3.21_Create_SALARY_RATES_AND_SALARY_COEFFICIENT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.22">
+    <sqlFile path="V3.22_REWRITED_GET_MEDICAL_CARD_BY_USER_ID_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.23">
+    <sqlFile path="V3.23_CHENGED_ORDERING_DATA_IN_PROCEDURE_VERSION_V3-22.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+   <changeSet author="Tetiana Usyk" id="V3.24">
+    <sqlFile path="V3.24_ALTER_TABLES_WITH_SALARY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.24_INSERT_INTO_SALARY_RATES_AND_SALARY_COEFFICIENTS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.24_PROCEDURE_FOR_SALARY_STATISTIC.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
 </databaseChangeLog>
