@@ -15,9 +15,10 @@ namespace Entities.Services
             _dbContext = dbContext;
         }
 
-        public List<MedicalCard> GetUserCardById(int userId, int pageNumber, int elementOnPageCount)
+        public List<MedicalCard> GetUserCardById(int userId, int pageNumber, int elementOnPageCount, int columnNumber)
         {
             string cmd = "GET_MEDICAL_CARD_BY_USER_ID";
+            var rowNuber = Math.Ceiling((double) elementOnPageCount / columnNumber);
             var param = new Dictionary<string,object>()
             {
                 {"ID_USER", userId },
@@ -30,14 +31,14 @@ namespace Entities.Services
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
                 var nonResponsiveList = Utils.ParseSqlQuery.GetMedicalCards(data);
                 List<MedicalCard> responsiveList = new List<MedicalCard>();
-                for (int i = 0; i < Math.Ceiling((double)elementOnPageCount / 2) ; i++)
+                for (int i = 0; i < Math.Ceiling((double)elementOnPageCount / rowNuber) ; i++)
                 {
                     if (!(i > nonResponsiveList.Count))
                     {
                         responsiveList.Add(nonResponsiveList[i]);
-                        if (nonResponsiveList.Count > i + Math.Ceiling((double)nonResponsiveList.Count / 2))
+                        if (nonResponsiveList.Count > i + Math.Ceiling((double)nonResponsiveList.Count / rowNuber))
                         {
-                            responsiveList.Add(nonResponsiveList[i + (int)Math.Ceiling((double)elementOnPageCount / 2)]);
+                            responsiveList.Add(nonResponsiveList[i + (int)Math.Ceiling((double)elementOnPageCount / rowNuber)]);
                         }
                     }
                 }

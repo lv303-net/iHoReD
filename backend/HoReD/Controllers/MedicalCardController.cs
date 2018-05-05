@@ -27,12 +27,12 @@ namespace HoReD.Controllers
         /// </summary>
         /// 
         [HttpGet]
-        [Route("getbyuserid/{userId}/{pageNumber}/{elementOnPageCount}")]
-        public IHttpActionResult GetMedicalCardByPatientId(int userId, int pageNumber, int elementOnPageCount)
+        [Route("getbyuserid/{userId}/{pageNumber}/{elementOnPageCount}/{columnNumber}")]
+        public IHttpActionResult GetMedicalCardByPatientId(int userId, int pageNumber, int elementOnPageCount, int columnNumber)
         {
             try
             {
-                var result = _medicalCard.GetUserCardById(userId, pageNumber, elementOnPageCount);
+                var result = _medicalCard.GetUserCardById(userId, pageNumber, elementOnPageCount, columnNumber);
                 return Ok(result);
             }
             catch (Exception e)
