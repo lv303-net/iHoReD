@@ -6,6 +6,7 @@ import validator from 'validator';
 import axios from 'axios';
 import '../style/Calendar.css';
 import Loader from 'react-loader';
+import { isNull } from 'util';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -39,12 +40,14 @@ class Calendar extends React.Component{
   saveCurrentDayStartEnd(start, end){
     var url_string = window.location.href;
     var url = new URL(url_string);
-    var Doctor = url.searchParams.get("doc");
-    this.setState({
-      startPeriod: start,
-      endPeriod: end,
-      idDoc :Doctor,
-    })
+    if (url.search != '') { 
+      var Doctor = url.searchParams.get("doc");
+      this.setState({
+        startPeriod: start,
+        endPeriod: end,
+        idDoc :Doctor,
+      })
+    }
   }
     
   saveCurrentTimeStartEnd(start, end){
@@ -88,7 +91,6 @@ class Calendar extends React.Component{
       select: function(start, end) {
         end =  $.fullCalendar.moment(start);
         end.add(30, 'minutes');
-        alert('Clicked on: ' + start.format() + 'to' + end.format());
         $('#calendar').fullCalendar('renderEvent',
         {
           start: start,
@@ -103,8 +105,14 @@ class Calendar extends React.Component{
       eventClick: function(event, jsEvent, view ) {
         // need button because issue related with opening modal from fullcalendar
         if (event.selectable) {
-          _that.saveCurrentTimeStartEnd(event.start._i, event.end._i);  
-          $("#modButton").trigger("click");
+          if(localStorage.getItem("currentUserFirstName") !== null)
+          {
+            _that.saveCurrentTimeStartEnd(event.start._i, event.end._i);  
+            $("#modButton").trigger("click");
+          }else{
+            $("#preventUnauthorizedBookingButton").trigger("click");
+          }
+
         } else {
           $("#blockClickButton").trigger("click");
         }
@@ -123,11 +131,11 @@ class Calendar extends React.Component{
 
   shouldComponentUpdate(nextProps, nextState) {
     return ((this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod) 
-    || (this.state.idDoc!== nextState.idDoc) || (this.state.startTime!== nextState.startTime) || (this.state.endTime!== nextState.endTime) );       
+    || (this.props.idDoctor!== nextProps.idDoctor) || (this.state.startTime!== nextState.startTime) || (this.state.endTime!== nextState.endTime) );       
   }
 
   componentWillUpdate(nextProps, nextState){
-    var getData = (this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.state.idDoc!== nextState.idDoc); 
+    var getData = (this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.props.idDoctor!== nextProps.idDoctor); 
     if(getData){
       $('#calendar').fullCalendar( 'removeEvents');
       var isMonth;
@@ -135,41 +143,40 @@ class Calendar extends React.Component{
         isMonth = true;
       else 
         isMonth = false;
-      axios.get(server_url+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
+      axios.get(server_url+'/DoctorEvents/' + nextProps.idDoctor +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
       .then(response => {
         var col;
         var building = $.map(response.data, function(event){
           var isSelectable = false;
           if($('#calendar').fullCalendar('getView').name=='month')
           {
-            if(event.isFake){
-              col = 'green';
-            }else {
-              col = 'red';
-            }  
+            event.isFake?col = 'green': col = 'red';
             return{
               start: event.dateTime[0],
               end: event.dateTime[0],            
-              selectable: isSelectable,
               rendering: 'background',
               color : col, 
             }
             
           }else {
+            event.isFake ? (col = 'green', isSelectable = true):(col = 'red', isSelectable = false);
+            if(new Date(event.dateTime[0]+'T'+event.dateTime[2]) <= (new Date()))
+            {
+              return{
+                start: event.dateTime[0]+'T'+event.dateTime[1],
+                end: event.dateTime[0]+'T'+event.dateTime[2],
+                rendering: 'background',
+                color : col, 
+              }
+            }else{
+              return{
+                start: event.dateTime[0]+'T'+event.dateTime[1],
+                end: event.dateTime[0]+'T'+event.dateTime[2],
+                selectable: isSelectable,
+                color : col, 
+              }
+             }
 
-            if(event.isFake){
-              col = 'green';
-              isSelectable = true;
-            }else {
-              col = 'red';
-              isSelectable = false;
-            }
-            return{
-              start: event.dateTime[0]+'T'+event.dateTime[1],
-              end: event.dateTime[0]+'T'+event.dateTime[2],
-              color : col, 
-              selectable: isSelectable,
-            }
           }
         })
         this.addEvents(building, isMonth);   
@@ -179,10 +186,8 @@ class Calendar extends React.Component{
 
     render(){
       var doctor
-      // $(document).ready(function() {
       doctor = $("#doc"+this.state.idDoc).text();
       console.log(doctor);
-      // });
       
       let content;
         content = 
@@ -191,6 +196,8 @@ class Calendar extends React.Component{
           <button data-toggle="modal" data-target="#mModal" id = "modButton" style={{display: "none"}}>
           </button>
           <button data-toggle="modal" data-target="#BlockClickModal" id = "blockClickButton" style={{display: "none"}}>
+          </button>
+          <button data-toggle="modal" data-target="#ModalToPreventUnauthorizedBooking" id = "preventUnauthorizedBookingButton" style={{display: "none"}}>
           </button>
         </div>
         <div className="modal fade" id="mModal">
@@ -207,8 +214,8 @@ class Calendar extends React.Component{
                 End - {this.state.endTime.slice(-8)}<br/>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
                 <button type="button" className="btn btn-info btn-lg" data-dismiss="modal" onClick={() =>{this.handleSubmitBooking()}}>Confirm</button>
+                <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
               </div>
             </div>
           </div>
@@ -219,6 +226,20 @@ class Calendar extends React.Component{
             <div className="modal-content">
               <div className="modal-header">
               <h4 className="modal-title" id="mModalLabel">This time is not available for booking. Choose another time slot, please.</h4>
+                <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-info btn-lg" data-dismiss="modal">Ok</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <div className="modal fade" id="ModalToPreventUnauthorizedBooking">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+              <h4 className="modal-title" id="mModalLabel">Booking is available only for authorized users. Please, sign up or sign in.</h4>
                 <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
               </div>
               <div className="modal-footer">

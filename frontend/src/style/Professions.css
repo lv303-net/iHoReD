@@ -1,6 +1,6 @@
-.fa-angle-down, .fa-angle-right {
+/* .fa-angle-down, .fa-angle-right {
     display: none;
-}
+} */
 
 div#professions {
     padding-left: 15px;
@@ -13,23 +13,20 @@ div#professions {
     display: inline;
 }
 
-@media (min-width: 576px) and (max-width: 768px) {
-    #listDoc, #listProf {
-        display: none;
-    }
-
-    #profButton:hover ~ p#tableLabel{
-        outline-style: dashed;
-        color: red;
-    }
-}
-
 #tableProf, #tableDoc {
     box-shadow: 5px 10px 18px #888888;
 }
 
 #tablesBlock {
     margin-right: 3em;
+}
+
+#nameProf, #nameDoc {
+    margin-left: 5px;
+    width:inherit;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
 }
 
 @media (max-width: 576px) { 

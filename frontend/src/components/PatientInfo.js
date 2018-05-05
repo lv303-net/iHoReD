@@ -23,7 +23,7 @@ class PatientInfo  extends React.Component {
                     </div>
                    
                    <div className="row" id="patientcard">
-                        <div className="col-6" id="col-custom">FirstNamefsdfdsfdsfdsfdsfhddfdddddddgdgdgd dgdggdfdfg</div>
+                        <div className="col-6" id="col-custom">FirstName</div>
                         <div className="col-6">LastName</div>
                     </div>
                     <div className="row" id="patientcard">

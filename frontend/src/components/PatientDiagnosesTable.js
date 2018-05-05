@@ -1,6 +1,4 @@
 import React from 'react';
-import { Component } from 'react';
-import $ from 'jquery';
 import axios from 'axios';
 
 import '../style/PatientDiagnosesTable.css';
@@ -15,13 +13,49 @@ localStorage.removeItem("currentProfession");
 //console.log(localStorage.getItem("currentProfession"));
 
 class PatientDiagnosesTable extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+          diagnosesArr: [],
+          id: 1
+        };
+
+        axios.get(server_url+'/GetMedicalCard/'+this.props.PatientId)
+          .then(res => {
+               this.setState({
+                diagnosesArr: res.data
+               })
+          });
+      };
+
     render(){
-      return <div className="card-columns">
-      <CardDisease treatment="1" treatmentDescr="TreatmentDescr1" diseaseDescr="DiseaseDescr1" doctor="Doctor1" date="01.05.2018" diagnosis="diagnosis1"/>
-      <CardDisease treatment="2" treatmentDescr="TreatmentDescr2" diseaseDescr="DiseaseDescr2" doctor="Doctor2" date="02.05.2018" diagnosis="diagnosis2"/>
-      <CardDisease treatment="3" treatmentDescr="TreatmentDescr3" diseaseDescr="DiseaseDescr3" doctor="Doctor3" date="03.05.2018" diagnosis="diagnosis3"/>
-      <CardDisease treatment="4" treatmentDescr="TreatmentDescr4" diseaseDescr="DiseaseDescr4" doctor="Doctor4" date="04.05.2018" diagnosis="diagnosis4"/>
+      var elements=[];
+      return (<div>
+      <div className="card-columns">
+      {this.state.diagnosesArr.map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.IdDoctor} date={diagnoses.StartDateTime} diagnosis={diagnoses.DiseaseCode}/>)}
       </div>
+      <div>
+      <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item mypag-item"><a class="page-link mypag-link" href="1">1</a></li>
+    <li class="page-item mypag-item"><a class="page-link mypag-link" href="2">2</a></li>
+    <li class="page-item mypag-item"><a class="page-link mypag-link" href="3">3</a></li>
+    <li class="page-item mypag-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+ </div>
+    </div>)
    }
   }
 

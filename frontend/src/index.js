@@ -18,7 +18,8 @@ import LogbarWrapper from './components/LogbarWrapper';
 import Footerbar from './components/Footerbar';
 import DoctorCalendar from './components/DoctorCalendar';
 import PatientInfo from './components/PatientInfo';
-
+import MedicalCard from './components/MedicalCard';
+import AdminPage from './components/AdminPage'
 
 
 var url = window.location.href;
@@ -30,14 +31,17 @@ class Home extends Component {
             <LogbarWrapper/>
             <Switch>
                 <Route exact path="/" component={App}/>
-                <Route path="/editUserInfo" component={Edit}/>
-                <Route path="/allDiagnoses" component={Diagnoses}/>
-                <Route path="/startPage" component={StartPatientPage}/>
-                <Route path="/admin" component={AdminRulesPage}/>
-                <Route path="/activation/:id" component={ActivationLink}/>
-                <Route path="/doctorCalendar" component={DoctorCalendar}/>
-                <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
-                <Route path="/patientInfo" component={PatientInfo}/>
+                  <Route path="/editUserInfo" component={Edit}/>
+                  <Route path="/allDiagnoses" component={Diagnoses}/>
+                  <Route path="/startPage" component={StartPatientPage}/>
+                  <Route exact path="/admin" component={AdminRulesPage}>
+                    <Route path="/patient" component={Edit}/>
+                  </Route>
+                  <Route path="/activation/:id" component={ActivationLink}/>
+                  <Route path="/doctorCalendar" component={DoctorCalendar}/>
+                  <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
+                  <Route path="/medicalCard" component={MedicalCard}/>
+                  <Route path="/adminPage" component={AdminPage}/>
               </Switch>
             <Footerbar/>
       </div>

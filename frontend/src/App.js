@@ -23,16 +23,17 @@ else if(process.env.NODE_ENV==="production")
 
 
 class App extends Component {
+ 
   render() {
     return(
       <div id="mainDiv">
-        <div class="container-fluid mt-5">
-          <div className="row">
-            <ProfessionsTable/>            
-            <div className="col-sm-12 col-md-8 mr-1" id="calendarDiv">
-              <Calendar />
-             </div>
+        <div className="container-fluid mt-5">
+          <div >
+            <ProfessionsTable />           
           </div> 
+          {/* <div className=" col-sm-12 col-md-11 mr-1" id="calendarDiv">
+            <Calendar/>
+          </div> */}
         </div>
       </div>
     );

@@ -1,11 +1,10 @@
 import React from 'react';
-import { Component } from 'react';
 import $ from 'jquery';
 import axios from 'axios';
 import validator from 'validator';
 import DoctorTable from './DoctorTable';
-
-import '../style/Professions.css'
+import '../style/Professions.css';
+import Calendar from './Calendar';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -20,10 +19,13 @@ constructor(props){
       super(props);
       this.state = {
         professionsArr: [],
-        id: 1
+        id: 0,
+        shouldShow: false,
+        idDoctor : 0,
+        shouldDocBeShown: false
       };
-      this.eventHandler=this.eventHandler.bind(this);
-      this.responsiveTables=this.responsiveTables.bind(this);
+      this.setStateID=this.setStateID.bind(this);
+      // this.responsiveTables=this.responsiveTables.bind(this);      
       axios.get(server_url+'/ProfessionsStatic')
         .then(res => {
           res.data.forEach(profession => {
@@ -35,32 +37,53 @@ constructor(props){
         });
     };
 
-    responsiveTables(){
-      if ($(window).width() <= 768 && $(window).width() >= 576) {
-        $('#listDoc').hide();
-        $('#listProf').hide();
-        $('.fa-angle-down').toggle();
-        $('#profButton')
-        .click(function(){
-          $('#listProf').toggle();            
-          $('.fa-angle-down').toggle();
-          $('.fa-angle-right').toggle();              
-          $('#listDoc').hide();
-        },
-      )
-      $('.list-group-item-action')
-      .click(function(){
-          $('#listDoc').show();
-        }
-      )
+    formChild1(param) {
+      this.setState({
+        idDoctor : param
+      })
     }
-    else {
-      $('.fa-angle-down').hide();
-      $('.fa-angle-right').hide();
-      $('#listDoc').show();
-      $('#listProf').show();
-    }
-    }
+
+    // responsiveTables(){
+    //   var _that = this;
+    //   //if ($(window).width() <= 768) {
+    //     $(".fasProf").addClass("fa-angle-right");
+    //     if (this.state.id != 0) {          
+    //       var idForDiv = "#prof"+this.state.id;
+    //       var idForDivText = $(idForDiv).text();    
+    //       $('#nameProf').text(idForDivText); 
+    //     //}
+    //     $('#listDoc').hide();
+    //     $('#listProf').hide();
+    //     // $('.fa-angle-down').toggle();
+    //     //$(".fas").toggleClass("fa-angle-down");
+    //     $('#profButton')
+    //     .click(function(){
+    //       $('#listProf').toggle();            
+    //       // $('.fa-angle-down').toggle();
+    //       // $('.fa-angle-right').toggle(); 
+    //       $(".fasProf").toggleClass("fa-angle-down");
+    //       $(".fasProf").toggleClass("fa-angle-right");             
+    //       $('#listDoc').hide();
+    //       }
+    //     )
+
+    //     $('.list-group-item-action')
+    //     .click(function(){
+    //         $('#listDoc').show();
+    //         var idForDiv = "#prof"+_that.state.id;
+    //         var idForDivText = $(idForDiv).text();    
+    //         $('#nameProf').text(idForDivText); 
+    //       }
+    //     )
+
+    //   }
+    //   else {
+    //     $('.fa-angle-down').hide();
+    //     $('.fa-angle-right').hide();
+    //     $('#listDoc').show();
+    //     $('#listProf').show();
+    //   }
+    //   }
     
     addUrl(val) {
       var searchParameter=new URLSearchParams(window.location.search);
@@ -72,52 +95,110 @@ constructor(props){
     componentDidMount(){
       var url_string = window.location.href;
       var url = new URL(url_string);
-      var idProf = url.searchParams.get("prof");
-      
-      this.setState({
-        id: idProf
-      })
-
-      var _that = this;
-      $(document).ready(function() {
-        _that.responsiveTables();
-        $(window).resize(function() {          
-          _that.responsiveTables();
-        });
-      });
+      if (url.search != '') {
+        var idProf = url.searchParams.get("prof");        
+        this.setState({
+          id: idProf
+        })
+      }
     }
 
+    // shouldComponentUpdate(nextProps, nextState) {
+    //   return (this.state.id !== nextState.id); 
+    // }
+
+    // after updating occurs
     componentDidUpdate(prevProps, prevState) {
-      var idForDiv = "#prof"+this.state.id;
-      $(idForDiv).addClass("active");
+      if (!prevState.shouldShow) {
+        var idForDiv = "#prof"+this.state.id;
+        $(idForDiv).addClass("active");
+        var idForDivText = $(idForDiv).text();  
+        $('#nameProf').text(idForDivText);
+      }
+      else {
+        // $('#nameProf').text("");
+      }
     }
 
-    eventHandler(idP) {
-      localStorage.setItem("currentProfession", idP)
+    componentWillUpdate(nextProps, nextState) {
+      if (!nextState.shouldShow) {
+        var idForDiv = "#prof"+this.state.id;
+        var idForDivText = $(idForDiv).text();  
+        $('#nameProf').text(idForDivText);
+      }
+      else {
+        $('#nameProf').text("");
+      }
+    }
+
+    setStateID(idP) {
+//      localStorage.setItem("currentProfession", idP)
       this.setState({
-        id: idP
+        id: idP,
+        shouldDocBeShown: true
       })
+    }
+
+    getIdProf(e) {
+      e.preventDefault();
+      var caller = e.target;
+      var id = caller.id;
+      var idProf = caller.id.split('prof')[1];
+      this.setStateID(idProf);
+      this.addUrl(idProf);
+    }
+
+    showList() {
+      this.setState({
+        shouldShow: !this.state.shouldShow
+      })
+      
     }
 
     render(){
-      return <div className="col-sm-12 col-md-3" id='tablesBlock'>
+      let basicButtons;
+      if (this.state.shouldShow) {
+        basicButtons =                   
+        <div id='listProf' className="list-group">
+        {this.state.professionsArr.map(
+          professionsArr => 
+          <a className='list-group-item list-group-item-action profDocTable' 
+              id={"prof"+professionsArr[0]} data-toggle="list" role="tab" 
+              key={professionsArr.toString()} 
+              onClick={() => {this.setStateID(professionsArr[0]),this.addUrl(professionsArr[0])}} 
+              value='{professionsArr[1]}'>{professionsArr[1]}
+          </a>
+          )
+        }
+        {/* {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' id={"prof"+professionsArr[0]} data-toggle="list" role="tab" key={professionsArr.toString()} value='{professionsArr[1]}'>{professionsArr[1]}</a>)} */}
+
+        </div>
+      }
+      else {
+        basicButtons = ""
+      }
+      
+      return <div className="col-sm-12 col-md-12" id='tablesBlock'>
               <div className="row">
-              <div className="list-group mb-2 col-sm-6 col-md-12" id="professions">
+              <div className="list-group mb-2 col-sm-6 col-md-6" id="professions">
                 <div id='tableProf'>
-                  <div className="list-group-item" id="profButton" tabIndex='1'>
+                  <div className="list-group-item" id="profButton" tabIndex='1' onClick= {()=>{this.showList()}}>
                     <p id='tableLabel'>Professions</p>
-                    <i className="fas fa-angle-down"></i>  
-                    <i className="fas fa-angle-right"></i>              
+                    <i className="fas fasProf"></i>  
+                    <i><span id='nameProf'> </span></i>           
                   </div>                  
-                  <div id='listProf' className="list-group">
-                    {this.state.professionsArr.map(professionsArr => <a className='list-group-item list-group-item-action profDocTable' id={"prof"+professionsArr[0]} data-toggle="list" role="tab" key={professionsArr.toString()} onClick={() => {this.eventHandler(professionsArr[0]),this.addUrl(professionsArr[0])}}><div>{professionsArr[1]}</div></a>)}
-                  </div>
+                  {/* <div id='listProf' className="list-group" onClick= { e => this.getIdProf(e)}> */}
+                    {basicButtons}
                   </div> 
                 </div>
-                <DoctorTable idProf={this.state.id}/> 
+                <DoctorTable idProf={this.state.id} callback={this.formChild1.bind(this)} shouldShow={this.state.shouldDocBeShown}/> 
+                <div className=" col-sm-12 col-md-11 mr-1" id="calendarDiv">
+                <Calendar idDoctor = {this.state.idDoctor}/>
+                </div>
                 </div>
         </div>
-   }
+   }   
   }
 
+  
   export default ProfessionsTable;

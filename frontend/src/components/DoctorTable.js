@@ -1,9 +1,9 @@
 import React from 'react';
-import { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
 import Calendar from './Calendar';
-import $ from 'jquery'
+import PropTypes from 'prop-types';
+import $ from 'jquery';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -14,43 +14,82 @@ else if(process.env.NODE_ENV==="production")
 class DoctorTable extends React.Component{
     constructor(props){      
       super(props);
-      this.state = { doc: [], idProf: 0, idDoc: 0};     
-      this.eventHandler=this.eventHandler.bind(this);
+      this.state = { 
+        doc: [], 
+        idProf: 0,
+        idDoc: 0,
+        shouldShow: false
+      };     
+      this.setStateID=this.setStateID.bind(this);
+      this.addUrl=this.addUrl.bind(this);
+      this.getIdDoc=this.getIdDoc.bind(this);
+      //this.getContent=this.getContent.bind(this);
+
     };
+
+    getContent(e) {
+        e.preventDefault();
+        var caller = e.target || e.srcElement;
+        var id = caller.id;
+        var idDoc = caller.id.split('doc')[1];        
+        this.setStateID(idDoc);
+        this.addUrl(idDoc);
+      
+      }
+
+    // responsiveTables(){
+    //   if ($(window).width() <= 768) {
+    //     $(".fasDoc").toggle("fa-angle-down");
+    //     $(".fasDoc").toggle("fa-angle-right");
+    //     if (this.state.idDoc != 0) {
+    //       var idForDiv = "#doc"+this.state.idDoc;
+    //       var idForDivText = $(idForDiv).text();    
+    //       $('#nameDoc').text(idForDivText);
+    //     } 
+    //     $("#docButton")
+    //     .click(function() {
+    //       $("#listDoc").toggle();
+    //     })            
+    // }
+    // else {
+    //   // $('#nameDoc').text('Doctors');
+    // }
+    // }
 
     componentDidMount() {
-      var url_string = window.location.href;
+      var url_string = window.location.href;      
       var url = new URL(url_string);
-      var idDoc = url.searchParams.get("doc");
-
-      this.setState({
-        idDoc: idDoc
-      })
-    }
-   
-    componentDidUpdate(prevPros, prevState) {
-      var idForDiv = "#doc"+this.state.idDoc;
-      $(idForDiv).addClass("active");
-    }
-      eventHandler(idDoctor) {
+      if (url.search != '') {
+        var idDoc = url.searchParams.get("doc");  
         this.setState({
-          idDoc: idDoctor
+          idDoc: idDoc
         })
       }
+    }
+   
+    componentDidUpdate(prevPros, prevState) { 
+      if (!prevState.shouldShow) {
+      var idForDiv = "#doc"+this.state.idDoc;
+      $(idForDiv).addClass("active");
+      var idForDivText = $(idForDiv).text();    
+      $('#nameDoc').text(idForDivText);
+      }
+    }
 
       shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.idProf !== nextProps.idProf); 
+        return (this.state.idProf !== nextProps.idProf || 
+          this.state.shouldShow !== nextState.shouldShow || 
+          this.props.shouldShow !== nextProps.shouldShow);           
       }
 
-       addUrl(val) {
-        var searchParameter=new URLSearchParams(window.location.search);
-        searchParameter.set('doc',val);
-        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`); 
-        window.location.reload();
-    };
-
       componentWillUpdate(nextProps, nextState)
-      {
+      {        
+        if (this.state.shouldShow !== nextProps.shouldShow || this.state.shouldShow !== nextState.shouldShow) {
+          this.setState({
+            shouldShow: !this.state.shouldShow
+          })
+        }
+        
         axios.get(server_url+'/GetDoctors/' + nextProps.idProf)
         .then(res => {
         this.setState({
@@ -59,20 +98,69 @@ class DoctorTable extends React.Component{
         })
       });
       }
+
+      setStateID(idDoctor) {
+        this.setState({
+          idDoc: idDoctor
+        })
+      }
+
+      addUrl(val) {
+        var searchParameter=new URLSearchParams(window.location.search);
+        searchParameter.set('doc',val);
+        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`); 
+        this.props.callback(val);
+    };
+
+      getIdDoc(e) {
+        e.preventDefault();
+        var caller = e.target || e.srcElement;
+        var id = caller.id;
+        var idDoc = caller.id.split('doc')[1];        
+        this.setStateID(idDoc);
+        this.addUrl(idDoc);
+        //this.getContent(e);
+        //this.props.callback(this.state.idDoc);
+      }
+
+      showList() {
+        this.setState({
+          shouldShow: !this.state.shouldShow
+        })
+      }
       
     render(){
+      let basicButtons;
+      if (this.state.shouldShow) {
+        basicButtons =                   
+        <div id='listDoc' className="list-group" onClick={this.getContent.bind(this)}>
+        {this.state.doc.map(
+          doc => 
+          <a className='list-group-item list-group-item-action profDocTable'
+              id={"doc"+doc[2]} 
+              role="tab" key={doc.toString()}>{doc[1] + ' ' + doc[0]}</a>)}                                   
+        </div>
+      }
+      else {
+        basicButtons = ""
+      }
 
-      return  <div className="list-group mb-2 col-sm-6 col-md-12" id="professions">
+      return ( <div className="list-group mb-2 col-sm-6 col-md-6" id="professions">
                   <div id='tableDoc'>
-                    <div className="list-group-item" id="docButton" tabIndex="1">
+                    <div className="list-group-item" id="docButton" tabIndex="1" onClick={()=>{this.showList()}}>
                       <p>Doctors</p>
+                      <i className="fas fasDoc"></i>  
+                      <i><span id='nameDoc'> </span> </i>
                     </div>
-                      <div id='listDoc' className="list-group">
-                      {this.state.doc.map(doc => <a className='list-group-item list-group-item-action profDocTable'id={"doc"+doc[2]} data-toggle="list" role="tab" key={doc.toString()} onClick={() =>{this.eventHandler(doc[2]),this.addUrl(doc[2])}}> <div>{doc[1] + ' ' + doc[0]}</div></a>)}                                   
-                      </div>
+                      {basicButtons}
                     </div>              
                   </div>
-         }
+      )
+    }
   }
+
+  DoctorTable.propTypes = {
+    callback: PropTypes.func
+  };
 
   export default DoctorTable;
