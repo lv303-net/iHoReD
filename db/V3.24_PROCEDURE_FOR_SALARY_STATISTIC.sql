@@ -13,7 +13,7 @@ END;
 -----------------------------------------------------------------------------------------------------
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'GET_SALARY_RATE')
 	DROP PROC GET_SALARY_RATE
-GO
+
 CREATE PROCEDURE GET_SALARY_RATE
 	@DOCTOR_ID INT,
 	@DATE DATETIME,
@@ -26,7 +26,7 @@ END;
 ------------------------------------------------------------------------------------------
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'GET_SALARY_COEFFICIENT')
 	DROP PROC GET_SALARY_COEFFICIENT
-GO
+
 CREATE PROCEDURE GET_SALARY_COEFFICIENT
 	@DOCTOR_ID INT,
 	@DATE DATETIME,
@@ -40,7 +40,7 @@ END;
 --------------------------------------------------------------------------------------------------------------------------
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'GET_SALARY_STATISTICS_FOR_PERIOD')
 	DROP PROC GET_SALARY_STATISTICS_FOR_PERIOD
-GO
+
 CREATE PROCEDURE GET_SALARY_STATISTICS_FOR_PERIOD
 	@DOCTOR_ID INT,
 	@START_DATE DATETIME,
@@ -63,7 +63,7 @@ END;
 -------------------------------------------------------------------------------------------
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'GET_SALARY_STATISTICS_FOR_DAY')
 	DROP PROC GET_SALARY_STATISTICS_FOR_DAY
-GO
+
 CREATE PROCEDURE GET_SALARY_STATISTICS_FOR_DAY
 	@DOCTOR_ID INT,
 	@DATE DATETIME
