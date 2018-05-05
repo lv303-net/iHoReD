@@ -1,6 +1,4 @@
 import React from 'react';
-import { Component } from 'react';
-import $ from 'jquery';
 import axios from 'axios';
 
 import '../style/PatientDiagnosesTable.css';
