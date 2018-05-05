@@ -28,7 +28,20 @@ namespace Entities.Services
             try
             {
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
-                return Utils.ParseSqlQuery.GetMedicalCards(data);
+                var nonResponsiveList = Utils.ParseSqlQuery.GetMedicalCards(data);
+                List<MedicalCard> responsiveList = new List<MedicalCard>();
+                for (int i = 0; i < Math.Ceiling((double)elementOnPageCount / 2) ; i++)
+                {
+                    if (!(i > nonResponsiveList.Count))
+                    {
+                        responsiveList.Add(nonResponsiveList[i]);
+                        if (nonResponsiveList.Count > i + Math.Ceiling((double)nonResponsiveList.Count / 2))
+                        {
+                            responsiveList.Add(nonResponsiveList[i + (int)Math.Ceiling((double)elementOnPageCount / 2)]);
+                        }
+                    }
+                }
+                return responsiveList;
             }
             catch (Exception e)
             {
