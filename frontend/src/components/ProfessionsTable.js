@@ -3,8 +3,8 @@ import $ from 'jquery';
 import axios from 'axios';
 import validator from 'validator';
 import DoctorTable from './DoctorTable';
-
-import '../style/Professions.css'
+import '../style/Professions.css';
+import Calendar from './Calendar';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -21,6 +21,7 @@ constructor(props){
         professionsArr: [],
         id: 0,
         shouldShow: false,
+        idDoctor : 0,
         shouldDocBeShown: false
       };
       this.setStateID=this.setStateID.bind(this);
@@ -35,6 +36,12 @@ constructor(props){
           });
         });
     };
+
+    formChild1(param) {
+      this.setState({
+        idDoctor : param
+      })
+    }
 
     // responsiveTables(){
     //   var _that = this;
@@ -184,7 +191,10 @@ constructor(props){
                     {basicButtons}
                   </div> 
                 </div>
-                <DoctorTable idProf={this.state.id} shouldShow={this.state.shouldDocBeShown}/> 
+                <DoctorTable idProf={this.state.id} callback={this.formChild1.bind(this)} shouldShow={this.state.shouldDocBeShown}/> 
+                <div className=" col-sm-12 col-md-11 mr-1" id="calendarDiv">
+                <Calendar idDoctor = {this.state.idDoctor}/>
+                </div>
                 </div>
         </div>
    }   

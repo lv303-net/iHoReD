@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import validator from 'validator';
 import Calendar from './Calendar';
-import $ from 'jquery'
+import PropTypes from 'prop-types';
+import $ from 'jquery';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -22,8 +23,19 @@ class DoctorTable extends React.Component{
       this.setStateID=this.setStateID.bind(this);
       this.addUrl=this.addUrl.bind(this);
       this.getIdDoc=this.getIdDoc.bind(this);
+      //this.getContent=this.getContent.bind(this);
 
     };
+
+    getContent(e) {
+        e.preventDefault();
+        var caller = e.target || e.srcElement;
+        var id = caller.id;
+        var idDoc = caller.id.split('doc')[1];        
+        this.setStateID(idDoc);
+        this.addUrl(idDoc);
+      
+      }
 
     // responsiveTables(){
     //   if ($(window).width() <= 768) {
@@ -97,7 +109,7 @@ class DoctorTable extends React.Component{
         var searchParameter=new URLSearchParams(window.location.search);
         searchParameter.set('doc',val);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`); 
-        //window.location.reload();
+        this.props.callback(val);
     };
 
       getIdDoc(e) {
@@ -107,6 +119,8 @@ class DoctorTable extends React.Component{
         var idDoc = caller.id.split('doc')[1];        
         this.setStateID(idDoc);
         this.addUrl(idDoc);
+        //this.getContent(e);
+        //this.props.callback(this.state.idDoc);
       }
 
       showList() {
@@ -119,7 +133,7 @@ class DoctorTable extends React.Component{
       let basicButtons;
       if (this.state.shouldShow) {
         basicButtons =                   
-        <div id='listDoc' className="list-group" onClick={e => this.getIdDoc(e)}>
+        <div id='listDoc' className="list-group" onClick={this.getContent.bind(this)}>
         {this.state.doc.map(
           doc => 
           <a className='list-group-item list-group-item-action profDocTable'
@@ -131,7 +145,7 @@ class DoctorTable extends React.Component{
         basicButtons = ""
       }
 
-      return  <div className="list-group mb-2 col-sm-6 col-md-6" id="professions">
+      return ( <div className="list-group mb-2 col-sm-6 col-md-6" id="professions">
                   <div id='tableDoc'>
                     <div className="list-group-item" id="docButton" tabIndex="1" onClick={()=>{this.showList()}}>
                       <p>Doctors</p>
@@ -141,7 +155,12 @@ class DoctorTable extends React.Component{
                       {basicButtons}
                     </div>              
                   </div>
-         }
+      )
+    }
   }
+
+  DoctorTable.propTypes = {
+    callback: PropTypes.func
+  };
 
   export default DoctorTable;
