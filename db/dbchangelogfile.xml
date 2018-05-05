@@ -241,4 +241,10 @@
     <sqlFile path="V3.23_CHENGED_ORDERING_DATA_IN_PROCEDURE_VERSION_V3-22.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+   <changeSet author="Tetiana Usyk" id="V3.24">
+    <sqlFile path="V3.24_ALTER_TABLES_WITH_SALARY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.24_INSERT_INTO_SALARY_RATES_AND_SALARY_COEFFICIENTS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.24_PROCEDURE_FOR_SALARY_STATISTIC.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
 </databaseChangeLog>
