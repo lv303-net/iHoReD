@@ -39,5 +39,21 @@ namespace HoReD.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("api/PatientData/Allergies/{id}")]
+        public IHttpActionResult GetPatientAllergies(int id)
+        {
+            try
+            {
+                var result = _patientData.GetPatientAllergies(id);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

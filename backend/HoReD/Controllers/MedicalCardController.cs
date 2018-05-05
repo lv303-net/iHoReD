@@ -12,6 +12,7 @@ namespace HoReD.Controllers
     /// <summary>
     /// Controller that represents information about patient medical card
     /// </summary>
+    [RoutePrefix("medicalcard")]
     public class MedicalCardController : ApiController
     {
         private readonly IMedicalCardService _medicalCard;
@@ -26,11 +27,12 @@ namespace HoReD.Controllers
         /// </summary>
         /// 
         [HttpGet]
-        public IHttpActionResult GetMedicalCardByPatientId(int id)
+        [Route("getbyuserid/{userId}/{pageNumber}/{elementOnPageCount}/{columnNumber}")]
+        public IHttpActionResult GetMedicalCardByPatientId(int userId, int pageNumber, int elementOnPageCount, int columnNumber)
         {
             try
             {
-                var result = _medicalCard.GetUserCardById(id);
+                var result = _medicalCard.GetUserCardById(userId, pageNumber, elementOnPageCount, columnNumber);
                 return Ok(result);
             }
             catch (Exception e)

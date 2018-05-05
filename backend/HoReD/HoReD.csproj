@@ -199,7 +199,7 @@
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\PatientData.cs" />
+    <Compile Include="Controllers\PatientDataController.cs" />
     <Compile Include="Controllers\MedicalCardController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\RuleController.cs" />
