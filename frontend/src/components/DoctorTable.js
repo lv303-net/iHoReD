@@ -53,20 +53,15 @@ class DoctorTable extends React.Component{
           idDoc: idDoc
         })
       }
-      var _that = this;
-      // $(document).ready(function() {
-      //   _that.responsiveTables();
-      //   $(window).resize(function() {          
-      //     _that.responsiveTables();
-      //   });
-      // });
     }
    
-    componentDidUpdate(prevPros, prevState) {    
+    componentDidUpdate(prevPros, prevState) { 
+      if (!prevState.shouldShow) {
       var idForDiv = "#doc"+this.state.idDoc;
       $(idForDiv).addClass("active");
       var idForDivText = $(idForDiv).text();    
       $('#nameDoc').text(idForDivText);
+      }
     }
 
       shouldComponentUpdate(nextProps, nextState) {
@@ -76,13 +71,13 @@ class DoctorTable extends React.Component{
       }
 
       componentWillUpdate(nextProps, nextState)
-      {
-        
+      {        
         if (this.props.shouldShow !== nextProps.shouldShow || this.state.shouldShow !== nextState.shouldShow) {
           this.setState({
             shouldShow: !this.state.shouldShow
           })
         }
+        
         axios.get(server_url+'/GetDoctors/' + nextProps.idProf)
         .then(res => {
         this.setState({
