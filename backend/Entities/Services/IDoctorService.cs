@@ -31,5 +31,7 @@ namespace Entities.Services
 
         List<Event> GetGeneralEventsList(int IdDoctor, DateTime dateStart, DateTime dateFinish);
 
+        List<SalaryStatistics> GetDoctorSalaryStatistics(int IdDoctor, DateTime dateStart, DateTime dateFinish);
+
     }
 }
