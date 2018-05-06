@@ -18,6 +18,7 @@ import Footerbar from './components/Footerbar';
 import DoctorCalendar from './components/DoctorCalendar';
 import PatientInfo from './components/PatientInfo';
 import MedicalCard from './components/MedicalCard';
+import Reporting from './components/Reporting'
 import AdminPage from './components/adminPage/AdminMainPage'
 
 
