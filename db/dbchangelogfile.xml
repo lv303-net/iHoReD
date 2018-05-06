@@ -255,5 +255,9 @@
     <sqlFile path="V3.26_FIXED_BUG_IN_GET_MEDICAL_CARD_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
     <sqlFile path="V3.26_CREATED_GET_PAGE_COUNT_FOR_MC_DEPENDING_ELEM_COUNT_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.27">
+    <sqlFile path="V3.27_UPDATED_PROCEDURE_GET_PAGE_COUNT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
   
 </databaseChangeLog>
