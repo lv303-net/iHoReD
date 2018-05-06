@@ -90,12 +90,12 @@ class DoctorTable extends React.Component{
 
         let idSt = this.state.idDoc;
         let id = nextState.doc.find(doc=> doc[2] === idSt);
-        if (!nextState.shouldShow && this.state.idDoc != 0) {
-          var idForDivText = id[1] + id[0];  
-          $('#nameProf').text(idForDivText);
+        if (!nextState.shouldShow && this.state.idDoc != 0 && nextState.doc != 0) {
+          var idForDivText = id[1] + ' ' + id[0];  
+          $('#nameDoc').text(idForDivText);
         }
         else {
-          //$('#nameProf').text("");
+          $('#nameDoc').text("");
         }
         
         axios.get(server_url+'/GetDoctors/' + nextProps.idProf)

@@ -111,6 +111,7 @@ constructor(props){
       if (!prevState.shouldShow) {
         var idForDiv = "#prof"+this.state.id;
         $(idForDiv).addClass("active");
+        
       }
     }
 
