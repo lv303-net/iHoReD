@@ -160,7 +160,7 @@ class Calendar extends React.Component{
             
           }else {
             event.isFake ? (col = 'green', isSelectable = true):(col = 'red', isSelectable = false);
-            if(new Date(event.dateTime[0]+'T'+event.dateTime[2]) <= (new Date()))
+            if(new Date(event.dateTime[0]+'T'+event.dateTime[1]) < (new Date()))
             {
               return{
                 start: event.dateTime[0]+'T'+event.dateTime[1],

@@ -11,21 +11,21 @@ class AboutPatient extends React.Component {
     render() {
         return (
             <div>
-            <div className="row" id="patientcard">
-                <div className="col-12" id="col-head">Patient
+                <div className="row" id="patientcard">
+                    <div className="col-12" id="col-head">Patient
                     <i className="fa fa-heart"></i>
-                    <i className="fa fa-heart"></i>
-                    <i className="fa fa-heart"></i>
+                        <i className="fa fa-heart"></i>
+                        <i className="fa fa-heart"></i>
                     </div>
-                </div> 
+                </div>
                 <div className="row" id="patientcard">
-                <div className="col-5" id="col-custom">First Name</div>
-                <div className="col-7">{this.props.lastname}</div>
-                </div> 
+                    <div className="col-5" id="col-custom">First Name</div>
+                    <div className="col-7">{this.props.lastname}</div>
+                </div>
                 <div className="row" id="patientcard">
-                <div className="col-5" id="col-custom">Last Name</div>
-                <div className="col-7">{this.props.lastname}</div>
-                </div> 
+                    <div className="col-5" id="col-custom">Last Name</div>
+                    <div className="col-7">{this.props.lastname}</div>
+                </div>
                 <div className="row" id="patientcard">
                     <div className="col-5" id="col-custom">Date Of Birds</div>
                     <div className="col-7">{this.props.birthday}</div>
@@ -38,8 +38,7 @@ class AboutPatient extends React.Component {
                     <div className="col-5" id="col-custom">BllodType</div>
                     <div className="col-7">{this.props.bloodtype}</div>
                 </div>
-                </div>
-           
+            </div>
         );
     }
 }
@@ -70,15 +69,14 @@ class PatientInfo extends React.Component {
                 {this.state.userdata.map(item => <AboutPatient name={item.FirstName}
                     lastname={item.LastName} birthday={item.Birthday}
                     phone={item.Phone} bloodtype={item.BloodType} />)}
-                 <div className="row" id="patientcard">
+                <div className="row" id="patientcard">
                     <div className="col-5" id="col-custom">Allergies:</div>
                     <div className="col-7">
-                    <div className="list-group">
-                    {this.state.allergies.map(item =>
-                        <div id="#allergilistitem"className="list-group-item" id="allergilist">{item}</div>)}
+                        <div className="list-group">
+                            {this.state.allergies.map(item =>
+                                <div id="#allergilistitem" className="list-group-item" id="allergilist">{item}</div>)}
                         </div>
-                        </div>
-                            
+                    </div>
                 </div>
             </div>
         );

@@ -17,7 +17,7 @@
 #main-nav1 li:first-child {
     padding-left: 0
 }
-#main-nav1 li a {
+#main-nav1 li a#link {
     width: 100%;
     display: block;
     height: 100%;
@@ -27,7 +27,7 @@
     font-weight: bold;
     color: #021020;
 }
-#main-nav1 li a:hover {
+#main-nav1 li a#link:hover {
     background-color: #498cd5;
     color: #ddeeee;
 }
