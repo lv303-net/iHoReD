@@ -19,10 +19,10 @@ div#professions, div#doctors {
 
 #nameProf, #nameDoc {
     margin-left: 5px;
-    width:inherit;
-    white-space: nowrap;
-    overflow:hidden !important;
-    text-overflow: ellipsis;
+    white-space: nowrap; 
+    width: 10px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 #tableProf #listProf .active,
@@ -31,3 +31,13 @@ div#professions, div#doctors {
     background-color: #DCDCDC;
     color: white;
 }
+
+div#professions div#profButton, div#doctors div#docButton {
+    background-color: #007bff;
+    color: white;
+
+    white-space: nowrap; 
+    width: inherit; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
