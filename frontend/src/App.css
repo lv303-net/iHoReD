@@ -192,3 +192,7 @@ padding: 20px;
 font-size: 1.25rem;
 font-family: sans-serif;
 }
+
+.min-height{
+  min-height: calc(100vh - 501px);
+}

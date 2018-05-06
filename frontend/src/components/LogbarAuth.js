@@ -23,7 +23,7 @@ class LogbarAuth extends Component {
             <span className="logo-name">Lviv Regional Hospital</span>
           </div>
 
-          <form className="form-inline" action="/action_page.php">
+          <form className="form-inline text-center" action="/action_page.php">
             <ul className="nav">
               <li className="nav-item btn-custom">
                 <a className="nav-link" id ="link-custom">{localStorage.getItem("currentUserFirstName") + " " + localStorage.getItem("currentUserLastName") + " "}</a>
