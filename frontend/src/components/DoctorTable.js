@@ -134,7 +134,7 @@ class DoctorTable extends React.Component {
       basicButtons = ""
     }
 
-    return (<div className="list-group mb-2 col-sm-6 col-md-6" id="doctors">
+    return (<div className="list-group mb-2 col-sm-6 col-md-4" id="doctors">
       <div id='tableDoc'>
         <div className="list-group-item" id="docButton" tabIndex="1" onClick={() => { this.showList() }}>
           <p>Doctors</p>

@@ -128,8 +128,8 @@ class ProfessionsTable extends React.Component {
     }
 
     return <div className="col-sm-12 col-md-12" id='tablesBlock'>
-      <div className="row">
-        <div className="list-group mb-2 col-sm-6 col-md-6" id="professions">
+      <div className="row justify-content-center">
+        <div className="list-group mb-2 col-sm-6 col-md-4" id="professions">
           <div id='tableProf'>
             <div className="list-group-item" id="profButton" tabIndex='1' onClick={() => { this.showList() }}>
               <p id='tableLabel'>Professions</p>
@@ -140,7 +140,7 @@ class ProfessionsTable extends React.Component {
           </div>
         </div>
         <DoctorTable idProf={this.state.id} callback={this.formChild1.bind(this)} shouldShow={this.state.shouldDocBeShown} />
-        <div className=" col-sm-12 col-md-11 mr-1" id="calendarDiv">
+        <div className=" col-sm-12 col-md-10" id="calendarDiv">
           <Calendar idDoctor={this.state.idDoctor} />
         </div>
       </div>
