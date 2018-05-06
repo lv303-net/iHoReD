@@ -247,4 +247,8 @@
     <sqlFile path="V3.24_PROCEDURE_FOR_SALARY_STATISTIC.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
+  <changeSet author="Tetiana Usyk" id="V3.25">
+    <sqlFile path="V3.25_INSERT_INTO_SALARY_RATES_AND_SALARY_COEFFICIENTS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
 </databaseChangeLog>
