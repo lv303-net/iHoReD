@@ -43,9 +43,7 @@ class DoctorTable extends React.Component {
       this.setState({
         idDoc: idDoc
       })
-      if (this.state.idDoc != 0) {
-        this.props.callback(idDoc);
-      }
+      this.props.callback(idDoc);
     }
   }
 

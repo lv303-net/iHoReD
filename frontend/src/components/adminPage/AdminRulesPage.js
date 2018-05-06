@@ -2,8 +2,8 @@ import React from 'react';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import LogbarAuth from './LogbarAuth';
-import DoctorsListWithSomeRule from './DoctorsListWithSomeRule';
+import LogbarAuth from './../DoctorsListWithSomeRule';
+import DoctorsListWithSomeRule from './../DoctorsListWithSomeRule';
 
 class AdminRulesPage extends Component {
     render () {

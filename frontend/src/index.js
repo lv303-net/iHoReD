@@ -9,7 +9,7 @@ import Diagnoses from './components/Diagnoses';
 import Edit from './components/Edit';
 import StartPatientPage from './components/StartPatientPage';
 import registerServiceWorker from './registerServiceWorker';
-import AdminRulesPage from './components/AdminRulesPage';
+import AdminRulesPage from './components/adminPage/AdminRulesPage';
 import ActivationLink from './components/ActivationLink';
 import PatientDiagnosesTable from './components/PatientDiagnosesTable';
 import LogbarAuth from './components/LogbarAuth';
@@ -19,7 +19,7 @@ import Footerbar from './components/Footerbar';
 import DoctorCalendar from './components/DoctorCalendar';
 import PatientInfo from './components/PatientInfo';
 import MedicalCard from './components/MedicalCard';
-import AdminPage from './components/AdminPage'
+import AdminPage from './components/adminPage/AdminMainPage'
 
 
 var url = window.location.href;
@@ -29,19 +29,19 @@ class Home extends Component {
       return (
         <div>
             <LogbarWrapper/>
-            <Switch>
+              <Switch>
                 <Route exact path="/" component={App}/>
-                  <Route path="/editUserInfo" component={Edit}/>
-                  <Route path="/allDiagnoses" component={Diagnoses}/>
-                  <Route path="/startPage" component={StartPatientPage}/>
-                  <Route exact path="/admin" component={AdminRulesPage}>
-                    <Route path="/patient" component={Edit}/>
-                  </Route>
-                  <Route path="/activation/:id" component={ActivationLink}/>
-                  <Route path="/doctorCalendar" component={DoctorCalendar}/>
-                  <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
-                  <Route path="/medicalCard" component={MedicalCard}/>
-                  <Route path="/adminPage" component={AdminPage}/>
+                <Route path="/editUserInfo" component={Edit}/>
+                <Route path="/allDiagnoses" component={Diagnoses}/>
+                <Route path="/startPage" component={StartPatientPage}/>
+                <Route path="/admin" component={AdminRulesPage}>
+                  <Route path="/patient" component={Edit}/>
+                </Route>
+                <Route path="/activation/:id" component={ActivationLink}/>
+                <Route path="/doctorCalendar" component={DoctorCalendar}/>
+                <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
+                <Route path="/medicalCard" component={MedicalCard}/>
+                <Route path="/adminPage" component={AdminPage}/>
               </Switch>
             <Footerbar/>
       </div>
