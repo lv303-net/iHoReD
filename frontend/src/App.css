@@ -134,16 +134,17 @@ div.profDocTable:hover {
 }
 
 #adminMainDiv  {
-  min-height: calc(100vh - 84px);
+  min-height: calc(100vh - 486px);
 }
 
 #editMainDiv {
-  min-height: calc(100vh - 84px);
+  min-height: calc(100vh - 486px);
 }
 
 #mainDiv {
-  min-height: calc(100vh - 84px);
+  min-height: calc(100vh - 486px);
 }
+
 #patientInfoMain{
   float:left;
   position: relative;

@@ -32,7 +32,6 @@ class DoctorTable extends React.Component {
     var idDoc = caller.id.split('doc')[1];
     this.setStateID(idDoc);
     this.addUrl(idDoc);
-
   }
 
   componentDidMount() {

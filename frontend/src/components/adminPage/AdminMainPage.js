@@ -8,7 +8,7 @@ import '../../style/AdminPage.css';
 class AdminPage extends Component {
   render() {
     return (
-      <div id="mainDiv">
+      <div>
         <AdminNavbar/>
         <AdminSwitch/>
        </div>

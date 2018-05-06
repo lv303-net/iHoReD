@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { Switch, Route} from 'react-router-dom';
+import { Switch, Route, Redirect} from 'react-router-dom';
 import AdminRulesPage from '../adminPage/AdminRulesPage';
 import Edit from '../Edit'
 import '../../style/AdminPage.css'
@@ -8,11 +8,11 @@ import '../../style/AdminPage.css'
 class AdminSwitch extends Component {
   render() {
     return (
-        <main>
+        <main id='mainDivHeight'>
           <Switch>
-            <Route exact path='/admin' component={AdminRulesPage}/>
-            <Route path="/admin/rules" component={AdminRulesPage}/>
-            <Route path="/admin/salary" component={Edit}/>
+            <Route exact path='/admin' render={() => <Redirect to="/admin/rules" />}/>
+            <Route exact path="/admin/rules" component={AdminRulesPage}/>
+            <Route exact path="/admin/salary" component={Edit}/>
           </Switch>
         </main>
     );
