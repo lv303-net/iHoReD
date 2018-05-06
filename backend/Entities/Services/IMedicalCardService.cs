@@ -9,5 +9,6 @@ namespace Entities.Services
     public interface IMedicalCardService
     {
         List<MedicalCard> GetUserCardById(int userId, int pageNumber, int elementOnPageCount, int columnNumber);
+        int GetPageCountForUserMC (int userId, int elementOnPageCount);
     }
 }
