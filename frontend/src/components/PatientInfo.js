@@ -1,49 +1,89 @@
 import React from 'react';
 import { Component } from 'react';
+import axios from 'axios';
+var server_url;
+if (process.env.NODE_ENV === "development")
+    server_url = "http://localhost:58511"
+else if (process.env.NODE_ENV === "production")
+    server_url = "https://hored.azurewebsites.net"
 
-class PatientInfo  extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-       
-      };
-    }
-    
+class AboutPatient extends React.Component {
     render() {
-        {
-            return (
-                <div className="container mt-5 col-lg-4 col-md-6 col-sm-10" id="patientInfoMain">
-                    <div className="row" id="patientcard">
-                        <div className="col">Patient</div>
-                        <div className="col">
-                       <i className="fa fa-heart"></i>
-                       <i className="fa fa-heart"></i>
-                       <i className="fa fa-heart"></i>
-                       </div>
+        return (
+            <div>
+            <div className="row" id="patientcard">
+                <div className="col-12" id="col-head">Patient
+                    <i className="fa fa-heart"></i>
+                    <i className="fa fa-heart"></i>
+                    <i className="fa fa-heart"></i>
                     </div>
-                   
-                   <div className="row" id="patientcard">
-                        <div className="col-6" id="col-custom">FirstName</div>
-                        <div className="col-6">LastName</div>
-                    </div>
-                    <div className="row" id="patientcard">
-                        <div className="col-6" id="col-custom">DateOfBirds</div>
-                        <div className="col-6">30.04.2000</div>
-                    </div>
-                    <div className="row" id="patientcard">
-                        <div className="col-6" id="col-custom">PhoneNumber</div>
-                        <div className="col-6">0978214596</div>
-                    </div>
-                    <div className="row" id="patientcard">
-                        <div className="col-6" id="col-custom">BllodType</div>
-                        <div className="col-6">2</div>
-                    </div>
-                      </div>
-                    
-                
-            );
-        }
-  }
-  }
+                </div> 
+                <div className="row" id="patientcard">
+                <div className="col-5" id="col-custom">First Name</div>
+                <div className="col-7">{this.props.lastname}</div>
+                </div> 
+                <div className="row" id="patientcard">
+                <div className="col-5" id="col-custom">Last Name</div>
+                <div className="col-7">{this.props.lastname}</div>
+                </div> 
+                <div className="row" id="patientcard">
+                    <div className="col-5" id="col-custom">Date Of Birds</div>
+                    <div className="col-7">{this.props.birthday}</div>
+                </div>
+                <div className="row" id="patientcard">
+                    <div className="col-5" id="col-custom">Phone Number</div>
+                    <div className="col-7">{this.props.phone}</div>
+                </div>
+                <div className="row" id="patientcard">
+                    <div className="col-5" id="col-custom">BllodType</div>
+                    <div className="col-7">{this.props.bloodtype}</div>
+                </div>
+                </div>
+           
+        );
+    }
+}
+class PatientInfo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userdata: [],
+            allergies: [],
+            id: 1
+        };
+        axios.get(server_url + '/api/PatientData/' + 216)
+            .then(res => {
+                this.setState({
+                    userdata: res.data,
+                });
+            });
+        axios.get(server_url + '/api/PatientData/Allergies/' + 216)
+            .then(res => {
+                this.setState({
+                    allergies: res.data,
+                });
+            });
+    }
+    render() {
+        return (
+            <div className="container mt-5 col-lg-4 col-md-6 col-10" id="patientInfoMain">
+                {this.state.userdata.map(item => <AboutPatient name={item.FirstName}
+                    lastname={item.LastName} birthday={item.Birthday}
+                    phone={item.Phone} bloodtype={item.BloodType} />)}
+                 <div className="row" id="patientcard">
+                    <div className="col-5" id="col-custom">Allergies:</div>
+                    <div className="col-7">
+                    <div className="list-group">
+                    {this.state.allergies.map(item =>
+                        <div id="#allergilistitem"className="list-group-item" id="allergilist">{item}</div>)}
+                        </div>
+                        </div>
+                            
+                </div>
+            </div>
+        );
+    }
+}
 
-  export default PatientInfo;
+
+export default PatientInfo;

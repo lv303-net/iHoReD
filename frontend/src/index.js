@@ -19,7 +19,8 @@ import Footerbar from './components/Footerbar';
 import DoctorCalendar from './components/DoctorCalendar';
 import PatientInfo from './components/PatientInfo';
 import MedicalCard from './components/MedicalCard';
-import AdminPage from './components/AdminPage'
+import AdminPage from './components/AdminPage';
+import Reporting from './components/Reporting'
 
 
 var url = window.location.href;
@@ -42,6 +43,8 @@ class Home extends Component {
                   <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
                   <Route path="/medicalCard" component={MedicalCard}/>
                   <Route path="/adminPage" component={AdminPage}/>
+                  <Route path="/Reporting" component={Reporting}/>
+                  DatePicker
               </Switch>
             <Footerbar/>
       </div>
