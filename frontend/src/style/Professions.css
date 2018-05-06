@@ -1,8 +1,4 @@
-/* .fa-angle-down, .fa-angle-right {
-    display: none;
-} */
-
-div#professions {
+div#professions, div#professions {
     padding-left: 15px;
 }
 
@@ -27,12 +23,6 @@ div#professions {
     white-space: nowrap;
     overflow:hidden !important;
     text-overflow: ellipsis;
-}
-
-@media (max-width: 576px) { 
-    #tablesBlock {
-        margin-right: 0;
-    }
 }
 
 #tableProf #listProf .active,
