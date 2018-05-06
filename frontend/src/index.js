@@ -9,7 +9,6 @@ import Diagnoses from './components/Diagnoses';
 import Edit from './components/Edit';
 import StartPatientPage from './components/StartPatientPage';
 import registerServiceWorker from './registerServiceWorker';
-import RulesPage from './components/RulesPage';
 import ActivationLink from './components/ActivationLink';
 import PatientDiagnosesTable from './components/PatientDiagnosesTable';
 import LogbarAuth from './components/LogbarAuth';
@@ -39,8 +38,7 @@ class Home extends Component {
                 <Route path="/doctorCalendar" component={DoctorCalendar}/>
                 <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
                 <Route path="/medicalCard" component={MedicalCard}/>
-                <Route path="/adminPage" component={AdminPage}/>
-                <Route path="/rules" component={RulesPage}/>
+                <Route path="/admin" component={AdminPage}/>
               </Switch>
             <Footerbar/>
       </div>

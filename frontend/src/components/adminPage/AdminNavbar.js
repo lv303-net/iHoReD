@@ -14,12 +14,12 @@ class AdminNavbar extends Component {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav main-nav1">
               <li className="nav-item">
-                <Link to='/adminPage/rules'>
+                <Link to='/admin/rules'>
                   <a className="nav-link" id="link">Rules</a>
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to='/adminPage/salary'>
+                <Link to='/admin/salary'>
                  <a className="nav-link" id="link">Salary</a>
                 </Link>
               </li>

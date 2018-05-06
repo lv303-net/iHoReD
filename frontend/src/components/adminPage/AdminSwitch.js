@@ -10,9 +10,9 @@ class AdminSwitch extends Component {
     return (
         <main>
           <Switch>
-            <Route exact path='/adminPage' component={AdminRulesPage}/>
-            <Route path="/adminPage/rules" component={AdminRulesPage}/>
-            <Route path="/adminPage/salary" component={Edit}/>
+            <Route exact path='/admin' component={AdminRulesPage}/>
+            <Route path="/admin/rules" component={AdminRulesPage}/>
+            <Route path="/admin/salary" component={Edit}/>
           </Switch>
         </main>
     );
