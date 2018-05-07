@@ -18,6 +18,7 @@ import MedicalCard from './components/MedicalCard';
 import SalaryReport from './components/SalaryReport';
 import AdminPage from './components/adminPage/AdminMainPage';
 import UserPage from './components/userPage/UserMainPage'
+import DoctorPage from './components/doctorPage/DoctorMainPage'
 
 class Home extends Component {
     render() {
@@ -36,6 +37,7 @@ class Home extends Component {
                 <Route path="/medicalCard" component={MedicalCard}/>
                 <Route path="/admin" component={AdminPage}/>
                 <Route path="/user" component={UserPage}/>
+                <Route path="/doctor" component={DoctorPage}/>
                 <Route path="/reporting" component={SalaryReport}/>
               </Switch>
             <Footerbar/>

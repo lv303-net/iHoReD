@@ -22,7 +22,7 @@ a:hover {
     text-decoration: none;
 }
 
-a#link1:hover, a#link2:hover, a#link3:hover {
+span#link1:hover, span#link2:hover, span#link3:hover {
     font-weight: bold;
     letter-spacing: 1px;
 }
