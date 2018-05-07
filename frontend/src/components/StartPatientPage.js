@@ -1,10 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import validator from 'validator';
 import LogbarAuth from './LogbarAuth';
-import Footerbar from './Footerbar';
 
 class StartPatientPage extends Component {
   render() {
@@ -18,11 +15,6 @@ class StartPatientPage extends Component {
     );
   }
 }
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
  
 function AllRecords(props){
   return <div className="col sm-6 md-8 lg-9 xl-10">

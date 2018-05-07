@@ -57,17 +57,17 @@ class PatientDiagnosesTable extends React.Component{
            var dimensions=[];
            if(window.innerWidth<700)
            {
-               if(elemCount==6)
+               if(elemCount===6)
                {
                    dimensions.push(1);
                    dimensions.push(6);
                }
-               if(elemCount==4)
+               if(elemCount===4)
                {
                    dimensions.push(1);
                    dimensions.push(4);
                }
-               if(elemCount==2)
+               if(elemCount===2)
                {
                    dimensions.push(1);
                    dimensions.push(2);
@@ -77,17 +77,17 @@ class PatientDiagnosesTable extends React.Component{
            {
             if(window.innerWidth<1200)
             {
-                if(elemCount==6)
+                if(elemCount===6)
                 {
                     dimensions.push(2);
                     dimensions.push(3);
                 }
-                if(elemCount==4)
+                if(elemCount===4)
                 {
                     dimensions.push(2);
                     dimensions.push(2);
                 }
-                if(elemCount==2)
+                if(elemCount===2)
                 {
                     dimensions.push(2);
                     dimensions.push(1);
@@ -97,17 +97,17 @@ class PatientDiagnosesTable extends React.Component{
             {
              if(window.innerWidth>1200)
              {
-                 if(elemCount==6)
+                 if(elemCount===6)
                  {
                      dimensions.push(3);
                      dimensions.push(2);
                  }
-                 if(elemCount==4)
+                 if(elemCount===4)
                  {
                      dimensions.push(2);
                      dimensions.push(2);
                  }
-                 if(elemCount==2)
+                 if(elemCount===2)
                  {
                      dimensions.push(2);
                      dimensions.push(1);
@@ -134,7 +134,7 @@ class PatientDiagnosesTable extends React.Component{
           var arr=[];
           var col=this.getColumnsAndRowsNumber(this.state.elementsCount)[0];
           var row=this.getColumnsAndRowsNumber(this.state.elementsCount)[1];
-             if(col==2)
+             if(col===2)
              {
                  for(var i=0;i<col;i++)
                 {
@@ -144,7 +144,7 @@ class PatientDiagnosesTable extends React.Component{
                 arr.push(item);
             }
         }
-             if(col==3)
+             if(col===3)
              {
                  var j=0;
                 for(var i=0;i<col;i++)
@@ -156,7 +156,7 @@ class PatientDiagnosesTable extends React.Component{
                 j++;
              }
             }
-             if(col==4)
+             if(col===4)
              {
                 for(var i=0;i<col;i++)
                 {
@@ -166,7 +166,7 @@ class PatientDiagnosesTable extends React.Component{
                 arr.push(item);
              }
             }
-             if(col==1)
+             if(col===1)
              {
                 for(var i=0;i<col;i++)
                 {

@@ -1,7 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 import axios from 'axios';
-import validator from 'validator';
 import DoctorTable from './DoctorTable';
 import '../style/Professions.css';
 import Calendar from './Calendar';
@@ -51,7 +50,7 @@ class ProfessionsTable extends React.Component {
   componentDidMount() {
     var url_string = window.location.href;
     var url = new URL(url_string);
-    if (url.search != '') {
+    if (url.search !== '') {
       var idProf = url.searchParams.get("prof");
       this.setState({
         id: idProf
@@ -71,7 +70,7 @@ class ProfessionsTable extends React.Component {
   componentWillUpdate(nextProps, nextState) {
     let idSt = this.state.id;
     let id = nextState.professionsArr.find(professionsArr => professionsArr[0] === idSt);
-    if (!nextState.shouldShow && this.state.id != 0) {
+    if (!nextState.shouldShow && this.state.id !== 0) {
       var idForDivText = id[1];
       $('#nameProf').text(idForDivText);
       $(".fasProf").addClass("fa-angle-right");
@@ -93,7 +92,6 @@ class ProfessionsTable extends React.Component {
   getIdProf(e) {
     e.preventDefault();
     var caller = e.target;
-    var id = caller.id;
     var idProf = caller.id.split('prof')[1];
     this.setStateID(idProf);
     this.addUrl(idProf);

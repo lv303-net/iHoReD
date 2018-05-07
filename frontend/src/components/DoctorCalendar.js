@@ -1,11 +1,8 @@
 import React from 'react';
-import { Component } from 'react';
 import $ from 'jquery';
 import 'fullcalendar';
-import validator from 'validator';
 import axios from 'axios';
 import '../style/Calendar.css';
-import Loader from 'react-loader';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -127,7 +124,7 @@ class DoctorCalendar extends React.Component{
     if(getData){
       $('#calendar').fullCalendar( 'removeEvents');
       var isMonth;
-      if($('#calendar').fullCalendar('getView').name=='month')
+      if($('#calendar').fullCalendar('getView').name === 'month')
         isMonth = true;
       else 
         isMonth = false;
@@ -136,7 +133,7 @@ class DoctorCalendar extends React.Component{
         var col;
         var building = $.map(response.data, function(event){
           var isSelectable = false;
-          if($('#calendar').fullCalendar('getView').name=='month')
+          if($('#calendar').fullCalendar('getView').name === 'month')
           {
             if(event.isFake){
               col = 'green';

@@ -1,12 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import DoctorsListWithSomeRule from './../DoctorsListWithSomeRule';
 import AddOrUpdateRule from './modaldialogs/AddOrUpdateRuleModal';
 import SubmitDeleting from './modaldialogs/SubmitDeletingModal';
 import AddDoctorToCurrentRule from './modaldialogs/AddDoctorToCurrentRule';
-import ReactDOM from 'react-dom';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -82,7 +80,7 @@ class RulesPage extends Component {
                 }
             })
         } else {
-            this.state.massiveRules.map(rule => {if(rule.IdRule == currentRuleId){
+            this.state.massiveRules.map(rule => {if(rule.IdRule === currentRuleId){
                 this.setState({
                     currentRule: rule
                 })

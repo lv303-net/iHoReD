@@ -1,9 +1,6 @@
 import React from 'react';
-import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import validator from 'validator';
-import LogbarAuth from './LogbarAuth';
 
 
 var server_url;
