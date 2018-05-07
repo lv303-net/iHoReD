@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import '../../style/UserPage.css';
 
-
-class UserNavbar extends Component {
+class DoctorNavbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +29,7 @@ class UserNavbar extends Component {
         idLink: "link1"
       })
     } 
-    else if (window.location.href.indexOf("edit") != -1) {
+    else if (window.location.href.indexOf("mySchedule") != -1) {
       this.setState({
         idLink: "link2"
       })
@@ -67,18 +66,18 @@ class UserNavbar extends Component {
         <div className="navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav main-nav1" onClick={(e) => { this.colorSelected(e) }} >
             <li className="nav-item">
-              <Link to='/user/schedule'>
+              <Link to='/doctor/schedule'>
                 <span className="nav-link" id="link1">Schedule</span>
               </Link>
             </li>
             <li className="nav-item">
-              <Link to='/user/edit'>
-                <span className="nav-link" id="link2">Edit Info</span>
+              <Link to='/doctor/mySchedule'>
+                <span className="nav-link" id="link2">My Work Schedule</span>
               </Link>
             </li>
             <li className="nav-item">
-              <Link to='/user/medicalCard'>
-                <span className="nav-link" id="link3">Medical Card</span>
+              <Link to='/doctor/salary'>
+                <span className="nav-link" id="link3">Salary Report</span>
               </Link>
             </li>
           </ul>
@@ -88,4 +87,4 @@ class UserNavbar extends Component {
   }
 }
 
-export default UserNavbar;
+export default DoctorNavbar;

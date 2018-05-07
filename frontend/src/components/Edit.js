@@ -1,9 +1,6 @@
 import React from 'react';
-import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import validator from 'validator';
-import LogbarAuth from './LogbarAuth';
 
 
 var server_url;
@@ -79,7 +76,7 @@ class Edit extends React.Component {
   render() {
     return (
       <div id="editMainDiv">
-       <div className="container col-sm-8 mt-3" id="editInfoWindow">
+       <div className="container col-sm-8 mt-5" id="editInfoWindow">
       <div id="editUserInfoHeader">
         <p className="col-sm-5 offset-sm-1" id="basicInfoID"><b>Basic info</b></p>
         <div>

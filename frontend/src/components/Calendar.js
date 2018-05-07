@@ -1,12 +1,8 @@
 import React from 'react';
-import { Component } from 'react';
 import $ from 'jquery';
 import 'fullcalendar';
-import validator from 'validator';
 import axios from 'axios';
 import '../style/Calendar.css';
-import Loader from 'react-loader';
-import { isNull } from 'util';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -138,7 +134,6 @@ class Calendar extends React.Component{
 }
 
   addEvents(newEvents, isMonth){
-    var events
     newEvents.map(event => {
       $($('#calendar').fullCalendar('getView').el[0]).find('.fc-day[data-date=' + event.start.slice(0, 10)+ ']');
       })
@@ -156,7 +151,7 @@ class Calendar extends React.Component{
     if(getData){
       $('#calendar').fullCalendar( 'removeEvents');
       var isMonth;
-      if($('#calendar').fullCalendar('getView').name=='month')
+      if($('#calendar').fullCalendar('getView').name === 'month')
         isMonth = true;
       else 
         isMonth = false;
@@ -165,7 +160,7 @@ class Calendar extends React.Component{
         var col;
         var building = $.map(response.data, function(event){
           var isSelectable = false;
-          if($('#calendar').fullCalendar('getView').name=='month')
+          if($('#calendar').fullCalendar('getView').name==='month')
           {
             event.isFake?col = 'green': col = 'red';
             return{

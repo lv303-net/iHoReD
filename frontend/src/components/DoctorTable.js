@@ -1,7 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import validator from 'validator';
-import Calendar from './Calendar';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 
@@ -28,7 +26,6 @@ class DoctorTable extends React.Component {
   getContent(e) {
     e.preventDefault();
     var caller = e.target || e.srcElement;
-    var id = caller.id;
     var idDoc = caller.id.split('doc')[1];
     this.setStateID(idDoc);
     this.addUrl(idDoc);
@@ -37,7 +34,7 @@ class DoctorTable extends React.Component {
   componentDidMount() {
     var url_string = window.location.href;
     var url = new URL(url_string);
-    if (url.search != '') {
+    if (url.search !== '') {
       var idDoc = url.searchParams.get("doc");
       this.setState({
         idDoc: idDoc
@@ -106,7 +103,6 @@ class DoctorTable extends React.Component {
   getIdDoc(e) {
     e.preventDefault();
     var caller = e.target || e.srcElement;
-    var id = caller.id;
     var idDoc = caller.id.split('doc')[1];
     this.setStateID(idDoc);
     this.addUrl(idDoc);
