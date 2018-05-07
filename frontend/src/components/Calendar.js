@@ -18,7 +18,9 @@ class Calendar extends React.Component{
       endPeriod: '', 
       events:[], 
       startTime:'', 
-      endTime:''};  
+      endTime:'',
+      shouldUpdate: 1
+    };  
     this.handleSubmitBooking=this.handleSubmitBooking.bind(this);   
   }
 
@@ -28,9 +30,14 @@ class Calendar extends React.Component{
       IdPatient: localStorage.getItem("currentUserId"),
       startDateTime: this.state.startTime,
       endDateTime:this.state.endTime
+      
     }  
-
+    
     axios.post(server_url + '/api/Schedule', bookingEvent);
+    //$("#calendar").fullCalendar("rerenderEvents");
+    this.setState({
+      shouldUpdate: this.state.shouldUpdate+1
+    })
   }
 
   saveCurrentDayStartEnd(start, end){
@@ -62,6 +69,7 @@ class Calendar extends React.Component{
     var Doctor = url.searchParams.get("doc");
     this.setState({
       idDoc :Doctor
+      // shouldUpdate: !this.state.shouldUpdate
     })
   }
 
@@ -70,6 +78,7 @@ class Calendar extends React.Component{
   // }
   componentDidMount(){
     this.setStateIdDoc();
+    
     var _that = this;
     $('#calendar').fullCalendar('changeView', 'agendaDay');
     $(document).ready(function() {
@@ -141,13 +150,16 @@ class Calendar extends React.Component{
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return ((this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod) 
+    return (( this.state.shouldUpdate!==nextState.shouldUpdate) ||(this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod) 
     || (this.props.idDoctor!== nextProps.idDoctor) || (this.state.startTime!== nextState.startTime) || (this.state.endTime!== nextState.endTime) );       
   }
 
   componentWillUpdate(nextProps, nextState){
-    this.setStateIdDoc();
-    var getData = (this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.props.idDoctor!== nextProps.idDoctor); 
+    if( this.state.shouldUpdate!==nextState.shouldUpdate)
+      {
+        this.setStateIdDoc();
+      }
+    var getData = ((this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.props.idDoctor!== nextProps.idDoctor) || this.state.shouldUpdate!==nextState.shouldUpdate); 
     if(getData){
       $('#calendar').fullCalendar( 'removeEvents');
       var isMonth;
@@ -194,6 +206,7 @@ class Calendar extends React.Component{
         this.addEvents(building, isMonth);   
       })
     }
+
   }
 
     render(){
@@ -204,18 +217,17 @@ class Calendar extends React.Component{
         doctor = $("#doc"+this.state.idDoc).text();
       else
         doctor = $("#nameDoc").text();
-      let content;
-        content = 
-      <div>
+      
+      return (<div>
         <div id = "calendar">
-          <button data-toggle="modal" data-target="#mModal" id = "modButton" style={{display: "none"}}>
+          <button data-toggle="modal" data-target="#confirmModal" id = "modButton" style={{display: "none"}}>
           </button>
           <button data-toggle="modal" data-target="#BlockClickModal" id = "blockClickButton" style={{display: "none"}}>
           </button>
           <button data-toggle="modal" data-target="#ModalToPreventUnauthorizedBooking" id = "preventUnauthorizedBookingButton" style={{display: "none"}}>
           </button>
         </div>
-        <div className="modal fade" id="mModal">
+        <div className="modal fade" id="confirmModal">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
@@ -263,8 +275,7 @@ class Calendar extends React.Component{
             </div>
           </div>
         </div>
-      </div>
-      return <div>{content}</div>
+      </div>)
     }
   }
 
