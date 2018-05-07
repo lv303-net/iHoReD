@@ -20,6 +20,7 @@ import PatientInfo from './components/PatientInfo';
 import MedicalCard from './components/MedicalCard';
 import SalaryReport from './components/SalaryReport';
 import AdminPage from './components/adminPage/AdminMainPage';
+import UserPage from './components/userPage/UserMainPage'
 
 
 var url = window.location.href;
@@ -40,6 +41,7 @@ class Home extends Component {
                 <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
                 <Route path="/medicalCard" component={MedicalCard}/>
                 <Route path="/admin" component={AdminPage}/>
+                <Route path="/user" component={UserPage}/>
                 <Route path="/reporting" component={SalaryReport}/>
               </Switch>
             <Footerbar/>
