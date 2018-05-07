@@ -1,8 +1,11 @@
 import React from 'react';
+import { Component } from 'react';
 import $ from 'jquery';
 import 'fullcalendar';
+import validator from 'validator';
 import axios from 'axios';
 import '../style/Calendar.css';
+import Loader from 'react-loader';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -18,20 +21,25 @@ class DoctorCalendar extends React.Component{
       endPeriod: '', 
       events:[], 
       startTime:'', 
-      endTime:''};  
+      endTime:'',
+      idPatient:0
+    };  
     this.setId=this.setId.bind(this);   
   }
 
   componentWillMount(){
     localStorage.setItem('currentUserId','1');
   }
-
+  setId(smth){
+    document.getElementById("patientModal").innerHTML = 'Patient ID - '+this.state.idPatient;
+    this.setState({idPatient : smth});
+  }
   saveCurrentDayStartEnd(start, end){
     this.setState({
       startPeriod: start,
       endPeriod: end,
       idDoc :1,
-      idPatient :0
+      idPatient :11
     })
   }
     
@@ -94,7 +102,7 @@ class DoctorCalendar extends React.Component{
           _that.saveCurrentTimeStartEnd(event.start._i, event.end._i);  
           $("#modButton").trigger("click");
         } else {
-          
+          _that.setId(event.title);
           //this.setState({idPatient : event.idPatient});
           $("#blockClickButton").trigger("click");
         }
@@ -116,15 +124,13 @@ class DoctorCalendar extends React.Component{
     || (this.state.idDoc!== nextState.idDoc) || (this.state.startTime!== nextState.startTime) || (this.state.endTime!== nextState.endTime) );       
   }
 
-  setId(smth){
-    this.setState({PatientId : smth});
-  }
+
   componentWillUpdate(nextProps, nextState){
     var getData = (this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.state.idDoc!== nextState.idDoc); 
     if(getData){
       $('#calendar').fullCalendar( 'removeEvents');
       var isMonth;
-      if($('#calendar').fullCalendar('getView').name === 'month')
+      if($('#calendar').fullCalendar('getView').name=='month')
         isMonth = true;
       else 
         isMonth = false;
@@ -133,7 +139,7 @@ class DoctorCalendar extends React.Component{
         var col;
         var building = $.map(response.data, function(event){
           var isSelectable = false;
-          if($('#calendar').fullCalendar('getView').name === 'month')
+          if($('#calendar').fullCalendar('getView').name=='month')
           {
             if(event.isFake){
               col = 'green';
@@ -213,7 +219,7 @@ class DoctorCalendar extends React.Component{
               <h4 className="modal-title" id="mModalLabel">Some info about patient.</h4>
                 <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
               </div>
-              <div className="modal-body">
+              <div className="modal-body" id="patientModal">
               Patient ID - {this.state.idPatient}
               </div>
               <div className="modal-footer">
