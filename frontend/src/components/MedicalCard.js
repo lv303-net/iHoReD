@@ -27,7 +27,7 @@ class MedicalCard extends Component {
          </div>       
           </div> 
           <div className="row mt-5">
-            <PatientDiagnosesTable PatientId='1'/>            
+            <PatientDiagnosesTable PatientId='67'/>            
           </div> 
         </div>
       </div>
