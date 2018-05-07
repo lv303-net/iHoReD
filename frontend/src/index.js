@@ -19,6 +19,7 @@ import SalaryReport from './components/SalaryReport';
 import AdminPage from './components/adminPage/AdminMainPage';
 import UserPage from './components/userPage/UserMainPage'
 import DoctorPage from './components/doctorPage/DoctorMainPage'
+import NotFound from './components/NotFound'
 
 class Home extends Component {
     render() {
@@ -34,11 +35,12 @@ class Home extends Component {
                 <Route path="/activation/:id" component={ActivationLink}/>
                 <Route path="/doctorCalendar" component={DoctorCalendar}/>
                 <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
-                <Route path="/medicalCard" component={MedicalCard}/>
+                <Route path="/medicalCard/:id" component={MedicalCard}/>
                 <Route path="/admin" component={AdminPage}/>
                 <Route path="/user" component={UserPage}/>
                 <Route path="/doctor" component={DoctorPage}/>
-                <Route path="/reporting" component={SalaryReport}/>
+                <Route exact path="/reporting" component={SalaryReport}/>
+                <Route component={NotFound} />
               </Switch>
             <Footerbar/>
       </div>

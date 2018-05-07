@@ -24,7 +24,7 @@ class Edit extends React.Component {
       street:"Fedkovycha",
       apartment:"60A",
       sex:false,
-        
+      loading:false,  
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,14 +34,12 @@ class Edit extends React.Component {
     this.setState({[event.target.name] : event.target.value});
   }
   submitForm(){
-    /*
-    var toRet = "";
-    for (var p in this.state){
-      toRet+=p+" = "+this.state[p]+"\n";
-    }
-    alert(toRet);
-    */
-    axios.post(server_url+'/EditUserInfo',this.state);//.then().catch(alert('smth gone wrong!'));
+    axios.post(server_url+'/EditUserInfo',this.state).then(response => { 
+      console.log(response+response.status)
+    })
+    .catch(error => {
+        console.log(error.response)
+    });
   }
   componentWillMount(){
     //localStorage.setItem('currentUserId','111');
