@@ -1,5 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
+import '../style/PatientInfo.css';
 import axios from 'axios';
 var server_url;
 if (process.env.NODE_ENV === "development")
@@ -9,6 +10,7 @@ else if (process.env.NODE_ENV === "production")
 
 class AboutPatient extends React.Component {
     render() {
+        alert("hello");
         return (
             <div>
                 <div className="row" id="patientcard">
@@ -20,7 +22,7 @@ class AboutPatient extends React.Component {
                 </div>
                 <div className="row" id="patientcard">
                     <div className="col-5" id="col-custom">First Name</div>
-                    <div className="col-7">{this.props.lastname}</div>
+                    <div className="col-7">{this.props.firstname}</div>
                 </div>
                 <div className="row" id="patientcard">
                     <div className="col-5" id="col-custom">Last Name</div>
@@ -28,7 +30,7 @@ class AboutPatient extends React.Component {
                 </div>
                 <div className="row" id="patientcard">
                     <div className="col-5" id="col-custom">Date Of Birds</div>
-                    <div className="col-7">{this.props.birthday}</div>
+                    <div className="col-7">{this.props.birthday.slice(0,10)}</div>
                 </div>
                 <div className="row" id="patientcard">
                     <div className="col-5" id="col-custom">Phone Number</div>
@@ -50,13 +52,13 @@ class PatientInfo extends React.Component {
             allergies: [],
             id: 1
         };
-        axios.get(server_url + '/api/PatientData/' + 216)
+        axios.get(server_url + '/api/PatientData/' + this.props.PatientId)
             .then(res => {
                 this.setState({
                     userdata: res.data,
                 });
             });
-        axios.get(server_url + '/api/PatientData/Allergies/' + 216)
+        axios.get(server_url + '/api/PatientData/Allergies/' + this.props.PatientId)
             .then(res => {
                 this.setState({
                     allergies: res.data,
@@ -66,7 +68,7 @@ class PatientInfo extends React.Component {
     render() {
         return (
             <div className="container mt-5 col-lg-4 col-md-6 col-10" id="patientInfoMain">
-                {this.state.userdata.map(item => <AboutPatient name={item.FirstName}
+                {this.state.userdata.map(item => <AboutPatient firstname={item.FirstName}
                     lastname={item.LastName} birthday={item.Birthday}
                     phone={item.Phone} bloodtype={item.BloodType} />)}
                 <div className="row" id="patientcard">
