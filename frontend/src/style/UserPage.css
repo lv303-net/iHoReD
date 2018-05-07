@@ -1,4 +1,4 @@
- #mainDivHeight {
+#mainDivHeight {
     min-height: calc(100vh - 486px);
  }
  .main-nav1 {
@@ -22,7 +22,7 @@ a:hover {
     text-decoration: none;
 }
 
-span#link1:hover, span#link2:hover {
+span#link1:hover, span#link2:hover, span#link3:hover {
     font-weight: bold;
     letter-spacing: 1px;
 }

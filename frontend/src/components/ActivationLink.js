@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { Route, Switch, BrowserRouter, Router } from 'react-router-dom';
 import Loader from 'react-loader';
 
 var server_url;
@@ -19,7 +18,7 @@ class Direction extends React.Component {
   componentDidMount() {
     var url = window.location.origin;
     setTimeout(() => {
-      if (this.props.status == 1 || this.props.status == 0) window.location.href = url + "/startPage";
+      if (this.props.status === 1 || this.props.status === 0) window.location.href = url + "/startPage";
     }, 4000);
   }
   render() {
@@ -92,7 +91,6 @@ class ActivationLink extends React.Component {
   }
  
   render() {
-    const { loading } = this.state;
     const { text } = this.state;
     const { isRegistrated } = this.state;
     const { redirect } = this.state;

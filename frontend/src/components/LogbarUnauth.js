@@ -1,6 +1,5 @@
 import React from 'react';
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import validator from 'validator';
 import logo from '../images/logo.png';
@@ -94,7 +93,7 @@ class LogbarUnauth extends Component {
   checkPassword() {
     var password = this.passwordRegistr;
     var confirmPassword = this.confirmPasswordRegistr;
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       console.log("Password isn't the same");
       this.validConfirmPassword = false;
       return false;
@@ -208,7 +207,7 @@ class LogbarUnauth extends Component {
   }
 
   validatePassword() {
-    if (validator.isEmpty(this.passwordRegistr) == false) {
+    if (validator.isEmpty(this.passwordRegistr) === false) {
       this.validPasword = true;
       return true;
     } else {
@@ -251,13 +250,13 @@ class LogbarUnauth extends Component {
               <a className="nav-link" id="link-custom" href="/">Home</a>
             </li>
             <li className="nav-item btn-custom">
-              <a className="nav-link" id="link-custom" href="#">Contacts</a>
+              <a className="nav-link" id="link-custom">Contacts</a>
             </li>
             <li className="nav-item btn-custom">
-              <a className="nav-link" id="link-custom" href="#">Illnes prevention</a>
+              <a className="nav-link" id="link-custom">Illnes prevention</a>
             </li>
             <li className="nav-item btn-custom">
-              <a className="nav-link" id="link-custom" href="#">National medicine program</a>
+              <a className="nav-link" id="link-custom">National medicine program</a>
             </li>
           </ul>
         </div>

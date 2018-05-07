@@ -211,6 +211,8 @@ font-family: sans-serif;
 .react-datepicker-wrapper{
   text-align: center;
 }
-div#allergilist.list-group-item:last-child {
-  border-bottom: none;
+.padding-l-r-10px {
+  padding-left: 10px;
+  padding-right: 10px;
 }
+

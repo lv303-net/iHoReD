@@ -1,8 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import ReactDOM from 'react-dom';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -11,10 +9,6 @@ else if(process.env.NODE_ENV==="production")
   server_url="https://hored.azurewebsites.net"
 
 class SubmitDeleting extends Component {
-    constructor(props){
-        super(props);
-    }
-
     DeleteCurrentRule(){
         axios.post(server_url + '/rule/' + this.props.currentRule.IdRule + '/delete')
         .then(

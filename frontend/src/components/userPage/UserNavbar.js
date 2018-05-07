@@ -2,10 +2,10 @@ import React from 'react';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
-import '../../style/AdminPage.css';
+import '../../style/UserPage.css';
 
 
-class AdminNavbar extends Component {
+class UserNavbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,14 +25,19 @@ class AdminNavbar extends Component {
   }
 
   getValueFromURL() {
-    if(window.location.href.indexOf("rules") != -1) {
+    if(window.location.href.indexOf("schedule") != -1) {
       this.setState({
         idLink: "link1"
       })
     } 
-    else {
+    else if (window.location.href.indexOf("edit") != -1) {
       this.setState({
         idLink: "link2"
+      })
+    }
+    else {
+      this.setState({
+        idLink: "link3"
       })
     }
   }
@@ -62,13 +67,18 @@ class AdminNavbar extends Component {
         <div className="navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav main-nav1" onClick={(e) => { this.colorSelected(e) }} >
             <li className="nav-item">
-              <Link to='/admin/rules'>
-                <span className="nav-link" id="link1">Rules</span>
+              <Link to='/user/schedule'>
+                <span className="nav-link" id="link1">Schedule</span>
               </Link>
             </li>
             <li className="nav-item">
-              <Link to='/admin/salary'>
-                <span className="nav-link" id="link2">Salary</span>
+              <Link to='/user/edit'>
+                <span className="nav-link" id="link2">Edit Info</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to='/user/medicalCard'>
+                <span className="nav-link" id="link3">Medical Card</span>
               </Link>
             </li>
           </ul>
@@ -78,4 +88,4 @@ class AdminNavbar extends Component {
   }
 }
 
-export default AdminNavbar;
+export default UserNavbar;
