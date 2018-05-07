@@ -201,4 +201,12 @@ font-family: sans-serif;
 .min-height{
   min-height: calc(100vh - 501px);
 }
+#datepicker{
+  text-align: center;
+padding: 20px;
+font-family: sans-serif;
+}
+.react-datepicker-wrapper{
+  text-align: center;
+}
 
