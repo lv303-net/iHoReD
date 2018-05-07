@@ -14,7 +14,9 @@ class MedicalCard extends Component {
          </div>       
           </div> 
           <div className="row mt-5">
+          <div className="col-xl-12">
             <PatientDiagnosesTable PatientId='67'/>            
+          </div> 
           </div> 
         </div>
       </div>
