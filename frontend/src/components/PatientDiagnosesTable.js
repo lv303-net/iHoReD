@@ -170,15 +170,6 @@ class PatientDiagnosesTable extends React.Component{
           var row=this.getColumnsAndRowsNumber(this.state.elementsCount)[1];
              if(col==2)
              {
-                 if(this.state.diagnosesArr.length==1)
-                 {
-                    var item= <div className="card-column col-xl-12">
-                    {this.state.diagnosesArr.map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime} diagnosis={diagnoses.DiseaseName}/>)}
-                    </div>
-                    arr.push(item);
-                 }
-                 else
-                 {
                     for(var i=0;i<col;i++)
                     {
                     var item= <div className="card-column col-md-6">
@@ -186,7 +177,6 @@ class PatientDiagnosesTable extends React.Component{
                     </div>
                     arr.push(item);
                 }
-                 }
         }
              if(col==3)
              {
