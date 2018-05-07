@@ -23,13 +23,16 @@ namespace HoReD.Controllers
             {
                 return Ok(_ruleService.GetRules());
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string message = e.Message;
-                return null;
+                return BadRequest();
             }
         }
 
+        /// <summary>
+        /// Adds new rule into database, or update existing based on ID
+        /// </summary>
+        /// <param name="model">Rule</param>
         [HttpPost]
         [Route("Rule/{IdRule}")]
         public void AddOrUpdate(Models.RuleBindingModel model)
@@ -55,6 +58,10 @@ namespace HoReD.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes rule with current ID
+        /// </summary>
+        /// <param name="IdRule">ID of rule, that should be deleted</param>
         [HttpPost]
         [Route("Rule/{IdRule}/Delete")]
         public void Delete(int IdRule)
@@ -69,6 +76,10 @@ namespace HoReD.Controllers
             }
         }
 
+        /// <summary>
+        /// Dismisses doctor with ID {IdDoctor} from rule with ID {IdRule}
+        /// </summary>
+        /// <param name="model">Stores IDs of doctor and rule</param>
         [HttpPost]
         [Route("Rule/{IdRule}/DoctorHasRule/{IdDoctor}/Dismiss")]
         public void Delete(Models.RulesetBindingModel model)
@@ -82,7 +93,10 @@ namespace HoReD.Controllers
                 string message = e.Message;
             }
         }
-
+        /// <summary>
+        /// Assigns doctor with ID {IdDoctor} to rule with ID {IdRule}
+        /// </summary>
+        /// <param name="model">Stores IDs of doctor and rule</param>
         [HttpPost]
         [Route("Rule/{IdRule}/DoctorHasRule/false/{IdDoctor}/Assign")]
         public void AssignDoctorToRule(Models.RulesetBindingModel model)
@@ -97,6 +111,12 @@ namespace HoReD.Controllers
             }
         }
 
+        /// <summary>
+        /// Returns all doctors that has or has not rule with ID {IdRule} based on {hasRule}
+        /// </summary>
+        /// <param name="IdRule">ID of needed rule</param>
+        /// <param name="hasRule">Defines to return doctors that has or has not</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("Rule/{IdRule}/DoctorHasRule/{hasRule=true}")]
         public IHttpActionResult GetDoctorsBYIdRule(int IdRule, bool hasRule)

@@ -10,6 +10,9 @@ using HoReD.Models;
 
 namespace HoReD.Controllers
 {
+    /// <summary>
+    /// Manages the logining process of users
+    /// </summary>
     public class LoginController : ApiController
     {
         private readonly IUserService _userService;
@@ -19,6 +22,11 @@ namespace HoReD.Controllers
             _userService = userService;
         }
 
+        /// <summary>
+        /// Checks whether entered user data is valid
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public IHttpActionResult LoginUser(LoginUserBindingModel model)
         {

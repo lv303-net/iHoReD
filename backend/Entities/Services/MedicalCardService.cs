@@ -35,9 +35,9 @@ namespace Entities.Services
                 {
                     for (int j = 0; j < rowNuber; j++)
                     {
-                        if (nonResponsiveList.Count > j + i * rowNuber)
+                        if (nonResponsiveList.Count > i + j * columnNumber)
                         {
-                            responsiveList.Add(nonResponsiveList[j + i * rowNuber]);
+                            responsiveList.Add(nonResponsiveList[i + j * columnNumber]);
                         }
                     }
                 }
@@ -45,6 +45,25 @@ namespace Entities.Services
             }
             catch (Exception e)
             {
+                throw;
+            }
+        }
+
+        public int GetPageCountForUserMC(int userId, int elementOnPageCount)
+        {
+            string cmd = "GET_PAGE_COUNT_FOR_MC_DEPENDING_ELEM_COUNT";
+            var param = new Dictionary<string, object>()
+            {
+                {"USER_ID", userId },
+                {"ELEMENT_COUNT", elementOnPageCount}
+            };
+            try
+            {
+                return int.Parse(_dbContext.ExecuteSqlQuery(cmd, '*', param));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 throw;
             }
         }

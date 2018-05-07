@@ -33,6 +33,11 @@ namespace HoReD.Controllers
             return Ok(_doctorService.GetDoctors());
         }
 
+        /// <summary>
+        /// Returns all doctors' ID, name and surname with current profession ID
+        /// </summary>
+        /// <param name="professionId"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetDoctors/{professionId}")]
          public IHttpActionResult GetDoctorsByProfession(int professionId)
@@ -40,6 +45,11 @@ namespace HoReD.Controllers
              return Ok(_doctorService.GetDoctorsByProfessionId(professionId));
         }
 
+        /// <summary>
+        /// Returns list of all static/nonstatic professions' id & name
+        /// </summary>
+        /// <param name="isStatic"></param>
+        /// <returns></returns>
         [HttpGet]
         [ActionName("GetProfessions")]
         [Route("ProfessionsStatic/{isStatic=true}")]
@@ -58,20 +68,8 @@ namespace HoReD.Controllers
         [Route("DoctorEvents/{doctorId}/{dateStart}/{dateFinish}")]
         public IHttpActionResult GetDoctorEvents(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
-            var generalEvents = _doctorService.GetGeneralEventsList(doctorId, dateStart, dateFinish);
-
-            List<EventBindingModel> result = new List<EventBindingModel>();
-            foreach (var general in generalEvents)
-            {
-                EventBindingModel eventModel = new EventBindingModel()
-                {
-                    dateTime = general.dateTime,
-                    isFake = general.isFake
-                };
-                result.Add(eventModel);
-            }
-
-            return Ok(result);
+            List<Event> generalEvents = _doctorService.GetGeneralEventsList(doctorId, dateStart, dateFinish);
+            return Ok(generalEvents);
         }
         /// <summary>
         /// Similar to GetDoctorEvents, but also returns id and name of user, that has session in relevant event
@@ -99,6 +97,22 @@ namespace HoReD.Controllers
                 toRet.Add(eventModel);
             }
             return Ok(toRet);
+        }
+
+        /// <summary>
+        /// Get doctor's salary statistics in specific range of time
+        /// </summary>
+        /// <param name="doctorId"></param>
+        /// <param name="dateStart"></param>
+        /// <param name="dateFinish"></param>
+        /// <returns>List of instances of the class SalaryStatistics</returns>
+        /// <example>http://localhost:*****/DoctorSalaryStatistics/{doctorId}/{dateStart}/{dateFinish}</example>
+        [HttpGet]
+        [Route("DoctorSalaryStatistics/{doctorId}/{dateStart}/{dateFinish}")]
+        public IHttpActionResult GetDoctorSalaryStatistics(int doctorId, DateTime dateStart, DateTime dateFinish)
+        {
+            List<SalaryStatistics> statistics = _doctorService.GetDoctorSalaryStatistics(doctorId, dateStart, dateFinish);
+            return Ok(statistics);
         }
     }
 }
