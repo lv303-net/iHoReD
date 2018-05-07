@@ -32,12 +32,10 @@ class DoctorsListWithSomeRule extends Component {
         
       render(){
         return  (
-          <div className='container'>
-            <div className="col-sm-6 list-group mt-4" id = "doctors">
+            <div className="list-group col-sm-6 mt-4" id = "doctors">
               <div className="list-group-item active bg-info">Doctors:</div>
               {this.state.doc.map(doc => <div className='list-group-item list-group-active'key={doc.toString()}>{doc.FirstName + ' ' + doc.LastName}</div>)}                  
             </div>
-          </div>
         );
     }
 }

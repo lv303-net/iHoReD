@@ -1,6 +1,5 @@
-.cid-qv5AKsQ6xL {
+.footer-lv303 {
     padding-top: 60px;
-    padding-bottom: 30px;
     background-color: #465052;
     margin-top: 5em;
 }
@@ -22,7 +21,7 @@ section, .container, .container-fluid {
     align-content: center;
     align-items: start;
 }
-.mbr-white {
+.footer-white {
     color: #ffffff;
 }
 
@@ -34,7 +33,7 @@ body {
     font-weight: 400;
 }
 
-.mbr-text {
+.footer-text {
     font-style: normal;
     line-height: 1.6;
 }
@@ -43,16 +42,11 @@ p {
     margin-bottom: 1rem;
 }
 
-/* .display-7 {
-    font-family: 'Rubik', sans-serif;
-    font-size: 1rem;
-} */
-
 .copyrith-font {
     font-size: 0.8rem;
 }
 
-.cid-qv5AKsQ6xL .google-map {
+.footer-lv303 .google-map {
     height: 10rem;
     position: relative;
 }

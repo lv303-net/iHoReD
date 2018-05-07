@@ -131,11 +131,11 @@ class Calendar extends React.Component{
 
   shouldComponentUpdate(nextProps, nextState) {
     return ((this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod) 
-    || (this.state.idDoc!== nextState.idDoc) || (this.state.startTime!== nextState.startTime) || (this.state.endTime!== nextState.endTime) );       
+    || (this.props.idDoctor!== nextProps.idDoctor) || (this.state.startTime!== nextState.startTime) || (this.state.endTime!== nextState.endTime) );       
   }
 
   componentWillUpdate(nextProps, nextState){
-    var getData = (this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.state.idDoc!== nextState.idDoc); 
+    var getData = (this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.props.idDoctor!== nextProps.idDoctor); 
     if(getData){
       $('#calendar').fullCalendar( 'removeEvents');
       var isMonth;
@@ -143,7 +143,7 @@ class Calendar extends React.Component{
         isMonth = true;
       else 
         isMonth = false;
-      axios.get(server_url+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
+      axios.get(server_url+'/DoctorEvents/' + nextProps.idDoctor +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
       .then(response => {
         var col;
         var building = $.map(response.data, function(event){
@@ -160,7 +160,7 @@ class Calendar extends React.Component{
             
           }else {
             event.isFake ? (col = 'green', isSelectable = true):(col = 'red', isSelectable = false);
-            if(new Date(event.dateTime[0]+'T'+event.dateTime[2]) <= (new Date()))
+            if(new Date(event.dateTime[0]+'T'+event.dateTime[1]) < (new Date()))
             {
               return{
                 start: event.dateTime[0]+'T'+event.dateTime[1],

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Component } from 'react';
 import axios from 'axios';
 import { Route, Switch, BrowserRouter, Router } from 'react-router-dom';
 import Loader from 'react-loader';
