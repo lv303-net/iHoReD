@@ -1,8 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import ReactDOM from 'react-dom';
 
 var server_url;
 if(process.env.NODE_ENV==="development")

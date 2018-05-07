@@ -1,12 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import DoctorsListWithSomeRule from './../DoctorsListWithSomeRule';
+import DoctorsListWithSomeRule from './DoctorsListWithSomeRule';
 import AddOrUpdateRule from './modaldialogs/AddOrUpdateRuleModal';
 import SubmitDeleting from './modaldialogs/SubmitDeletingModal';
 import AddDoctorToCurrentRule from './modaldialogs/AddDoctorToCurrentRule';
-import ReactDOM from 'react-dom';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -82,7 +80,7 @@ class RulesPage extends Component {
                 }
             })
         } else {
-            this.state.massiveRules.map(rule => {if(rule.IdRule == currentRuleId){
+            this.state.massiveRules.map(rule => {if(rule.IdRule === currentRuleId){
                 this.setState({
                     currentRule: rule
                 })
@@ -93,8 +91,8 @@ class RulesPage extends Component {
     render(){
         return (
             <div className="container min-height">
-                <div className="list-group col-sm-6">
-                    <div className="list-group-item active bg-info">
+                <div className="list-group col-sm-6 mt-4 padding-l-r-10px">
+                    <div className="list-group-item active">
                         <div className="col-sm-10 float-left">Rules:</div>
                         <div className="col-sm-2 float-right">
                             <i className="fa fa-plus" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChandeCurrentRuleInfo(-1)}></i>

@@ -163,12 +163,14 @@ div.profDocTable:hover {
   margin-right: 0%;
   min-height: 40px;
   height:  auto; 
-  word-wrap: break-word;
-  
+  word-wrap: break-word; 
 }
 #col-custom{
   border-right:2px solid #adc9ff;
   height: auto;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 #col-head{
   height: auto;
@@ -208,5 +210,9 @@ font-family: sans-serif;
 }
 .react-datepicker-wrapper{
   text-align: center;
+}
+.padding-l-r-10px {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 

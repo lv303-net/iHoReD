@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Component } from 'react';
 //import { BrowserRouter } from 'react-router-dom';
-import { Route, Switch, BrowserRouter, Router} from 'react-router-dom';
+import { Route, Switch, BrowserRouter} from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Diagnoses from './components/Diagnoses';
@@ -11,18 +11,14 @@ import StartPatientPage from './components/StartPatientPage';
 import registerServiceWorker from './registerServiceWorker';
 import ActivationLink from './components/ActivationLink';
 import PatientDiagnosesTable from './components/PatientDiagnosesTable';
-import LogbarAuth from './components/LogbarAuth';
-import LogbarUnauth from './components/LogbarUnauth';
 import LogbarWrapper from './components/LogbarWrapper';
 import Footerbar from './components/Footerbar';
 import DoctorCalendar from './components/DoctorCalendar';
-import PatientInfo from './components/PatientInfo';
 import MedicalCard from './components/MedicalCard';
 import SalaryReport from './components/SalaryReport';
 import AdminPage from './components/adminPage/AdminMainPage';
-
-
-var url = window.location.href;
+import UserPage from './components/userPage/UserMainPage'
+import DoctorPage from './components/doctorPage/DoctorMainPage'
 
 class Home extends Component {
     render() {
@@ -40,6 +36,8 @@ class Home extends Component {
                 <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
                 <Route path="/medicalCard" component={MedicalCard}/>
                 <Route path="/admin" component={AdminPage}/>
+                <Route path="/user" component={UserPage}/>
+                <Route path="/doctor" component={DoctorPage}/>
                 <Route path="/reporting" component={SalaryReport}/>
               </Switch>
             <Footerbar/>
