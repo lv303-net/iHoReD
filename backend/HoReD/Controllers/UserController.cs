@@ -10,6 +10,9 @@ using Entities;
 
 namespace HoReD.Controllers
 {
+    /// <summary>
+    /// Manages general User data
+    /// </summary>
     public class UserController : ApiController
     {
         private readonly IUserService _userService;
@@ -19,6 +22,11 @@ namespace HoReD.Controllers
             _userService = userService;
         }
 
+        /// <summary>
+        /// Edits record in database with general info
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("EditUserInfo")]
         public IHttpActionResult EditUserInfo(UserInfoBindingModel model)
@@ -27,6 +35,11 @@ namespace HoReD.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Gets all general info about user
+        /// </summary>
+        /// <param name="UserInfoId">ID of needed user</param>
+        /// <returns>UserInfo</returns>
         [HttpGet]
         [Route("GetUserInfoById/{UserInfoId}")]
         public IHttpActionResult GetUserInfoById(int UserInfoId)

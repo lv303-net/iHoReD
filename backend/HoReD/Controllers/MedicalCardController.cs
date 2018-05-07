@@ -25,7 +25,11 @@ namespace HoReD.Controllers
         /// <summary>
         /// Method that get user id and return his medical card
         /// </summary>
-        /// 
+        /// <param name="userId">ID of needed user</param>
+        /// <param name="pageNumber">Index of page</param>
+        /// <param name="elementOnPageCount"> Total amount of records on one page</param>
+        /// <param name="columnNumber"> Amount of column on page</param>
+        /// <returns>Array of records</returns>
         [HttpGet]
         [Route("GetByUserId/{userId}/{pageNumber}/{elementOnPageCount}/{columnNumber}")]
         public IHttpActionResult GetMedicalCardByPatientId(int userId, int pageNumber, int elementOnPageCount, int columnNumber)
@@ -42,6 +46,12 @@ namespace HoReD.Controllers
             }
         }
 
+        /// <summary>
+        /// Returns Total amount of needed pages with {elementOnPageCount} to display all medical card data
+        /// </summary>
+        /// <param name="userId">ID of needed user</param>
+        /// <param name="elementOnPageCount">Amount of records displayed on one page</param>
+        /// <returns>Total page amount</returns>
         [HttpGet]
         [Route("GetPageCount/{userId}/{elementOnPageCount}")]
         public IHttpActionResult GetPageCount(int userId, int elementOnPageCount)

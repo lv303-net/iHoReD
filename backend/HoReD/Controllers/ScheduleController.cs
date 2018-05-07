@@ -7,7 +7,7 @@ using Entities.Services;
 namespace HoReD.Controllers
 {
     /// <summary>
-    /// Controller that represents information about Doctors
+    /// Controller manages schedules
     /// </summary>
 
     public class ScheduleController : ApiController
@@ -22,6 +22,8 @@ namespace HoReD.Controllers
         /// <summary>
         /// Inserts new schedule record into database
         /// </summary>
+        /// <param name="model"> Stores data about schedule(start time, end time and IDs of doctor and patient</param>
+        /// <returns>Status code</returns>
         [HttpPost]
         public IHttpActionResult InsertNewScheduleRecord(Models.ScheduleBindingModel model)
         {

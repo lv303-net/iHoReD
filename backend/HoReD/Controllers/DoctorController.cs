@@ -33,6 +33,11 @@ namespace HoReD.Controllers
             return Ok(_doctorService.GetDoctors());
         }
 
+        /// <summary>
+        /// Returns all doctors' ID, name and surname with current profession ID
+        /// </summary>
+        /// <param name="professionId"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetDoctors/{professionId}")]
          public IHttpActionResult GetDoctorsByProfession(int professionId)
@@ -40,6 +45,11 @@ namespace HoReD.Controllers
              return Ok(_doctorService.GetDoctorsByProfessionId(professionId));
         }
 
+        /// <summary>
+        /// Returns list of all static/nonstatic professions' id & name
+        /// </summary>
+        /// <param name="isStatic"></param>
+        /// <returns></returns>
         [HttpGet]
         [ActionName("GetProfessions")]
         [Route("ProfessionsStatic/{isStatic=true}")]

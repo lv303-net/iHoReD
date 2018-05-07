@@ -24,7 +24,8 @@ namespace HoReD.Controllers
         /// <summary>
         /// Method that get user id and return his medical card
         /// </summary>
-        /// 
+        /// <param name="id">ID of needed user</param>
+        /// <returns>Patient Data</returns>
         [HttpGet]
         public IHttpActionResult GetPatientDataByPatientId(int id)
         {
@@ -40,6 +41,11 @@ namespace HoReD.Controllers
             }
         }
 
+        /// <summary>
+        /// Returns all allergies, that current user has
+        /// </summary>
+        /// <param name="id">ID of needed user</param>
+        /// <returns>List of user's allergies names</returns>
         [HttpGet]
         [Route("api/PatientData/Allergies/{id}")]
         public IHttpActionResult GetPatientAllergies(int id)
