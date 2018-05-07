@@ -129,6 +129,7 @@ constructor(props){
       this.addUrl(idProf);
     }
 
+
     render(){
       return <div className="col-sm-12 col-md-3" id='tablesBlock'>
               <div className="row">
