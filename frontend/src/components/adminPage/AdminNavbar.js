@@ -12,6 +12,7 @@ class AdminNavbar extends Component {
       idLink: 0
     };
     this.colorSelected = this.colorSelected.bind(this);
+    this.getValueFromURL = this.getValueFromURL.bind(this);
   };
 
   colorSelected(e) {
@@ -21,10 +22,9 @@ class AdminNavbar extends Component {
     this.setState({
       idLink: id
     })
-    alert(id);
   }
 
-  componentDidMount() {
+  getValueFromURL() {
     if(window.location.href.indexOf("rules") != -1) {
       this.setState({
         idLink: "link1"
@@ -37,11 +37,16 @@ class AdminNavbar extends Component {
     }
   }
 
+  componentDidMount() {
+    this.getValueFromURL();
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
-    return (this.state.idLink !== nextProps.idLink);
+    return (this.state.idLink !== nextState.idLink);
   }
 
   componentWillUpdate(nextProps, nextState) {
+    this.getValueFromURL();
     let i;
     for (i = 0; i < $(".main-nav1 a").length; i++) { 
       $( ".main-nav1  a#link"+i).css("background-color", "#fff");
