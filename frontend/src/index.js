@@ -28,14 +28,14 @@ class Home extends Component {
             <LogbarWrapper/>
               <Switch>
                 <Route exact path="/" component={App}/>              
-                <Route exact path="/editUserInfo" component={Edit}/>
-                <Route exact path="/allDiagnoses" component={Diagnoses}/>
-                <Route exact path="/startPage" component={StartPatientPage}/>
-                <Route exact path="/patient" component={Edit}/>
-                <Route exact path="/activation/:id" component={ActivationLink}/>
-                <Route exact path="/doctorCalendar" component={DoctorCalendar}/>
-                <Route exact path="/patientDiagnoses" component={PatientDiagnosesTable}/>
-                <Route exact path="/medicalCard" component={MedicalCard}/>
+                <Route path="/editUserInfo" component={Edit}/>
+                <Route path="/allDiagnoses" component={Diagnoses}/>
+                <Route path="/startPage" component={StartPatientPage}/>
+                <Route path="/patient" component={Edit}/>
+                <Route path="/activation/:id" component={ActivationLink}/>
+                <Route path="/doctorCalendar" component={DoctorCalendar}/>
+                <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
+                <Route path="/medicalCard/:id" component={MedicalCard}/>
                 <Route path="/admin" component={AdminPage}/>
                 <Route path="/user" component={UserPage}/>
                 <Route path="/doctor" component={DoctorPage}/>
