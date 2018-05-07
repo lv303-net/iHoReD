@@ -209,3 +209,8 @@ font-family: sans-serif;
 .react-datepicker-wrapper{
   text-align: center;
 }
+
+.padding-l-r-10px {
+  padding-left: 10px;
+  padding-right: 10px;
+}
