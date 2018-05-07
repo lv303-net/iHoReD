@@ -134,25 +134,25 @@ div.profDocTable:hover {
 }
 
 #adminMainDiv  {
-  min-height: calc(100vh - 84px);
+  min-height: calc(100vh - 486px);
 }
 
 #editMainDiv {
-  min-height: calc(100vh - 84px);
+  min-height: calc(100vh - 486px);
 }
 
 #mainDiv {
-  min-height: calc(100vh - 84px);
+  min-height: calc(100vh - 486px);
 }
+
 #patientInfoMain{
   float:left;
   position: relative;
   left:2vw;
   }
 .fa-heart{
-  font-size:24px;
   position:relative;
-  left:50%;
+  left:40%;
   padding-top:5px;
 }
 #patientcard{
@@ -163,14 +163,18 @@ div.profDocTable:hover {
   margin-right: 0%;
   min-height: 40px;
   height:  auto; 
-  word-wrap: break-word;
-  
+  word-wrap: break-word; 
 }
 #col-custom{
   border-right:2px solid #adc9ff;
   height: auto;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
-
+#col-head{
+  height: auto;
+}
 #buttonCancelForMessage {
   display: none;
 border: 2px solid #adc9ff;
@@ -192,3 +196,23 @@ padding: 20px;
 font-size: 1.25rem;
 font-family: sans-serif;
 }
+#allergilist{
+ border:none;
+ border-bottom: 2px solid #adc9ff;
+}
+.min-height{
+  min-height: calc(100vh - 501px);
+}
+#datepicker{
+  text-align: center;
+padding: 20px;
+font-family: sans-serif;
+}
+.react-datepicker-wrapper{
+  text-align: center;
+}
+.padding-l-r-10px {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+

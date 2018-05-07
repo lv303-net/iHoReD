@@ -1,8 +1,5 @@
 import React from 'react';
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import validator from 'validator';
 import logo from '../images/logo.png';
 import '../style/Navbar.css';
 
@@ -23,7 +20,7 @@ class LogbarAuth extends Component {
             <span className="logo-name">Lviv Regional Hospital</span>
           </div>
 
-          <form className="form-inline" action="/action_page.php">
+          <form className="form-inline text-center" action="/action_page.php">
             <ul className="nav">
               <li className="nav-item btn-custom">
                 <a className="nav-link" id ="link-custom">{localStorage.getItem("currentUserFirstName") + " " + localStorage.getItem("currentUserLastName") + " "}</a>
@@ -48,13 +45,13 @@ class LogbarAuth extends Component {
               <a className="nav-link" id ="link-custom" href="/">Home</a>
             </li>
             <li className="nav-item btn-custom">
-              <a className="nav-link" id ="link-custom" href="#">Contacts</a>
+              <a className="nav-link" id ="link-custom" >Contacts</a>
             </li>
             <li className="nav-item btn-custom">
-              <a className="nav-link" id ="link-custom" href="#">Illnes prevention</a>
+              <a className="nav-link" id ="link-custom" >Illnes prevention</a>
             </li>
             <li className="nav-item btn-custom">
-              <a className="nav-link" id ="link-custom" href="#">National medicine program</a>
+              <a className="nav-link" id ="link-custom" >National medicine program</a>
             </li>
           </ul>
         </div>

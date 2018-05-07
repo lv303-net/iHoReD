@@ -1,6 +1,5 @@
 import React from 'react';
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 var server_url;
@@ -32,12 +31,10 @@ class DoctorsListWithSomeRule extends Component {
         
       render(){
         return  (
-          <div className='container'>
-            <div className="col-sm-6 list-group mt-4" id = "doctors">
-              <div className="list-group-item active bg-info">Doctors:</div>
+            <div className="list-group col-sm-6 mt-4 padding-l-r-10px">
+              <div className="list-group-item active">Doctors:</div>
               {this.state.doc.map(doc => <div className='list-group-item list-group-active'key={doc.toString()}>{doc.FirstName + ' ' + doc.LastName}</div>)}                  
             </div>
-          </div>
         );
     }
 }

@@ -1,9 +1,6 @@
 import React from 'react';
-import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import validator from 'validator';
-import LogbarAuth from './LogbarAuth';
 
 
 var server_url;
@@ -27,7 +24,7 @@ class Edit extends React.Component {
       street:"Fedkovycha",
       apartment:"60A",
       sex:false,
-        
+      loading:false,  
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,17 +34,15 @@ class Edit extends React.Component {
     this.setState({[event.target.name] : event.target.value});
   }
   submitForm(){
-    /*
-    var toRet = "";
-    for (var p in this.state){
-      toRet+=p+" = "+this.state[p]+"\n";
-    }
-    alert(toRet);
-    */
-    axios.post(server_url+'/EditUserInfo',this.state);//.then().catch(alert('smth gone wrong!'));
+    axios.post(server_url+'/EditUserInfo',this.state).then(response => { 
+      console.log(response+response.status)
+    })
+    .catch(error => {
+        console.log(error.response)
+    });
   }
   componentWillMount(){
-    localStorage.setItem('currentUserId','111');
+    //localStorage.setItem('currentUserId','111');
     axios.get(server_url+'/GetUserInfoById/'+localStorage.getItem('currentUserId'))
     .then(res=>
       {
@@ -79,7 +74,7 @@ class Edit extends React.Component {
   render() {
     return (
       <div id="editMainDiv">
-       <div className="container col-sm-8 mt-3" id="editInfoWindow">
+       <div className="container col-sm-8 mt-5" id="editInfoWindow">
       <div id="editUserInfoHeader">
         <p className="col-sm-5 offset-sm-1" id="basicInfoID"><b>Basic info</b></p>
         <div>
@@ -155,7 +150,5 @@ class Edit extends React.Component {
     );
   }
 }
-
-
 
 export default Edit;

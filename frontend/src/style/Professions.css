@@ -1,8 +1,4 @@
-/* .fa-angle-down, .fa-angle-right {
-    display: none;
-} */
-
-div#professions {
+div#professions, div#doctors {
     padding-left: 15px;
 }
 
@@ -23,16 +19,10 @@ div#professions {
 
 #nameProf, #nameDoc {
     margin-left: 5px;
-    width:inherit;
-    white-space: nowrap;
-    overflow:hidden !important;
-    text-overflow: ellipsis;
-}
-
-@media (max-width: 576px) { 
-    #tablesBlock {
-        margin-right: 0;
-    }
+    white-space: nowrap; 
+    width: 10px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 #tableProf #listProf .active,
@@ -41,3 +31,13 @@ div#professions {
     background-color: #DCDCDC;
     color: white;
 }
+
+div#professions div#profButton, div#doctors div#docButton {
+    background-color: #007bff;
+    color: white;
+
+    white-space: nowrap; 
+    width: inherit; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
