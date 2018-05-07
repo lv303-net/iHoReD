@@ -47,7 +47,7 @@ class Edit extends React.Component {
     axios.post(server_url+'/EditUserInfo',this.state);//.then().catch(alert('smth gone wrong!'));
   }
   componentWillMount(){
-    localStorage.setItem('currentUserId','111');
+    //localStorage.setItem('currentUserId','111');
     axios.get(server_url+'/GetUserInfoById/'+localStorage.getItem('currentUserId'))
     .then(res=>
       {

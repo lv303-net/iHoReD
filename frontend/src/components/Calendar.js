@@ -44,12 +44,12 @@ class Calendar extends React.Component{
       startPeriod: start,
       endPeriod: end
     })
-    if (url.search != '') { 
-      var Doctor = url.searchParams.get("doc");
-      this.setState({
-        idDoc :Doctor
-      })
-    }
+    // if (url.search != '') { 
+    //   var Doctor = url.searchParams.get("doc");
+    //   this.setState({
+    //     idDoc :Doctor
+    //   })
+    // }
   }
     
   saveCurrentTimeStartEnd(start, end){
@@ -58,8 +58,22 @@ class Calendar extends React.Component{
       startTime: start
     })
   }
+  
+  setStateIdDoc()
+  {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var Doctor = url.searchParams.get("doc");
+    this.setState({
+      idDoc :Doctor
+    })
+  }
 
+  // componentWillMount(){
+  //   this.setStateIdDoc();
+  // }
   componentDidMount(){
+    this.setStateIdDoc();
     var _that = this;
     $('#calendar').fullCalendar('changeView', 'agendaDay');
     $(document).ready(function() {
@@ -137,6 +151,7 @@ class Calendar extends React.Component{
   }
 
   componentWillUpdate(nextProps, nextState){
+    this.setStateIdDoc();
     var getData = (this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.props.idDoctor!== nextProps.idDoctor); 
     if(getData){
       $('#calendar').fullCalendar( 'removeEvents');
@@ -187,10 +202,13 @@ class Calendar extends React.Component{
   }
 
     render(){
-      var doctor
+      var doctor;
       doctor = $("#doc"+this.state.idDoc).text();
       console.log(doctor);
-      
+      if($('#nameDoc').text()==="")
+        doctor = $("#doc"+this.state.idDoc).text();
+      else
+        doctor = $("#nameDoc").text();
       let content;
         content = 
       <div>
@@ -210,7 +228,7 @@ class Calendar extends React.Component{
                 <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Cancel</span></button> 
               </div>
               <div className="modal-body">
-                Doctor - {$("#doc"+this.state.idDoc).text()}<br/>
+                Doctor - {doctor}<br/>
                 Date - {this.state.startTime.slice(0, 10)}<br/>
                 Start - {this.state.startTime.slice(-8)}<br/>
                 End - {this.state.endTime.slice(-8)}<br/>
