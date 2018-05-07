@@ -50,13 +50,13 @@ class PatientInfo extends React.Component {
             allergies: [],
             id: 1
         };
-        axios.get(server_url + '/api/PatientData/' + 216)
+        axios.get(server_url + '/api/PatientData/' + 1)
             .then(res => {
                 this.setState({
                     userdata: res.data,
                 });
             });
-        axios.get(server_url + '/api/PatientData/Allergies/' + 216)
+        axios.get(server_url + '/api/PatientData/Allergies/' + 1)
             .then(res => {
                 this.setState({
                     allergies: res.data,
