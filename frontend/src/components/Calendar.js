@@ -36,12 +36,14 @@ class Calendar extends React.Component{
   saveCurrentDayStartEnd(start, end){
     var url_string = window.location.href;
     var url = new URL(url_string);
-    if (url.search !== '') { 
+    this.setState({
+      startPeriod: start,
+      endPeriod: end
+    })
+    if (url.search != '') { 
       var Doctor = url.searchParams.get("doc");
       this.setState({
-        startPeriod: start,
-        endPeriod: end,
-        idDoc :Doctor,
+        idDoc :Doctor
       })
     }
   }
