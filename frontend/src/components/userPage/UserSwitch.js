@@ -8,15 +8,15 @@ import NotFound from './../NotFound'
 import '../../style/UserPage.css'
 
 class UserSwitch extends Component {
-  render() {
+  render() {    
     return (
         <main id='mainDivHeight'>
           <Switch>
             <Route exact path='/user' render={() => <Redirect to="/user/schedule" />}/>
             <Route exact path="/user/schedule" component={App}/>
             <Route exact path="/user/edit" component={Edit}/>
-            <Route exact path="/user/medicalCard" component={MedicalCard}/>
-            <Route exact path="/doctor/salary" />
+            <Route path="/user/medicalCard/:id" component={MedicalCard}/>
+            <Route component={NotFound} />
           </Switch>
         </main>
     );

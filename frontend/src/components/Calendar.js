@@ -31,13 +31,14 @@ class Calendar extends React.Component{
       startDateTime: this.state.startTime,
       endDateTime:this.state.endTime
       
-    }  
-    
-    axios.post(server_url + '/api/Schedule', bookingEvent);
-    //$("#calendar").fullCalendar("rerenderEvents");
-    this.setState({
+    }   
+    axios.post(server_url + '/api/Schedule', bookingEvent)
+    .then(()=>{
+      this.setState({
       shouldUpdate: this.state.shouldUpdate+1
     })
+    })
+    
   }
 
   saveCurrentDayStartEnd(start, end){
@@ -47,12 +48,12 @@ class Calendar extends React.Component{
       startPeriod: start,
       endPeriod: end
     })
-    // if (url.search != '') { 
-    //   var Doctor = url.searchParams.get("doc");
-    //   this.setState({
-    //     idDoc :Doctor
-    //   })
-    // }
+    if (url.search != '') { 
+      var Doctor = url.searchParams.get("doc");
+      this.setState({
+        idDoc :Doctor
+      })
+    }
   }
     
   saveCurrentTimeStartEnd(start, end){
@@ -69,16 +70,14 @@ class Calendar extends React.Component{
     var Doctor = url.searchParams.get("doc");
     this.setState({
       idDoc :Doctor
-      // shouldUpdate: !this.state.shouldUpdate
     })
   }
 
-  // componentWillMount(){
-  //   this.setStateIdDoc();
-  // }
+  componentWillMount(){
+    this.setStateIdDoc();
+  }
   componentDidMount(){
     this.setStateIdDoc();
-    
     var _that = this;
     $('#calendar').fullCalendar('changeView', 'agendaDay');
     $(document).ready(function() {
@@ -150,16 +149,21 @@ class Calendar extends React.Component{
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (( this.state.shouldUpdate!==nextState.shouldUpdate) ||(this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod) 
-    || (this.props.idDoctor!== nextProps.idDoctor) || (this.state.startTime!== nextState.startTime) || (this.state.endTime!== nextState.endTime) );       
+    return (( this.state.shouldUpdate!==nextState.shouldUpdate) 
+    ||(this.state.startPeriod!== nextState.startPeriod) 
+    || (this.state.endPeriod!== nextState.endPeriod) 
+    || (this.state.startTime!== nextState.startTime) 
+    || (this.state.endTime!== nextState.endTime) 
+    || (this.state.idDoc!== nextState.idDoc)
+    || (this.props.idDoctor!==nextProps.idDoctor));       
   }
 
   componentWillUpdate(nextProps, nextState){
-    if( this.state.shouldUpdate!==nextState.shouldUpdate)
+    if( (this.state.shouldUpdate===nextState.shouldUpdate && (this.state.idDoc!== nextState.idDoc)) || (this.props.idDoctor!==nextProps.idDoctor))
       {
-        this.setStateIdDoc();
+         this.setStateIdDoc();
       }
-    var getData = ((this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.props.idDoctor!== nextProps.idDoctor) || this.state.shouldUpdate!==nextState.shouldUpdate); 
+    var getData = ((this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.state.idDoc!== nextState.idDoc) || this.state.shouldUpdate!==nextState.shouldUpdate); 
     if(getData){
       $('#calendar').fullCalendar( 'removeEvents');
       var isMonth;
@@ -167,7 +171,7 @@ class Calendar extends React.Component{
         isMonth = true;
       else 
         isMonth = false;
-      axios.get(server_url+'/DoctorEvents/' + nextProps.idDoctor +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
+      axios.get(server_url+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
       .then(response => {
         var col;
         var building = $.map(response.data, function(event){

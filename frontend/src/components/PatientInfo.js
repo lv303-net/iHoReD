@@ -65,6 +65,7 @@ class PatientInfo extends React.Component {
             });
     }
     render() {
+        console.log(this.props.PatientId);
         return (
             <div className="container mt-5 col-lg-4 col-md-6 col-10" id="patientInfoMain">
                 {this.state.userdata.map(item => <AboutPatient firstname={item.FirstName}
