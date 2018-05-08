@@ -263,8 +263,13 @@
   <changeSet author="Maksym Sikorskyi" id="V3.28">
     <sqlFile path="V3.28_ALTER_PROCEDURE_GET_ALL_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
-  
-  <changeSet author="Maksym Sikorskyi" id="V3.29">
-    <sqlFile path="V3.29_ALTER_PROCEDURE_DISMISS_DOCTOR_FROM_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+
+  <changeSet author="Mariia Shkolyk" id="V3.29">
+    <sqlFile path="V3.29_ALTERED_PROCEDURE_FOR_SALARY_STATISTICS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Maksym Sikorskyi" id="V3.30">
+    <sqlFile path="V3.30_ALTER_PROCEDURE_DISMISS_DOCTOR_FROM_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
