@@ -28,14 +28,7 @@ class SalaryReport extends React.Component {
       end: ""
     };
 
-     axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'))
-      .then(res => {
-        this.setState({
-          salaryData: res.data,
-         
-        })
-      });
-
+  
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
   }
@@ -55,29 +48,40 @@ class SalaryReport extends React.Component {
     });
    
   }
+  componentDidMount(){
+    
+    axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'))
+    .then(res => {
+      this.setState({
+        salaryData: res.data,
+       
+      })
+    });
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (this.state.startDate !== nextState.startDate ||this.state.endDate !== nextState.endDate);
   }
 
   componentWillUpdate(nextProps, nextState) {
-  //     axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + next.state.startDate.format('YYYY-MM-DD') + '/' + next.start.endDate.format('YYYY-MM-DD'))
-  //     .then(res => {
-  //       this.setState({
-  //         salaryData: res.data,
+    var start=this.state.startDate.format('YYYY-MM-DD');
+    var end=this.state.endDate.format('YYYY-MM-DD');
+      axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + start + '/' + end)
+      .then(res => {
+        this.setState({
+          salaryData: res.data,
          
-  //       })
-  //  });
+        })
+   });
 
   }
   render() {
-
+    
     return (
 
       <div>
         <div className="container mt-5">
           <div class="row">
+            
             <div class="col-6">
+            Start Date:
               <DatePicker
                 selected={this.state.startDate}
                 selectsStart
@@ -87,6 +91,7 @@ class SalaryReport extends React.Component {
               />
             </div>
             <div class="col-6">
+              End Date:
               <DatePicker
                 selected={this.state.endDate}
                 selectsEnd
