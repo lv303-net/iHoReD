@@ -21,10 +21,13 @@ class SalaryReport extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      startDate: moment(),
+      startDate: moment().subtract(1,'months'),
       endDate: moment(),
-      salaryData: []
+      salaryData: [],
+      start:"",
+      end: ""
     };
+
   
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
@@ -32,23 +35,35 @@ class SalaryReport extends React.Component {
 
   handleChangeStart(date) {
     this.setState({
-      startDate: date.format('YYYY-MM-DD')
+      startDate: date,
+     
     });
+    
+      
   }
 
   handleChangeEnd(date) {
     this.setState({
-      endDate: date.format('YYYY-MM-DD')
+      endDate: date,  
     });
+   
   }
+  componentDidMount(){
+    
+    axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'))
+    .then(res => {
+      this.setState({
+        salaryData: res.data,
+       
+      })
+    });
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (this.state.startDate !== nextState.startDate ||this.state.endDate !== nextState.endDate);
   }
 
   componentWillUpdate(nextProps, nextState) {
-
-    axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + nextState.startDate + '/' + nextState.endDate)
+    var start=this.state.startDate.format('YYYY-MM-DD');
+    var end=this.state.endDate.format('YYYY-MM-DD');
+      axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + start + '/' + end)
       .then(res => {
         this.setState({
           salaryData: res.data,
@@ -58,13 +73,15 @@ class SalaryReport extends React.Component {
 
   }
   render() {
-
+    
     return (
 
       <div>
         <div className="container mt-5">
           <div class="row">
+            
             <div class="col-6">
+            Start Date:
               <DatePicker
                 selected={this.state.startDate}
                 selectsStart
@@ -74,6 +91,7 @@ class SalaryReport extends React.Component {
               />
             </div>
             <div class="col-6">
+              End Date:
               <DatePicker
                 selected={this.state.endDate}
                 selectsEnd
