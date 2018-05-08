@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
  
 import 'react-datepicker/dist/react-datepicker.css';
-import '../style/SalaryReport.css';
+//import '../style/SalaryReport.css';
 
 var server_url;
 if (process.env.NODE_ENV === "development")
@@ -21,11 +21,9 @@ else if (process.env.NODE_ENV === "production")
       render() {
               return (
         <div class="row" id="patientcard">
-        <div class="col-3" id="col-custom">{this.props.day.slice(0,10)}</div>
-        <div class="col-2"id="col-custom">{this.props.workedHours}</div>
-        <div class="col-2"id="col-custom">{this.props.salaryCoefficient}</div>
-        <div class="col-2"id="col-custom">{this.props.salaryRate}</div>
-        <div class="col-3">{this.props.earnedMoney}</div>
+        <div class="col-4" id="col-custom">{this.props.day.slice(0,10)}</div>
+        <div class="col-4"id="col-custom">{this.props.day.slice(-8)}</div>
+        <div class="col-4"id="col-custom">{this.props.rate}</div>
       </div>
       )
       };

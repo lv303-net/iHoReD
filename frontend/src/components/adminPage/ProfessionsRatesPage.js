@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import axios from 'axios';
+import ProfessionRow from './ProfessionRow';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -121,9 +122,11 @@ class ProfessionsRatesPage extends React.Component{
             professionList = ""
         }
     
-        return <div className="col-sm-12 col-md-12" id='tablesBlock'>
+        return(
+        <div className="row mb-4">
+        <div className="col-sm-12 col-md-5" id='allProfessions'>
           <div className="row justify-content-center">
-            <div className="list-group mb-2 col-sm-6 col-md-4" id="professions">
+            <div className="list-group  col-sm-12 col-md-8" id="professions">
               <div id='tableProf'>
                 <div className="list-group-item" id="profButton" tabIndex='1' onClick={() => { this.showList() }}>
                   <p id='tableLabel'>Professions</p>
@@ -135,7 +138,11 @@ class ProfessionsRatesPage extends React.Component{
             </div>
           </div>
         </div>
-      }
+        <div className="col-sm-12 col-md-5" id='rates'>
+        <ProfessionRow day="2018-10-04T00:00:00" rate="145"/>
+        </div>
+        </div>
+        )}
 }
 
 export default ProfessionsRatesPage;
