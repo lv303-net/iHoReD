@@ -104,7 +104,8 @@ class LogbarUnauth extends Component {
     }
   }
 
-  hideError(divName) {
+  hideError(divName, inputName) {
+    document.getElementById(inputName).style.borderColor = '#ced4da';
     divName.current.textContent = '';
   }
 
@@ -279,7 +280,7 @@ class LogbarUnauth extends Component {
 
                     <input type="text"
                       className="form-control"
-                      onChange={(x => { this.firstNameRegistr = x.target.value; this.validateFirstName(); this.hideError(this.divFNameRegistr) })}
+                      onChange={(x => { this.firstNameRegistr = x.target.value; this.validateFirstName(); this.hideError(this.divFNameRegistr, 'firstName') })}
                       id="firstName"
                       placeholder="First Name"
                       required />
@@ -295,7 +296,7 @@ class LogbarUnauth extends Component {
                   <div className="form-group col-sm-8 col-xs-12" id="inputLName">
                     <input type="text"
                       className="form-control"
-                      onChange={(x => { this.lastNameRegistr = x.target.value; this.validateLastName(); this.hideError(this.divLNameRegistr) })}
+                      onChange={(x => { this.lastNameRegistr = x.target.value; this.validateLastName(); this.hideError(this.divLNameRegistr, 'lastName') })}
                       id="lastName"
                       placeholder="Last Name"
                       required />
@@ -311,7 +312,7 @@ class LogbarUnauth extends Component {
                   <div className="form-group col-sm-8 col-xs-12" id="inputPhone">
                     <input type="tel"
                       className="form-control"
-                      onChange={x => { this.phoneRegistr = x.target.value; this.validatePhone(); this.hideError(this.divPhoneRegistr) }}
+                      onChange={x => { this.phoneRegistr = x.target.value; this.validatePhone(); this.hideError(this.divPhoneRegistr, 'phone') }}
                       id="phone"
                       placeholder="Phone"
                       required />
@@ -326,7 +327,7 @@ class LogbarUnauth extends Component {
                   <div className="form-group col-sm-8 col-xs-12" id="inputEmail">
                     <input type="email"
                       className="form-control"
-                      onChange={x => { this.emailRegistr = x.target.value; this.validateEmail(); this.hideError(this.divEmailRegistr) }}
+                      onChange={x => { this.emailRegistr = x.target.value; this.validateEmail(); this.hideError(this.divEmailRegistr, 'email') }}
                       id="inputEmailText"
                       placeholder="Email"
                       id="email"
@@ -343,7 +344,7 @@ class LogbarUnauth extends Component {
                     <input type="password"
                       className="form-control"
                       placeholder="Password"
-                      onChange={(x => { this.passwordRegistr = x.target.value; this.validatePassword(); this.hideError(this.divPassRegistr) })}
+                      onChange={(x => { this.passwordRegistr = x.target.value; this.validatePassword(); this.hideError(this.divPassRegistr, 'password') })}
                       id="password"
                       required />
                     <div id="invalidPassword" className="text-muted" ref={this.divPassRegistr}>
@@ -358,7 +359,7 @@ class LogbarUnauth extends Component {
                     <input type="password"
                       className="form-control"
                       placeholder="Confirm Password"
-                      onChange={(x => { this.confirmPasswordRegistr = x.target.value; this.checkPassword(); this.hideError(this.divConfirmPassRegistr) })}
+                      onChange={(x => { this.confirmPasswordRegistr = x.target.value; this.checkPassword(); this.hideError(this.divConfirmPassRegistr, 'confirmPassword') })}
                       onPaste={x => { x.preventDefault() }}
                       id="confirmPassword"
                       required />
