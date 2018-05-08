@@ -547,6 +547,11 @@ namespace Entities.Services
 
         public List<SalaryStatistics> GetDoctorSalaryStatistics(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
+            if (dateFinish > DateTime.Now)
+            {
+                dateFinish = DateTime.Now;
+            }
+
             const string cmd = "GET_SALARY_STATISTICS_FOR_PERIOD";
 
             var param = new Dictionary<string, object>()

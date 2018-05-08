@@ -215,7 +215,6 @@
     <Compile Include="Models\RegistrationBindingModel.cs" />
     <Compile Include="Models\RuleBindingModel.cs" />
     <Compile Include="Models\RulesetBindingModel.cs" />
-    <Compile Include="Models\SalaryStatisticsBindingModel.cs" />
     <Compile Include="Models\ScheduleBindingModel.cs" />
     <Compile Include="Models\UserInfoBindingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
