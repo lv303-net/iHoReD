@@ -26,12 +26,18 @@ class PatientDiagnosesTable extends React.Component{
           numberStart:1,
           numberFinish:2
         };
+        var searchParameter = new URLSearchParams(window.location.search);
+        searchParameter.set('page', 1);
+        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
         axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/1/4/2')
         .then(res => {
              this.setState({
               diagnosesArr: res.data
              })
         });
+        var searchParameter = new URLSearchParams(window.location.search);
+        searchParameter.set('elem', 4);
+        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
         axios.get(server_url+'/MedicalCard/GetPageCount/'+this.props.PatientId+'/4')
         .then(res => {
              this.setState({
@@ -66,6 +72,9 @@ class PatientDiagnosesTable extends React.Component{
             }
         }
         else{
+            var searchParameter = new URLSearchParams(window.location.search);
+            searchParameter.set('page', number);
+            window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
             this.activePages(number);
         axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+number+'/'+this.state.elementsCount+'/'+this.state.columnCount)
         .then(res => {
@@ -97,6 +106,11 @@ class PatientDiagnosesTable extends React.Component{
         e.preventDefault();
          var caller = e.target;
         var number = caller.innerHTML;
+        var searchParameter = new URLSearchParams(window.location.search);
+        searchParameter.set('elem', number);
+        searchParameter.set('page', 1);
+        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+        this.AddDropdown(number);
         var columnCount=this.getColumnsAndRowsNumber(number)[0];
         axios.get(server_url+'/MedicalCard/GetPageCount/'+this.props.PatientId+'/'+number)
         .then(res => {
@@ -115,6 +129,12 @@ class PatientDiagnosesTable extends React.Component{
               numberFinish:2
              })
         });
+       }
+
+       AddDropdown(number)
+       {
+         var  button=$('#dropdownMenuButton');
+        button.innerHTML=number;
        }
 
        getColumnsAndRowsNumber(elemCount)
@@ -273,7 +293,7 @@ class PatientDiagnosesTable extends React.Component{
   </ul>
 </nav>
  </div>
- <div className="dropdown float-right">
+ <div className="dropdown mydropdown float-right">
   <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Count of cards
   </button>

@@ -10,7 +10,6 @@ else if (process.env.NODE_ENV === "production")
 
 class AboutPatient extends React.Component {
     render() {
-        alert("hello");
         return (
             <div>
                 <div className="row" id="patientcard">
