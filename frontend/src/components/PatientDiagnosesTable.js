@@ -23,6 +23,8 @@ class PatientDiagnosesTable extends React.Component{
           elementsCount:'4',
           pageNumber:'1',
           pageCount:'2',
+          numberStart:1,
+          numberFinish:2
         };
         axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/1/4/2')
         .then(res => {
@@ -42,7 +44,29 @@ class PatientDiagnosesTable extends React.Component{
         e.preventDefault();
         var caller = e.target;
         var number = caller.innerHTML;
-        this.activePages(number);
+        if((number=='»')|| (number=='<span aria-hidden="true">»</span><span class="sr-only">Next</span>'))
+        {
+            if((this.state.numberFinish+1)<=this.state.pageCount)
+            {
+                let tempStart=this.state.numberStart+1;
+                let tempFinish=this.state.numberFinish+1;
+                this.setState({numberStart:tempStart,numberFinish:tempFinish});
+                this.removeActive();
+            }
+        }
+        else
+        { if((number=='«') || (number=='<span aria-hidden="true">«</span><span class="sr-only">Previous</span>'))
+        {
+            if((this.state.numberStart-1)>0)
+            {
+                let tempStart=this.state.numberStart-1;
+                let tempFinish=this.state.numberFinish-1;
+                this.setState({numberStart:tempStart,numberFinish:tempFinish});
+                this.removeActive();
+            }
+        }
+        else{
+            this.activePages(number);
         axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+number+'/'+this.state.elementsCount+'/'+this.state.columnCount)
         .then(res => {
              this.setState({
@@ -50,15 +74,22 @@ class PatientDiagnosesTable extends React.Component{
               pageNumber:number
              })
         });
+        }
+    }
        }
 
        activePages(number)
        {
+           this.removeActive();
+          $('.pages li#mypageitem'+(number)).addClass('active');
+       }
+
+       removeActive()
+       {
         let i;
-        for (i = 0; i < $(".pages li").length; i++) { 
+        for (i = this.state.numberStart; i <= this.state.numberFinish; i++) { 
             $('.pages li#mypageitem'+i).removeClass('active');
           }
-          $('.pages li#mypageitem'+(number-1)).addClass('active');
        }
 
        addCountOfElements(e)
@@ -79,7 +110,9 @@ class PatientDiagnosesTable extends React.Component{
              this.setState({
               diagnosesArr: res.data,
               elementsCount: number,
-              colCount:columnCount
+              colCount:columnCount,
+              numberStart:1,
+              numberFinish:2
              })
         });
        }
@@ -150,14 +183,15 @@ class PatientDiagnosesTable extends React.Component{
            return dimensions;
        }
 
-      generatePages()
+      generatePages(numberStart,numberFinish)
       {
         var arr=[]
-        var item=<li className="page-item mypag-item active" id={"mypageitem0"}><a className="page-link mypag-link" id="mypagelink">{(1).toString()}</a></li>
+        var item=<li className="page-item mypag-item active" id={"mypageitem"+numberStart}><a className="page-link mypag-link" id="mypagelink">{(numberStart).toString()}</a></li>
         arr.push(item);
-        for(var i=1;i<this.state.pageCount;i++)
+        if((this.state.pageCount<2)&&(numberStart==1)) numberFinish=this.state.pageCount;
+        for(var i=numberStart;i<numberFinish;i++)
         {
-           var item=<li className="page-item mypag-item" id={"mypageitem"+i}><a className="page-link mypag-link" id="mypagelink">{(i+1).toString()}</a></li>
+           var item=<li className="page-item mypag-item" id={"mypageitem"+(i+1)}><a className="page-link mypag-link" id="mypagelink">{(i+1).toString()}</a></li>
             arr.push(item);
         }
         return arr;
@@ -223,7 +257,19 @@ class PatientDiagnosesTable extends React.Component{
       <div>
       <nav >
   <ul className="pagination pages" onClick={e=>(this.addPage(e))}>
-    {this.generatePages()}
+  <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    {this.generatePages(this.state.numberStart,this.state.numberFinish)}
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
   </ul>
 </nav>
  </div>
