@@ -21,25 +21,39 @@ class SalaryReport extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      startDate: moment(),
+      startDate: moment().subtract(1,'months'),
       endDate: moment(),
-      salaryData: []
+      salaryData: [],
+      start:"",
+      end: ""
     };
-  
+
+     axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'))
+      .then(res => {
+        this.setState({
+          salaryData: res.data,
+         
+        })
+      });
+
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
   }
 
   handleChangeStart(date) {
     this.setState({
-      startDate: date.format('YYYY-MM-DD')
+      startDate: date,
+     
     });
+    
+      
   }
 
   handleChangeEnd(date) {
     this.setState({
-      endDate: date.format('YYYY-MM-DD')
+      endDate: date,  
     });
+   
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -47,14 +61,13 @@ class SalaryReport extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-
-    axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + nextState.startDate + '/' + nextState.endDate)
-      .then(res => {
-        this.setState({
-          salaryData: res.data,
+  //     axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + next.state.startDate.format('YYYY-MM-DD') + '/' + next.start.endDate.format('YYYY-MM-DD'))
+  //     .then(res => {
+  //       this.setState({
+  //         salaryData: res.data,
          
-        })
-   });
+  //       })
+  //  });
 
   }
   render() {
