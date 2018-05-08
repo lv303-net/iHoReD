@@ -9,6 +9,8 @@ namespace Entities.Services
 
         List<string[]> GetProfessions(bool isStatic);
 
+        List<string[]> GetAllProfessions();
+
         List<string[]> GetDoctorsByProfession(string profession);
 
         List<string[]> GetDoctorsByProfessionId(int professionId);

@@ -60,6 +60,18 @@ namespace HoReD.Controllers
         }
 
         /// <summary>
+        /// Returns list of all static/nonstatic professions' id & name
+        /// </summary>
+        /// <param name="isStatic"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("AllProfessions")]
+        public IHttpActionResult GetAllProfessions()
+        {
+            return Ok(_doctorService.GetAllProfessions());
+        }
+
+        /// <summary>
         /// Gets information about Doctor events
         /// </summary>
         /// <returns>List of instances of the class Event</returns>

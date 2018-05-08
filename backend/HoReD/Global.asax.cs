@@ -27,6 +27,7 @@ namespace HoReD
             container.Register<IRuleService, RuleService>(Lifestyle.Scoped);
             container.Register<IMedicalCardService, MedicalCardService>(Lifestyle.Scoped);
             container.Register<IPatientDataService, PatientDataService>(Lifestyle.Scoped);
+            container.Register<ISalaryService, SalaryService>(Lifestyle.Scoped);
 
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 
