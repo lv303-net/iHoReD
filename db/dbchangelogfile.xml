@@ -271,5 +271,9 @@
   <changeSet author="Maksym Sikorskyi" id="V3.30">
     <sqlFile path="V3.30_ALTER_PROCEDURE_DISMISS_DOCTOR_FROM_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.31">
+    <sqlFile path="V3.31_ALTERED_PROCEDURE_FOR_CALCULATING_WORKED_HOURS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 
 </databaseChangeLog>
