@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { Switch, Route, Redirect} from 'react-router-dom';
 import App from './../../App'
 import DoctorCalendar from './../DoctorCalendar'
+import NotFound from './../NotFound'
 import '../../style/DoctorPage.css'
 
 class DoctorSwitch extends Component {

@@ -90,7 +90,7 @@ class RulesPage extends Component {
 
     render(){
         return (
-            <div className="container min-height">
+            <div className="container min-height d-flex flex-row">
                 <div className="list-group col-sm-6 mt-4 padding-l-r-10px">
                     <div className="list-group-item active">
                         <div className="col-sm-10 float-left">Rules:</div>
