@@ -44,6 +44,11 @@ namespace Entities.Services
             return list;
         }
 
+        public List<string[]> GetAllProfessions()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<string[]> GetDoctorsByProfession(string profession)
         {
             var list = new List<string[]>();

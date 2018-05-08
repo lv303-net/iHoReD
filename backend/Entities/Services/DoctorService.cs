@@ -59,6 +59,37 @@ namespace Entities.Services
             return list;
         }
 
+        public List<string[]> GetAllProfessions()
+        {
+            const string cmd = "GET_PROFESSIONS";
+            var param = new Dictionary<string, object>()
+            {
+                {"@Is_Static", true}
+            };
+            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var values = str.Split('*');
+            var list = new List<string[]>();
+            for (int i = 0; i < values.Length - 2; i += 3)
+            {
+                string[] name = { values.GetValue(i).ToString(), values.GetValue(i + 1).ToString(), values.GetValue(i + 2).ToString() };
+                list.Add(name);
+            }
+
+            param = new Dictionary<string, object>()
+            {
+                {"@Is_Static", false}
+            };
+            str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            values = str.Split('*');
+            list = new List<string[]>();
+            for (int i = 0; i < values.Length - 2; i += 3)
+            {
+                string[] name = { values.GetValue(i).ToString(), values.GetValue(i + 1).ToString(), values.GetValue(i + 2).ToString() };
+                list.Add(name);
+            }
+            return list;
+        }
+
         public List<string[]> GetDoctorsByProfession(string profession)
         {
             const string cmd = "Get_Doctors_With_Some_Profession";

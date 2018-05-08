@@ -203,6 +203,7 @@
     <Compile Include="Controllers\MedicalCardController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\RuleController.cs" />
+    <Compile Include="Controllers\SalaryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
@@ -215,6 +216,7 @@
     <Compile Include="Models\RegistrationBindingModel.cs" />
     <Compile Include="Models\RuleBindingModel.cs" />
     <Compile Include="Models\RulesetBindingModel.cs" />
+    <Compile Include="Models\SalaryBindingModel.cs" />
     <Compile Include="Models\ScheduleBindingModel.cs" />
     <Compile Include="Models\UserInfoBindingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
