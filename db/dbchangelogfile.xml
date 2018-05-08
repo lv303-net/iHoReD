@@ -264,4 +264,8 @@
     <sqlFile path="V3.28_ALTER_PROCEDURE_GET_ALL_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
+  <changeSet author="Mariia Shkolyk" id="V3.29">
+    <sqlFile path="V3.29_ALTERED_PROCEDURE_FOR_SALARY_STATISTICS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
 </databaseChangeLog>
