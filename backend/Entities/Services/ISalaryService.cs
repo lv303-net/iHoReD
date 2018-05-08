@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Entities.Services
 {
-    public class ISalaryService
+    public interface ISalaryService
     {
+        List<string[]> GetRatesForProfession(int professionId);
     }
 }

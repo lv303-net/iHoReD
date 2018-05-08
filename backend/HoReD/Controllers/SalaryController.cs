@@ -18,5 +18,12 @@ namespace HoReD.Controllers
         {
             _salaryService = salaryService;
         }
+
+        [HttpGet]
+        [Route("GetRatesForProfession/{professionId}")]
+        public IHttpActionResult GetRatesForProfession(int professionId)
+        {
+            return Ok(_salaryService.GetRatesForProfession(professionId));
+        }
     }
 }
