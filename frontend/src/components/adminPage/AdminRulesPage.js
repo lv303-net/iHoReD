@@ -92,9 +92,9 @@ class RulesPage extends Component {
         return (
             <div className="container min-height d-flex flex-row">
                 <div className="list-group col-sm-6 mt-4 padding-l-r-10px">
-                    <div className="list-group-item active">
-                        <div className="col-sm-10 float-left">Rules:</div>
-                        <div className="col-sm-2 float-right">
+                    <div className="list-group-item active d-flex flex-row">
+                        <div className="col-sm-10">Rules:</div>
+                        <div className="col-sm-2">
                             <i className="fa fa-plus" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChandeCurrentRuleInfo(-1)}></i>
                         </div>
                     </div>

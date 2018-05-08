@@ -344,7 +344,7 @@ class LogbarUnauth extends Component {
                     <input type="password"
                       className="form-control"
                       placeholder="Password"
-                      onChange={(x => { this.passwordRegistr = x.target.value; this.validatePassword(); this.hideError(this.divPassRegistr) })}
+                      onChange={(x => { this.passwordRegistr = x.target.value; this.validatePassword(); this.hideError(this.divPassRegistr, 'password') })}
                       id="password"
                       required />
                     <div id="invalidPassword" className="text-muted" ref={this.divPassRegistr}>
@@ -359,7 +359,7 @@ class LogbarUnauth extends Component {
                     <input type="password"
                       className="form-control"
                       placeholder="Confirm Password"
-                      onChange={(x => { this.confirmPasswordRegistr = x.target.value; this.checkPassword(); this.hideError(this.divConfirmPassRegistr) })}
+                      onChange={(x => { this.confirmPasswordRegistr = x.target.value; this.checkPassword(); this.hideError(this.divConfirmPassRegistr, 'confirmPassword') })}
                       onPaste={x => { x.preventDefault() }}
                       id="confirmPassword"
                       required />
