@@ -3,8 +3,9 @@ import { Component } from 'react';
 import { Switch, Route, Redirect} from 'react-router-dom';
 import App from './../../App'
 import Edit from '../Edit'
-import '../../style/UserPage.css'
 import MedicalCard from '../MedicalCard';
+import NotFound from './../NotFound'
+import '../../style/UserPage.css'
 
 class UserSwitch extends Component {
   render() {
@@ -15,6 +16,7 @@ class UserSwitch extends Component {
             <Route exact path="/user/schedule" component={App}/>
             <Route exact path="/user/edit" component={Edit}/>
             <Route exact path="/user/medicalCard" component={MedicalCard}/>
+            <Route exact path="/doctor/salary" />
           </Switch>
         </main>
     );
