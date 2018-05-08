@@ -15,6 +15,7 @@ class DoctorSwitch extends Component {
             <Route exact path="/doctor/schedule" component={App}/>
             <Route exact path="/doctor/mySchedule" component={DoctorCalendar}/>
             <Route exact path="/doctor/salary" />
+            <Route component={NotFound} />
           </Switch>
         </main>
     );

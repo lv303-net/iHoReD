@@ -42,7 +42,7 @@ class Edit extends React.Component {
     });
   }
   componentWillMount(){
-    localStorage.setItem('currentUserId','111');
+    //localStorage.setItem('currentUserId','111');
     axios.get(server_url+'/GetUserInfoById/'+localStorage.getItem('currentUserId'))
     .then(res=>
       {
