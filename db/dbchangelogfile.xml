@@ -259,5 +259,9 @@
   <changeSet author="Oleh Rakus" id="V3.27">
     <sqlFile path="V3.27_UPDATED_PROCEDURE_GET_PAGE_COUNT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.28">
+    <sqlFile path="V3.28_ALTER_PROCEDURE_GET_ALL_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
   
 </databaseChangeLog>
