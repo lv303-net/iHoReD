@@ -16,7 +16,15 @@ class AddDoctorToCurrentRule extends Component{
         }
     }
 
-    
+    AddDoctorToRule(idDoctor){
+        var model = {
+            IdDoctor: idDoctor,
+            IdRule: this.props.IdRule
+        }
+        axios.post(server_url + "/Rule/" + this.props.IdRule + "/DoctorHasRule/false/" + idDoctor + "/Assign", model)
+        .then()
+        .catch()
+    }
     
     shouldComponentUpdate(nextProps, nextState) {
         return (this.props.IdRule !== nextProps.IdRule);
@@ -47,10 +55,13 @@ class AddDoctorToCurrentRule extends Component{
                             </button>
                         </div>
                         <div class="modal-body">
-                            {this.state.listDoctors.map((doctor) => <div>
-                                <h4>{doctor.FirstName + ' ' + doctor.LastName}</h4>
+                            <div className="list-group col-sm-6 mt-4 padding-l-r-10px col-sm-12">
+                                {this.state.listDoctors.map((doctor) => <div className="d-flex flex-row list-group-item list-group-active">
+                                    <div className="col-sm-10">{doctor.FirstName + ' ' + doctor.LastName}</div>
+                                    <div className="col-sm-2 fa fa-plus" onCLick={() => this.AddDoctorToRule(doctor.Id)}></div>
+                                </div>
+                                )}
                             </div>
-                            )}
                         </div>
                         <div class="modal-footer">
                         </div>
