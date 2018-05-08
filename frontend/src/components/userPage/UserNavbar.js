@@ -61,7 +61,9 @@ class UserNavbar extends Component {
     $('.main-nav1 span#'+nextState.idLink).css("background-color", "#49A2FF");
   }
 
-  render() {
+  render() {    
+    var id = localStorage.getItem("currentUserId");
+    console.log(id);
     return (
       <nav className="navbar navbar-light bg-light" id="navbarAdmin">
         <div className="navbar-collapse" id="navbarNavDropdown">
@@ -77,7 +79,7 @@ class UserNavbar extends Component {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to='/user/medicalCard'>
+              <Link to={'/user/medicalCard/' +id}>
                 <span className="nav-link" id="link3">Medical Card</span>
               </Link>
             </li>
