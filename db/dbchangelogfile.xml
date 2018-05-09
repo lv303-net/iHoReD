@@ -284,4 +284,8 @@
     <sqlFile path="V3.33_PROCEDURE_GET_RATE_FOR_PROFESSION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Iryna Halenok" id="V3.34">
+    <sqlFile path="V3.34_INSERT_INTO_SALARY_RATES_AND_SALARY_COEFFICIENTS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
