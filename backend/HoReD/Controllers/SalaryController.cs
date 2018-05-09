@@ -37,17 +37,15 @@ namespace HoReD.Controllers
         [HttpPost]
         [Route("api/Salary/Rate/add")]
         public IHttpActionResult AddNewRate(Models.SalaryBindingModel model)
-        {
-            _salaryService.AddRate(model.professionId, model.rate, model.startDate);
-            return Ok();
+        {            
+            return Ok(_salaryService.AddRate(model.professionId, model.rate, model.startDate));
         }
 
         [HttpPost]
         [Route("api/Salary/Rate/edit")]
         public IHttpActionResult EditNewRate(Models.SalaryBindingModel model)
         {
-            _salaryService.EditRate(model.professionId, model.rate, model.startDate);
-            return Ok();
+            return Ok(_salaryService.EditRate(model.professionId, model.rate, model.startDate));
         }
     }
 }

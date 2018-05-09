@@ -55,7 +55,7 @@ namespace Entities.Services
             return returnedStatus;
         }
 
-        public void AddRate(int professionId, double rate, DateTime startDate)
+        public string AddRate(int professionId, double rate, DateTime startDate)
         {
             const string cmd = "ADD_NEW_RATE";
 
@@ -67,6 +67,10 @@ namespace Entities.Services
             };
 
             _dbContext.ExecuteSqlQuery(cmd, param);
+            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var values = str.Split('*');
+            var returnedStatus = values.GetValue(0).ToString();
+            return returnedStatus;
         }
 
         public string EditRate(int professionId, double rate, DateTime startDate)
