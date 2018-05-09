@@ -304,5 +304,9 @@
   <changeSet author="Iryna Halenok" id="V3.37">
     <sqlFile path="V3.37_ALTER_PROCEDURE_GET_RATE_FOR_PROFESSION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.38">
+    <sqlFile path="V3.38_ALTERED_PROCEDURE_FOR_INSERTING_SCHEDULE_RECORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 
 </databaseChangeLog>
