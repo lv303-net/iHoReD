@@ -2,12 +2,6 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
-
 class DoctorsListWithSomeRule extends Component {
     constructor(props){      
         super(props);
@@ -20,7 +14,7 @@ class DoctorsListWithSomeRule extends Component {
             IdRule: this.state.idRule,
             IdDoctor: idDoc
           }
-          axios.post(server_url + "/Rule/" + this.state.idRule + "/DoctorHasRule/" + idDoc +"/Dismiss", model)
+          axios.post(localStorage.getItem("server_url") + "/Rule/" + this.state.idRule + "/DoctorHasRule/" + idDoc +"/Dismiss", model)
           .then()
           .catch()
         }
@@ -30,7 +24,7 @@ class DoctorsListWithSomeRule extends Component {
         }
 
         componentWillUpdate(nextProps, nextState){
-        axios.get(server_url+'/rule/' + nextProps.idRule + '/DoctorHasRule')
+        axios.get(localStorage.getItem("server_url") + '/rule/' + nextProps.idRule + '/DoctorHasRule')
         .then(res => {
           this.setState({
             idRule: nextProps.idRule,
@@ -43,9 +37,9 @@ class DoctorsListWithSomeRule extends Component {
         return  (
             <div className="list-group col-sm-6 mt-4 padding-l-r-10px">
               <div className="list-group-item active">Doctors:</div>
-              {this.state.doc.map(doc => <div className="list-group-item list-group-active d-flex flex-row">
-                <div className='col-sm-10' key={doc.toString()}>{doc.FirstName + ' ' + doc.LastName}</div>
-                <i className="col-sm-2 fa fa-times" onClick={() => this.DissmissDoctorFromCurrentRule(doc.Id)}></i>
+              {this.state.doc.map(doc => <div className="list-group-item list-group-active d-flex flex-row justify-content-between">
+                  <div key={doc.toString()}>{doc.FirstName + ' ' + doc.LastName}</div>
+                  <i className="fa fa-times" onClick={() => this.DissmissDoctorFromCurrentRule(doc.Id)}></i>
                 </div>
                 )}                  
             </div>

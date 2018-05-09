@@ -6,12 +6,6 @@ import logo from '../images/logo.png';
 import '../style/Navbar.css';
 import $ from 'jquery';
 
-var server_url;
-if (process.env.NODE_ENV === "development")
-  server_url = "http://localhost:58511"
-else if (process.env.NODE_ENV === "production")
-  server_url = "https://hored.azurewebsites.net"
-
 
 class LogbarUnauth extends Component {
   constructor(props) {
@@ -51,7 +45,7 @@ class LogbarUnauth extends Component {
       password: this.passwordAuth
     }
 
-    axios.post(server_url + '/api/Login', userAuth)
+    axios.post(localStorage.getItem("server_url") + '/api/Login', userAuth)
       .then(function (response) {
         window.location.reload();
         localStorage.setItem("currentUserId", (response.data.Id));
@@ -73,7 +67,7 @@ class LogbarUnauth extends Component {
       localStorage.setItem("currentUserFirstName", (this.firstNameRegistr));
       localStorage.setItem("currentUserLastName", (this.lastNameRegistr));
 
-      axios.post(server_url + '/api/Registration', userRegister)
+      axios.post(localStorage.getItem("server_url") + '/api/Registration', userRegister)
         .then(rez => {
           //handle success             
           $('#formRegistr').remove();
@@ -105,7 +99,7 @@ class LogbarUnauth extends Component {
   }
 
   hideError(divName, inputName) {
-    document.getElementById(inputName).style.borderColor = '#ced4da';
+//    document.getElementById(inputName).style.borderColor = '#ced4da';
     divName.current.textContent = '';
   }
 

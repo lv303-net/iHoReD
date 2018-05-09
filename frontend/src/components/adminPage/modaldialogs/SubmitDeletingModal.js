@@ -2,15 +2,9 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
-
 class SubmitDeleting extends Component {
     DeleteCurrentRule(){
-        axios.post(server_url + '/rule/' + this.props.currentRule.IdRule + '/delete')
+        axios.post(localStorage.getItem("server_url") + '/rule/' + this.props.currentRule.IdRule + '/delete')
         .then(
             console.log("Deleted rule with id" + this.props.currentRule.RuleName)
         )
@@ -35,7 +29,7 @@ class SubmitDeleting extends Component {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-primary" onClick={() => this.DeleteCurrentRule()}>Yes</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={() => this.DeleteCurrentRule()}>Yes</button>
                         </div>
                     </div>
                 </div>

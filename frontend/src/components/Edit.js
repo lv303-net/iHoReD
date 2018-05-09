@@ -2,13 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511";
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net";
-
 class Edit extends React.Component {
   constructor(){
     super();
@@ -34,7 +27,7 @@ class Edit extends React.Component {
     this.setState({[event.target.name] : event.target.value});
   }
   submitForm(){
-    axios.post(server_url+'/EditUserInfo',this.state).then(response => { 
+    axios.post(localStorage.getItem("server_url")+'/EditUserInfo',this.state).then(response => { 
       console.log(response+response.status)
     })
     .catch(error => {
@@ -43,7 +36,7 @@ class Edit extends React.Component {
   }
   componentWillMount(){
     //localStorage.setItem('currentUserId','111');
-    axios.get(server_url+'/GetUserInfoById/'+localStorage.getItem('currentUserId'))
+    axios.get(localStorage.getItem("server_url")+'/GetUserInfoById/'+localStorage.getItem('currentUserId'))
     .then(res=>
       {
         this.setState({

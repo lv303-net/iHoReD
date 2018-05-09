@@ -1,12 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
 import axios from 'axios';
-
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
+import ProfessionRows from './ProfessionRows';
+import AddRateToProfession from './modaldialogs/AddRateToProfession';
+import '../../style/Professions.css';
 
 class ProfessionsRatesPage extends React.Component{
     constructor(props) {
@@ -14,12 +11,12 @@ class ProfessionsRatesPage extends React.Component{
         this.state = {
           professionsArr: [],
           id: 0,
-          shouldShow: false,
+          shouldShow: true,
           idDoctor: 0,
           shouldDocBeShown: false
         };
         this.setStateID = this.setStateID.bind(this);
-        axios.get(server_url + '/AllProfessions')
+        axios.get(localStorage.getItem("server_url") + '/AllProfessions')
           .then(res => {
             res.data.forEach(profession => {
               const professionsArr = res.data;
@@ -30,11 +27,6 @@ class ProfessionsRatesPage extends React.Component{
           });
       };
     
-      formChild1(param) {
-        this.setState({
-          idDoctor: param
-        })
-      }
     
       addUrl(val) {
         var searchParameter = new URLSearchParams(window.location.search);
@@ -62,7 +54,7 @@ class ProfessionsRatesPage extends React.Component{
     
         }
       }
-    
+      
       componentWillUpdate(nextProps, nextState) {
         let idSt = this.state.id;
         let id = nextState.professionsArr.find(professionsArr => professionsArr[0] === idSt);
@@ -112,6 +104,10 @@ class ProfessionsRatesPage extends React.Component{
                     key={professionsArr.toString()}
                     onClick={() => { this.setStateID(professionsArr[0]), this.addUrl(professionsArr[0]) }}
                     value='{professionsArr[1]}'>{professionsArr[1]}
+                    <div className="col-sm-1">
+                      <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#AddRateToProfession" ></i>
+                    </div>
+                    
                   </a>
               )
               }
@@ -121,9 +117,11 @@ class ProfessionsRatesPage extends React.Component{
             professionList = ""
         }
     
-        return <div className="col-sm-12 col-md-12" id='tablesBlock'>
+        return(
+        <div className="row mt-5">
+        <div className="col-sm-12 col-md-5" id='allProfessions'>
           <div className="row justify-content-center">
-            <div className="list-group mb-2 col-sm-6 col-md-4" id="professions">
+            <div className="list-group  col-sm-12 col-md-8" id="professions">
               <div id='tableProf'>
                 <div className="list-group-item" id="profButton" tabIndex='1' onClick={() => { this.showList() }}>
                   <p id='tableLabel'>Professions</p>
@@ -135,7 +133,16 @@ class ProfessionsRatesPage extends React.Component{
             </div>
           </div>
         </div>
-      }
+        <div className="col-sm-12 col-md-5" id='rates'>
+          <div class="row" id="patientcard">
+              <div class="col-6" id="col-custom">Rate</div>
+              <div class="col-6" id="col-custom">Date</div>
+          </div>
+          <ProfessionRows idProf={this.state.id}/>
+          <AddRateToProfession/>
+        </div>
+      </div>
+        )}
 }
 
 export default ProfessionsRatesPage;

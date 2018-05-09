@@ -13,24 +13,54 @@ class CardDisease extends React.Component {
         <div className="card-body text-primary">
           <h5 className="card-title">{this.props.diagnosis}</h5>
           <div className="d-flex justify-content-between">
-            <button className="btn btn-primary" type="button" data-toggle="collapse" data-target={"#" + this.props.treatment + ".1"} aria-expanded="false" >More info</button>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target={"#" + this.props.treatment + ".2"} aria-expanded="false">Treatment</button>
-          </div>
-          <div className="row">
-            <div className="col">
-              <div className="collapse multi-collapse" id={this.props.treatment + ".1"}>
-                <div className="card card-body">
-                  {this.props.diseaseDescr}
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="collapse multi-collapse" id={this.props.treatment + ".2"}>
-                <div class="card card-body">
-                  {this.props.treatmentDescr}
-                </div>
-              </div>
-            </div>
+          <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#moreInfo"+this.props.treatment}>
+    More info
+  </button>
+  <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#treatment"+this.props.treatment}>
+    Treatment
+  </button>
+  <div className="modal" id={"moreInfo"+this.props.treatment}>
+    <div className="modal-dialog">
+      <div className="modal-content">
+      
+        <div className="modal-header">
+          <h4 className="modal-title">{this.props.diagnosisFullName}</h4>
+          <button type="button" className="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <div className="modal-body">
+        {this.props.diseaseDescr}
+        </div>
+ 
+        <div className="modal-footer">
+          <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+   <div className="modal" id={"treatment"+this.props.treatment}>
+    <div className="modal-dialog">
+      <div className="modal-content">
+      
+        <div className="modal-header">
+          <h4 className="modal-title">{this.props.diagnosisFullName}</h4>
+          <button type="button" className="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <div className="modal-body">
+        {this.props.treatmentDescr}
+        </div>
+ 
+        <div className="modal-footer">
+          <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
           </div>
         </div>
       </div>

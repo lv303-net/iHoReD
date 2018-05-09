@@ -9,14 +9,6 @@ import $ from 'jquery';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../style/SalaryReport.css';
 
-var server_url;
-if (process.env.NODE_ENV === "development")
-  server_url = "http://localhost:58511"
-else if (process.env.NODE_ENV === "production")
-  server_url = "https://hored.azurewebsites.net"
-
-
-
 class SalaryReport extends React.Component {
   constructor(props) {
     super(props)
@@ -50,7 +42,7 @@ class SalaryReport extends React.Component {
   }
   componentDidMount(){
     
-    axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'))
+    axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + 1 + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'))
     .then(res => {
       this.setState({
         salaryData: res.data,
@@ -63,7 +55,7 @@ class SalaryReport extends React.Component {
   componentWillUpdate(nextProps, nextState) {
     var start=this.state.startDate.format('YYYY-MM-DD');
     var end=this.state.endDate.format('YYYY-MM-DD');
-      axios.get(server_url + '/DoctorSalaryStatistics/' + 1 + '/' + start + '/' + end)
+      axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + 1 + '/' + start + '/' + end)
       .then(res => {
         this.setState({
           salaryData: res.data,
