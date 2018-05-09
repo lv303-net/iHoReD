@@ -1,12 +1,14 @@
 import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
+import Loader from 'react-loader';
 
 class AddDoctorToCurrentRule extends Component{
     constructor(props){
         super(props);
         this.state = {
-            listDoctors: []
+            listDoctors: [],
+            loaded: false
         }
     }
 
@@ -21,20 +23,32 @@ class AddDoctorToCurrentRule extends Component{
     }
     
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.props.IdRule !== nextProps.IdRule);
+        return (this.props.IdRule !== nextProps.IdRule || this.state.listDoctors !== nextState.listDoctors);
     }
 
     componentWillUpdate(nextProps, nextState)
     {
-        axios.get(localStorage.getItem("server_url") + "/Rule/" + nextProps.IdRule + "/DoctorHasRule/false")
-        .then(res => {
+        if(this.props.IdRule !== nextProps.IdRule){
             this.setState({
-                listDoctors: res.data
+                loaded: false
             })
+            axios.get(localStorage.getItem("server_url") + "/Rule/" + nextProps.IdRule + "/DoctorHasRule/false")
+            .then(res => {
+                this.setState({
+                    listDoctors: res.data,
+                    loaded: true
+                })
+            })
+            .catch(
+                error => {console.log(error.message)}
+            )
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot){
+        this.setState({
+            loaded: false
         })
-        .catch(
-            error => {console.log(error.message)}
-        )
     }
 
     render(){
@@ -49,6 +63,7 @@ class AddDoctorToCurrentRule extends Component{
                             </button>
                         </div>
                         <div class="modal-body">
+                            <Loader loaded={this.state.loaded}/>
                             <div className="list-group col-sm-6 mt-4 padding-l-r-10px col-sm-12">
                                 {this.state.listDoctors.map((doctor) => <div className="d-flex flex-row list-group-item list-group-active">
                                     <div className="col-sm-10">{doctor.FirstName + ' ' + doctor.LastName}</div>
