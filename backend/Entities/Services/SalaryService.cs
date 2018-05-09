@@ -48,7 +48,6 @@ namespace Entities.Services
                 {"@START_DATE", startDate},
             };
 
-            _dbContext.ExecuteSqlQuery(cmd, param);
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var values = str.Split('*');
             var returnedStatus = values.GetValue(0).ToString();
@@ -66,7 +65,6 @@ namespace Entities.Services
                 {"@START_DATE", startDate},
             };
 
-            _dbContext.ExecuteSqlQuery(cmd, param);
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var values = str.Split('*');
             var returnedStatus = values.GetValue(0).ToString();
@@ -84,7 +82,6 @@ namespace Entities.Services
                 {"@START_DATE", startDate},
             };
 
-            _dbContext.ExecuteSqlQuery(cmd, param);
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var values = str.Split('*');
             var returnedStatus = values.GetValue(0).ToString();
