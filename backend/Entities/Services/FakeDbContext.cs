@@ -25,5 +25,10 @@ namespace Entities.Services
         {
             throw new System.NotImplementedException();
         }
+
+        public int ExecuteQuery(string cmd, IDictionary<string, object> data)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -8,6 +8,6 @@ namespace Entities.Services
 {
     public interface IScheduleService
     {
-        void InsertScheduleRecord(int IdDoctor, int IdPatient, string startDateTime, string endDateTime);
+        int InsertScheduleRecord(int IdDoctor, int IdPatient, DateTime startDateTime, DateTime endDateTime);
     }
 }

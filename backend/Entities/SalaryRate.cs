@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HoReD.Models
+namespace Entities
 {
-    public class SalaryBindingModel
+    public class SalaryRate
     {
-        public int professionId { get; set; }
+        public DateTime startDate { get; set; }
 
         public double rate { get; set; }
-
-        public DateTime startDate { get; set; }
-        
     }
 }

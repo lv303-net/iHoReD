@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Entities.Services
 {
-    public class ISalaryService
+    public interface ISalaryService
     {
+        List<SalaryRate> GetRatesForProfession(int professionId);
+        string DeleteRate(int professionId, DateTime startDate);
+        string AddRate(int professionId, double rate, DateTime startDate);
+        string EditRate(int professionId, double rate, DateTime startDate);
     }
 }
