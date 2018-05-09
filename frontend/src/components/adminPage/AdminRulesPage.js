@@ -51,7 +51,7 @@ class RulesPage extends Component {
         })
     }
 
-    ChandeCurrentRuleInfo(currentRuleId){
+    ChangeCurrentRuleInfo(currentRuleId){
         if(currentRuleId < 0){
             this.setState({
                 currentRule: {
@@ -86,20 +86,20 @@ class RulesPage extends Component {
         return (
             <div className="container min-height d-flex flex-row">
                 <div className="list-group col-sm-6 mt-4 padding-l-r-10px">
-                    <div className="list-group-item active d-flex flex-row">
-                        <div className="col-sm-10">Rules:</div>
-                        <div className="col-sm-2">
-                            <i className="fa fa-plus" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChandeCurrentRuleInfo(-1)}></i>
+                    <div className="list-group-item active d-flex flex-row d-flex justify-content-between">
+                        <div>Rules:</div>
+                        <div>
+                            <i className="fa fa-plus" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChangeCurrentRuleInfo(-1)}></i>
                         </div>
                     </div>
-                    {this.state.massiveRules.map(rule => <div className="list-group-item list-group-active" key={rule.IdRule.toString()}>
-                        <div className="col-sm-10 float-left" onClick={(e) => this.ChangeIdRuleForDoctorTable(rule.IdRule, e)}>
+                    {this.state.massiveRules.map(rule => <div className="list-group-item list-group-active d-flex flex-row d-flex justify-content-between" key={rule.IdRule.toString()}>
+                        <div onClick={(e) => this.ChangeIdRuleForDoctorTable(rule.IdRule, e)}>
                             {rule.RuleName}
                         </div>
-                        <div className="col-sm-2 float-right">
-                            <i className="fa fa-plus" data-toggle="modal" data-target="#addDoctorToPageModal" onClick={() => this.ChandeCurrentRuleInfo(rule.IdRule)}></i>
-                            <i className="fa fa-pencil-alt" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChandeCurrentRuleInfo(rule.IdRule)}></i>
-                            <i className="fa fa-times" data-toggle="modal" data-target="#submitDeletingData" onClick={() => this.ChandeCurrentRuleInfo(rule.IdRule)}></i>
+                        <div>
+                            <i className="fa fa-plus" data-toggle="modal" data-target="#addDoctorToPageModal" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>
+                            <i className="fa fa-pencil-alt" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>
+                            <i className="fa fa-times" data-toggle="modal" data-target="#submitDeletingData" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>
                         </div>
                     </div>)}
                 </div>

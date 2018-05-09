@@ -141,7 +141,7 @@ class AddOrUpdateRule extends Component{
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" onClick={(e) => this.AddOrUpdateRule(this.props.currentRule)}>Save changes</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={(e) => this.AddOrUpdateRule(this.props.currentRule)}>Save changes</button>
                                 </div>
                             </form>
                         </div>
