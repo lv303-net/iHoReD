@@ -27,10 +27,11 @@ namespace HoReD.Controllers
         [HttpPost]
         public IHttpActionResult InsertNewScheduleRecord(Models.ScheduleBindingModel model)
         {
+            int response;
             try
             {
-                _scheduleService.InsertScheduleRecord(model.IdDoctor, model.IdPatient, model.startDateTime, model.endDateTime);
-                return Ok();
+                response = _scheduleService.InsertScheduleRecord(model.IdDoctor, model.IdPatient, model.startDateTime, model.endDateTime);
+                return Ok(response);
             }
             catch (Exception)
             {

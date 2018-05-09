@@ -12,8 +12,8 @@ namespace HoReD.Models
 
         public int IdPatient { get; set; }
 
-        public string startDateTime { get; set; }
+        public DateTime startDateTime { get; set; }
 
-        public string endDateTime { get; set; }
+        public DateTime endDateTime { get; set; }
     }
 }
