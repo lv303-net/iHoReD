@@ -5,11 +5,6 @@ import DoctorTable from './DoctorTable';
 import '../style/Professions.css';
 import Calendar from './Calendar';
 
-var server_url;
-if (process.env.NODE_ENV === "development")
-  server_url = "http://localhost:58511"
-else if (process.env.NODE_ENV === "production")
-  server_url = "https://hored.azurewebsites.net"
 localStorage.removeItem("currentProfession");
 
 class ProfessionsTable extends React.Component {
@@ -23,7 +18,7 @@ class ProfessionsTable extends React.Component {
       shouldDocBeShown: false
     };
     this.setStateID = this.setStateID.bind(this);
-    axios.get(server_url + '/ProfessionsStatic')
+    axios.get(localStorage.getItem("server_url") + '/ProfessionsStatic')
       .then(res => {
         res.data.forEach(profession => {
           const professionsArr = res.data;

@@ -7,12 +7,6 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../style/SalaryReport.css';
 
-var server_url;
-if (process.env.NODE_ENV === "development")
-    server_url = "http://localhost:58511"
-else if (process.env.NODE_ENV === "production")
-    server_url = "https://hored.azurewebsites.net"
-
     class DayReport extends React.Component {
         constructor(props)
         {

@@ -37,7 +37,7 @@ class Footerbar extends Component{
                             </div>
                             <div className="media-container-row footer-white">
                                 <div className="col-sm-12">
-                                    <p className="footer-text copyrith-font text-center m-0 mt-5">
+                                    <p className="footer-text copyrith-font text-center m-0">
                                         © HoReD Lv-303.Net   "Ніхто ще не скаржився на наш сервіс!"
                                     </p>
                                 </div>                               

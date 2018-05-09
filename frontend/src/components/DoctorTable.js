@@ -3,12 +3,6 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 
-var server_url;
-if (process.env.NODE_ENV === "development")
-  server_url = "http://localhost:58511"
-else if (process.env.NODE_ENV === "production")
-  server_url = "https://hored.azurewebsites.net"
-
 class DoctorTable extends React.Component {
   constructor(props) {
     super(props);
@@ -64,7 +58,7 @@ class DoctorTable extends React.Component {
     }
 
 
-    axios.get(server_url + '/GetDoctors/' + nextProps.idProf)
+    axios.get(localStorage.getItem("server_url") + '/GetDoctors/' + nextProps.idProf)
       .then(res => {
         this.setState({
           idProf: nextProps.idProf,
