@@ -8,8 +8,8 @@ namespace Entities
 {
     public class SalaryRate
     {
-        public DateTime Day { get; set; }
+        public DateTime startDate { get; set; }
 
-        public double Rate { get; set; }
+        public double rate { get; set; }
     }
 }

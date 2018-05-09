@@ -29,8 +29,8 @@ namespace Entities.Services
             {
                 SalaryRate salary = new SalaryRate()
                 {
-                    Rate = Convert.ToDouble(values.GetValue(i)),
-                    Day = Convert.ToDateTime(values.GetValue(i+1))                    
+                    rate = Convert.ToDouble(values.GetValue(i)),
+                    startDate = Convert.ToDateTime(values.GetValue(i+1))                    
                 };
 
                 list.Add(salary);
@@ -69,7 +69,7 @@ namespace Entities.Services
             _dbContext.ExecuteSqlQuery(cmd, param);
         }
 
-        public void EditRate(int professionId, double rate, DateTime startDate)
+        public string EditRate(int professionId, double rate, DateTime startDate)
         {
             const string cmd = "EDIT_SOME_RATE";
 
@@ -81,6 +81,10 @@ namespace Entities.Services
             };
 
             _dbContext.ExecuteSqlQuery(cmd, param);
+            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var values = str.Split('*');
+            var returnedStatus = values.GetValue(0).ToString();
+            return returnedStatus;
         }
     }
 }

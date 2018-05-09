@@ -11,6 +11,6 @@ namespace Entities.Services
         List<SalaryRate> GetRatesForProfession(int professionId);
         string DeleteRate(int professionId, DateTime startDate);
         void AddRate(int professionId, double rate, DateTime startDate);
-        void EditRate(int professionId, double rate, DateTime startDate);
+        string EditRate(int professionId, double rate, DateTime startDate);
     }
 }

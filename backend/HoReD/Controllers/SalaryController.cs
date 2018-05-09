@@ -20,15 +20,15 @@ namespace HoReD.Controllers
         }
 
         [HttpGet]
-        [Route("api/Salary/Rate/add/{professionId}")]
+        [Route("api/Salary/Rate/get/{professionId}")]
         public IHttpActionResult GetRatesForProfession(int professionId)
         {
             return Ok(_salaryService.GetRatesForProfession(professionId));
         }
 
         [HttpDelete]
-        [Route("api/Salary/Rate/delete/{professionId}")]
-        public IHttpActionResult DeleteRate(int professionId)
+        [Route("api/Salary/Rate/delete")]
+        public IHttpActionResult DeleteRate(Models.SalaryBindingModel model)
         {
             return Ok();
             // return Ok(_salaryService.DeleteRate(model.professionId, model.startDate));
