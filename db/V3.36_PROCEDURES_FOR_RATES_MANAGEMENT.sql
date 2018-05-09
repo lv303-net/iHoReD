@@ -15,6 +15,7 @@ BEGIN
 	ELSE
 		SELECT 0;
 END;
+GO
 -------------------------------------------------------------------------------------------
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'ADD_NEW_RATE')
 	DROP PROC ADD_NEW_RATE;
@@ -28,7 +29,7 @@ AS
 BEGIN
 	INSERT INTO SALARY_RATES VALUES (@ID, @RATE, @START_DATE);
 END;
-SELECT * FROM SALARY_RATES
+GO
 -------------------------------------------------------------------------------------------
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'EDIT_SOME_RATE')
 	DROP PROC EDIT_SOME_RATE;
