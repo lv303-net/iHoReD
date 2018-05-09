@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import '../../style/AdminPage.css';
 
-
 class AdminNavbar extends Component {
   constructor(props) {
     super(props);

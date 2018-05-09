@@ -2,12 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import Loader from 'react-loader';
 
-var server_url;
-if (process.env.NODE_ENV === "development")
-  server_url = "http://localhost:58511"
-else if (process.env.NODE_ENV === "production")
-  server_url = "https://hored.azurewebsites.net"
-
 class Direction extends React.Component {
   constructor(props) {
     super(props);
@@ -79,7 +73,7 @@ class ActivationLink extends React.Component {
  
   componentDidMount() {
     setTimeout(() => {
-      axios.get(server_url + '/Registration/' + this.userId)
+      axios.get(localStorage.getItem("server_url") + '/Registration/' + this.userId)
         .then(rez => {
           this.setState({ isRegistrated: rez.data });
           this.eventHandler(this.state.isRegistrated);

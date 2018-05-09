@@ -8,12 +8,6 @@ import $ from 'jquery';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../style/SalaryReport.css';
 
-var server_url;
-if (process.env.NODE_ENV === "development")
-  server_url = "http://localhost:58511"
-else if (process.env.NODE_ENV === "production")
-  server_url = "https://hored.azurewebsites.net"
-
 
 
 class SalaryReport extends React.Component {
@@ -25,7 +19,7 @@ class SalaryReport extends React.Component {
       salaryData: [],
       days:[],
          };
-         axios.get(server_url + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'))
+         axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'))
          .then(res => {
            this.setState({
                 salaryData: res.data,      
@@ -35,10 +29,7 @@ class SalaryReport extends React.Component {
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
     this.handleClick = this.handleClick.bind(this);
-
-
-    
-  }
+}
   handleChangeStart(date) {
     this.setState(
       this.setState({
@@ -58,15 +49,14 @@ class SalaryReport extends React.Component {
     var start =this.state.startDate.format('YYYY-MM-DD');
   var end =this.state.endDate.format('YYYY-MM-DD');
 
-    axios.get(server_url + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + start + '/' + end)
+    axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + start + '/' + end)
     .then(res => {
       this.setState({
            salaryData: res.data,      
            })
-         
-    });   
+  });
+}
 
-  }
   sumWorkedHours(){
     let array = this.state.salaryData.map(item => item.WorkedHours)
     let total=0;
@@ -103,8 +93,7 @@ forMonth(){
 }
 
   render() {
-    const numbers = this.state.workedHours;
-    return (
+     return (
       <div>
         <div class="panel-body">
           <h3>
@@ -129,6 +118,7 @@ forMonth(){
             </div>
             <div> End Date:</div>
             <div class>
+
               <DatePicker
                 selected={this.state.endDate}
                 selectsEnd

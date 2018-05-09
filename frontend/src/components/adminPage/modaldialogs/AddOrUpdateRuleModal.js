@@ -2,12 +2,6 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
-
 class AddOrUpdateRule extends Component{
     constructor(props){
         super(props);
@@ -63,7 +57,7 @@ class AddOrUpdateRule extends Component{
     }
 
     AddOrUpdateRule(){
-        axios.post(server_url + '/rule/' + this.NewData.IdRule, this.NewData)
+        axios.post(localStorage.getItem("server_url") + '/rule/' + this.NewData.IdRule, this.NewData)
         .then(console.log("Inserted" + this.NewData))
         .catch(error => {
             console.log(error.message);
@@ -147,7 +141,7 @@ class AddOrUpdateRule extends Component{
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" onClick={(e) => this.AddOrUpdateRule(this.props.currentRule)}>Save changes</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={(e) => this.AddOrUpdateRule(this.props.currentRule)}>Save changes</button>
                                 </div>
                             </form>
                         </div>

@@ -1,38 +1,54 @@
 import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
-
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
+import Loader from 'react-loader';
 
 class AddDoctorToCurrentRule extends Component{
     constructor(props){
         super(props);
         this.state = {
-            listDoctors: []
+            listDoctors: [],
+            loaded: false
         }
     }
 
-    
+    AddDoctorToRule(idDoctor){
+        var model = {
+            IdDoctor: idDoctor,
+            IdRule: this.props.IdRule
+        }
+        axios.post(localStorage.getItem("server_url") + "/Rule/" + this.props.IdRule + "/DoctorHasRule/false/" + idDoctor + "/Assign", model)
+        .then()
+        .catch()
+    }
     
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.props.IdRule !== nextProps.IdRule);
+        return (this.props.IdRule !== nextProps.IdRule || this.state.listDoctors !== nextState.listDoctors);
     }
 
     componentWillUpdate(nextProps, nextState)
     {
-        axios.get(server_url + "/Rule/" + nextProps.IdRule + "/DoctorHasRule/false")
-        .then(res => {
+        if(this.props.IdRule !== nextProps.IdRule){
             this.setState({
-                listDoctors: res.data
+                loaded: false
             })
+            axios.get(localStorage.getItem("server_url") + "/Rule/" + nextProps.IdRule + "/DoctorHasRule/false")
+            .then(res => {
+                this.setState({
+                    listDoctors: res.data,
+                    loaded: true
+                })
+            })
+            .catch(
+                error => {console.log(error.message)}
+            )
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot){
+        this.setState({
+            loaded: false
         })
-        .catch(
-            error => {console.log(error.message)}
-        )
     }
 
     render(){
@@ -47,10 +63,14 @@ class AddDoctorToCurrentRule extends Component{
                             </button>
                         </div>
                         <div class="modal-body">
-                            {this.state.listDoctors.map((doctor) => <div>
-                                <h4>{doctor.FirstName + ' ' + doctor.LastName}</h4>
+                            <Loader loaded={this.state.loaded}/>
+                            <div className="list-group col-sm-6 mt-4 padding-l-r-10px col-sm-12">
+                                {this.state.listDoctors.map((doctor) => <div className="d-flex flex-row justify-content-between list-group-item list-group-active">
+                                    <div>{doctor.FirstName + ' ' + doctor.LastName}</div>
+                                    <i className="fa fa-plus" onClick={() => this.AddDoctorToRule(doctor.Id)}></i>
+                                </div>
+                                )}
                             </div>
-                            )}
                         </div>
                         <div class="modal-footer">
                         </div>

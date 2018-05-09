@@ -21,7 +21,7 @@ class Authorization extends React.Component {
         password: this.passwordAuth
       }
   
-      axios.post(server_url + '/api/Login',userAuth)
+      axios.post(localStorage.getItem("server_url") + '/api/Login',userAuth)
         .then(function (response) {
             //handle success
             window.location.assign("/startPage")

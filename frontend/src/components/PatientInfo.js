@@ -2,15 +2,9 @@ import React from 'react';
 import { Component } from 'react';
 import '../style/PatientInfo.css';
 import axios from 'axios';
-var server_url;
-if (process.env.NODE_ENV === "development")
-    server_url = "http://localhost:58511"
-else if (process.env.NODE_ENV === "production")
-    server_url = "https://hored.azurewebsites.net"
 
 class AboutPatient extends React.Component {
     render() {
-        alert("hello");
         return (
             <div>
                 <div className="row" id="patientcard">
@@ -52,13 +46,13 @@ class PatientInfo extends React.Component {
             allergies: [],
             id: 1
         };
-        axios.get(server_url + '/api/PatientData/' + this.props.PatientId)
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + this.props.PatientId)
             .then(res => {
                 this.setState({
                     userdata: res.data,
                 });
             });
-        axios.get(server_url + '/api/PatientData/Allergies/' + this.props.PatientId)
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/Allergies/' + this.props.PatientId)
             .then(res => {
                 this.setState({
                     allergies: res.data,
@@ -66,6 +60,7 @@ class PatientInfo extends React.Component {
             });
     }
     render() {
+        console.log(this.props.PatientId);
         return (
             <div className="container mt-5 col-lg-4 col-md-6 col-10" id="patientInfoMain">
                 {this.state.userdata.map(item => <AboutPatient firstname={item.FirstName}
