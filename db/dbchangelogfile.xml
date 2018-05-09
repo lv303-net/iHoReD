@@ -296,4 +296,8 @@
     <sqlFile path="V3.36_PROCEDURES_FOR_RATES_MANAGEMENT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Iryna Halenok" id="V3.37">
+    <sqlFile path="V3.37_ALTER_PROCEDURE_GET_RATE_FOR_PROFESSION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
