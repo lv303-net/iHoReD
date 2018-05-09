@@ -2,12 +2,6 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
-
 class DoctorsListWithSomeRule extends Component {
     constructor(props){      
         super(props);
@@ -20,7 +14,7 @@ class DoctorsListWithSomeRule extends Component {
             IdRule: this.state.idRule,
             IdDoctor: idDoc
           }
-          axios.post(server_url + "/Rule/" + this.state.idRule + "/DoctorHasRule/" + idDoc +"/Dismiss", model)
+          axios.post(localStorage.getItem("server_url") + "/Rule/" + this.state.idRule + "/DoctorHasRule/" + idDoc +"/Dismiss", model)
           .then()
           .catch()
         }
@@ -30,7 +24,7 @@ class DoctorsListWithSomeRule extends Component {
         }
 
         componentWillUpdate(nextProps, nextState){
-        axios.get(server_url+'/rule/' + nextProps.idRule + '/DoctorHasRule')
+        axios.get(localStorage.getItem("server_url") + '/rule/' + nextProps.idRule + '/DoctorHasRule')
         .then(res => {
           this.setState({
             idRule: nextProps.idRule,

@@ -1,13 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
 import axios from 'axios';
-import ProfessionRow from './ProfessionRow';
-
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
+import ProfessionRows from './ProfessionRows';
+import AddRateToProfession from './modaldialogs/AddRateToProfession'
 
 class ProfessionsRatesPage extends React.Component{
     constructor(props) {
@@ -20,7 +15,7 @@ class ProfessionsRatesPage extends React.Component{
           shouldDocBeShown: false
         };
         this.setStateID = this.setStateID.bind(this);
-        axios.get(server_url + '/AllProfessions')
+        axios.get(localStorage.getItem("server_url") + '/AllProfessions')
           .then(res => {
             res.data.forEach(profession => {
               const professionsArr = res.data;
@@ -123,7 +118,7 @@ class ProfessionsRatesPage extends React.Component{
         }
     
         return(
-        <div className="row mb-4">
+        <div className="row mt-5">
         <div className="col-sm-12 col-md-5" id='allProfessions'>
           <div className="row justify-content-center">
             <div className="list-group  col-sm-12 col-md-8" id="professions">
@@ -139,9 +134,17 @@ class ProfessionsRatesPage extends React.Component{
           </div>
         </div>
         <div className="col-sm-12 col-md-5" id='rates'>
-        <ProfessionRow day="2018-10-04T00:00:00" rate="145"/>
+          <div class="row" id="patientcard">
+              <div class="col-6" id="col-custom">Rate</div>
+              <div class="col-6" id="col-custom">Date</div>
+          </div>
+          <ProfessionRows idProf={this.state.id}/>
         </div>
+        <div className="col-sm-1">
+        <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#AddRateToProfession" ></i>
         </div>
+        <AddRateToProfession/>
+      </div>
         )}
 }
 

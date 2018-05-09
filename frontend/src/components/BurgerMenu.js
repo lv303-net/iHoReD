@@ -3,12 +3,6 @@ import { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
 import Calendar from './Calendar';
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
-
 
   var styles = {
     bmBurgerButton: {

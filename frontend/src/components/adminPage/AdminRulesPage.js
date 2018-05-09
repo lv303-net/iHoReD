@@ -6,12 +6,6 @@ import AddOrUpdateRule from './modaldialogs/AddOrUpdateRuleModal';
 import SubmitDeleting from './modaldialogs/SubmitDeletingModal';
 import AddDoctorToCurrentRule from './modaldialogs/AddDoctorToCurrentRule';
 
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
-
 class RulesPage extends Component {
     constructor(){
         super();
@@ -38,7 +32,7 @@ class RulesPage extends Component {
             }
         }
 
-        axios.get(server_url + '/rule')
+        axios.get(localStorage.getItem("server_url") + '/rule')
         .then(res => {
             this.setState({
                 massiveRules: res.data

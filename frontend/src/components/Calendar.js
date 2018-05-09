@@ -4,12 +4,6 @@ import 'fullcalendar';
 import axios from 'axios';
 import '../style/Calendar.css';
 
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
-
 class Calendar extends React.Component{
   constructor(props){      
     super(props);
@@ -32,7 +26,7 @@ class Calendar extends React.Component{
       endDateTime:this.state.endTime
       
     }   
-    axios.post(server_url + '/api/Schedule', bookingEvent)
+    axios.post(localStorage.getItem("server_url") + '/api/Schedule', bookingEvent)
     .then(()=>{
       this.setState({
       shouldUpdate: this.state.shouldUpdate+1
@@ -171,7 +165,7 @@ class Calendar extends React.Component{
         isMonth = true;
       else 
         isMonth = false;
-      axios.get(server_url+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
+      axios.get(localStorage.getItem("server_url")+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
       .then(response => {
         var col;
         var building = $.map(response.data, function(event){

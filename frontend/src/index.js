@@ -21,6 +21,12 @@ import UserPage from './components/userPage/UserMainPage'
 import DoctorPage from './components/doctorPage/DoctorMainPage'
 import NotFound from './components/NotFound'
 
+var server_url;
+if(process.env.NODE_ENV==="development")
+  localStorage.setItem("server_url", "http://localhost:58511")
+else if(process.env.NODE_ENV==="production")
+  localStorage.setItem("server_url","https://hored.azurewebsites.net")
+  
 class Home extends Component {
     render() {
       return (

@@ -6,11 +6,6 @@ import axios from 'axios';
 import '../style/PatientDiagnosesTable.css';
 import CardDisease from '../components/CardDisease';
 
-var server_url;
-if(process.env.NODE_ENV==="development")
-  server_url="http://localhost:58511"
-else if(process.env.NODE_ENV==="production")
-  server_url="https://hored.azurewebsites.net"
 localStorage.removeItem("currentProfession");
 
 class PatientDiagnosesTable extends React.Component{
@@ -29,7 +24,7 @@ class PatientDiagnosesTable extends React.Component{
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('page', 1);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-        axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/1/4/2')
+        axios.get(localStorage.getItem("server_url")+'/medicalcard/getbyuserid/'+this.props.PatientId+'/1/4/2')
         .then(res => {
              this.setState({
               diagnosesArr: res.data
@@ -38,7 +33,7 @@ class PatientDiagnosesTable extends React.Component{
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('elem', 4);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-        axios.get(server_url+'/MedicalCard/GetPageCount/'+this.props.PatientId+'/4')
+        axios.get(localStorage.getItem("server_url")+'/MedicalCard/GetPageCount/'+this.props.PatientId+'/4')
         .then(res => {
              this.setState({
               pageCount: res.data    
@@ -76,7 +71,7 @@ class PatientDiagnosesTable extends React.Component{
             searchParameter.set('page', number);
             window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
             this.activePages(number);
-        axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+number+'/'+this.state.elementsCount+'/'+this.state.columnCount)
+        axios.get(localStorage.getItem("server_url")+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+number+'/'+this.state.elementsCount+'/'+this.state.columnCount)
         .then(res => {
              this.setState({
               diagnosesArr: res.data,
@@ -112,14 +107,14 @@ class PatientDiagnosesTable extends React.Component{
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
         this.AddDropdown(number);
         var columnCount=this.getColumnsAndRowsNumber(number)[0];
-        axios.get(server_url+'/MedicalCard/GetPageCount/'+this.props.PatientId+'/'+number)
+        axios.get(localStorage.getItem("server_url")+'/MedicalCard/GetPageCount/'+this.props.PatientId+'/'+number)
         .then(res => {
              this.setState({
               pageCount: res.data    
              })
         });
         this.activePages(1);
-        axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+'1'+'/'+number+'/'+columnCount)
+        axios.get(localStorage.getItem("server_url")+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+'1'+'/'+number+'/'+columnCount)
         .then(res => {
              this.setState({
               diagnosesArr: res.data,
