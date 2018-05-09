@@ -67,7 +67,7 @@ class AddDoctorToCurrentRule extends Component{
                             <div className="list-group col-sm-6 mt-4 padding-l-r-10px col-sm-12">
                                 {this.state.listDoctors.map((doctor) => <div className="d-flex flex-row justify-content-between list-group-item list-group-active">
                                     <div>{doctor.FirstName + ' ' + doctor.LastName}</div>
-                                    <i className="fa fa-plus" onCLick={() => this.AddDoctorToRule(doctor.Id)}></i>
+                                    <i className="fa fa-plus" onClick={() => this.AddDoctorToRule(doctor.Id)}></i>
                                 </div>
                                 )}
                             </div>
