@@ -81,7 +81,6 @@ namespace Entities.Services
             };
             str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             values = str.Split('*');
-            list = new List<string[]>();
             for (int i = 0; i < values.Length - 2; i += 3)
             {
                 string[] name = { values.GetValue(i).ToString(), values.GetValue(i + 1).ToString(), values.GetValue(i + 2).ToString() };
