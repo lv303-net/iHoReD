@@ -5,11 +5,12 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 
-class AddRateToProfession extends Component{
+class EditRateToProfession extends Component{
     constructor(props){
         super(props);
         this.state = {
-            startDate: moment()  
+            startDate: moment(),
+            rate: 0
         }
         this.handleChangeStart = this.handleChangeStart.bind(this);
         this.handleSubmitEdit=this.handleSubmitEdit.bind(this);
@@ -18,34 +19,45 @@ class AddRateToProfession extends Component{
 
     handleChangeStart(date) {
         this.setState({
-          startDate: date, 
+          startDate: date,
+          rate: 0 
         });
     }
-
+    
     handleSubmitEdit() {
-        var url_string = window.location.href;
-        var url = new URL(url_string);
-        var Profession = url.searchParams.get("prof");
-        var newRate = {
-          professionId: Profession,
-          rate: this.rate,
-          startDate: this.state.startDate.format('YYYY-MM-DD')
-          
-        }   
-        axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/add', newRate)
-        .then(response=>{
-          console.log(response.data);
-        })
-        
+        this.setState({
+            rate: this.rate
+        }) 
+      }
+      shouldComponentUpdate(nextProps, nextState)
+      {
+        return((this.props.date!==nextProps.date ) || (this.state.rate!==nextState.rate))
       }
 
+      componentWillUpdate(nextProps, nextState){
+        if(nextState.rate!==0)
+        {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var Profession = url.searchParams.get("prof");
+            var newRate = {
+            professionId: Profession,
+            rate: nextState.rate,
+            startDate: nextProps.date
+            }   
+            axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/edit', newRate)
+            .then(response=>{
+            console.log(response.data);
+            })
+        }
+      }
     render(){
         return(
-            <div class="modal fade" id="AddRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="EditRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title" id="exampleModalLabel">Confirm adding new rate</h3>
+                            <h3 class="modal-title" id="exampleModalLabel">Confirm editing</h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -66,19 +78,6 @@ class AddRateToProfession extends Component{
                                 </div>
                             </div>
                         </div>
-                        <div className="form-row ml-3 justify-content-center">
-                            <div className="form-group justify-content-center col-sm-2 col-xs-12 mb-0">
-                                <p className="labelForm">Date</p>
-                            </div>
-                            <div className="form-group col-sm-5 col-xs-12 mt-1">
-                            <DatePicker
-                            selected={this.state.startDate}
-                            startDate={this.state.startDate}
-                            onChange={this.handleChangeStart}
-                            id="adminDatePicker"
-                            />
-                            </div>
-                        </div>
                         <div className="row mb-3 mt-5 justify-content-center">
                         <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
@@ -90,8 +89,6 @@ class AddRateToProfession extends Component{
                         </div>
                         </div>
                         </div>
-                        <div class="modal-footer">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -99,4 +96,4 @@ class AddRateToProfession extends Component{
     }
 }
 
-export default AddRateToProfession;
+export default EditRateToProfession;

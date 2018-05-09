@@ -2,7 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 import axios from 'axios';
 import ProfessionRows from './ProfessionRows';
-import AddRateToProfession from './modaldialogs/AddRateToProfession'
+import AddRateToProfession from './modaldialogs/AddRateToProfession';
+import '../../style/Professions.css';
 
 class ProfessionsRatesPage extends React.Component{
     constructor(props) {
@@ -10,7 +11,7 @@ class ProfessionsRatesPage extends React.Component{
         this.state = {
           professionsArr: [],
           id: 0,
-          shouldShow: false,
+          shouldShow: true,
           idDoctor: 0,
           shouldDocBeShown: false
         };
@@ -26,11 +27,6 @@ class ProfessionsRatesPage extends React.Component{
           });
       };
     
-      formChild1(param) {
-        this.setState({
-          idDoctor: param
-        })
-      }
     
       addUrl(val) {
         var searchParameter = new URLSearchParams(window.location.search);
@@ -58,7 +54,7 @@ class ProfessionsRatesPage extends React.Component{
     
         }
       }
-    
+      
       componentWillUpdate(nextProps, nextState) {
         let idSt = this.state.id;
         let id = nextState.professionsArr.find(professionsArr => professionsArr[0] === idSt);
@@ -108,6 +104,10 @@ class ProfessionsRatesPage extends React.Component{
                     key={professionsArr.toString()}
                     onClick={() => { this.setStateID(professionsArr[0]), this.addUrl(professionsArr[0]) }}
                     value='{professionsArr[1]}'>{professionsArr[1]}
+                    <div className="col-sm-1">
+                      <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#AddRateToProfession" ></i>
+                    </div>
+                    
                   </a>
               )
               }
@@ -139,11 +139,8 @@ class ProfessionsRatesPage extends React.Component{
               <div class="col-6" id="col-custom">Date</div>
           </div>
           <ProfessionRows idProf={this.state.id}/>
+          <AddRateToProfession/>
         </div>
-        <div className="col-sm-1">
-        <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#AddRateToProfession" ></i>
-        </div>
-        <AddRateToProfession/>
       </div>
         )}
 }

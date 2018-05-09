@@ -3,7 +3,9 @@ import { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
- 
+//import AddRateToProfession from './modaldialogs/AddRateToProfession'
+import EditRateToProfession from './modaldialogs/EditRateToProfession';
+import DeleteRateToProfession from './modaldialogs/DeleteRateToProfession';
 import 'react-datepicker/dist/react-datepicker.css';
 //import '../style/SalaryReport.css';
 
@@ -12,29 +14,49 @@ import 'react-datepicker/dist/react-datepicker.css';
         {
             super(props);
             this.state = {
-                ratesArr: []
+                ratesArr: [],
+                idProf: 0,
+                currentDate: ""
             }
         }
+
+        changeCurrentDate(date){
+            this.setState({
+                currentDate:date
+            })
+        }
+
         shouldComponentUpdate(nextProps, nextState) {
-            return (this.props.idProf!==nextProps.idProf)
+            return (this.props.idProf!==nextProps.idProf || this.state.idProf!==nextProps.idProf || this.state.currentDate!==nextState.currentDate)
         }
         componentWillUpdate(nextProps, nextState)
         {
-            axios.get(localStorage.getItem("server_url")+'/GetRatesForProfession/' + nextProps.idProf)
-            .then(response => {
-                this.setState({
-                    ratesArr:response.data
+            if(this.props.idProf!==nextProps.idProf || this.state.idProf!==nextProps.idProf)
+            {
+                axios.get(localStorage.getItem("server_url")+'/api/Salary/Rate/get/' + nextProps.idProf)
+                .then(response => {
+                    this.setState({
+                        idProf: nextProps.idProf,
+                        ratesArr:response.data
+                    })
                 })
-            })
+            }
         }
         render() 
         {
             return (
             this.state.ratesArr.map(
             rate =>
-            <div class="row" id="patientcard">
-                <div class="col-6" id="col-custom">{rate[0]}</div>
-                <div class="col-6"id="col-custom">{rate[1]}</div>
+            <div className="row" id="patientcard">
+                <div className="col-6" id="col-custom">{rate.rate}
+                {/* <div className="col-2" > */}
+                    <i className="fa fa-pencil-alt col-sm-1 justify-content-center" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.startDate)}></i>
+                    <i className="fa fa-times col-sm-1 justify-content-center" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.startDate)}></i>
+                {/* </div> */}
+                </div>
+                <div className="col-6" id="col-custom">{rate.startDate.slice(0, 10)}</div>
+                <DeleteRateToProfession date = {this.state.currentDate}/>
+                <EditRateToProfession  date = {this.state.currentDate}/>
             </div>
           )
         )
