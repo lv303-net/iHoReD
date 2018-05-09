@@ -295,5 +295,10 @@
   <changeSet author="Iryna Halenok" id="V3.36">
     <sqlFile path="V3.36_PROCEDURES_FOR_RATES_MANAGEMENT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.37">
+    <sqlFile path="V3.37_ALTERED_PROCEDURE_FOR_INSERTING_SCHEDULE_RECORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.37_CONSTRAINTS_SCHEDULE_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 
 </databaseChangeLog>
