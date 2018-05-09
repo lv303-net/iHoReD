@@ -309,4 +309,8 @@
     <sqlFile path="V3.38_ALTERED_PROCEDURE_FOR_INSERTING_SCHEDULE_RECORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Iryna Halenok" id="V3.39">
+    <sqlFile path="V3.39_ALTER_PROCEDURE_ADD_NEW_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
