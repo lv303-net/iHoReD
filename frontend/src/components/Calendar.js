@@ -13,9 +13,17 @@ class Calendar extends React.Component{
       events:[], 
       startTime:'', 
       endTime:'',
-      shouldUpdate: 1
+      shouldUpdate: 1,
+      bookingModalMessage: 'This time is not available for booking. Choose another time slot, please.'
     };  
     this.handleSubmitBooking=this.handleSubmitBooking.bind(this);   
+  }
+
+  handleCloseModal()
+  {
+    this.setState({
+      bookingModalMessage: 'This time is not available for booking. Choose another time slot, please.'
+    })
   }
 
   handleSubmitBooking() {
@@ -27,11 +35,40 @@ class Calendar extends React.Component{
       
     }   
     axios.post(localStorage.getItem("server_url") + '/api/Schedule', bookingEvent)
-    .then(()=>{
+    .then((response => {
+      // 1 - booking went fine
+      // 0 - booking is outdated (start time <= now)
+      // -1 - doctor already has event on that time slot
+      // -2 - patient already has event on that time slot
+      // -3 - doctor and patient is the same person
+      // -4 - start time >= end tame
+
+      var message
+      switch (response.data) {
+        case 0:
+              message = "Booking is outdated.";
+            break;
+        case 1:
+            message = "You have successfully booked.";
+            break;
+        case -1:
+            message = "Sorry, this time slot is not available for booking anymore. Choose another one, please.";
+            break;
+        case -2:
+            message = "Sorry, You have allready booked this time slot to an another doctor. Choose another one, please.";
+            break;
+        case -3:
+            message = "This booking is not availible for You.";
+            break;
+        }
       this.setState({
-      shouldUpdate: this.state.shouldUpdate+1
-    })
-    })
+        bookingModalMessage: message
+      })
+      $("#bookingInfoModalButton").trigger("click");
+      this.setState({
+        shouldUpdate: this.state.shouldUpdate + 1
+      }) 
+    }))
     
   }
 
@@ -57,8 +94,7 @@ class Calendar extends React.Component{
     })
   }
   
-  setStateIdDoc()
-  {
+  setStateIdDoc(){
     var url_string = window.location.href;
     var url = new URL(url_string);
     var Doctor = url.searchParams.get("doc");
@@ -70,6 +106,7 @@ class Calendar extends React.Component{
   componentWillMount(){
     this.setStateIdDoc();
   }
+
   componentDidMount(){
     this.setStateIdDoc();
     var _that = this;
@@ -128,7 +165,7 @@ class Calendar extends React.Component{
           }
 
         } else {
-          $("#blockClickButton").trigger("click");
+          $("#bookingInfoModalButton").trigger("click");
         }
       }, 
     }) 
@@ -149,13 +186,15 @@ class Calendar extends React.Component{
     || (this.state.startTime!== nextState.startTime) 
     || (this.state.endTime!== nextState.endTime) 
     || (this.state.idDoc!== nextState.idDoc)
-    || (this.props.idDoctor!==nextProps.idDoctor));       
+    || (this.props.idDoctor!==nextProps.idDoctor)
+    || (this.state.bookingModalMessage!==nextState.bookingModalMessage));       
   }
 
   componentWillUpdate(nextProps, nextState){
     if( (this.state.shouldUpdate===nextState.shouldUpdate && (this.state.idDoc!== nextState.idDoc)) || (this.props.idDoctor!==nextProps.idDoctor))
       {
          this.setStateIdDoc();
+
       }
     var getData = ((this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.state.idDoc!== nextState.idDoc) || this.state.shouldUpdate!==nextState.shouldUpdate); 
     if(getData){
@@ -182,7 +221,7 @@ class Calendar extends React.Component{
             
           }else {
             event.isFake ? (col = 'green', isSelectable = true):(col = 'red', isSelectable = false);
-            if(new Date(event.dateTime[0]+'T'+event.dateTime[1]) < (new Date()))
+            if(new Date(event.dateTime[0]+'T'+event.dateTime[1]) <= (new Date()))
             {
               return{
                 start: event.dateTime[0]+'T'+event.dateTime[1],
@@ -220,7 +259,7 @@ class Calendar extends React.Component{
         <div id = "calendar">
           <button data-toggle="modal" data-target="#confirmModal" id = "modButton" style={{display: "none"}}>
           </button>
-          <button data-toggle="modal" data-target="#BlockClickModal" id = "blockClickButton" style={{display: "none"}}>
+          <button data-toggle="modal" data-target="#BookingInfoModal" id = "bookingInfoModalButton" style={{display: "none"}}>
           </button>
           <button data-toggle="modal" data-target="#ModalToPreventUnauthorizedBooking" id = "preventUnauthorizedBookingButton" style={{display: "none"}}>
           </button>
@@ -246,15 +285,15 @@ class Calendar extends React.Component{
           </div>
         </div>
 
-         <div className="modal fade" id="BlockClickModal">
+         <div className="modal fade" id="BookingInfoModal">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-              <h4 className="modal-title" id="mModalLabel">This time is not available for booking. Choose another time slot, please.</h4>
-                <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
+              <h4 className="modal-title" id="mModalLabel">{this.state.bookingModalMessage}</h4>
+                <button type="button" className="close" data-dismiss="modal" onClick={() =>{this.handleCloseModal()}}><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-info btn-lg" data-dismiss="modal">Ok</button>
+                <button type="button" className="btn btn-info btn-lg" data-dismiss="modal" onClick={() =>{this.handleCloseModal()}}>Ok</button>
               </div>
             </div>
           </div>
