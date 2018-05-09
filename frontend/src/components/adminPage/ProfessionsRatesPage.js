@@ -96,32 +96,38 @@ class ProfessionsRatesPage extends React.Component{
         let professionList;
         if (this.state.shouldShow) {
             professionList =
-            <div id='listProf' className="list-group">
+            <div className="">
+            <div id='listProf' className="list-group ">
               {this.state.professionsArr.map(
                 professionsArr =>
                   <a className='list-group-item list-group-item-action profDocTable'
                     id={"prof" + professionsArr[0]} data-toggle="list" role="tab"
                     key={professionsArr.toString()}
                     onClick={() => { this.setStateID(professionsArr[0]), this.addUrl(professionsArr[0]) }}
-                    value='{professionsArr[1]}'>{professionsArr[1]}
-                    <div className="col-sm-1">
-                      <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#AddRateToProfession" ></i>
+                    value='{professionsArr[1]}'>
+                    <div className="row col-xs-12">
+                    <div className="col-xs-10 col-sm-8 col-md-10">
+                    {professionsArr[1]}
                     </div>
-                    
+                    <div className="col-xs-1">
+                      <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#AddRateToProfession" ></i>
+                    </div> 
+                    </div>
                   </a>
               )
               }
             </div>
+          </div>
         }
         else {
             professionList = ""
         }
     
         return(
-        <div className="row mt-5">
-        <div className="col-sm-12 col-md-5" id='allProfessions'>
-          <div className="row justify-content-center">
-            <div className="list-group  col-sm-12 col-md-8" id="professions">
+        <div className="row mt-5 justify-content-center">
+        <div className="col-sm-10 col-md-5 " id='allProfessions'>
+          <div className="row">
+            <div className="list-group col-sm-12 col-md-8 mb-3" id="professions">
               <div id='tableProf'>
                 <div className="list-group-item" id="profButton" tabIndex='1' onClick={() => { this.showList() }}>
                   <p id='tableLabel'>Professions</p>
@@ -133,10 +139,10 @@ class ProfessionsRatesPage extends React.Component{
             </div>
           </div>
         </div>
-        <div className="col-sm-12 col-md-5" id='rates'>
-          <div class="row" id="patientcard">
-              <div class="col-6" id="col-custom">Rate</div>
-              <div class="col-6" id="col-custom">Date</div>
+        <div className="col-sm-10 col-md-5 " id='rates'>
+          <div className="row " id="patientcard">
+              <div className="col-6 justify-content-center" id="col-custom">Rate</div>
+              <div className="col-6 justify-content-center" id="col-custom">Date</div>
           </div>
           <ProfessionRows idProf={this.state.id}/>
           <AddRateToProfession/>

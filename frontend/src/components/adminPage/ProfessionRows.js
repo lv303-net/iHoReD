@@ -47,12 +47,17 @@ import 'react-datepicker/dist/react-datepicker.css';
             return (
             this.state.ratesArr.map(
             rate =>
-            <div className="row" id="patientcard">
-                <div className="col-6" id="col-custom">{rate.rate}
-                {/* <div className="col-2" > */}
-                    <i className="fa fa-pencil-alt col-sm-1 justify-content-center" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.startDate)}></i>
-                    <i className="fa fa-times col-sm-1 justify-content-center" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.startDate)}></i>
-                {/* </div> */}
+            <div className="row mb-3" id="patientcard">
+                <div className="col-6" id="col-custom">
+                    <div className="row col-12">
+                        <div className="col-xs-3 col-sm-7">
+                            {rate.rate}
+                        </div> 
+                        <div className="col-4" >
+                            <i className="fa fa-pencil-alt col-xs-1 col-sm-2 " data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.startDate)}></i>
+                            <i className="fa fa-times col-xs-1 col-sm-2 " data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.startDate)}></i>
+                        </div>
+                    </div>
                 </div>
                 <div className="col-6" id="col-custom">{rate.startDate.slice(0, 10)}</div>
                 <DeleteRateToProfession date = {this.state.currentDate}/>
