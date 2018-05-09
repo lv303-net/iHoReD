@@ -29,7 +29,7 @@ class SubmitDeleting extends Component {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-primary" onClick={() => this.DeleteCurrentRule()}>Yes</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={() => this.DeleteCurrentRule()}>Yes</button>
                         </div>
                     </div>
                 </div>
