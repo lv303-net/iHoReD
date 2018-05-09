@@ -22,29 +22,71 @@ class PatientDiagnosesTable extends React.Component{
           columnCount:'2',
           elementsCount:'4',
           pageNumber:'1',
-          pageCount:'2',
+          pageCount:2,
           numberStart:1,
           numberFinish:2
         };
-        var searchParameter = new URLSearchParams(window.location.search);
-        searchParameter.set('page', 1);
-        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-        axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/1/4/2')
-        .then(res => {
-             this.setState({
-              diagnosesArr: res.data
-             })
-        });
-        var searchParameter = new URLSearchParams(window.location.search);
-        searchParameter.set('elem', 4);
-        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-        axios.get(server_url+'/MedicalCard/GetPageCount/'+this.props.PatientId+'/4')
-        .then(res => {
-             this.setState({
-              pageCount: res.data    
-             })
-        });
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        if (url.search !== '') {
+          var page = Number(url.searchParams.get("page"));
+          var count = Number(url.searchParams.get("elem"));
+          this.activePages(page);
+          var colCount=this.getColumnsAndRowsNumber(count)[0];
+          var tempPageStart;
+          var tempPageEnd;
+          if((page-1)==0)
+          {
+              tempPageStart=1;
+              tempPageEnd=2;
+          }
+          else
+          {
+              tempPageStart=page-1;
+              tempPageEnd=page;
+          }
+          axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+page+'/'+count+'/'+colCount)
+          .then(res => {
+               this.setState({
+                diagnosesArr: res.data,
+                pageNumber:page,
+                elementsCount:count,
+                columnCount:colCount,
+                numberStart:tempPageStart,
+                numberFinish:tempPageEnd
+               },this.activePages(page))
+          });
+          axios.get(server_url+'/MedicalCard/GetPageCount/'+this.props.PatientId+'/'+count)
+          .then(res => {
+               this.setState({
+                pageCount: res.data,
+               })
+          });
+        }
+        else
+        {
+            var searchParameter = new URLSearchParams(window.location.search);
+            searchParameter.set('page', 1);
+            window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+            axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/1/4/2')
+            .then(res => {
+                 this.setState({
+                  diagnosesArr: res.data
+                 },this.activePages(1))
+            });
+            var searchParameter = new URLSearchParams(window.location.search);
+            searchParameter.set('elem', 4);
+            window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+            axios.get(server_url+'/MedicalCard/GetPageCount/'+this.props.PatientId+'/4')
+            .then(res => {
+                 this.setState({
+                  pageCount: res.data    
+                 })
+            });
+        }
+       
     };
+
        addPage(e)
        {
         e.preventDefault();
@@ -54,6 +96,8 @@ class PatientDiagnosesTable extends React.Component{
         {
             if((this.state.numberFinish+1)<=this.state.pageCount)
             {
+                var searchParameter = new URLSearchParams(window.location.search);
+                searchParameter.delete('page');
                 let tempStart=this.state.numberStart+1;
                 let tempFinish=this.state.numberFinish+1;
                 this.setState({numberStart:tempStart,numberFinish:tempFinish});
@@ -65,6 +109,8 @@ class PatientDiagnosesTable extends React.Component{
         {
             if((this.state.numberStart-1)>0)
             {
+                var searchParameter = new URLSearchParams(window.location.search);
+                searchParameter.delete("page");
                 let tempStart=this.state.numberStart-1;
                 let tempFinish=this.state.numberFinish-1;
                 this.setState({numberStart:tempStart,numberFinish:tempFinish});
@@ -103,12 +149,14 @@ class PatientDiagnosesTable extends React.Component{
 
        addCountOfElements(e)
        {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
         e.preventDefault();
          var caller = e.target;
         var number = caller.innerHTML;
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('elem', number);
-        searchParameter.set('page', 1);
+        searchParameter.set('page', this.state.pageNumber);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
         this.AddDropdown(number);
         var columnCount=this.getColumnsAndRowsNumber(number)[0];
@@ -118,8 +166,8 @@ class PatientDiagnosesTable extends React.Component{
               pageCount: res.data    
              })
         });
-        this.activePages(1);
-        axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+'1'+'/'+number+'/'+columnCount)
+      //  this.activePages(Number(url.searchParams.get("page")));
+        axios.get(server_url+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+this.state.pageNumber+'/'+number+'/'+columnCount)
         .then(res => {
              this.setState({
               diagnosesArr: res.data,
@@ -146,36 +194,43 @@ class PatientDiagnosesTable extends React.Component{
                {
                    dimensions.push(1);
                    dimensions.push(6);
+                   dimensions.push(20)
                }
                if(elemCount==4)
                {
                    dimensions.push(1);
                    dimensions.push(4);
+                   dimensions.push(20)
                }
                if(elemCount==2)
                {
                    dimensions.push(1);
                    dimensions.push(2);
+                   dimensions.push(20)
                }
            }
            else
            {
             if(window.innerWidth<1200)
             {
+
                 if(elemCount==6)
                 {
                     dimensions.push(2);
                     dimensions.push(3);
+                    dimensions.push(20)
                 }
                 if(elemCount==4)
                 {
                     dimensions.push(2);
                     dimensions.push(2);
+                    dimensions.push(20)
                 }
                 if(elemCount==2)
                 {
                     dimensions.push(2);
                     dimensions.push(1);
+                    dimensions.push(20)
                 }
             }
             else
@@ -186,16 +241,19 @@ class PatientDiagnosesTable extends React.Component{
                  {
                      dimensions.push(3);
                      dimensions.push(2);
+                     dimensions.push(20);
                  }
                  if(elemCount==4)
                  {
                      dimensions.push(2);
                      dimensions.push(2);
+                     dimensions.push(50);
                  }
                  if(elemCount==2)
                  {
                      dimensions.push(2);
                      dimensions.push(1);
+                     dimensions.push(50);
                  }
              }
             }
@@ -206,6 +264,8 @@ class PatientDiagnosesTable extends React.Component{
       generatePages(numberStart,numberFinish)
       {
         var arr=[]
+        var url_string = window.location.href;
+        var url = new URL(url_string);
         var item=<li className="page-item mypag-item active" id={"mypageitem"+numberStart}><a className="page-link mypag-link" id="mypagelink">{(numberStart).toString()}</a></li>
         arr.push(item);
         if((this.state.pageCount<2)&&(numberStart==1)) numberFinish=this.state.pageCount;
@@ -214,6 +274,7 @@ class PatientDiagnosesTable extends React.Component{
            var item=<li className="page-item mypag-item" id={"mypageitem"+(i+1)}><a className="page-link mypag-link" id="mypagelink">{(i+1).toString()}</a></li>
             arr.push(item);
         }
+        this.activePages(Number(url.searchParams.get("page")));
         return arr;
       }
 
@@ -222,12 +283,13 @@ class PatientDiagnosesTable extends React.Component{
           var arr=[];
           var col=this.getColumnsAndRowsNumber(this.state.elementsCount)[0];
           var row=this.getColumnsAndRowsNumber(this.state.elementsCount)[1];
+          var width=this.getColumnsAndRowsNumber(this.state.elementsCount)[2];
              if(col==2)
              {
                     for(var i=0;i<col;i++)
                     {
                     var item= <div className="card-column col-md-6">
-                    {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime} diagnosis={diagnoses.DiseaseName}/>)}
+                    {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.DiseaseName.slice(0,width)+'...'} diagnosisFullName={diagnoses.DiseaseName}/>)}
                     </div>
                     arr.push(item);
                 }
@@ -238,7 +300,7 @@ class PatientDiagnosesTable extends React.Component{
                 for(var i=0;i<col;i++)
                 {
                 var item= <div className="card-column col-md-4">
-                {this.state.diagnosesArr.slice(i+j,(i+2+j)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime} diagnosis={diagnoses.DiseaseName}/>)}
+                {this.state.diagnosesArr.slice(i+j,(i+2+j)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.DiseaseName.slice(0,width)+'...'} diagnosisFullName={diagnoses.DiseaseName}/>)}
                 </div>
                 arr.push(item);
                 j++;
@@ -249,7 +311,7 @@ class PatientDiagnosesTable extends React.Component{
                 for(var i=0;i<col;i++)
                 {
                 var item= <div className="card-column col-md-3">
-                {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime} diagnosis={diagnoses.DiseaseName}/>)}
+                {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.DiseaseName.slice(0,width)+'...'} diagnosisFullName={diagnoses.DiseaseName}/>)}
                 </div>
                 arr.push(item);
              }
@@ -259,7 +321,7 @@ class PatientDiagnosesTable extends React.Component{
                 for(var i=0;i<col;i++)
                 {
                 var item= <div className="card-column col-md-12">
-                {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime} diagnosis={diagnoses.DiseaseName}/>)}
+                {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.DiseaseName.slice(0,width)+'...'} diagnosisFullName={diagnoses.DiseaseName}/>)}
                 </div>
                 arr.push(item);
              }
