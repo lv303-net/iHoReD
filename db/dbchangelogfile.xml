@@ -289,7 +289,11 @@
   </changeSet>
 
   <changeSet author="Iryna Halenok" id="V3.35">
-    <sqlFile path="V3.35_PROCEDURES_FOR_RATES_MANAGEMEN.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.35_INSERT_INTO_SALARY_RATES_AND_SALARY_COEFFICIENTS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.36">
+    <sqlFile path="V3.36_PROCEDURES_FOR_RATES_MANAGEMENT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
 </databaseChangeLog>
