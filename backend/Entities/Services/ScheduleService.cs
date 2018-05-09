@@ -15,22 +15,25 @@ namespace Entities.Services
             _dbContext = dbContext;
         }
 
-        public void InsertScheduleRecord(int IdDoctor, int IdPatient, string startDateTime, string endDateTime)
+        public int InsertScheduleRecord(int IdDoctor, int IdPatient, DateTime startDateTime, DateTime endDateTime)
         {
             const string cmd = "INSERT_SCHEDULE_RECORD";
 
-            DateTime startDayTime = Convert.ToDateTime(startDateTime);
-            DateTime endDayTime = Convert.ToDateTime(endDateTime);
+            if (startDateTime <= DateTime.Now)
+                return 0;
+            if (IdDoctor == IdPatient)
+                return -3;
+            if (startDateTime >= endDateTime)
+                return -4;
 
             var param = new Dictionary<string, object>()
             {
                 {"@IDDOCTOR", IdDoctor},
                 {"@IDPATIENT", IdPatient},
-                {"@START_DATETIME", startDayTime},
-                {"@END_DATETIME",endDayTime}
+                {"@START_DATETIME", startDateTime},
+                {"@END_DATETIME",endDateTime}
             };
-
-            _dbContext.ExecuteSqlQuery(cmd, param);
+            return (_dbContext.ExecuteQuery(cmd, param));
         }
     }
 }
