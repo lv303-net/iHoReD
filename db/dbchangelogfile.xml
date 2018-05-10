@@ -327,5 +327,12 @@
     <sqlFile path="V3.42_ALTERED_PROCEDURE_EDIT_SOME_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
     <sqlFile path="V3.42_ALTERED_PROCEDURE_DELETE_SOME_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.43">
+    <sqlFile path="V3.43_CREATE_PROCEDURE_GET_COEFF_FOR_DOCTOR.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.43_CREATE_PROCEDURE_ADD_SOME_COEFF.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.43_CREATE_PROCEDURE_EDIT_SOME_COEFF.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.43_CREATE_PROCEDURE_DELETE_SOME_COEFF.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
   
 </databaseChangeLog>
