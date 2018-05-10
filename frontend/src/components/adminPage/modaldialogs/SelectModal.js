@@ -40,6 +40,12 @@ class SelectProfessionModal extends Component{
           })
     }
 
+    getInitialState () {
+		return {
+			clearable: true,
+		};
+    }
+
     render() {
     let url_string = window.location.href;
     let url = new URL(url_string);
@@ -48,16 +54,18 @@ class SelectProfessionModal extends Component{
         idProf = url.searchParams.get("prof");
     }
     else{
-        idProf = 1;
+        idProf = 0;
     }
     return (
+        <div className="col-sm-4 mt-3">
+        <div className="text-center mb-2">Choose profession</div>
         <Select
-        value={idProf}
-        name="form-field-name"
-        onChange={this.handleChange}
-        options={this.state.options}
-        autoFocus
-      />
+            value={idProf}
+            name="form-field-name"
+            onChange={this.handleChange}
+            options={this.state.options}
+        />
+      </div>
       );
     }
 }
