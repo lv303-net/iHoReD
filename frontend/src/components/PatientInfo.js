@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import '../style/PatientInfo.css';
 import axios from 'axios';
-import '../style/img_avatar1.png';
+import photo from '../style/img_avatar1.png';
 class AboutPatient extends React.Component {
     render() {
         return (
@@ -79,7 +79,7 @@ class PatientInfo extends React.Component {
             </div>
            
          <div className="card" mt-5 >
-<img className="card-img-top" src="img_avatar1.png" alt="Card image"/>
+<img className="card-img-top" src={photo} alt="Card image"></img>
 <div class="card-body">
     <h4 className="card-title"> {localStorage.getItem("currentUserFirstName")}{localStorage.getItem("currentUserLastName")}</h4>
     </div>
