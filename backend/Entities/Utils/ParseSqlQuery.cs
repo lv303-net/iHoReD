@@ -212,6 +212,55 @@ namespace Entities.Utils
             return result;
         }
 
+        public static List<SalaryRate> GetPastRates(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<SalaryRate>();
+            for (int i = 0; i < (values.Length - 1); i += 2)
+            {
+                SalaryRate salary = new SalaryRate()
+                {
+                    Rate = Convert.ToDouble(values.GetValue(i)),
+                    StartDate = Convert.ToDateTime(values.GetValue(i + 1)),
+                    State = -1
+                };
+
+                result.Add(salary);
+            }
+            return result;
+        }
+
+        public static List<SalaryRate> GetFutureRates(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<SalaryRate>();
+            for (int i = 0; i < (values.Length - 1); i += 2)
+            {
+                SalaryRate salary;
+                if (i == 0)
+                {
+                    salary = new SalaryRate()
+                    {
+                        Rate = Convert.ToDouble(values.GetValue(i)),
+                        StartDate = Convert.ToDateTime(values.GetValue(i + 1)),
+                        State = 0
+                    };
+                }
+                else
+                {
+                    salary = new SalaryRate()
+                    {
+                        Rate = Convert.ToDouble(values.GetValue(i)),
+                        StartDate = Convert.ToDateTime(values.GetValue(i + 1)),
+                        State = 1
+                    };
+                }
+
+                result.Add(salary);
+            }
+            return result;
+        }
+
 
     }
 }
