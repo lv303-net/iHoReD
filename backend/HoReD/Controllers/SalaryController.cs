@@ -26,11 +26,11 @@ namespace HoReD.Controllers
             return Ok(_salaryService.GetRatesForProfession(professionId));
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("api/Salary/Rate/delete")]
         public IHttpActionResult DeleteRate(Models.SalaryBindingModel model)
         {
-            // return Ok();
+            //return Ok();
             return Ok(_salaryService.DeleteRate(model.professionId, model.startDate));
         }
 
