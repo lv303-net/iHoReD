@@ -20,7 +20,7 @@ class AdminSwitch extends Component {
             <Route exact path='/admin' render={() => <Redirect to="/admin/rules" />}/>
             <Route exact path="/admin/rules" component={AdminRulesPage}/>
             <Route exact path="/admin/salary" component={ProfessionsRatesPage}/>
-            <Route esact path="/admin/select" component={Salary}/>
+            <Route exact path="/admin/select" component={Salary}/>
             <Route component={NotFound} />
           </Switch>
         </main>
