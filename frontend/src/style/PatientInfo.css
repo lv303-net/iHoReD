@@ -5,4 +5,28 @@
 div#allergilist.list-group-item:last-child {
      border-bottom: none;
    }
+   #patientcard{
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid #adc9ff;
+    text-align: start;
+    margin-right: 0%;
+    min-height: 40px;
+    height:  auto; 
+    word-wrap: break-word; 
+  }
+  #patientInfoMain{
+    float:left;
+    position: relative;
+    left:2.5vw;
+    }
+    .card{
+    width:15em;
+    height:15em;
+    position: relative;
+    float: right;
+    margin: 0.5em;
+    left:2.5vw;
+
+    }
    
