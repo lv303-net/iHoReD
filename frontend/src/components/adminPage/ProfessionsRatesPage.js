@@ -4,6 +4,7 @@ import axios from 'axios';
 import ProfessionRows from './ProfessionRows';
 import AddRateToProfession from './modaldialogs/AddRateToProfession';
 import '../../style/Professions.css';
+import validator from 'validator';
 
 class ProfessionsRatesPage extends React.Component{
     constructor(props) {
@@ -11,7 +12,7 @@ class ProfessionsRatesPage extends React.Component{
         this.state = {
           professionsArr: [],
           id: 0,
-          shouldShow: true,
+          shouldShow: false,
           idDoctor: 0,
           shouldDocBeShown: false
         };
@@ -26,8 +27,7 @@ class ProfessionsRatesPage extends React.Component{
             });
           });
       };
-    
-    
+
       addUrl(val) {
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('prof', val);
@@ -44,6 +44,11 @@ class ProfessionsRatesPage extends React.Component{
             id: idProf
           })
         }
+        else{
+          this.setState({
+            id: 1
+          })
+        }
       }
     
       // after updating occurs
@@ -57,8 +62,8 @@ class ProfessionsRatesPage extends React.Component{
       
       componentWillUpdate(nextProps, nextState) {
         let idSt = this.state.id;
-        let id = nextState.professionsArr.find(professionsArr => professionsArr[0] === idSt);
-        if (!nextState.shouldShow && this.state.id !== 0) {
+        let id = nextState.professionsArr.find(professionsArr => professionsArr[0] == idSt);
+        if (!nextState.shouldShow && this.state.id !== 0)  {
           var idForDivText = id[1];
           $('#nameProf').text(idForDivText);
           $(".fasProf").addClass("fa-angle-right");
@@ -140,11 +145,13 @@ class ProfessionsRatesPage extends React.Component{
           </div>
         </div>
         <div className="col-sm-10 col-md-5 " id='rates'>
+        <div id="profRate">
           <div className="row " id="patientcard">
               <div className="col-6 justify-content-center text-center" id="col-custom">Rate</div>
               <div className="col-6 justify-content-center text-center" id="col-custom">Date</div>
           </div>
           <ProfessionRows idProf={this.state.id}/>
+          </div>
           <AddRateToProfession/>
         </div>
       </div>
