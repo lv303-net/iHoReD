@@ -4,6 +4,7 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+import validator from 'validator';
 
 class AddRateToProfession extends Component{
     constructor(props){
@@ -14,8 +15,25 @@ class AddRateToProfession extends Component{
         this.handleChangeStart = this.handleChangeStart.bind(this);
         this.handleSubmitEdit=this.handleSubmitEdit.bind(this);
         this.rate = "";
+        this.validRate = false;
     }
 
+    validateRate() {
+        if (validator.isInt(this.rate)) {
+          this.validRate = true;
+          return true;
+        } else {
+          this.validRate = false;
+          return false;
+        }
+      }
+
+    showError() {
+        if (this.validRate){
+            document.getElementById("firstName").style.borderColor = 'green';
+            this.divFNameRegistr.current.textContent = '';
+        }
+    }
     handleChangeStart(date) {
         this.setState({
           startDate: date, 
@@ -59,7 +77,7 @@ class AddRateToProfession extends Component{
                                 <input 
                                 className="form-control"
                                 placeholder="Rate"
-                                onChange={x => { this.rate = x.target.value;}}
+                                onChange={x => { this.rate = x.target.value; this.validateRate()}}
                                 id="Rate"
                                 />
                                 <div id="invalidPassword" className="text-muted">
@@ -85,7 +103,7 @@ class AddRateToProfession extends Component{
                             </button>
                         </div>
                         <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit()}}>Submit
+                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit(); }}>Submit
                             </button>
                         </div>
                         </div>

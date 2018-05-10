@@ -4,6 +4,7 @@ import axios from 'axios';
 import ProfessionRows from './ProfessionRows';
 import AddRateToProfession from './modaldialogs/AddRateToProfession';
 import '../../style/Professions.css';
+import validator from 'validator';
 
 class ProfessionsRatesPage extends React.Component{
     constructor(props) {
@@ -26,8 +27,7 @@ class ProfessionsRatesPage extends React.Component{
             });
           });
       };
-    
-    
+
       addUrl(val) {
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('prof', val);

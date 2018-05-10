@@ -7,6 +7,7 @@ import moment from 'moment';
 import EditRateToProfession from './modaldialogs/EditRateToProfession';
 import DeleteRateToProfession from './modaldialogs/DeleteRateToProfession';
 import 'react-datepicker/dist/react-datepicker.css';
+import validator from 'validator';
 
 //import '../style/SalaryReport.css';
 
