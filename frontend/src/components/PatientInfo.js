@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import '../style/PatientInfo.css';
 import axios from 'axios';
-
+import '../style/img_avatar1.png';
 class AboutPatient extends React.Component {
     render() {
         return (
@@ -62,7 +62,8 @@ class PatientInfo extends React.Component {
     render() {
         console.log(this.props.PatientId);
         return (
-            <div className="container mt-5 col-lg-4 col-md-6 col-10" id="patientInfoMain">
+            <div className="container mt-5">
+            <div className="container mt-5 col-lg-6 col-md-7 col-10" id="patientInfoMain">
                 {this.state.userdata.map(item => <AboutPatient firstname={item.FirstName}
                     lastname={item.LastName} birthday={item.Birthday}
                     phone={item.Phone} bloodtype={item.BloodType} />)}
@@ -73,12 +74,19 @@ class PatientInfo extends React.Component {
                             {this.state.allergies.map(item =>
                                 <div id="#allergilistitem" className="list-group-item" id="allergilist">{item}</div>)}
                         </div>
-                    </div>
-                </div>
+                    </div>                   
+                </div>               
             </div>
+           
+         <div className="card" mt-5 >
+<img className="card-img-top" src="img_avatar1.png" alt="Card image"/>
+<div class="card-body">
+    <h4 className="card-title"> {localStorage.getItem("currentUserFirstName")}{localStorage.getItem("currentUserLastName")}</h4>
+    </div>
+    </div>
+</div>    
         );
     }
 }
-
 
 export default PatientInfo;

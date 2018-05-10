@@ -10,8 +10,13 @@
      
   left:2vw;
   }
-  #multiCollapse{
+  /* #multiCollapse{
   position: relative;
     float: left; 
     margin-top: 5%;
-  }
+  } */
+  #patientInfoMain{
+    float:left;
+    position: relative;
+    left:2vw;
+    }
