@@ -313,4 +313,7 @@
     <sqlFile path="V3.39_ALTER_PROCEDURE_ADD_NEW_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Maksym Sikorskyi" id="V3.40">
+    <sqlFile path="V3.40_ALTER_PROCEDURE_REGISTER_USER_TRANSACTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>
