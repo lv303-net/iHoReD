@@ -59,7 +59,7 @@ import 'react-datepicker/dist/react-datepicker.css';
                         </div>
                     </div>
                 </div>
-                <div className="col-6" id="col-custom">{rate.startDate.slice(0, 10)}</div>
+                <div className="col-6 text-center" id="col-custom dateDiv">{rate.startDate.slice(0, 10)}</div>
                 <DeleteRateToProfession date = {this.state.currentDate}/>
                 <EditRateToProfession  date = {this.state.currentDate}/>
             </div>
