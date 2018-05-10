@@ -592,7 +592,38 @@ namespace Entities.Services
             };
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
 
-            return Utils.ParseSqlQuery.GetDoctorSalaryStatistics(str);
+            List<SalaryStatistics> statistics = Utils.ParseSqlQuery.GetDoctorSalaryStatistics(str);
+            double hours = 0;
+            foreach(var item in statistics)
+            {
+                hours += item.WorkedHours;
+            }
+            double salary = 0;
+            foreach (var item in statistics)
+            {
+                salary += item.EarnedMoney;
+            }
+            SalaryStatistics totalSalry = new SalaryStatistics()
+            {
+                Day = dateFinish,
+                WorkedHours = hours,
+                SalaryRate = statistics[statistics.Count-1].SalaryRate,
+                SalaryCoefficient = statistics[statistics.Count - 1].SalaryCoefficient,
+                EarnedMoney = salary
+            };
+
+            statistics.Add(totalSalry);
+
+            return statistics;
+        }
+
+        public List<SalaryStatistics> GetDoctorSalaryStatisticsForMonth(int IdDoctor, DateTime dayInMonth)
+        {
+            var thisMonthFirstDay = new DateTime(dayInMonth.Year, dayInMonth.Month, 1);
+            DateTime firstDayInPeviousMonth = thisMonthFirstDay.AddMonths(-1);
+            DateTime lastDayInPeviousMonth = thisMonthFirstDay.AddDays(-1);
+
+            return GetDoctorSalaryStatistics(IdDoctor, firstDayInPeviousMonth, lastDayInPeviousMonth);
         }
 
     }
