@@ -45,7 +45,7 @@ class Home extends Component {
                 <Route path="/admin" component={AdminPage}/>
                 <Route path="/user" component={UserPage}/>
                 <Route path="/doctor" component={DoctorPage}/>
-                <Route exact path="/reporting" component={SalaryReport}/>
+                <Route exact path="/reporting/:id" component={SalaryReport}/>
                 <Route component={NotFound} />
               </Switch>
             <Footerbar/>
