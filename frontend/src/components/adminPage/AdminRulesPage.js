@@ -89,17 +89,17 @@ class RulesPage extends Component {
                     <div className="list-group-item active d-flex flex-row d-flex justify-content-between">
                         <div>Rules:</div>
                         <div>
-                            <i className="fa fa-plus" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChangeCurrentRuleInfo(-1)}></i>
+                            <i className="fa fa-plus align-middle" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChangeCurrentRuleInfo(-1)}></i>
                         </div>
                     </div>
-                    {this.state.massiveRules.map(rule => <div className="list-group-item list-group-active d-flex flex-row d-flex justify-content-between" key={rule.IdRule.toString()}>
+                    {this.state.massiveRules.map(rule => <div className="list-group-item list-group-active d-flex flex-row justify-content-between" key={rule.IdRule.toString()}>
                         <div onClick={(e) => this.ChangeIdRuleForDoctorTable(rule.IdRule, e)}>
                             {rule.RuleName}
                         </div>
                         <div>
-                            <i className="fa fa-plus" data-toggle="modal" data-target="#addDoctorToPageModal" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>
-                            <i className="fa fa-pencil-alt" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>
-                            <i className="fa fa-times" data-toggle="modal" data-target="#submitDeletingData" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>
+                            <i className="fa fa-plus align-middle" data-toggle="modal" data-target="#addDoctorToPageModal" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>
+                            <i className="fa fa-pencil-alt align-middle" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>
+                            <i className="fa fa-times align-middle" data-toggle="modal" data-target="#submitDeletingData" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>
                         </div>
                     </div>)}
                 </div>

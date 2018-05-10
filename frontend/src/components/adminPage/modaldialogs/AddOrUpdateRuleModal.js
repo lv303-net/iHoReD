@@ -125,15 +125,15 @@ class AddOrUpdateRule extends Component{
                                     </div>
                                     <div className="form-row mb-3 justify-content-center">
                                         <div className="form-group col-sm-6 col-xs-12">
-                                            <input class="form-check-input" type="checkbox" id="inclusiveAoUCheckbox" onBlur={(x) => this.NewData.IfInclusive = x.target.checked}/>
                                             <label class="form-check-label">Inclusive</label>
+                                            <input class="form-check-input" type="checkbox" id="inclusiveAoUCheckbox" onBlur={(x) => this.NewData.IfInclusive = x.target.checked}/>
                                         </div>
                                     </div>
                                     <div className="form-row mb-3 justify-content-center">
                                         <div className="form-group col-sm-6 col-xs-12">
-                                        {Object.keys(this.state.currentRule.Week).map((key) => <div class="form-check form-check-inline">
-                                                <label class="form-check-label">{this.ShowShorterValueName(key)}
-                                                    <input class="form-check-input" type="checkbox" id={key.toLowerCase() + 'AoUCheckbox'} onChange={(x)=> {this.NewData.Week[key] = x.target.checked}}/>
+                                            {Object.keys(this.state.currentRule.Week).map((key) => <div class="form-check form-check-inline">
+                                                <label class="form-check-label d-flex flex-column dayOfWeekLabel">{this.ShowShorterValueName(key)}
+                                                    <input class="" type="checkbox" id={key.toLowerCase() + 'AoUCheckbox'} onChange={(x)=> {this.NewData.Week[key] = x.target.checked}}/>
                                                 </label>
                                             </div>)}
                                         </div>
