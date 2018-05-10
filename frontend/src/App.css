@@ -171,7 +171,13 @@ div.profDocTable:hover {
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis; 
+  /* font-weight: bold; */
 }
+
+.col-custom-header{
+  font-weight: bold;
+}
+
 #col-head{
   height: auto;
 }

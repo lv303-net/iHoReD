@@ -143,8 +143,8 @@ class ProfessionsRatesPage extends React.Component{
         <div className="col-sm-10 col-md-5 " id='rates'>
         <div id="profRate">
           <div className="row " id="patientcard">
-              <div className="col-6 justify-content-center" id="col-custom">Rate</div>
-              <div className="col-6 justify-content-center" id="col-custom">Date</div>
+              <div className="col-6 justify-content-center text-center" id="col-custom">Rate</div>
+              <div className="col-6 justify-content-center text-center" id="col-custom">Date</div>
           </div>
           <ProfessionRows idProf={this.state.id}/>
           </div>

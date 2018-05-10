@@ -95,19 +95,18 @@ forMonth(){
   render() {
      return (
       <div>
-        <div class="panel-body">
+        <div class="panel-body text-center py-5 mx-5">
           <h3>
-            {localStorage.getItem("currentUserFirstName")}
-            {localStorage.getItem("currentUserLastName")}
+            {localStorage.getItem("currentUserFirstName") + "    "} 
+            {" " + localStorage.getItem("currentUserLastName")}
           </h3>
         </div>
         <div className="container mt-5">
-          <div class="row">
-            <div>
+          <div className="row text-center">
+            <div className="col-4">
               Start Date:
-            </div><div>
               <DatePicker
-               selected={this.state.startDate}        
+                selected={this.state.startDate}        
                 selectsStart
                 dateFormat="YYYY-MM-DD"
                 startDate={this.state.startDate}  
@@ -116,8 +115,8 @@ forMonth(){
                 maxDate={this.state.endDate}
               />
             </div>
-            <div> End Date:</div>
-            <div class>
+            <div className="col-4"> End Date:
+            {/* <div class> */}
 
               <DatePicker
                 selected={this.state.endDate}
@@ -129,59 +128,55 @@ forMonth(){
                  onChange={this.handleChangeEnd}
               />
             </div>
-            <div>
+            <div className="col-4 mt-3">
               <button className="btn btn-primary" onClick={this.handleClick}>Apply</button>
             </div>
           </div>
-          <div className="container mt-5 col-lg-4 col-md-6 col-10" id="reportDiv">
-            <div className="row">
-              <div className="col">
-                <div class="row" id="patientcard">
-                <div class="col-6" id="col-custom">TotalSumm</div>
-                  <div class="col-6" id="demo">{this.earnedMoney()}</div>                                   
+          <div className="row text-center">
+            <div className="col-12">
+              {/* <div className="container mt-5 col-lg-4 col-md-6 col-10" id="reportDiv"> */}
+                <div className="row mt-5">
+                  <div className="col">
+                    <div class="row" id="patientcard">
+                    <div class="col-6 col-custom-header" id="col-custom">Total sum</div>
+                      <div class="col-6" id="col-custom">{this.earnedMoney()}</div>                                   
+                    </div>
+                    <div class="row" id="patientcard">
+                      <div class="col-6 col-custom-header" id="col-custom">Average rate</div>
+                      <div class="col-6" id="col-custom">{this.averageRate()}</div>
+                    </div>
+                    <div class="row" id="patientcard">
+                      <div class="col-6 col-custom-header" id="col-custom">Average coefficient</div>
+                      <div class="col-6" id="col-custom">{this.averageCoeff()}</div>
+                    </div>
+                    <div class="row" id="patientcard">
+                      <div class="col-6 col-custom-header" id="col-custom">Worked hours</div>
+                      <div class="col-6" id="col-custom">{this.sumWorkedHours()}</div>
+                    </div>
+                  </div>
                 </div>
-                <div class="row" id="patientcard">
-                  <div class="col-6" id="col-custom">AverageRate</div>
-                  <div class="col-6" id="col-custom">{this.averageRate()}</div>
-                </div>
-                <div class="row" id="patientcard">
-                  <div class="col-6" id="col-custom">Coeff</div>
-                  <div class="col-6" id="col-custom">{this.averageCoeff()}</div>
-                </div>
-                <div class="row" id="patientcard">
-                  <div class="col-6" id="col-custom">Hours</div>
-                  <div class="col-6" id="col-custom">{this.sumWorkedHours()}</div>
-                </div>
-              </div>
+              {/* </div> */}
+            </div>
+            <div className="col-3 mt-5">
+              <p><a class="btn btn-primary" data-toggle="collapse" id="multiCollapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+                aria-controls="multiCollapseExample1">More details</a></p>
             </div>
           </div>
-          <p>
-            <a class="btn btn-primary"
-              data-toggle="collapse" id="multiCollapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">More details</a></p>
-          <div class="row">
-            <div class="col">
-              <div class="collapse multi-collapse" id="multiCollapseExample1">
-                <div class="card card-body">
-                  <div class="row" id="patientcard">
-                    <div class="col-3" id="col-custom">Date</div>
-                    <div class="col-2" id="col-custom">Hours</div>
-                    <div class="col-2" id="col-custom">Coeff</div>
-                    <div class="col-2" id="col-custom">Rate</div>
-                    <div class="col-3">Total</div>
-                  </div>
-                  <div id='listProf' className="list-group"  >
-                   {this.state.salaryData.map(items => <DayReport  day={items.Day}
-                     workedHours={items.WorkedHours} salaryCoefficient={items.SalaryCoefficient}
-                      salaryRate={items.SalaryRate} earnedMoney={items.EarnedMoney}
-                    />)}
-                  </div>
-                 
-                </div>
+            <div class="collapse multi-collapse mt-5" id="multiCollapseExample1">
+              <div class="row" id="patientcard">
+                <div class="col-3 col-custom-header" id="col-custom">Date</div>
+                <div class="col-2 col-custom-header" id="col-custom">Hours</div>
+                <div class="col-2 col-custom-header" id="col-custom">Coeff</div>
+                <div class="col-2 col-custom-header" id="col-custom">Rate</div>
+                <div class="col-3 col-custom-header" id="col-custom">Total</div>
               </div>
-              
+              <div id='listProf' className="list-group"  >
+                {this.state.salaryData.map(items => <DayReport  day={items.Day}
+                  workedHours={items.WorkedHours} salaryCoefficient={items.SalaryCoefficient}
+                  salaryRate={items.SalaryRate} earnedMoney={items.EarnedMoney}
+                />)}
+              </div>
             </div>
-
-          </div>
         </div>
       </div>
 
