@@ -318,7 +318,7 @@
   </changeSet>
   
   <changeSet author="Mariia Shkolyk" id="V3.41">
-    <sqlFile path="3.41_ALTERED_PROCEDURE_FOR_WORKED_HOURS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.41_ALTERED_PROCEDURE_FOR_WORKED_HOURS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
 </databaseChangeLog>
