@@ -28,6 +28,7 @@ namespace HoReD.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [AllowAnonymous]
         public IHttpActionResult LoginUser(LoginUserBindingModel model)
         {
             try
@@ -38,11 +39,9 @@ namespace HoReD.Controllers
                 }
 
                 var currentUser = _userService.GetUserInfo(model.Email);
-                var passwordRegForm = model.Password;
-                var isPasswordEqual = Hashing.VerifyPassword(passwordRegForm, currentUser.Password);
-                if (isPasswordEqual)
+                if (Hashing.VerifyPassword(model.Password, currentUser.Password))
                 {
-                    return Ok(currentUser);
+                    return Ok(JwtManager.GenerateToken(model.Email));
                 }
                 else
                 {
