@@ -3,8 +3,9 @@ import { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import PropTypes from 'prop-types';
 
-class SelectProfessionModal extends Component{
+class SelectProfession extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -17,12 +18,14 @@ class SelectProfessionModal extends Component{
             ]
         }
     }
+
     handleChange = (selectedOption) => {
         var searchParameter = new URLSearchParams(window.location.search);
         if(selectedOption!==null){
             this.setState({ selectedOption });
             searchParameter.set('prof', selectedOption.value);
             window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+            this.props.callback(selectedOption.value);
         }
         else{
             searchParameter.delete('prof');
@@ -64,9 +67,15 @@ class SelectProfessionModal extends Component{
             name="form-field-name"
             onChange={this.handleChange}
             options={this.state.options}
+            clearable={false}
         />
       </div>
       );
     }
 }
-export default SelectProfessionModal;
+
+SelectProfession.propTypes = {
+    callback: PropTypes.func
+  };
+
+export default SelectProfession;
