@@ -133,5 +133,10 @@ namespace Entities.Services
         {
             throw new NotImplementedException();
         }
+
+        public List<SalaryStatistics>[] GetDoctorSalaryStatisticsSplitedByMonths(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

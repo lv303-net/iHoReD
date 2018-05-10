@@ -595,5 +595,30 @@ namespace Entities.Services
             return Utils.ParseSqlQuery.GetDoctorSalaryStatistics(str);
         }
 
+        public List<SalaryStatistics>[] GetDoctorSalaryStatisticsSplitedByMonths(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            int numberOfMonths = GetMonthDifference(dateStart, dateFinish);
+
+            DateTime lastDayInMonth = new DateTime(dateStart.Year, dateStart.Month, 1).AddMonths(1).AddDays(-1);
+            DateTime firstDayInMonth;
+
+            List<SalaryStatistics>[] generalList = new List<SalaryStatistics>[numberOfMonths + 1];
+
+            generalList[0] = GetDoctorSalaryStatistics(IdDoctor, dateStart, lastDayInMonth);
+
+            for (int i = 1; i <= numberOfMonths; i++)
+            {
+                firstDayInMonth = lastDayInMonth.AddDays(1);
+                lastDayInMonth = firstDayInMonth.AddMonths(1).AddDays(-1);
+                generalList[i] = GetDoctorSalaryStatistics(IdDoctor, firstDayInMonth, lastDayInMonth);
+            }
+            return generalList;
+        }
+
+        public static int GetMonthDifference(DateTime startDate, DateTime endDate)
+        {
+            int monthsApart = 12 * (startDate.Year - endDate.Year) + startDate.Month - endDate.Month;
+            return Math.Abs(monthsApart);
+        }
     }
 }

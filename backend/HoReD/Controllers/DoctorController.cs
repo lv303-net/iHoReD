@@ -123,7 +123,8 @@ namespace HoReD.Controllers
         [Route("DoctorSalaryStatistics/{doctorId}/{dateStart}/{dateFinish}")]
         public IHttpActionResult GetDoctorSalaryStatistics(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
-            List<SalaryStatistics> statistics = _doctorService.GetDoctorSalaryStatistics(doctorId, dateStart, dateFinish);
+            //List<SalaryStatistics> statistics = _doctorService.GetDoctorSalaryStatistics(doctorId, dateStart, dateFinish);
+            List<SalaryStatistics>[] statistics = _doctorService.GetDoctorSalaryStatisticsSplitedByMonths(doctorId, dateStart, dateFinish);
             return Ok(statistics);
         }
     }
