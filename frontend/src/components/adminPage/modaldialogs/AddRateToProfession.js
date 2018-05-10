@@ -12,12 +12,15 @@ class AddRateToProfession extends Component{
         this.state = {
             startDate: moment()  
         }
+        this.divRate = React.createRef();
         this.handleChangeStart = this.handleChangeStart.bind(this);
         this.handleSubmitEdit=this.handleSubmitEdit.bind(this);
         this.rate = "";
         this.validRate = false;
     }
-
+    hideError(divName, inputName) {
+        divName.current.textContent = '';
+    }
     validateRate() {
         if (validator.isInt(this.rate)) {
           this.validRate = true;
@@ -30,8 +33,12 @@ class AddRateToProfession extends Component{
 
     showError() {
         if (this.validRate){
-            document.getElementById("firstName").style.borderColor = 'green';
-            this.divFNameRegistr.current.textContent = '';
+            document.getElementById("Rate").style.borderColor = 'green';
+            this.divRate.current.textContent = '';
+        }
+        else {
+            document.getElementById("Rate").style.borderColor = '#f74131';
+            this.divRate.current.textContent = 'Please enter a valid rate';
         }
     }
     handleChangeStart(date) {
@@ -77,11 +84,11 @@ class AddRateToProfession extends Component{
                                 <input 
                                 className="form-control"
                                 placeholder="Rate"
-                                onChange={x => { this.rate = x.target.value; this.validateRate()}}
+                                onChange={x => { this.rate = x.target.value; this.validateRate(); this.hideError(this.divRate, 'Rate')}}
                                 id="Rate"
                                 />
-                                <div id="invalidPassword" className="text-muted">
-                                </div>
+                                <div id="invalidRate" className="text-muted" ref={this.divRate}>
+                            </div>
                             </div>
                         </div>
                         <div className="form-row ml-3 justify-content-center">
@@ -103,7 +110,7 @@ class AddRateToProfession extends Component{
                             </button>
                         </div>
                         <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit(); }}>Submit
+                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit(); this.showError()}}>Submit
                             </button>
                         </div>
                         </div>

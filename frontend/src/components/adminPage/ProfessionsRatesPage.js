@@ -5,6 +5,7 @@ import ProfessionRows from './ProfessionRows';
 import AddRateToProfession from './modaldialogs/AddRateToProfession';
 import '../../style/Professions.css';
 import validator from 'validator';
+import ProfessionsListModal from './modaldialogs/ProfessionsListModal';
 
 class ProfessionsRatesPage extends React.Component{
     constructor(props) {
@@ -90,13 +91,6 @@ class ProfessionsRatesPage extends React.Component{
         this.addUrl(idProf);
       }
     
-      showList() {
-        this.setState({
-          shouldShow: !this.state.shouldShow
-        })
-    
-      }
-    
       render() {
         let professionList;
         if (this.state.shouldShow) {
@@ -134,14 +128,16 @@ class ProfessionsRatesPage extends React.Component{
           <div className="row">
             <div className="list-group col-sm-12 col-md-8 mb-3" id="professions">
               <div id='tableProf'>
-                <div className="list-group-item" id="profButton" tabIndex='1' onClick={() => { this.showList() }}>
+                <div className="list-group-item" id="profButton" tabIndex='1'data-toggle="modal" data-target="#ProfessionsListModal" >
                   <p id='tableLabel'>Professions</p>
-                  <i className="fas fasProf"></i>
                   <i><span id='nameProf'> </span></i>
                 </div>
-                {professionList}
+                
               </div>
             </div>
+            {/* <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#ProfessionsListModal">
+            Professions
+            </button> */}
           </div>
         </div>
         <div className="col-sm-10 col-md-5 " id='rates'>
@@ -153,6 +149,7 @@ class ProfessionsRatesPage extends React.Component{
           <ProfessionRows idProf={this.state.id}/>
           </div>
           <AddRateToProfession/>
+          <ProfessionsListModal idProf={this.state.id}/>
         </div>
       </div>
         )}
