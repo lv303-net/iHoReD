@@ -17,10 +17,10 @@ namespace Entities.Services
 
         public List<SalaryRate> GetRatesForProfession(int professionId)
         {
-            const string cmd = "GET_RATE_FOR_PROFESSION";
+            const string cmd = "GET_RATE_FOR_PROFESSION_PAST";
             var param = new Dictionary<string, object>()
             {
-                {"@ID", professionId}
+                {"@PROFFESION_ID", professionId}
             };
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var values = str.Split('*');
@@ -29,63 +29,82 @@ namespace Entities.Services
             {
                 SalaryRate salary = new SalaryRate()
                 {
-                    rate = Convert.ToDouble(values.GetValue(i)),
-                    startDate = Convert.ToDateTime(values.GetValue(i+1))                    
+                    Rate = Convert.ToDouble(values.GetValue(i)),
+                    StartDate = Convert.ToDateTime(values.GetValue(i+1)),                 
+                    State = -1
                 };
+
+                list.Add(salary);
+            }
+            const string cmd1 = "GET_RATE_FOR_PROFESSION_FUTURE";
+            str = _dbContext.ExecuteSqlQuery(cmd1, '*', param);
+            values = str.Split('*');
+            for (int i = 0; i < (values.Length - 1); i += 2)
+            {
+                SalaryRate salary;
+                if (i == 0)
+                {
+                    salary = new SalaryRate()
+                    {
+                        Rate = Convert.ToDouble(values.GetValue(i)),
+                        StartDate = Convert.ToDateTime(values.GetValue(i + 1)),
+                        State = 0
+                    };
+                }
+                else
+                {
+                    salary = new SalaryRate()
+                    {
+                        Rate = Convert.ToDouble(values.GetValue(i)),
+                        StartDate = Convert.ToDateTime(values.GetValue(i + 1)),
+                        State = 1
+                    };
+                }
 
                 list.Add(salary);
             }
             return list;
         }
 
-        public string DeleteRate(int professionId, DateTime startDate)
+        public int DeleteRate(int professionId, DateTime startDate)
         {
             const string cmd = "DELETE_SOME_RATE";
 
             var param = new Dictionary<string, object>()
             {
-                {"@ID", professionId},
+                {"@PROFFESION_ID", professionId},
                 {"@START_DATE", startDate},
             };
 
-            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
-            var values = str.Split('*');
-            var returnedStatus = values.GetValue(0).ToString();
-            return returnedStatus;
+            return _dbContext.ExecuteQuery(cmd, param);
         }
 
-        public string AddRate(int professionId, double rate, DateTime startDate)
+        public int AddRate(int professionId, double rate, DateTime startDate)
         {
             const string cmd = "ADD_NEW_RATE";
 
             var param = new Dictionary<string, object>()
             {
-                {"@ID", professionId},
+                {"@PROFFESION_ID", professionId},
                 {"@RATE", rate },
                 {"@START_DATE", startDate},
             };
 
-            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
-            var values = str.Split('*');
-            var returnedStatus = values.GetValue(0).ToString();
-            return returnedStatus;
+            return _dbContext.ExecuteQuery(cmd, param);
         }
 
-        public string EditRate(int professionId, double rate, DateTime startDate)
+        public int EditRate(int professionId, double rate, DateTime startDate)
         {
             const string cmd = "EDIT_SOME_RATE";
 
             var param = new Dictionary<string, object>()
             {
-                {"@ID", professionId},
+                {"@PROFFESION_ID", professionId},
                 {"@RATE", rate },
                 {"@START_DATE", startDate},
             };
 
-            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
-            var values = str.Split('*');
-            var returnedStatus = values.GetValue(0).ToString();
-            return returnedStatus;
+            return _dbContext.ExecuteQuery(cmd, param);
         }
     }
 }
