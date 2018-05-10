@@ -7,6 +7,8 @@ import moment from 'moment';
 import EditRateToProfession from './modaldialogs/EditRateToProfession';
 import DeleteRateToProfession from './modaldialogs/DeleteRateToProfession';
 import 'react-datepicker/dist/react-datepicker.css';
+import validator from 'validator';
+
 //import '../style/SalaryReport.css';
 
     class ProfessionRows extends React.Component {
@@ -47,15 +49,15 @@ import 'react-datepicker/dist/react-datepicker.css';
             return (
             this.state.ratesArr.map(
             rate =>
-            <div className="row mb-3" id="patientcard">
+            <div className="row" id="patientcard">
                 <div className="col-6" id="col-custom">
-                    <div className="row col-12">
-                        <div className="col-xs-3 col-sm-7">
+                    <div className="row col-xs-12 col-sm-12 col-md-12">
+                        <div className="col-8">
                             {rate.rate}
                         </div> 
-                        <div className="col-4" >
-                            <i className="fa fa-pencil-alt col-xs-1 col-sm-2 " data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.startDate)}></i>
-                            <i className="fa fa-times col-xs-1 col-sm-2 " data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.startDate)}></i>
+                        <div className="col-3" >
+                            <i className="fa fa-pencil-alt col-1" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.startDate)}></i>
+                            <i className="fa fa-times col-1" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.startDate)}></i>
                         </div>
                     </div>
                 </div>
