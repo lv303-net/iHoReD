@@ -316,4 +316,16 @@
   <changeSet author="Maksym Sikorskyi" id="V3.40">
     <sqlFile path="V3.40_ALTER_PROCEDURE_REGISTER_USER_TRANSACTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.41">
+    <sqlFile path="V3.41_ALTERED_PROCEDURE_FOR_WORKED_HOURS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.42">
+    <sqlFile path="V3.42_ALTERED_PROCEDURE_GET_RATE_FOR_PROFESSION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.42_ALTERED_PROCEDURE_ADD_SOME_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.42_ALTERED_PROCEDURE_EDIT_SOME_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.42_ALTERED_PROCEDURE_DELETE_SOME_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
 </databaseChangeLog>
