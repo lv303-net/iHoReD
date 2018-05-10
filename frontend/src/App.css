@@ -171,7 +171,13 @@ div.profDocTable:hover {
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis; 
+  /* font-weight: bold; */
 }
+
+.col-custom-header{
+  font-weight: bold;
+}
+
 #col-head{
   height: auto;
 }
@@ -216,3 +222,14 @@ font-family: sans-serif;
   padding-right: 10px;
 }
 
+.fa {
+  padding-left: 10px;
+}
+
+.fa::before {
+  font-size: 1.3rem;
+}
+
+.dayOfWeekLabel input {
+  margin: 0 auto;
+}

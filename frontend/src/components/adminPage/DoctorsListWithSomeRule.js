@@ -39,7 +39,9 @@ class DoctorsListWithSomeRule extends Component {
               <div className="list-group-item active">Doctors:</div>
               {this.state.doc.map(doc => <div className="list-group-item list-group-active d-flex flex-row justify-content-between">
                   <div key={doc.toString()}>{doc.FirstName + ' ' + doc.LastName}</div>
-                  <i className="fa fa-times" onClick={() => this.DissmissDoctorFromCurrentRule(doc.Id)}></i>
+                  <div>  
+                    <i className="fa fa-times align-middle" onClick={() => this.DissmissDoctorFromCurrentRule(doc.Id)}></i>
+                  </div>
                 </div>
                 )}                  
             </div>

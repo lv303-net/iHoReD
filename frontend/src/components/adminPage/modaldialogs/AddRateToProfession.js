@@ -4,6 +4,7 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+import validator from 'validator';
 
 class AddRateToProfession extends Component{
     constructor(props){
@@ -11,11 +12,35 @@ class AddRateToProfession extends Component{
         this.state = {
             startDate: moment()  
         }
+        this.divRate = React.createRef();
         this.handleChangeStart = this.handleChangeStart.bind(this);
         this.handleSubmitEdit=this.handleSubmitEdit.bind(this);
         this.rate = "";
+        this.validRate = false;
     }
+    hideError(divName, inputName) {
+        divName.current.textContent = '';
+    }
+    validateRate() {
+        if (validator.isInt(this.rate)) {
+          this.validRate = true;
+          return true;
+        } else {
+          this.validRate = false;
+          return false;
+        }
+      }
 
+    showError() {
+        if (this.validRate){
+            document.getElementById("Rate").style.borderColor = 'green';
+            this.divRate.current.textContent = '';
+        }
+        else {
+            document.getElementById("Rate").style.borderColor = '#f74131';
+            this.divRate.current.textContent = 'Please enter a valid rate';
+        }
+    }
     handleChangeStart(date) {
         this.setState({
           startDate: date, 
@@ -59,11 +84,11 @@ class AddRateToProfession extends Component{
                                 <input 
                                 className="form-control"
                                 placeholder="Rate"
-                                onChange={x => { this.rate = x.target.value;}}
+                                onChange={x => { this.rate = x.target.value; this.validateRate(); this.hideError(this.divRate, 'Rate')}}
                                 id="Rate"
                                 />
-                                <div id="invalidPassword" className="text-muted">
-                                </div>
+                                <div id="invalidRate" className="text-muted" ref={this.divRate}>
+                            </div>
                             </div>
                         </div>
                         <div className="form-row ml-3 justify-content-center">
@@ -85,7 +110,7 @@ class AddRateToProfession extends Component{
                             </button>
                         </div>
                         <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit()}}>Submit
+                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit(); this.showError()}}>Submit
                             </button>
                         </div>
                         </div>

@@ -12,14 +12,20 @@ class AddDoctorToCurrentRule extends Component{
         }
     }
 
-    AddDoctorToRule(idDoctor){
-        var model = {
-            IdDoctor: idDoctor,
-            IdRule: this.props.IdRule
-        }
-        axios.post(localStorage.getItem("server_url") + "/Rule/" + this.props.IdRule + "/DoctorHasRule/false/" + idDoctor + "/Assign", model)
-        .then()
-        .catch()
+    listIdMustBeAssigning = [];
+
+    AddDoctorsToRule(){
+        this.listIdMustBeAssigning.map(idDoctor =>
+        {
+            var model = {
+                IdDoctor: idDoctor,
+                IdRule: this.props.IdRule
+            }
+
+            axios.post(localStorage.getItem("server_url") + "/Rule/" + model.IdRule + "/DoctorHasRule/false/" + model.IdDoctor + "/Assign", model)
+            .then() 
+            .catch()
+        })
     }
     
     shouldComponentUpdate(nextProps, nextState) {
@@ -65,14 +71,24 @@ class AddDoctorToCurrentRule extends Component{
                         <div class="modal-body">
                             <Loader loaded={this.state.loaded}/>
                             <div className="list-group col-sm-6 mt-4 padding-l-r-10px col-sm-12">
-                                {this.state.listDoctors.map((doctor) => <div className="d-flex flex-row justify-content-between list-group-item list-group-active">
-                                    <div>{doctor.FirstName + ' ' + doctor.LastName}</div>
-                                    <i className="fa fa-plus" onClick={() => this.AddDoctorToRule(doctor.Id)}></i>
+                                {this.state.listDoctors.map((doctor) => <div className="d-flex flex-row-rewerse justify-content-between list-group-item list-group-active">
+                                    <label class="form-check-label">{doctor.FirstName + ' ' + doctor.LastName}</label>
+                                    <input class="form-check-input" type="checkbox" id={doctor.Id + 'AddDoctorCheckbox'} onChange={(x)=> {
+                                        if(x.target.checked)
+                                        {
+                                            this.listIdMustBeAssigning.push(doctor.Id);
+                                        }
+                                        else {
+                                            this.listIdMustBeAssigning.splice(this.listIdMustBeAssigning[doctor.Id],1);
+                                        }
+                                        }}/>
                                 </div>
                                 )}
                             </div>
                         </div>
                         <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={(e) => this.AddDoctorsToRule()}>Save changes</button>
                         </div>
                     </div>
                 </div>
