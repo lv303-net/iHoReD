@@ -3,24 +3,39 @@ import { Component } from 'react';
 import axios from 'axios';
 import SelectProfession from './SelectProfession';
 import SelectDoctor from './SelectDoctor';
+import ProfessionRows from '../ProfessionRows';
+
 class Salary extends Component{
     constructor(props) {
         super(props);
         this.state = {
-          idProf: 0
+          idProf: 0,
+          idDoc: 0
         }
     }
-    formChild1(param) {
+
+    getProfessionId(param) {
         this.setState({
           idProf: param
         })
-      }
+    }
+
+    getDoctorId(param) {
+        this.setState({
+          idDoc: param
+        })
+    }
 
     render(){
         return(
-            <div>
-                <SelectProfession callback={this.formChild1.bind(this)}/>
-                <SelectDoctor idProf={this.state.idProf}/>
+            <div className="row"> 
+                <div className="col-sm-6">
+                <SelectProfession callback={this.getProfessionId.bind(this)}/>
+                <SelectDoctor idProf={this.state.idProf} callback={this.getDoctorId.bind(this)}/>
+                </div>
+                <div className="col-sm-5 mt-3">
+                <ProfessionRows idProf={this.state.idProf} idDoc={this.state.idDoc}/>
+                </div>
             </div>
         )
     }

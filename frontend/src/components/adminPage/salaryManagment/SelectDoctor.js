@@ -3,8 +3,9 @@ import { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import PropTypes from 'prop-types';
 
-class SelectProfession extends Component{
+class SelectDoctor extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -26,7 +27,7 @@ class SelectProfession extends Component{
                 idDoc: selectedOption.value
             });
             window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-
+            this.props.callback(selectedOption.value);
         }
         else{
             //searchParameter.delete('doc');
@@ -93,7 +94,7 @@ class SelectProfession extends Component{
         idDoc = 0;
     }
     return (
-        <div className="col-sm-4 mt-3">
+        <div className="col-sm-8 mt-3">
         <div className="text-center mb-2">Choose doctor</div>
         <Select
             value={idDoc}
@@ -106,4 +107,7 @@ class SelectProfession extends Component{
       );
     }
 }
-export default SelectProfession;
+SelectDoctor.propTypes = {
+    callback: PropTypes.func
+  };
+export default SelectDoctor;
