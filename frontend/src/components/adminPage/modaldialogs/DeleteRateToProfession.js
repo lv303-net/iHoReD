@@ -44,24 +44,24 @@ class DeleteRateToProfession extends Component{
             var url = new URL(url_string);
             var Profession = url.searchParams.get("prof");
             var newRate = {
-            professionId: Profession,
-            startDate: nextProps.date
+            ProfessionId: Profession,
+            StartDate: nextProps.date
             }   
-            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete', newRate)
-            .then(response=>{
-                    if(response==0){            
-                        $('#deleting').remove();
-                        // $('#registrationHeader').remove();
-                        $('#textOutp').html("Please check your email."+'<br>'+"To confirm registration follow the link");
-                        $('#buttonCancelForMessage').show();
-                    }
-                    else{            
-                        $('#deleting').remove();
-                        // $('#registrationHeader').remove();
-                        $('#textOutp').html("ffffffffffffffffff."+'<br>'+"To confirm registration follow the link");
-                        $('#buttonCancelForMessage').show();
-                    }
+            var config = {
+                headers: {
+                    'User-Agent':'',
+                    'Accept':'',
+                    'Host':''
+                }
+            };
+    
+            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete/' + 1, config).then((res) => 
+            {      
+                console.log("sdfghjkl");
             })
+            .catch( function(error) {
+                console.log(JSON.stringify(error, null, 2));
+            });
         }
       }
     render(){

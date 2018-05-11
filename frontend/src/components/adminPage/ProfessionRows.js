@@ -8,6 +8,7 @@ import EditRateToProfession from './modaldialogs/EditRateToProfession';
 import DeleteRateToProfession from './modaldialogs/DeleteRateToProfession';
 import 'react-datepicker/dist/react-datepicker.css';
 import validator from 'validator';
+import '../../style/ProfessionRows.css';
 
 //import '../style/SalaryReport.css';
 
@@ -93,10 +94,24 @@ import validator from 'validator';
             let url_string = window.location.href;
             let url = new URL(url_string);
             let idDoc = url.searchParams.get("doc");
+            let images;
             return (
+            <div className="row ">
+            <div className="col-10">
+            <div className="row professionrow mt-4">
+            <div className="col-6 text-center" id="col-custom">
+                
+                    {idDoc === null ? "Rate" : "Coefficient"}
+                
+            </div>
+            <div className="col-6 text-center" id="col-custom dateDiv">
+                Date
+                </div>
+            </div>
+            {
             this.state.ratesArr.map(
             rate =>
-            <div className="row" id="patientcard">
+            <div className="row professionrow">
                 <div className="col-6" id="col-custom">
                     <div className="row col-xs-12 col-sm-12 col-md-12">
                         <div className="col-8">
@@ -104,10 +119,21 @@ import validator from 'validator';
                                 idDoc === null ? rate.Rate : rate.Coeff
                             }
                         </div> 
-                        <div className="col-3" >
-                            <i className="fa fa-pencil-alt col-1" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
-                            <i className="fa fa-times col-1" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                        {
+                        rate.State==1?
+                        images =
+                        <div className="col-3 mt-2" >
+                            <i className="fa fa-pencil-alt col-1 mr-2 ml-4" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                            <i className="fa fa-times col-1" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
                         </div>
+                        : (rate.State==0?
+                            images =
+                            <div className="col-3 mt-2" >
+                                <i className="fa fa-pencil-alt col-1 ml-4" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                            </div>
+                        : (images="")
+                        )
+                        }
                     </div>
                 </div>
                 <div className="col-6 text-center" id="col-custom dateDiv">{rate.StartDate.slice(0, 10)}</div>
@@ -115,6 +141,13 @@ import validator from 'validator';
                 <EditRateToProfession  date = {this.state.currentDate}/>
             </div>
           )
+        }
+        
+        </div>
+        <div className="col-1 mt-4">
+            <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#EditRateToProfession" ></i>
+        </div>
+        </div>
         )
         }
     }

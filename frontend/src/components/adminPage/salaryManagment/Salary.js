@@ -33,7 +33,7 @@ class Salary extends Component{
                 <SelectProfession callback={this.getProfessionId.bind(this)}/>
                 <SelectDoctor idProf={this.state.idProf} callback={this.getDoctorId.bind(this)}/>
                 </div>
-                <div className="col-sm-4 mt-3">
+                <div className="col-sm-5 mt-3">
                 <ProfessionRows idProf={this.state.idProf} idDoc={this.state.idDoc}/>
                 </div>
             </div>
