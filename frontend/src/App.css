@@ -222,3 +222,14 @@ font-family: sans-serif;
   padding-right: 10px;
 }
 
+.fa {
+  padding-left: 10px;
+}
+
+.fa::before {
+  font-size: 1.3rem;
+}
+
+.dayOfWeekLabel input {
+  margin: 0 auto;
+}
