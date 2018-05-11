@@ -24,6 +24,7 @@ class SelectProfession extends Component{
         if(selectedOption!==null){
             this.setState({ selectedOption });
             searchParameter.set('prof', selectedOption.value);
+            searchParameter.delete('doc');
             window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
             this.props.callback(selectedOption.value);
         }
@@ -60,7 +61,7 @@ class SelectProfession extends Component{
         idProf = 0;
     }
     return (
-        <div className="col-sm-4 mt-3">
+        <div className="col-sm-8 mt-3">
         <div className="text-center mb-2">Choose profession</div>
         <Select
             value={idProf}

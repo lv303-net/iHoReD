@@ -41,9 +41,9 @@ class EditRateToProfession extends Component{
             var url = new URL(url_string);
             var Profession = url.searchParams.get("prof");
             var newRate = {
-            professionId: Profession,
-            rate: nextState.rate,
-            startDate: nextProps.date
+            ProfessionId: Profession,
+            Rate: nextState.rate,
+            StartDate: nextProps.date
             }   
             axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/edit', newRate)
             .then(response=>{

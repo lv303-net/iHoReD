@@ -47,7 +47,7 @@ class DeleteRateToProfession extends Component{
             professionId: Profession,
             startDate: nextProps.date
             }   
-            axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/delete', newRate)
+            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete', newRate)
             .then(response=>{
                     if(response==0){            
                         $('#deleting').remove();
