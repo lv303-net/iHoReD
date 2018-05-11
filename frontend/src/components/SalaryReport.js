@@ -19,13 +19,37 @@ class SalaryReport extends React.Component {
       salaryData: [],
       days:[],
          };
-         axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'))
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        if (url.search !== '') {
+          var startdate = Number(url.searchParams.get("startdate"));
+          var enddate = Number(url.searchParams.get("enddate"));
+        
+          
+         axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' +this.state.startDate.format('YYYY-MM-DD')+ '/' +this.state.endDate.format('YYYY-MM-DD'))
          .then(res => {
            this.setState({
-                salaryData: res.data,      
+            
+            salaryData: res.data     
                 })
               });
+            }
+              else
+              { 
+                 var searchParameter = new URLSearchParams(window.location.search);
+                  searchParameter.set('startdate', this.state.startDate.format('YYYY-MM-DD'));
+                  searchParameter.set('enddate', this.state.endDate.format('YYYY-MM-DD'));
 
+                   window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+                  axios.get(localStorage.getItem("server_url")+'/DoctorSalaryStatistics/' + this.props.match.params.id +'/' +startdate+ '/' +enddate)
+                  .then(res => {
+                       this.setState({
+                      
+                        salaryData: res.data   
+                       })
+                  });
+              }
+         
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -47,7 +71,7 @@ class SalaryReport extends React.Component {
     handleClick(e){
     e.preventDefault();
     var start =this.state.startDate.format('YYYY-MM-DD');
-  var end =this.state.endDate.format('YYYY-MM-DD');
+    var end =this.state.endDate.format('YYYY-MM-DD');
 
     axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + start + '/' + end)
     .then(res => {
@@ -55,8 +79,27 @@ class SalaryReport extends React.Component {
            salaryData: res.data,      
            })
   });
+  var url_string = window.location.href;
+  var url = new URL(url_string);
+  e.preventDefault();
+  var searchParameter = new URLSearchParams(window.location.search);
+  searchParameter.set('startdate', start);
+  searchParameter.set('enddate', end);
+  window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+  //console.log(this.state.salaryData[0][0].Day)
 }
+  // shouldComponentUpdate(nextProps, nextState){
+  //   return(nextState.salaryData!==this.state.salaryData)
+  // }
 
+  // componentWillUpdate(nextProps, nextState){
+  //   let counter = 0;
+  //   nextState.salaryData.map(item1=>
+  //     item1.map(item2=>
+  //   console.log(item2.Day)),
+  //   counter++)
+  //   console.log(counter);
+  // }
   sumWorkedHours(){
     let array = this.state.salaryData.map(item => item.WorkedHours)
     let total=0;
@@ -93,32 +136,30 @@ forMonth(){
 }
 
   render() {
+
      return (
       <div>
         <div class="panel-body text-center py-5 mx-5">
-          <h3>
+          <h3 id="name">
             {localStorage.getItem("currentUserFirstName") + "    "} 
             {" " + localStorage.getItem("currentUserLastName")}
           </h3>
         </div>
         <div className="container mt-5">
           <div className="row text-center">
-            <div className="col-4">
+            <div className="col-lg-4 col-md-4 col-12">
               Start Date:
               <DatePicker
                 selected={this.state.startDate}        
                 selectsStart
                 dateFormat="YYYY-MM-DD"
                 startDate={this.state.startDate}  
-                // endDate={this.state.endDate}
                 onChange={this.handleChangeStart}
                 maxDate={this.state.endDate}
               />
             </div>
-            <div className="col-4"> End Date:
-            {/* <div class> */}
-
-              <DatePicker
+            <div className="col-lg-4 col-md-4 col-12"> End Date:
+                 <DatePicker
                 selected={this.state.endDate}
                 selectsEnd
                 dateFormat="YYYY-MM-DD"
@@ -128,14 +169,13 @@ forMonth(){
                  onChange={this.handleChangeEnd}
               />
             </div>
-            <div className="col-4 mt-3">
-              <button className="btn btn-primary" onClick={this.handleClick}>Apply</button>
+            <div className="col-lg-4 col-md-4 col-12 mt-3">
+              <button className="btn btn-primary salarybutton" onClick={this.handleClick}>Apply</button>
             </div>
           </div>
           <div className="row text-center">
             <div className="col-12">
-              {/* <div className="container mt-5 col-lg-4 col-md-6 col-10" id="reportDiv"> */}
-                <div className="row mt-5">
+                   <div className="row row mt-5 mx-1">
                   <div className="col">
                     <div class="row" id="patientcard">
                     <div class="col-6 col-custom-header" id="col-custom">Total sum</div>
@@ -155,14 +195,20 @@ forMonth(){
                     </div>
                   </div>
                 </div>
-              {/* </div> */}
             </div>
             <div className="col-3 mt-5">
-              <p><a class="btn btn-primary" data-toggle="collapse" id="multiCollapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+              <p><a class="btn btn-primary salarybutton" data-toggle="collapse" id="multiCollapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
                 aria-controls="multiCollapseExample1">More details</a></p>
             </div>
           </div>
             <div class="collapse multi-collapse mt-5" id="multiCollapseExample1">
+             
+              <div id='listProf' className="list-group"> 
+                {this.state.salaryData.map(items =>
+                 <div className="col-12 mt-5">
+                 <p><a class="btn btn-primary salarybutton" data-toggle="collapse" id="multiCollapse" href={'#' + items.toString()} role="button" aria-expanded="false"
+                   aria-controls="multiCollapseExample">jkjkjkjk</a></p>
+                   <div class="collapse multi-collapse mt-5" id={items.toString()}>
               <div class="row" id="patientcard">
                 <div class="col-3 col-custom-header" id="col-custom">Date</div>
                 <div class="col-2 col-custom-header" id="col-custom">Hours</div>
@@ -170,13 +216,18 @@ forMonth(){
                 <div class="col-2 col-custom-header" id="col-custom">Rate</div>
                 <div class="col-3 col-custom-header" id="col-custom">Total</div>
               </div>
-              <div id='listProf' className="list-group"  >
-                {this.state.salaryData.map(items => <DayReport  day={items.Day}
-                  workedHours={items.WorkedHours} salaryCoefficient={items.SalaryCoefficient}
-                  salaryRate={items.SalaryRate} earnedMoney={items.EarnedMoney}
-                />)}
+              
+               {
+                items.map(item=> <DayReport  day={item.Day}
+                  workedHours={item.WorkedHours} salaryCoefficient={item.SalaryCoefficient}
+                  salaryRate={item.SalaryRate} earnedMoney={item.EarnedMoney}
+                />)
+                 }
+                 </div>
+                 </div>
+              )}
               </div>
-            </div>
+              </div>
         </div>
       </div>
 
