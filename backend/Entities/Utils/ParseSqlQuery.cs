@@ -261,6 +261,55 @@ namespace Entities.Utils
             return result;
         }
 
+        public static List<SalaryCoeff> GetPastCoeff(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<SalaryCoeff>();
+            for (int i = 0; i < (values.Length - 1); i += 2)
+            {
+                SalaryCoeff salary = new SalaryCoeff()
+                {
+                    Coeff = Convert.ToDouble(values.GetValue(i)),
+                    StartDate = Convert.ToDateTime(values.GetValue(i + 1)),
+                    State = -1
+                };
+
+                result.Add(salary);
+            }
+            return result;
+        }
+
+        public static List<SalaryCoeff> GetFutureCoeff(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<SalaryCoeff>();
+            for (int i = 0; i < (values.Length - 1); i += 2)
+            {
+                SalaryCoeff salary;
+                if (i == 0)
+                {
+                    salary = new SalaryCoeff()
+                    {
+                        Coeff = Convert.ToDouble(values.GetValue(i)),
+                        StartDate = Convert.ToDateTime(values.GetValue(i + 1)),
+                        State = 0
+                    };
+                }
+                else
+                {
+                    salary = new SalaryCoeff()
+                    {
+                        Coeff = Convert.ToDouble(values.GetValue(i)),
+                        StartDate = Convert.ToDateTime(values.GetValue(i + 1)),
+                        State = 1
+                    };
+                }
+
+                result.Add(salary);
+            }
+            return result;
+        }
+
 
     }
 }

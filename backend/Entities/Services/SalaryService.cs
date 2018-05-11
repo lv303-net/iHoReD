@@ -74,5 +74,65 @@ namespace Entities.Services
 
             return _dbContext.ExecuteQuery(cmd, param);
         }
+
+        public List<SalaryCoeff> GetCoefficientsForDoctor(int doctorId)
+        {
+            const string cmd = "GET_COEFF_FOR_DOCTOR_PAST";
+            var param = new Dictionary<string, object>()
+            {
+                {"@DOCTOR_ID", doctorId}
+            };
+            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var listPast = Utils.ParseSqlQuery.GetPastCoeff(str);
+
+            const string cmd1 = "GET_COEFF_FOR_DOCTOR_FUTURE";
+            str = _dbContext.ExecuteSqlQuery(cmd1, '*', param);
+            var listFuture = Utils.ParseSqlQuery.GetFutureCoeff(str);
+
+            var list = listPast.Concat(listFuture).ToList();
+
+            return list;
+        }
+
+        public int DeleteCoeff(int doctorId, DateTime startDate)
+        {
+            const string cmd = "DELETE_SOME_COEFF";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@DOCTOR_ID", doctorId},
+                {"@START_DATE", startDate},
+            };
+
+            return _dbContext.ExecuteQuery(cmd, param);
+        }
+
+        public int AddCoeff(int doctorId, double coeff, DateTime startDate)
+        {
+            const string cmd = "ADD_NEW_COEFF";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@DOCTOR_ID", doctorId},
+                {"@COEFFICIENT", coeff },
+                {"@START_DATE", startDate},
+            };
+
+            return _dbContext.ExecuteQuery(cmd, param);
+        }
+
+        public int EditCoeff(int doctorId, double coeff, DateTime startDate)
+        {
+            const string cmd = "EDIT_SOME_COEFF";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@DOCTOR_ID", doctorId},
+                {"@COEFFICIENT", coeff },
+                {"@START_DATE", startDate},
+            };
+
+            return _dbContext.ExecuteQuery(cmd, param);
+        }
     }
 }
