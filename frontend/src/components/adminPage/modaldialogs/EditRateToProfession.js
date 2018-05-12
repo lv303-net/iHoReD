@@ -31,17 +31,16 @@ class EditRateToProfession extends Component{
         this.setState({
             rate: this.rate
         }) 
-        $(".modal").on("hidden.bs.modal", function(){
-            $(".modal-body").html("");
-        });
+        $('#Rate').val('');
+        this.rate="";
       }
       shouldComponentUpdate(nextProps, nextState)
       {
-        return((this.props.date!==nextProps.date ) || (this.state.rate!==nextState.rate) && (this.rate!==this.state.rate) )
+        return((this.props.date!==nextProps.date ) || (this.state.rate!==nextState.rate))
       }
 
       componentWillUpdate(nextProps, nextState){
-        if(nextState.rate!==0)
+        if(nextState.rate!==0 && (this.state.rate!==nextState.rate))
         {
             var url_string = window.location.href;
             var url = new URL(url_string);
