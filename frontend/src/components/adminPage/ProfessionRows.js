@@ -3,7 +3,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-//import AddRateToProfession from './modaldialogs/AddRateToProfession'
+import AddRateToProfession from './modaldialogs/AddRateToProfession'
 import EditRateToProfession from './modaldialogs/EditRateToProfession';
 import DeleteRateToProfession from './modaldialogs/DeleteRateToProfession';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -20,7 +20,8 @@ import '../../style/ProfessionRows.css';
                 ratesArr: [],
                 idProf: 0,
                 idDoc: 0,
-                currentDate: ""
+                currentDate: "",
+                shouldUpdate: 1
             }
         }
 
@@ -29,6 +30,13 @@ import '../../style/ProfessionRows.css';
                 currentDate:date
             })
         }
+
+        reloadRows(param) {
+            this.setState({
+                shouldUpdate: this.state.shouldUpdate + param
+            })
+        }
+
         setStates(){
             let url_string = window.location.href;
             let url = new URL(url_string);
@@ -60,7 +68,8 @@ import '../../style/ProfessionRows.css';
                 this.state.currentDate!==nextState.currentDate
                 || this.state.idProf!==nextState.idProf
                 || this.state.idDoc!==nextState.idDoc
-                || this.state.ratesArr!==nextState.ratesArr);
+                || this.state.ratesArr!==nextState.ratesArr
+                || this.state.shouldUpdate!==nextState.shouldUpdate);
         }
         componentWillUpdate(nextProps, nextState){
             let url_string = window.location.href;
@@ -79,7 +88,7 @@ import '../../style/ProfessionRows.css';
             }
             if((this.state.idDoc===nextState.idDoc===0) || this.props.idDoc!==nextProps.idDoc)
                 this.setStates();
-            if(this.state.idDoc!==nextState.idDoc)
+            if(this.state.idDoc!==nextState.idDoc || this.state.shouldUpdate!==nextState.shouldUpdate)
             {
                 axios.get(localStorage.getItem("server_url")+'/api/Salary/Coefficient/get/' + nextState.idDoc)
                 .then(response => {
@@ -137,15 +146,16 @@ import '../../style/ProfessionRows.css';
                     </div>
                 </div>
                 <div className="col-6 text-center" id="col-custom dateDiv">{rate.StartDate.slice(0, 10)}</div>
-                <DeleteRateToProfession date = {this.state.currentDate}/>
-                <EditRateToProfession  date = {this.state.currentDate}/>
+                <DeleteRateToProfession date = {this.state.currentDate} />
+                <EditRateToProfession  date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
+                <AddRateToProfession callback={this.reloadRows.bind(this)}/>
             </div>
           )
         }
         
         </div>
         <div className="col-1 mt-4">
-            <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#EditRateToProfession" ></i>
+            <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#AddRateToProfession" ></i>
         </div>
         </div>
         )

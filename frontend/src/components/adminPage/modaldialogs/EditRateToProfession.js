@@ -4,6 +4,8 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+import PropTypes from 'prop-types';
+import $ from'jquery';
 
 class EditRateToProfession extends Component{
     constructor(props){
@@ -25,13 +27,17 @@ class EditRateToProfession extends Component{
     }
     
     handleSubmitEdit() {
+        //$("#EditRateToProfession").removeData('modal');
         this.setState({
             rate: this.rate
         }) 
+        $(".modal").on("hidden.bs.modal", function(){
+            $(".modal-body").html("");
+        });
       }
       shouldComponentUpdate(nextProps, nextState)
       {
-        return((this.props.date!==nextProps.date ) || (this.state.rate!==nextState.rate))
+        return((this.props.date!==nextProps.date ) || (this.state.rate!==nextState.rate) && (this.rate!==this.state.rate) )
       }
 
       componentWillUpdate(nextProps, nextState){
@@ -50,20 +56,25 @@ class EditRateToProfession extends Component{
                 axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/edit', newRate)
                 .then(response=>{
                 console.log(response.data);
+                this.props.callback(1);
                 })
             }
             else{
                 var newCoefficient = {
-                    ProfessionId: Profession,
+                    DoctorId: Doctor,
                     Coeff: nextState.rate,
                     StartDate: nextProps.date
                 } 
                 axios.post(localStorage.getItem("server_url") + '/api/Salary/Coefficient/edit', newCoefficient)
                 .then(response=>{
                 console.log(response.data);
+                this.props.callback(1);
                 })
             }
         }
+        // document.getElementById("Rate").textContent="";
+        // this.rate="";
+        
       }
     render(){
         return(
@@ -109,5 +120,9 @@ class EditRateToProfession extends Component{
         )
     }
 }
+
+EditRateToProfession.propTypes = {
+    callback: PropTypes.func
+  };
 
 export default EditRateToProfession;
