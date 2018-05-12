@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using Entities;
 using Entities.Services;
 
