@@ -175,7 +175,7 @@ forMonth(){
           </div>
           <div className="row text-center">
             <div className="col-12">
-                   <div className="row row mt-5 mx-1">
+                   <div className="row mt-5 mx-1">
                   <div className="col">
                     <div class="row" id="patientcard">
                     <div class="col-6 col-custom-header" id="col-custom">Total sum</div>
@@ -207,7 +207,7 @@ forMonth(){
                 {this.state.salaryData.map(items =>
                  <div className="col-12 mt-5">
                  <p><a class="btn btn-primary salarybutton" data-toggle="collapse" id="multiCollapse" href={'#' + items.toString()} role="button" aria-expanded="false"
-                   aria-controls="multiCollapseExample">jkjkjkjk</a></p>
+                   aria-controls="multiCollapseExample">Report</a></p>
                    <div class="collapse multi-collapse mt-5" id={items.toString()}>
               <div class="row" id="patientcard">
                 <div class="col-3 col-custom-header" id="col-custom">Date</div>
