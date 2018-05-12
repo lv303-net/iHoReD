@@ -55,7 +55,7 @@ class EditRateToProfession extends Component{
                 axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/edit', newRate)
                 .then(response=>{
                 console.log(response.data);
-                this.props.callback(1);
+                this.props.callback(response.data);
                 })
             }
             else{
@@ -67,7 +67,7 @@ class EditRateToProfession extends Component{
                 axios.post(localStorage.getItem("server_url") + '/api/Salary/Coefficient/edit', newCoefficient)
                 .then(response=>{
                 console.log(response.data);
-                this.props.callback(1);
+                this.props.callback(response.data);
                 })
             }
         }

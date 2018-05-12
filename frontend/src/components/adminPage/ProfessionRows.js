@@ -10,6 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import validator from 'validator';
 import Notifications, {notify} from 'react-notify-toast';
 import '../../style/ProfessionRows.css';
+import Notifications, {notify} from 'react-notify-toast';
 
 //import '../style/SalaryReport.css';
 
@@ -33,6 +34,12 @@ import '../../style/ProfessionRows.css';
         }
 
         reloadRows(param) {
+            if(param===0){
+                let myColor = { background: '#0E1717', text: "#FFFFFF" };
+                notify.show("dno!!!", "custom", 5000, myColor);
+            }
+            
+
             this.setState({
                 shouldUpdate: this.state.shouldUpdate + param
             })
@@ -78,7 +85,7 @@ import '../../style/ProfessionRows.css';
             let idDoc = url.searchParams.get("doc");
             if((this.state.idProf===nextState.idProf===0) || this.props.idProf!==nextProps.idProf)
                 this.setStates();
-            if((this.state.idProf!==nextState.idProf) && idDoc===null)
+            if(((this.state.idProf!==nextState.idProf) || (this.state.shouldUpdate!==nextState.shouldUpdate)) && idDoc===null)
             {
                 axios.get(localStorage.getItem("server_url")+'/api/Salary/Rate/get/' + nextState.idProf)
                 .then(response => {
@@ -89,7 +96,7 @@ import '../../style/ProfessionRows.css';
             }
             if((this.state.idDoc===nextState.idDoc===0) || this.props.idDoc!==nextProps.idDoc)
                 this.setStates();
-            if(this.state.idDoc!==nextState.idDoc || this.state.shouldUpdate!==nextState.shouldUpdate)
+            if(((this.state.idDoc!==nextState.idDoc || this.state.shouldUpdate!==nextState.shouldUpdate)) && idDoc!==null)
             {
                 axios.get(localStorage.getItem("server_url")+'/api/Salary/Coefficient/get/' + nextState.idDoc)
                 .then(response => {
@@ -108,14 +115,18 @@ import '../../style/ProfessionRows.css';
             return (
             <div className="row ">
             <Notifications />
+            <div className="col-1 mt-4">
+                <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#AddRateToProfession" ></i>
+            </div>
             <div className="col-10">
             <div className="row professionrow mt-4">
-            <div className="col-6 text-center" id="col-custom">
+            <div className="col-2 text-center" id="col-custom">555</div>
+            <div className="col-5 text-center" id="col-custom">
                 
                     {idDoc === null ? "Rate" : "Coefficient"}
                 
             </div>
-            <div className="col-6 text-center" id="col-custom dateDiv">
+            <div className="col-5 text-center" id="col-custom dateDiv">
                 Date
                 </div>
             </div>
@@ -123,41 +134,41 @@ import '../../style/ProfessionRows.css';
             this.state.ratesArr.map(
             rate =>
             <div className="row professionrow">
-                <div className="col-6" id="col-custom">
+                <div className="col-2" id="col-custom">
+                        {
+                        rate.State==1?
+                        images =
+                        <div className="mt-2" >
+                            <i className="fa fa-pencil-alt mr-2 " data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                            <i className="fa fa-times col-1" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
+                        </div>
+                        : (rate.State==0?
+                            images =
+                            <div className="mt-2" >
+                                <i className="fa fa-pencil-alt" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                            </div>
+                        : (images="")
+                        )
+                        }
+                </div>
+                <div className="col-5" id="col-custom">
                     <div className="row col-xs-12 col-sm-12 col-md-12">
+                    
                         <div className="col-8">
                             {
                                 idDoc === null ? rate.Rate : rate.Coeff
                             }
                         </div> 
-                        {
-                        rate.State==1?
-                        images =
-                        <div className="col-3 mt-2" >
-                            <i className="fa fa-pencil-alt col-1 mr-2 ml-4" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
-                            <i className="fa fa-times col-1" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
-                        </div>
-                        : (rate.State==0?
-                            images =
-                            <div className="col-3 mt-2" >
-                                <i className="fa fa-pencil-alt col-1 ml-4" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
-                            </div>
-                        : (images="")
-                        )
-                        }
                     </div>
                 </div>
-                <div className="col-6 text-center" id="col-custom dateDiv">{rate.StartDate.slice(0, 10)}</div>
-                <DeleteRateToProfession date = {this.state.currentDate} />
+                <div className="col-5 text-center" id="col-custom dateDiv">{rate.StartDate.slice(0, 10)}</div>
+                <DeleteRateToProfession date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
                 <EditRateToProfession  date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
                 <AddRateToProfession callback={this.reloadRows.bind(this)}/>
             </div>
           )
         }
         
-        </div>
-        <div className="col-1 mt-4">
-            <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#AddRateToProfession" ></i>
         </div>
         </div>
         )
