@@ -160,7 +160,7 @@ earnedMoney(){
           </div>
           <div className="row text-center">
             <div className="col-12">
-                   <div className="row row mt-5 mx-1">
+                   <div className="row mt-5 mx-1">
                   <div className="col">
                     <div class="row" id="patientcard">
                     <div class="col-6 col-custom-header" id="col-custom">Total sum</div>

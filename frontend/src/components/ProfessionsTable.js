@@ -109,7 +109,7 @@ class ProfessionsTable extends React.Component {
               <a className='list-group-item list-group-item-action profDocTable'
                 id={"prof" + professionsArr[0]} data-toggle="list" role="tab"
                 key={professionsArr.toString()}
-                onClick={() => { this.setStateID(professionsArr[0]), this.addUrl(professionsArr[0]) }}
+                onClick={() => { this.setStateID(professionsArr[0]); this.addUrl(professionsArr[0]) }}
                 value='{professionsArr[1]}'>{professionsArr[1]}
               </a>
           )
