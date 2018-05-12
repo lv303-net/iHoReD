@@ -577,11 +577,6 @@ namespace Entities.Services
 
         public List<SalaryStatistics> GetDoctorSalaryStatistics(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
-            if (dateFinish > DateTime.Now)
-            {
-                dateFinish = DateTime.Now;
-            }
-
             const string cmd = "GET_SALARY_STATISTICS_FOR_PERIOD";
 
             var param = new Dictionary<string, object>()
@@ -597,21 +592,34 @@ namespace Entities.Services
 
         public List<SalaryStatistics>[] GetDoctorSalaryStatisticsSplitedByMonths(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
+            if (dateFinish >= DateTime.Now)
+            {
+                dateFinish = DateTime.Now.AddDays(-1);
+            }
+
             int numberOfMonths = GetMonthDifference(dateStart, dateFinish);
 
-            DateTime lastDayInMonth = new DateTime(dateStart.Year, dateStart.Month, 1).AddMonths(1).AddDays(-1);
-            DateTime firstDayInMonth;
-
             List<SalaryStatistics>[] generalList = new List<SalaryStatistics>[numberOfMonths + 1];
+            if (numberOfMonths == 0)
+            {
+                generalList[0] = GetDoctorSalaryStatistics(IdDoctor, dateStart, dateFinish);
+                return generalList;
+            }
 
+            DateTime firstDayInMonth;
+            DateTime lastDayInMonth = new DateTime(dateStart.Year, dateStart.Month, 1).AddMonths(1).AddDays(-1);
             generalList[0] = GetDoctorSalaryStatistics(IdDoctor, dateStart, lastDayInMonth);
 
-            for (int i = 1; i <= numberOfMonths; i++)
+            for (int i = 1; i < numberOfMonths; i++)
             {
                 firstDayInMonth = lastDayInMonth.AddDays(1);
                 lastDayInMonth = firstDayInMonth.AddMonths(1).AddDays(-1);
                 generalList[i] = GetDoctorSalaryStatistics(IdDoctor, firstDayInMonth, lastDayInMonth);
             }
+            
+            firstDayInMonth = lastDayInMonth.AddDays(1);
+            generalList[numberOfMonths] = GetDoctorSalaryStatistics(IdDoctor, firstDayInMonth, dateFinish);
+
             return generalList;
         }
 
