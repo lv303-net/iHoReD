@@ -117,7 +117,7 @@ class DoctorTable extends React.Component {
             doc =>
               <a className='list-group-item list-group-item-action profDocTable'
                 id={"doc" + doc[2]} data-toggle="list" role="tab"
-                role="tab" key={doc.toString()}>{doc[1] + ' ' + doc[0]}</a>)}
+                key={doc.toString()}>{doc[1] + ' ' + doc[0]}</a>)}
         </div>
     }
     else {
