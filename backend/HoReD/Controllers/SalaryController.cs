@@ -56,10 +56,10 @@ namespace HoReD.Controllers
         }
 
         [HttpDelete]
-        [Route("api/Salary/Coefficient/delete")]
-        public IHttpActionResult DeleteCoeff(Models.SalaryCoeffBindingModel model)
+        [Route("api/Salary/Coefficient/delete/{doctorId}/{startDate}")]
+        public IHttpActionResult DeleteCoeff(int doctorId, string startDate)
         {
-            return Ok(_salaryService.DeleteCoeff(model.DoctorId, model.StartDate));
+            return Ok(_salaryService.DeleteCoeff(doctorId, Convert.ToDateTime(startDate)));
         }
 
         [HttpPost]
