@@ -19,3 +19,10 @@
     overflow: hidden;
     text-overflow: ellipsis; 
   }
+
+  div#inputRate > input#Rate {
+    width: 205px;
+  }
+
+
+ 
