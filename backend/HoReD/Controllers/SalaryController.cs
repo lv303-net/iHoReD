@@ -27,10 +27,10 @@ namespace HoReD.Controllers
         }
 
         [HttpDelete]
-        [Route("api/Salary/Rate/delete")]
-        public IHttpActionResult DeleteRate(Models.SalaryRateBindingModel model)
+        [Route("api/Salary/Rate/delete/{professionId}/{startDate}")]
+        public IHttpActionResult DeleteRate(int professionId, string startDate)
         {
-            return Ok(_salaryService.DeleteRate(model.ProfessionId, model.StartDate));
+            return Ok(_salaryService.DeleteRate(professionId, Convert.ToDateTime(startDate)));
         }
 
         [HttpPost]
