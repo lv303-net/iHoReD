@@ -6,12 +6,19 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import validator from 'validator';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
+import DeleteRateToProfession from './DeleteRateToProfession';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 
 class AddRateToProfession extends Component{
     constructor(props){
         super(props);
         this.state = {
-            startDate: moment()  
+            startDate: moment(),
+            statusCode: "",
+            show: false
         }
         this.divRate = React.createRef();
         this.handleChangeStart = this.handleChangeStart.bind(this);
@@ -47,7 +54,6 @@ class AddRateToProfession extends Component{
           startDate: date, 
         });
     }
-
     handleSubmitEdit() {
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -63,7 +69,7 @@ class AddRateToProfession extends Component{
             axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/add', newRate)
             .then(response=>{
             console.log(response.data);
-            this.props.callback(1);
+            this.props.callback(response.data);
             })
         }
         else{
@@ -75,12 +81,13 @@ class AddRateToProfession extends Component{
                 axios.post(localStorage.getItem("server_url") + '/api/Salary/Coefficient/add', newCoeff)
                 .then(response=>{
                 console.log(response.data);
-                this.props.callback(1);
+                this.props.callback(response.data);
+                //$('#DeleteRateToProfession').show('modal');
+
                 })
         }
         
       }
-
     render(){
         return(
             <div className="modal fade" id="AddRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
