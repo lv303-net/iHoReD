@@ -44,20 +44,12 @@ class DeleteRateToProfession extends Component{
             var url = new URL(url_string);
             var Profession = url.searchParams.get("prof");
             var newRate = {
-            ProfessionId: Profession,
-            StartDate: nextProps.date
-            }   
-            var config = {
-                headers: {
-                    'User-Agent':'',
-                    'Accept':'',
-                    'Host':''
-                }
-            };
+                ProfessionId: Profession,
+                StartDate: nextProps.date
+            } 
     
-            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete/' + 1, config).then((res) => 
+            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete/' + Profession+ '/' +nextProps.date.slice(0,10)).then((res) => 
             {      
-                console.log("sdfghjkl");
             })
             .catch( function(error) {
                 console.log(JSON.stringify(error, null, 2));
