@@ -15,17 +15,18 @@ class AddDoctorToCurrentRule extends Component{
     listIdMustBeAssigning = [];
 
     AddDoctorsToRule(){
-        this.listIdMustBeAssigning.map(idDoctor =>
-        {
-            var model = {
-                IdDoctor: idDoctor,
-                IdRule: this.props.IdRule
-            }
+        this.listIdMustBeAssigning.map((idDoctor) =>
+            {
+                var model = {
+                    IdDoctor: idDoctor,
+                    IdRule: this.props.IdRule
+                }
 
-            axios.post(localStorage.getItem("server_url") + "/Rule/" + model.IdRule + "/DoctorHasRule/false/" + model.IdDoctor + "/Assign", model)
-            .then() 
-            .catch()
-        })
+                axios.post(localStorage.getItem("server_url") + "/Rule/" + model.IdRule + "/DoctorHasRule/false/" + model.IdDoctor + "/Assign", model)
+                .then() 
+                .catch()
+            }
+        )
     }
     
     shouldComponentUpdate(nextProps, nextState) {
@@ -59,36 +60,37 @@ class AddDoctorToCurrentRule extends Component{
 
     render(){
         return(
-            <div class="modal fade" id="addDoctorToPageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="exampleModalLabel">Doctors:</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div className="modal fade" id="addDoctorToPageModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h3 className="modal-title" id="exampleModalLabel">Doctors:</h3>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
                             <Loader loaded={this.state.loaded}/>
                             <div className="list-group col-sm-6 mt-4 padding-l-r-10px col-sm-12">
-                                {this.state.listDoctors.map((doctor) => <div className="d-flex flex-row-rewerse justify-content-between list-group-item list-group-active">
-                                    <label class="form-check-label">{doctor.FirstName + ' ' + doctor.LastName}</label>
-                                    <input class="form-check-input" type="checkbox" id={doctor.Id + 'AddDoctorCheckbox'} onChange={(x)=> {
-                                        if(x.target.checked)
-                                        {
-                                            this.listIdMustBeAssigning.push(doctor.Id);
-                                        }
-                                        else {
-                                            this.listIdMustBeAssigning.splice(this.listIdMustBeAssigning[doctor.Id],1);
-                                        }
-                                        }}/>
+                                {this.state.listDoctors.map((doctor) => <div className="list-group-item list-group-active" key={doctor.Id.toString() + "addDoctorToCurrentRule"}>
+                                    <label className="form-check-label d-flex justify-content-between">{doctor.FirstName + ' ' + doctor.LastName}
+                                        <input className="form-check-input" type="checkbox" id={doctor.Id + 'AddDoctorCheckbox'} onChange={(x)=> {
+                                            if(x.target.checked)
+                                            {
+                                                this.listIdMustBeAssigning.push(doctor.Id);
+                                            }
+                                            else {
+                                                this.listIdMustBeAssigning.splice(this.listIdMustBeAssigning[doctor.Id],1);
+                                            }
+                                            }}/>
+                                    </label>
                                 </div>
                                 )}
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={(e) => this.AddDoctorsToRule()}>Save changes</button>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={(e) => this.AddDoctorsToRule()}>Save changes</button>
                         </div>
                     </div>
                 </div>

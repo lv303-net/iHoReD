@@ -211,8 +211,8 @@ font-family: sans-serif;
 }
 #datepicker{
   text-align: center;
-padding: 20px;
-font-family: sans-serif;
+  padding: 20px;
+  font-family: sans-serif;
 }
 .react-datepicker-wrapper{
   text-align: center;
@@ -232,4 +232,18 @@ font-family: sans-serif;
 
 .dayOfWeekLabel input {
   margin: 0 auto;
+}
+
+#inclusiveAoUCheckbox {
+  margin: auto 10px;
+  padding: 0;
+}
+
+.form-check-input {
+  position: initial;
+  margin: auto 0;
+}
+
+.form-check-label {
+  width: 100%;
 }

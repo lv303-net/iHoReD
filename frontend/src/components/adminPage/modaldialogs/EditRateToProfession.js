@@ -40,15 +40,29 @@ class EditRateToProfession extends Component{
             var url_string = window.location.href;
             var url = new URL(url_string);
             var Profession = url.searchParams.get("prof");
-            var newRate = {
-            professionId: Profession,
-            rate: nextState.rate,
-            startDate: nextProps.date
-            }   
-            axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/edit', newRate)
-            .then(response=>{
-            console.log(response.data);
-            })
+            var Doctor = url.searchParams.get("doc");
+            if(Doctor===null){ 
+                var newRate = {
+                    ProfessionId: Profession,
+                    Rate: nextState.rate,
+                    StartDate: nextProps.date
+                } 
+                axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/edit', newRate)
+                .then(response=>{
+                console.log(response.data);
+                })
+            }
+            else{
+                var newCoefficient = {
+                    ProfessionId: Profession,
+                    Coeff: nextState.rate,
+                    StartDate: nextProps.date
+                } 
+                axios.post(localStorage.getItem("server_url") + '/api/Salary/Coefficient/edit', newCoefficient)
+                .then(response=>{
+                console.log(response.data);
+                })
+            }
         }
       }
     render(){
