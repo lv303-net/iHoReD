@@ -77,7 +77,7 @@ import '../../style/ProfessionRows.css';
             let idDoc = url.searchParams.get("doc");
             if((this.state.idProf===nextState.idProf===0) || this.props.idProf!==nextProps.idProf)
                 this.setStates();
-            if((this.state.idProf!==nextState.idProf) && idDoc===null)
+            if(((this.state.idProf!==nextState.idProf) || (this.state.shouldUpdate!==nextState.shouldUpdate)) && idDoc===null)
             {
                 axios.get(localStorage.getItem("server_url")+'/api/Salary/Rate/get/' + nextState.idProf)
                 .then(response => {
@@ -88,7 +88,7 @@ import '../../style/ProfessionRows.css';
             }
             if((this.state.idDoc===nextState.idDoc===0) || this.props.idDoc!==nextProps.idDoc)
                 this.setStates();
-            if(this.state.idDoc!==nextState.idDoc || this.state.shouldUpdate!==nextState.shouldUpdate)
+            if(((this.state.idDoc!==nextState.idDoc || this.state.shouldUpdate!==nextState.shouldUpdate)) && idDoc!==null)
             {
                 axios.get(localStorage.getItem("server_url")+'/api/Salary/Coefficient/get/' + nextState.idDoc)
                 .then(response => {
@@ -146,7 +146,7 @@ import '../../style/ProfessionRows.css';
                     </div>
                 </div>
                 <div className="col-6 text-center" id="col-custom dateDiv">{rate.StartDate.slice(0, 10)}</div>
-                <DeleteRateToProfession date = {this.state.currentDate} />
+                <DeleteRateToProfession date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
                 <EditRateToProfession  date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
                 <AddRateToProfession callback={this.reloadRows.bind(this)}/>
             </div>
