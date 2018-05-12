@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using System.Web.Cors;
+using System.Web.Http.Cors;
 
 namespace HoReD
 {
@@ -11,7 +11,8 @@ namespace HoReD
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            config.EnableCors();
+            //var cors = new EnableCorsAttribute("*", "*", "*");
+            //config.EnableCors(cors);
             
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -21,9 +22,6 @@ namespace HoReD
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-
-
         }
     }
 }

@@ -10,8 +10,6 @@ namespace HoReD.Controllers
     /// <summary>
     /// Controller manages salary management
     /// </summary>
-    [EnableCors(origins:"*",headers:"*",methods:"*")]
-    [RoutePrefix("")]
     public class SalaryController : ApiController
     {
         private readonly ISalaryService _salaryService;
