@@ -10,6 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import validator from 'validator';
 import Notifications, {notify} from 'react-notify-toast';
 import '../../style/ProfessionRows.css';
+import $ from 'jquery';
 //import '../style/SalaryReport.css';
 
     class ProfessionRows extends React.Component {
@@ -76,10 +77,19 @@ import '../../style/ProfessionRows.css';
                 || this.state.ratesArr!==nextState.ratesArr
                 || this.state.shouldUpdate!==nextState.shouldUpdate);
         }
+
         componentWillUpdate(nextProps, nextState){
             let url_string = window.location.href;
             let url = new URL(url_string);
             let idDoc = url.searchParams.get("doc");
+            let idProf= url.searchParams.get("prof");
+            if(this.state.ratesArr.length!==0)
+            {
+                let currentRate = this.state.ratesArr.find(rate => rate.State==0);
+                var idForDiv = "salaryinfo" + currentRate.StartDate;
+                //$(idForDiv).addClass("active");
+                document.getElementById(idForDiv).style.backgroundColor="#FFFFFF"
+            }
             if((this.state.idProf===nextState.idProf===0) || this.props.idProf!==nextProps.idProf)
                 this.setStates();
             if(((this.state.idProf!==nextState.idProf) || (this.state.shouldUpdate!==nextState.shouldUpdate)) && idDoc===null)
@@ -103,11 +113,22 @@ import '../../style/ProfessionRows.css';
                 })
             }
         }
+
+        componentDidUpdate(prevProps, prevState) {
+            if(this.state.ratesArr.length!==0)
+            {
+                let currentRate = this.state.ratesArr.find(rate => rate.State==0);
+                var idForDiv = "salaryinfo" + currentRate.StartDate ;
+                //$(idForDiv).addClass("active");
+                document.getElementById(idForDiv).style.backgroundColor="#DCDCDC"
+            }
+          }
         render() 
         {
             let url_string = window.location.href;
             let url = new URL(url_string);
             let idDoc = url.searchParams.get("doc");
+            let idProf= url.searchParams.get("prof");
             let images;
             return (
             <div className="ml-3 mr-3">
@@ -132,7 +153,7 @@ import '../../style/ProfessionRows.css';
             {
             this.state.ratesArr.map(
             rate =>
-            <div className="row professionrow">
+            <div className="row professionrow" id={"salaryinfo" + rate.StartDate}>
                 <div className="col-3" id="col-custom">
                         {
                         rate.State==1?
@@ -142,10 +163,13 @@ import '../../style/ProfessionRows.css';
                             <i className="fa fa-times ml-2" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
                         </div>
                         : (rate.State==0?
-                            images =
+                            (images =
                             <div className=" row mt-2" >
                                 <i className="fa fa-pencil-alt ml-2" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
                             </div>
+                            
+                            )
+                            
                         : (images="")
                         )
                         }
