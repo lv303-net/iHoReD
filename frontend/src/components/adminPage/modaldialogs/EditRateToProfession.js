@@ -96,7 +96,7 @@ class EditRateToProfession extends Component{
                                 className="form-control"
                                 placeholder="Rate"
                                 onChange={x => { this.rate = x.target.value;}}
-                                id="Rate"
+                                id="RateEdit"
                                 />
                                 <div id="invalidPassword" className="text-muted">
                                 </div>

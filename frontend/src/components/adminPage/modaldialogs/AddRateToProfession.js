@@ -29,6 +29,7 @@ class AddRateToProfession extends Component{
     hideError(divName, inputName) {
         divName.current.textContent = '';
     }
+
     validateRate() {
         if (validator.isFloat(this.rate)) {
           this.validRate = true;
@@ -39,16 +40,15 @@ class AddRateToProfession extends Component{
         }
       }
 
-    showError() {
-        
+    showError() {        
         if (this.validRate){
             console.log('valid');
-            document.getElementById("Rate").style.borderColor = 'green';
+            document.getElementById("RateAdd").style.borderColor = 'green';
             this.divRate.current.textContent = '';
         }
         else {
             console.log('unvalid');
-            document.getElementById("Rate").style.borderColor = '#f74131';
+            document.getElementById("RateAdd").style.borderColor = '#f74131';
             this.divRate.current.textContent = 'Only numbers are allowed';
         }
     }
@@ -108,16 +108,16 @@ class AddRateToProfession extends Component{
                         <div className="modal-body">
                         <div className="form-row ml-3 justify-content-center">
                             <div className="form-group justify-content-center col-sm-2 col-xs-12 mb-0">
-                                <p className="labelForm">Rate</p>
+                                <p className="labelForm labelAdd">Rate</p>
                             </div>
-                            <div className="form-group col-sm-6 col-xs-12" id="inputRate">   
+                            <div className="form-group" id="inputRate">   
                                 <div className="text-center">                             
                                 <input 
                                 className="form-control"
                                 placeholder="Rate"
                                 onChange={x => { this.rate = x.target.value; this.validateRate(); this.hideError(this.divRate, 'Rate')}}
                                 onBlur={()=>this.showError()}
-                                id="Rate"
+                                id="RateAdd"
                                 />
                                 </div>
                                 <div id="invalidRate" className="text-muted ml-2" ref={this.divRate}>
@@ -126,9 +126,9 @@ class AddRateToProfession extends Component{
                         </div>
                         <div className="form-row ml-3 justify-content-center">
                             <div className="form-group justify-content-center col-sm-2 col-xs-12 mb-0">
-                                <p className="labelForm">Date</p>
+                                <p className="labelForm labelAdd">Date</p>
                             </div>
-                            <div className="form-group col-sm-6 col-xs-12 mt-1">
+                            <div className="form-group col-sm-6 col-xs-12 mt-1" id="datePickerForm">
                             <DatePicker
                             selected={this.state.startDate}
                             startDate={this.state.startDate}
