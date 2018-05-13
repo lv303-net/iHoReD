@@ -110,19 +110,19 @@ import '../../style/ProfessionRows.css';
             let idDoc = url.searchParams.get("doc");
             let images;
             return (
-            <div >
+            <div id="RateCoeff">
             <Notifications />
-            <div className="text-center">
-            <div className=" col-5 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
-                <h5 className="mt-2">{idDoc === null ? "Add new rate" : "Add new coefficient"}</h5>
+            <div  className="col-12" id="DivForAdding">
+            <div type="button" className=" col-12 col-md-5 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
+                <h6 className="mt-2">{idDoc === null ? "Add new rate" : "Add new coeff"}</h6>
             </div>
             </div>
-            <div className="col-10" id="RateCoeffTable">
+            <div className="col-12 mt-1" id="RateCoeffTable">
             <div className="row professionrow">
             <div className="col-3 text-center" id="col-custom"></div>
             <div className="col-4 text-center" id="col-custom">
                 
-                    {idDoc === null ? "Rate" : "Coefficient"}
+                    {idDoc === null ? "Rate" : "Coeff"}
                 
             </div>
             <div className="col-5 text-center" id="col-custom dateDiv">
@@ -137,14 +137,14 @@ import '../../style/ProfessionRows.css';
                         {
                         rate.State==1?
                         images =
-                        <div className="mt-2" >
-                            <i className="fa fa-pencil-alt mr-2 " data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
-                            <i className="fa fa-times col-1" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
+                        <div className=" row mt-2" >
+                            <i className="fa fa-pencil-alt ml-2" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                            <i className="fa fa-times ml-2" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
                         </div>
                         : (rate.State==0?
                             images =
-                            <div className="mt-2" >
-                                <i className="fa fa-pencil-alt" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                            <div className=" row mt-2" >
+                                <i className="fa fa-pencil-alt ml-2" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
                             </div>
                         : (images="")
                         )
