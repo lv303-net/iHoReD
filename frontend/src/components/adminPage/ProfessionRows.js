@@ -112,12 +112,12 @@ import '../../style/ProfessionRows.css';
             return (
             <div className="ml-3 mr-3">
             <Notifications />
-            <div  className="col-12 d-flex flex-row-reverse" id="DivForAdding">
+            <div  className="col-12  col-md-10 d-flex flex-row-reverse" id="DivForAdding">
             <div type="button" className=" col-12 col-md-5 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
                 <h6 className="mt-2">{idDoc === null ? "Add new rate" : "Add new coeff"}</h6>
             </div>
             </div>
-            <div className="col-12 mt-1" id="RateCoeffTable">
+            <div className="col-12 col-md-10 mt-1" id="RateCoeffTable">
             <div className="row professionrow">
             <div className="col-3 text-center" id="col-custom"></div>
             <div className="col-4 text-center" id="col-custom">
