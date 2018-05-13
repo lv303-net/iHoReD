@@ -30,7 +30,7 @@ namespace Entities.Services
             var listFuture = Utils.ParseSqlQuery.GetFutureRates(str);
 
             var list = listPast.Concat(listFuture).ToList();
-
+            list.Reverse();
             return list;
         }
 
@@ -90,6 +90,8 @@ namespace Entities.Services
             var listFuture = Utils.ParseSqlQuery.GetFutureCoeff(str);
 
             var list = listPast.Concat(listFuture).ToList();
+
+            list.Reverse();
 
             return list;
         }
