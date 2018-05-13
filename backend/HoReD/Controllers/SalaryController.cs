@@ -27,24 +27,53 @@ namespace HoReD.Controllers
         }
 
         [HttpDelete]
-        [Route("api/Salary/Rate/delete")]
-        public IHttpActionResult DeleteRate(Models.SalaryBindingModel model)
+        [Route("api/Salary/Rate/delete/{professionId}/{startDate}")]
+        public IHttpActionResult DeleteRate(int professionId, string startDate)
         {
-            return Ok(_salaryService.DeleteRate(model.professionId, model.startDate));
+            return Ok(_salaryService.DeleteRate(professionId, Convert.ToDateTime(startDate)));
         }
 
         [HttpPost]
         [Route("api/Salary/Rate/add")]
-        public IHttpActionResult AddNewRate(Models.SalaryBindingModel model)
+        public IHttpActionResult AddNewRate(Models.SalaryRateBindingModel model)
         {            
-            return Ok(_salaryService.AddRate(model.professionId, model.rate, model.startDate));
+            return Ok(_salaryService.AddRate(model.ProfessionId, model.Rate, model.StartDate));
         }
 
         [HttpPost]
         [Route("api/Salary/Rate/edit")]
-        public IHttpActionResult EditNewRate(Models.SalaryBindingModel model)
+        public IHttpActionResult EditNewRate(Models.SalaryRateBindingModel model)
         {
-            return Ok(_salaryService.EditRate(model.professionId, model.rate, model.startDate));
+            return Ok(_salaryService.EditRate(model.ProfessionId, model.Rate, model.StartDate));
+        }
+
+
+        [HttpGet]
+        [Route("api/Salary/Coefficient/get/{doctorId}")]
+        public IHttpActionResult GetCoefficientsForDoctor(int doctorId)
+        {
+            return Ok(_salaryService.GetCoefficientsForDoctor(doctorId));
+        }
+
+        [HttpDelete]
+        [Route("api/Salary/Coefficient/delete/{doctorId}/{startDate}")]
+        public IHttpActionResult DeleteCoeff(int doctorId, string startDate )
+        {
+            return Ok(_salaryService.DeleteCoeff(doctorId, Convert.ToDateTime(startDate)));
+        }
+
+        [HttpPost]
+        [Route("api/Salary/Coefficient/add")]
+        public IHttpActionResult AddNewCoeff(Models.SalaryCoeffBindingModel model)
+        {
+            return Ok(_salaryService.AddCoeff(model.DoctorId, model.Coeff, model.StartDate));
+        }
+
+        [HttpPost]
+        [Route("api/Salary/Coefficient/edit")]
+        public IHttpActionResult EditNewCoeff(Models.SalaryCoeffBindingModel model)
+        {
+            return Ok(_salaryService.EditCoeff(model.DoctorId, model.Coeff, model.StartDate));
         }
     }
 }
