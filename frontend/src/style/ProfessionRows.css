@@ -28,12 +28,18 @@
   width: inherit; 
   overflow: hidden;
   text-overflow: ellipsis; 
+  cursor: pointer;
 }
 
 div#inputRate input#RateAdd, div.react-datepicker__input-container > input#adminDatePicker {
   width: 200px;
 }
-
+#edit {
+  cursor: pointer;
+}
+#delete{
+  cursor: pointer;
+}
 @media (max-width: 578px) {
   input#RateAdd {
     display: block;
