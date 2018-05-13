@@ -70,8 +70,7 @@ import '../../style/ProfessionRows.css';
                 || this.state.idDoc!==nextProps.idDoc 
                 || this.props.idProf!==nextProps.idProf 
                 || this.state.idProf!==nextProps.idProf 
-                || 
-                this.state.currentDate!==nextState.currentDate
+                || this.state.currentDate!==nextState.currentDate
                 || this.state.idProf!==nextState.idProf
                 || this.state.idDoc!==nextState.idDoc
                 || this.state.ratesArr!==nextState.ratesArr
