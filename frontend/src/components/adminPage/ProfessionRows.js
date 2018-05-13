@@ -34,8 +34,8 @@ import Notifications, {notify} from 'react-notify-toast';
 
         reloadRows(param) {
             if(param===0){
-                let myColor = { background: '#0E1717', text: "#FFFFFF" };
-                notify.show("dno!!!", "custom", 5000, myColor);
+                let myColor = { background: '#FF0000', text: "#FFFFFF" };
+                notify.show("you can not add multiple rates/salaries for one day", "custom", 5000, myColor);
             }
             
 
@@ -112,15 +112,15 @@ import Notifications, {notify} from 'react-notify-toast';
             let idDoc = url.searchParams.get("doc");
             let images;
             return (
-            <div className="row ">
+            <div >
             <Notifications />
-            <div className="col-1 mt-4">
-                <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#AddRateToProfession" ></i>
+            <div className=" col-10 mt-4 text-center" id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
+                <h5 className="mt-2">{idDoc === null ? "Add new rate" : "Add new coefficient"}</h5>
             </div>
-            <div className="col-10">
-            <div className="row professionrow mt-4">
-            <div className="col-2 text-center" id="col-custom">555</div>
-            <div className="col-5 text-center" id="col-custom">
+            <div className="col-10" id="RateCoeffTable">
+            <div className="row professionrow">
+            <div className="col-3 text-center" id="col-custom"></div>
+            <div className="col-4 text-center" id="col-custom">
                 
                     {idDoc === null ? "Rate" : "Coefficient"}
                 
@@ -133,7 +133,7 @@ import Notifications, {notify} from 'react-notify-toast';
             this.state.ratesArr.map(
             rate =>
             <div className="row professionrow">
-                <div className="col-2" id="col-custom">
+                <div className="col-3" id="col-custom">
                         {
                         rate.State==1?
                         images =
@@ -150,7 +150,7 @@ import Notifications, {notify} from 'react-notify-toast';
                         )
                         }
                 </div>
-                <div className="col-5" id="col-custom">
+                <div className="col-4" id="col-custom">
                     <div className="row col-xs-12 col-sm-12 col-md-12">
                     
                         <div className="col-8">

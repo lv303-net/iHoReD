@@ -1,4 +1,4 @@
-.professionrow{
+  .professionrow{
     background-color: white;
     border-radius: 5px;
     border: 2px solid #adc9ff;
@@ -8,12 +8,14 @@
     height:  auto; 
     word-wrap: break-word; 
   }
-
+  #RateCoeffTable{
+    padding-right: 0px;
+  }
   #AddRate {
     background-color: #007bff;
     color: white;
     height: 40px;
-    width: 100px;
+    
     white-space: nowrap; 
     width: inherit; 
     overflow: hidden;
