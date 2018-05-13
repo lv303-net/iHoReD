@@ -94,13 +94,18 @@ class AddRateToProfession extends Component{
         
       }
     render(){
+            let url_string = window.location.href;
+            let url = new URL(url_string);
+            let idDoc = url.searchParams.get("doc");
         return(
             <div className="modal fade" id="AddRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
              
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h3 className="modal-title" id="exampleModalLabel">Confirm adding new rate</h3>
+                            <h3 className="modal-title" id="exampleModalLabel">
+                            {idDoc === null ? "Confirm adding new rate" : "Confirm adding new coefficient"}
+                            </h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -108,13 +113,15 @@ class AddRateToProfession extends Component{
                         <div className="modal-body">
                         <div className="form-row ml-3 justify-content-center">
                             <div className="form-group justify-content-center col-sm-2 col-xs-12 mb-0">
-                                <p className="labelForm">Rate</p>
+                                <p className="labelForm">
+                                {idDoc === null ? "Rate" : "Coeff"}
+                                </p>
                             </div>
                             <div className="form-group col-sm-6 col-xs-12" id="inputRate">   
                                 <div className="text-center">                             
                                 <input 
                                 className="form-control"
-                                placeholder="Rate"
+                                placeholder={idDoc === null ? "Rate" : "Coeff"}
                                 onChange={x => { this.rate = x.target.value; this.validateRate(); this.hideError(this.divRate, 'Rate')}}
                                 onBlur={()=>this.showError()}
                                 id="Rate"

@@ -113,8 +113,10 @@ import '../../style/ProfessionRows.css';
             return (
             <div >
             <Notifications />
-            <div className=" col-10 mt-4 text-center" id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
+            <div className="text-center">
+            <div className=" col-5 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
                 <h5 className="mt-2">{idDoc === null ? "Add new rate" : "Add new coefficient"}</h5>
+            </div>
             </div>
             <div className="col-10" id="RateCoeffTable">
             <div className="row professionrow">
@@ -149,15 +151,14 @@ import '../../style/ProfessionRows.css';
                         )
                         }
                 </div>
-                <div className="col-4" id="col-custom">
-                    <div className="row col-xs-12 col-sm-12 col-md-12">
+                <div className="col-4 text-center" id="col-custom">
                     
-                        <div className="col-8">
+                        
                             {
                                 idDoc === null ? rate.Rate : rate.Coeff
                             }
-                        </div> 
-                    </div>
+                        
+                    
                 </div>
                 <div className="col-5 text-center" id="col-custom dateDiv">{rate.StartDate.slice(0, 10)}</div>
                 <DeleteRateToProfession date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
