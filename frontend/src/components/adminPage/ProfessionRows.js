@@ -8,9 +8,8 @@ import EditRateToProfession from './modaldialogs/EditRateToProfession';
 import DeleteRateToProfession from './modaldialogs/DeleteRateToProfession';
 import 'react-datepicker/dist/react-datepicker.css';
 import validator from 'validator';
-import '../../style/ProfessionRows.css';
 import Notifications, {notify} from 'react-notify-toast';
-
+import '../../style/ProfessionRows.css';
 //import '../style/SalaryReport.css';
 
     class ProfessionRows extends React.Component {

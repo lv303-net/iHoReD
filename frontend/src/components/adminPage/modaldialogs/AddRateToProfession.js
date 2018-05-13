@@ -30,7 +30,7 @@ class AddRateToProfession extends Component{
         divName.current.textContent = '';
     }
     validateRate() {
-        if (validator.isInt(this.rate)) {
+        if (validator.isFloat(this.rate)) {
           this.validRate = true;
           return true;
         } else {
@@ -40,21 +40,26 @@ class AddRateToProfession extends Component{
       }
 
     showError() {
+        
         if (this.validRate){
+            console.log('valid');
             document.getElementById("Rate").style.borderColor = 'green';
             this.divRate.current.textContent = '';
         }
         else {
+            console.log('unvalid');
             document.getElementById("Rate").style.borderColor = '#f74131';
-            this.divRate.current.textContent = 'Please enter a valid rate';
+            this.divRate.current.textContent = 'Only numbers are allowed';
         }
     }
     handleChangeStart(date) {
         this.setState({
           startDate: date, 
         });
+
     }
     handleSubmitEdit() {
+        
         var url_string = window.location.href;
         var url = new URL(url_string);
         var Profession = url.searchParams.get("prof");
@@ -91,6 +96,7 @@ class AddRateToProfession extends Component{
     render(){
         return(
             <div className="modal fade" id="AddRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+             
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -104,14 +110,17 @@ class AddRateToProfession extends Component{
                             <div className="form-group justify-content-center col-sm-2 col-xs-12 mb-0">
                                 <p className="labelForm">Rate</p>
                             </div>
-                            <div className="form-group col-sm-6 col-xs-12" id="inputRate">
+                            <div className="form-group col-sm-6 col-xs-12" id="inputRate">   
+                                <div className="text-center">                             
                                 <input 
-                                className="form-control col-sm-11"
+                                className="form-control"
                                 placeholder="Rate"
                                 onChange={x => { this.rate = x.target.value; this.validateRate(); this.hideError(this.divRate, 'Rate')}}
+                                onBlur={()=>this.showError()}
                                 id="Rate"
                                 />
-                                <div id="invalidRate" className="text-muted" ref={this.divRate}>
+                                </div>
+                                <div id="invalidRate" className="text-muted ml-2" ref={this.divRate}>
                             </div>
                             </div>
                         </div>
@@ -129,11 +138,11 @@ class AddRateToProfession extends Component{
                             </div>
                         </div>
                         <div className="row mb-3 mt-5 justify-content-center">
-                        <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
+                        <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
                             </button>
                         </div>
-                        <div className="col-xs-3 col-sm-3 col-md-3 text-center">
+                        <div className="col-sm-3 col-6 text-center">
                             <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit()}}>Submit
                             </button>
                         </div>
