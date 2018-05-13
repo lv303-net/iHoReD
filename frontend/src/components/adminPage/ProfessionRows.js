@@ -135,7 +135,7 @@ import $ from 'jquery';
             <Notifications />
             <div  className="col-12  col-md-10 d-flex flex-row-reverse" id="DivForAdding">
             <div type="button" className=" col-12 col-md-5 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
-                <h6 className="mt-2">{idDoc === null ? "Add new rate" : "Add new coeff"}</h6>
+                <h6 className="mt-2">{idDoc === null ? "Add rate" : "Add coeff"}</h6>
             </div>
             </div>
             <div className="col-12 col-md-10 mt-1" id="RateCoeffTable">
