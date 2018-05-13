@@ -110,9 +110,9 @@ import '../../style/ProfessionRows.css';
             let idDoc = url.searchParams.get("doc");
             let images;
             return (
-            <div id="RateCoeff">
+            <div className="ml-3 mr-3">
             <Notifications />
-            <div  className="col-12" id="DivForAdding">
+            <div  className="col-12 d-flex flex-row-reverse" id="DivForAdding">
             <div type="button" className=" col-12 col-md-5 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
                 <h6 className="mt-2">{idDoc === null ? "Add new rate" : "Add new coeff"}</h6>
             </div>
