@@ -6,6 +6,7 @@ import validator from 'validator';
 import axios from 'axios';
 import '../style/Calendar.css';
 import Loader from 'react-loader';
+import { divideDurationByDuration } from 'fullcalendar';
 
 
 class DoctorCalendar extends React.Component{
@@ -17,18 +18,21 @@ class DoctorCalendar extends React.Component{
       events:[], 
       startTime:'', 
       endTime:'',
-      idPatient:0
+      idPatient:0,
+      namePatient: ""
     };  
     this.setId=this.setId.bind(this);   
   }
+  setId(id, name){
+    this.setState({
+      idPatient : id,
+      namePatient: name    
+    });
+    //document.getElementById("patientModal").innerHTML = "- "+this.state.idPatient+"Patient Name - " +this.state.namePatient ;    
 
-  componentWillMount(){
-    localStorage.setItem('currentUserId','1');
+    console.log(name);
   }
-  setId(smth){
-    document.getElementById("patientModal").innerHTML = 'Patient ID - '+this.state.idPatient;
-    this.setState({idPatient : smth});
-  }
+
   saveCurrentDayStartEnd(start, end){
     this.setState({
       startPeriod: start,
@@ -36,6 +40,11 @@ class DoctorCalendar extends React.Component{
       idDoc :1,
       idPatient :11
     })
+    console.log(start);
+    console.log(end);
+    console.log(this.endTime);
+    console.log(this.startTime);
+
   }
     
   saveCurrentTimeStartEnd(start, end){
@@ -77,27 +86,12 @@ class DoctorCalendar extends React.Component{
         _that.saveCurrentDayStartEnd(view.intervalStart.format(), view.intervalEnd.format())
       },
       
-      select: function(start, end) {
-        end =  $.fullCalendar.moment(start);
-        end.add(30, 'minutes');
-        alert('Clicked on: ' + start.format() + 'to' + end.format());
-        $('#calendar').fullCalendar('renderEvent',
-        {
-          start: start,
-          end: end,
-          allDay: false,
-          },
-          true 
-        );
-        $('#calendar').fullCalendar('unselect');
-      },
-      
       eventClick: function(event, jsEvent, view ) {
-        if (event.selectable) {
-          _that.saveCurrentTimeStartEnd(event.start._i, event.end._i);  
+        if (event.selectable) {          
           $("#modButton").trigger("click");
         } else {
-          _that.setId(event.title);
+          _that.saveCurrentTimeStartEnd(event.start._i, event.end._i); 
+          _that.setId(event.patientId, event.patientName);
           //this.setState({idPatient : event.idPatient});
           $("#blockClickButton").trigger("click");
         }
@@ -115,13 +109,20 @@ class DoctorCalendar extends React.Component{
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return ((this.state.startPeriod!== nextState.startPeriod) || (this.state.endPeriod!== nextState.endPeriod) 
-    || (this.state.idDoc!== nextState.idDoc) || (this.state.startTime!== nextState.startTime) || (this.state.endTime!== nextState.endTime) );       
+    return ((this.state.startPeriod!== nextState.startPeriod) 
+    || (this.state.endPeriod!== nextState.endPeriod) 
+    || (this.state.idDoc!== nextState.idDoc) 
+    || (this.state.startTime!== nextState.startTime) 
+    || (this.state.endTime!== nextState.endTime) 
+    || (this.state.idPatient!== nextState.idPatient) 
+    || (this.state.namePatient!== nextState.namePatient) );       
   }
 
 
   componentWillUpdate(nextProps, nextState){
-    var getData = (this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.state.idDoc!== nextState.idDoc); 
+    var getData = (this.state.startPeriod!== nextState.startPeriod) 
+    || (this.state.endPeriod!== nextState.endPeriod) 
+    || (this.state.idDoc!== nextState.idDoc); 
     if(getData){
       $('#calendar').fullCalendar( 'removeEvents');
       var isMonth;
@@ -146,8 +147,7 @@ class DoctorCalendar extends React.Component{
               end: event.dateTime[0],            
               selectable: isSelectable,
               rendering: 'background',
-              color : col, 
-              
+              color : col,               
             }
             
           }else {
@@ -167,30 +167,30 @@ class DoctorCalendar extends React.Component{
               color : col, 
               selectable: isSelectable,
               title : event.PatientName,
-              patientId : event.PatientId
+              patientId : event.PatientId,
+              patientName : event.PatientName
             }
           }
         })
+        
         this.addEvents(building, isMonth);   
       })
     }
   }
 
-    render(){
-      var doctor
-      // $(document).ready(function() {
-      doctor = $("#doc"+this.state.idDoc).text();
-      console.log(doctor);
-      // });
-      
+    render(){      
       let content;
         content = 
       <div>
+        <div className="row justify-content-center">
+        <div className="col-sm-11 col-md-10 mt-5" id = "calendarDiv">
         <div id = "calendar">
           <button data-toggle="modal" data-target="#mModal" id = "modButton" style={{display: "none"}}>
           </button>
           <button data-toggle="modal" data-target="#BlockClickModal" id = "blockClickButton" style={{display: "none"}}>
           </button>
+        </div>
+        </div>
         </div>
         <div className="modal fade" id="mModal">
           <div className="modal-dialog">
@@ -215,7 +215,8 @@ class DoctorCalendar extends React.Component{
                 <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
               </div>
               <div className="modal-body" id="patientModal">
-              Patient ID - {this.state.idPatient}
+              Patient ID - {this.state.idPatient} 
+              Patient Name = {this.state.namePatient}
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-info btn-lg" data-dismiss="modal">Ok</button>

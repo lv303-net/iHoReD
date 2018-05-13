@@ -37,6 +37,6 @@ span#link1:hover, span#link2:hover {
     border: 2px 1px 2px 1px solid #adc9ff;
   }
 
-  #navbarAdmin {
-      padding: 0px;
-  }
+#navbarAdmin {
+    padding: 0px;
+}
