@@ -112,8 +112,8 @@ class AddRateToProfession extends Component{
                         </div>
                         <div className="modal-body">
                         <div className="form-row ml-3 justify-content-center">
-                            <div className="form-group justify-content-center col-sm-2 col-xs-12 mb-0">
-                                <p className="labelForm">
+                            <div className="form-group justify-content-center col-sm-2 col-xs-12 mr-2 mb-0">
+                                <p className="labelForm labelAdd">
                                 {idDoc === null ? "Rate" : "Coeff"}
                                 </p>
                             </div>
@@ -132,7 +132,7 @@ class AddRateToProfession extends Component{
                             </div>
                         </div>
                         <div className="form-row ml-3 justify-content-center">
-                            <div className="form-group justify-content-center col-sm-2 col-xs-12 mb-0">
+                            <div className="form-group justify-content-center col-sm-2 col-xs-12 mr-4 mb-0">
                                 <p className="labelForm labelAdd">Date</p>
                             </div>
                             <div className="form-group col-sm-6 col-xs-12 mt-1" id="datePickerForm">

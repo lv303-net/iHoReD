@@ -159,13 +159,13 @@ import $ from 'jquery';
                         rate.State==1?
                         images =
                         <div className=" row mt-2" >
-                            <i className="fa fa-pencil-alt ml-2" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
-                            <i className="fa fa-times ml-2" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
+                            <i id="edit" className="fa fa-pencil-alt ml-2" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                            <i id="delete" className="fa fa-times ml-2" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
                         </div>
                         : (rate.State==0?
                             (images =
                             <div className=" row mt-2" >
-                                <i className="fa fa-pencil-alt ml-2" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                                <i id="edit" className="fa fa-pencil-alt ml-2" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
                             </div>
                             
                             )
