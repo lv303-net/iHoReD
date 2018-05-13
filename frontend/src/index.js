@@ -13,7 +13,7 @@ import ActivationLink from './components/ActivationLink';
 import PatientDiagnosesTable from './components/PatientDiagnosesTable';
 import LogbarWrapper from './components/LogbarWrapper';
 import Footerbar from './components/Footerbar';
-import DoctorCalendar from './components/DoctorCalendar';
+import DoctorCalendar from './components/doctorPage/DoctorCalendar';
 import MedicalCard from './components/MedicalCard';
 import SalaryReport from './components/SalaryReport';
 import AdminPage from './components/adminPage/AdminMainPage';

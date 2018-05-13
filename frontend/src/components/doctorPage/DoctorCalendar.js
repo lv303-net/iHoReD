@@ -4,9 +4,10 @@ import $ from 'jquery';
 import 'fullcalendar';
 import validator from 'validator';
 import axios from 'axios';
-import '../style/Calendar.css';
-import Loader from 'react-loader';
 import { divideDurationByDuration } from 'fullcalendar';
+import InfoSchedule from './modaldialogs/InfoSchedule'
+import '../../style/Calendar.css';
+
 
 
 class DoctorCalendar extends React.Component{
@@ -28,9 +29,6 @@ class DoctorCalendar extends React.Component{
       idPatient : id,
       namePatient: name    
     });
-    //document.getElementById("patientModal").innerHTML = "- "+this.state.idPatient+"Patient Name - " +this.state.namePatient ;    
-
-    console.log(name);
   }
 
   saveCurrentDayStartEnd(start, end){
@@ -171,8 +169,7 @@ class DoctorCalendar extends React.Component{
               patientName : event.PatientName
             }
           }
-        })
-        
+        })        
         this.addEvents(building, isMonth);   
       })
     }
@@ -201,29 +198,12 @@ class DoctorCalendar extends React.Component{
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel</button>
-                {/* <button type="button" className="btn btn-info btn-lg" data-dismiss="modal" onClick={() =>{this.handleSubmitBooking()}}>Confirm</button> */}
               </div>
             </div>
           </div>
         </div>
 
-         <div className="modal fade" id="BlockClickModal">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-              <h4 className="modal-title" id="mModalLabel">Some info about patient.</h4>
-                <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button> 
-              </div>
-              <div className="modal-body" id="patientModal">
-              Patient ID - {this.state.idPatient} 
-              Patient Name = {this.state.namePatient}
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-info btn-lg" data-dismiss="modal">Ok</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <InfoSchedule idPatient={this.state.idPatient} namePatient={this.state.namePatient}/>
       </div>
       return <div>{content}</div>
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { Switch, Route, Redirect} from 'react-router-dom';
 import App from './../../App'
-import DoctorCalendar from './../DoctorCalendar'
+import DoctorCalendar from './../doctorPage/DoctorCalendar'
 import NotFound from './../NotFound'
 import '../../style/DoctorPage.css'
 
