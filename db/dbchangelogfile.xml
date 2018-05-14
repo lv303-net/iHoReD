@@ -355,5 +355,11 @@
    <sqlFile path="V3.46_CREATE_PROCEDURE_CLOSE_DISEASE_AND_CLOSE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
  
-   
+  <changeSet author="Tetiana Usyk" id="V3.47">
+   <sqlFile path="V3.47_CREATE_PROCEDURE_ACTIVE_ALLERGY_AND_NON_ACTIVE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.47_CREATE_PROCEDURE_ACTIVE_DISEASES_AND_NON_ACTIVE_DISEASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.47_CREATE_PROCEDURE_ADD_DESCRIPTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  
 </databaseChangeLog>
