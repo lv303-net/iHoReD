@@ -10,5 +10,10 @@ namespace Entities.Services
     {
         List<PatientData> GetPatientDataById(int id);
         List<string> GetPatientAllergies(int id);
+        List<string> GetPatientDiseases(int id);
+        int AddMedicalRecord(int idPatient, DateTime StartTime, string Description, string Treatment);
+        int AddPatientAllergy(int Id, DateTime StartTime, int Allergy);
+        int AddPatientDisease(int Id, DateTime StartTime, int Disease);
+        int ClosePatientDisease(int Id, int Disease, DateTime EndTime);
     }
 }
