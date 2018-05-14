@@ -51,8 +51,6 @@ class InfoSchedule extends Component{
         }
         else {
             this.props.callback(this.state.statusCode);
-            // let myColor = { background: '#FF0000', text: "#FFFFFF" };
-            // notify.show("you can not add multiple rates/salaries for one day", "custom", 5000, myColor);
         }        
     });
 }
