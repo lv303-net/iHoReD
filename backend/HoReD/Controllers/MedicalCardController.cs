@@ -66,5 +66,12 @@ namespace HoReD.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("CheckIfExists/{patientId}/{startDate}")]
+        public IHttpActionResult CheckIfExist(int patientId, string startDate)
+        {
+            return Ok(_medicalCard.CheckIfDescriptionExists(patientId, Convert.ToDateTime(startDate)));
+        }
     }
 }
