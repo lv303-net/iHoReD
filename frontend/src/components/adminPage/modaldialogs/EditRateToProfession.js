@@ -27,7 +27,6 @@ class EditRateToProfession extends Component{
     }
     
     handleSubmitEdit() {
-        //$("#EditRateToProfession").removeData('modal');
         this.setState({
             rate: this.rate
         }) 
@@ -71,8 +70,6 @@ class EditRateToProfession extends Component{
                 })
             }
         }
-        // document.getElementById("Rate").textContent="";
-        // this.rate="";
         
       }
     render(){

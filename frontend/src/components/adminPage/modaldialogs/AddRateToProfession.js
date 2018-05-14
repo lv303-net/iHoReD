@@ -87,8 +87,6 @@ class AddRateToProfession extends Component{
                 .then(response=>{
                 console.log(response.data);
                 this.props.callback(response.data);
-                //$('#DeleteRateToProfession').show('modal');
-
                 })
         }
         

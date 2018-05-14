@@ -86,7 +86,6 @@ class DoctorCalendar extends React.Component{
         } else {
           _that.saveCurrentTimeStartEnd(event.start._i, event.end._i); 
           _that.setId(event.patientId, event.patientName, event.start);
-          //this.setState({idPatient : event.idPatient});
           $("#blockClickButton").trigger("click");
         }
       }, 
