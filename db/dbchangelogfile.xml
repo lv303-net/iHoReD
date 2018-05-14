@@ -373,6 +373,9 @@
    <sqlFile path="V3.50_ALTER_PROCEDURE_ADD_DESCRIPTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
    <sqlFile path="V3.50_ALTER_PROCEDURE_GET_MEDICAL_CARD_BY_USER_ID.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
-   
+
+  <changeSet author="Iryna Halenok" id="V3.53">
+   <sqlFile path="V3.53_CREATE_PROCEDURE_CHECK_IF_DESCRIPTION_EXISTS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>   
       
 </databaseChangeLog>
