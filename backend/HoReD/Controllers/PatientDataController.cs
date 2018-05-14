@@ -81,18 +81,13 @@ namespace HoReD.Controllers
                 throw;
             }
         }
-        /// <summary>
-        /// Returns all allergies, that current user has
-        /// </summary>
-        /// <param name="id">ID of needed user</param>
-        /// <returns>List of user's allergies names</returns>
         [HttpGet]
-        [Route("api/PatientData/Diseases/{id}")]
-        public IHttpActionResult GetPatientDiseases(int id)
+        [Route("api/PatientData/Categories")]
+        public IHttpActionResult GetCategories()
         {
             try
             {
-                var result = _patientData.GetPatientDiseases(id);
+                var result = _patientData.GetCategories();
                 return Ok(result);
             }
             catch (Exception e)
@@ -101,6 +96,57 @@ namespace HoReD.Controllers
                 throw;
             }
         }
+        [HttpGet]
+        [Route("api/PatientData/SubCategories/{id}")]
+        public IHttpActionResult GetSubCategories(int id )
+        {
+            try
+            {
+                var result = _patientData.GetSubCategories(id);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        [HttpGet]
+        [Route("api/PatientData/Diseases/{id}")]
+        public IHttpActionResult GetDiseases(int id)
+        {
+            try
+            {
+                var result = _patientData.GetDiseasies(id);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        /// <summary>
+        /// Returns all allergies, that current user has
+        /// </summary>
+        /// <param name="id">ID of needed user</param>
+        /// <returns>List of user's allergies names</returns>
+        [HttpGet]
+        [Route("api/PatientData/SubDiseases/{id}")]
+        public IHttpActionResult GetPatientDiseases(int id)
+        {
+            try
+            {
+                var result = _patientData.GetPatientSubDiseasies(id);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        
         /// <summary>
         /// Adds allergies for patient
         /// </summary>

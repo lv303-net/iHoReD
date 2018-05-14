@@ -11,11 +11,14 @@ namespace Entities.Services
         List<PatientData> GetPatientDataById(int id);
         List<Allergy> GetPatientActiveAllergies(int id);
         List<Allergy> GetPatientNonActiveAllergies(int id);
-        List<string> GetPatientDiseases(int id);
-        int AddMedicalRecord(int idPatient, DateTime StartTime, string Description, string Treatment);
-        int AddPatientAllergy(int Id, DateTime StartTime, int Allergy);
-        int AddPatientDisease(int Id, DateTime StartTime, int Disease);
-        int ClosePatientDisease(int Id, int Disease, DateTime EndTime);
-        int ClosePatientAllergy(int Id, int Allergy, DateTime EndTime);
+        List<IllnessCategory> GetCategories();
+        List<IllnessSubCategory> GetSubCategories(int idCategory);
+        List<IllnessDiseases> GetDiseasies(int idSubCategory);
+        List<IllnessSubDiseases> GetPatientSubDiseasies(int idDisease);
+        int AddMedicalRecord(int idPatient, DateTime startTime, string description, string treatment);
+        int AddPatientAllergy(int id, DateTime startTime, int allergy);
+        int AddPatientDisease(int id, DateTime startTime, int disease);
+        int ClosePatientDisease(int id, int disease, DateTime endTime);
+        int ClosePatientAllergy(int id, int ellergy, DateTime endTime);
     }
 }

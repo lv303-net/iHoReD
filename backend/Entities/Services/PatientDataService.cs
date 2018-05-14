@@ -72,18 +72,69 @@ namespace Entities.Services
                 throw;
             }
         }
-        public List<string> GetPatientDiseases(int id)
+        public List<IllnessCategory> GetCategories()
+        {
+            string cmd = "RETURN_CATEGORIES";
+            var param = new Dictionary<string, object>()
+            { };
+
+            try
+            {
+                var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+                return Utils.ParseSqlQuery.GetCategories(data);
+            }
+
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public List<IllnessSubCategory> GetSubCategories(int idCategory)
+        {
+            string cmd = "RETURN_SUBCATEGORIES";
+            var param = new Dictionary<string, object>()
+            { };
+
+            try
+            {
+                var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+                return Utils.ParseSqlQuery.GetSubCategories(data);
+            }
+
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public List<IllnessDiseases> GetDiseasies(int idSubCategory)
+        {
+            string cmd = "RETURN_DISEASES";
+            var param = new Dictionary<string, object>()
+            { };
+
+            try
+            {
+                var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+                return Utils.ParseSqlQuery.GetDiseasies(data);
+            }
+
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public List<IllnessSubDiseases> GetPatientSubDiseasies(int idDisease)
         {
             string cmd = "ACTIVE_DISEASES";
             var param = new Dictionary<string, object>()
             {
-                {"@ID_USER", id }
+                {"@ID_USER", idDisease }
             };
 
             try
             {
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
-                return Utils.ParseSqlQuery.GetPatientDiseases(data);
+                return Utils.ParseSqlQuery.GetPatientSubDiseases(data);
             }
 
             catch (Exception e)
