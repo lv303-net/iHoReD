@@ -4,6 +4,8 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+import PropTypes from 'prop-types';
+import $ from'jquery';
 
 class EditRateToProfession extends Component{
     constructor(props){
@@ -25,9 +27,12 @@ class EditRateToProfession extends Component{
     }
     
     handleSubmitEdit() {
+        //$("#EditRateToProfession").removeData('modal');
         this.setState({
             rate: this.rate
         }) 
+        $('#Rate').val('');
+        this.rate="";
       }
       shouldComponentUpdate(nextProps, nextState)
       {
@@ -35,7 +40,7 @@ class EditRateToProfession extends Component{
       }
 
       componentWillUpdate(nextProps, nextState){
-        if(nextState.rate!==0)
+        if(nextState.rate!==0 && (this.state.rate!==nextState.rate))
         {
             var url_string = window.location.href;
             var url = new URL(url_string);
@@ -50,20 +55,25 @@ class EditRateToProfession extends Component{
                 axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/edit', newRate)
                 .then(response=>{
                 console.log(response.data);
+                this.props.callback(response.data);
                 })
             }
             else{
                 var newCoefficient = {
-                    ProfessionId: Profession,
+                    DoctorId: Doctor,
                     Coeff: nextState.rate,
                     StartDate: nextProps.date
                 } 
                 axios.post(localStorage.getItem("server_url") + '/api/Salary/Coefficient/edit', newCoefficient)
                 .then(response=>{
                 console.log(response.data);
+                this.props.callback(response.data);
                 })
             }
         }
+        // document.getElementById("Rate").textContent="";
+        // this.rate="";
+        
       }
     render(){
         return(
@@ -86,7 +96,7 @@ class EditRateToProfession extends Component{
                                 className="form-control"
                                 placeholder="Rate"
                                 onChange={x => { this.rate = x.target.value;}}
-                                id="Rate"
+                                id="RateEdit"
                                 />
                                 <div id="invalidPassword" className="text-muted">
                                 </div>
@@ -109,5 +119,9 @@ class EditRateToProfession extends Component{
         )
     }
 }
+
+EditRateToProfession.propTypes = {
+    callback: PropTypes.func
+  };
 
 export default EditRateToProfession;

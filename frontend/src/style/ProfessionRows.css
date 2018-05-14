@@ -1,4 +1,4 @@
-.professionrow{
+  .professionrow{
     background-color: white;
     border-radius: 5px;
     border: 2px solid #adc9ff;
@@ -9,13 +9,46 @@
     word-wrap: break-word; 
   }
 
-  #AddRate {
-    background-color: #007bff;
-    color: white;
-    height: 40px;
-    width: 100px;
-    white-space: nowrap; 
-    width: inherit; 
-    overflow: hidden;
-    text-overflow: ellipsis; 
+#RateCoeffTable{
+  padding-right: 0px;
+}
+#DivForAdding{
+  padding: 0px;
+}
+#RateCoeff{
+  padding-right: 15px;
+  padding-left: 15px;
+}
+#AddRate {
+  background-color: #007bff;
+  color: white;
+  height: 40px;
+  padding: 0px;
+  white-space: nowrap; 
+  width: inherit; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  cursor: pointer;
+}
+
+div#inputRate input#RateAdd, div.react-datepicker__input-container > input#adminDatePicker {
+  width: 200px;
+}
+#edit {
+  cursor: pointer;
+}
+#delete{
+  cursor: pointer;
+}
+@media (max-width: 578px) {
+  input#RateAdd {
+    display: block;
+    margin: 0 auto;
   }
+  .labelAdd, div#datePickerForm   {
+    text-align: center;
+  }
+}
+
+
+ 

@@ -151,7 +151,16 @@ class PatientDiagnosesTable extends React.Component{
         var number = caller.innerHTML;
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('elem', number);
-        searchParameter.set('page', this.state.pageNumber);
+        var newPageNumber;
+        if((this.state.elementsCount*this.state.pageNumber)<number)
+        {
+            newPageNumber=Math.ceil((this.state.elementsCount*this.state.pageNumber)/number);
+        }
+        else
+        {
+            newPageNumber=1;
+        }
+        searchParameter.set('page', newPageNumber);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
         this.AddDropdown(number);
         var columnCount=this.getColumnsAndRowsNumber(number)[0];
@@ -161,7 +170,7 @@ class PatientDiagnosesTable extends React.Component{
               pageCount: res.data    
              })
         });
-        axios.get(localStorage.getItem("server_url")+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+this.state.pageNumber+'/'+number+'/'+columnCount)
+        axios.get(localStorage.getItem("server_url")+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+newPageNumber+'/'+number+'/'+columnCount)
         .then(res => {
              this.setState({
               diagnosesArr: res.data,

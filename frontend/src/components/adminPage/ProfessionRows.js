@@ -3,13 +3,14 @@ import { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-//import AddRateToProfession from './modaldialogs/AddRateToProfession'
+import AddRateToProfession from './modaldialogs/AddRateToProfession'
 import EditRateToProfession from './modaldialogs/EditRateToProfession';
 import DeleteRateToProfession from './modaldialogs/DeleteRateToProfession';
 import 'react-datepicker/dist/react-datepicker.css';
 import validator from 'validator';
+import Notifications, {notify} from 'react-notify-toast';
 import '../../style/ProfessionRows.css';
-
+import $ from 'jquery';
 //import '../style/SalaryReport.css';
 
     class ProfessionRows extends React.Component {
@@ -20,7 +21,8 @@ import '../../style/ProfessionRows.css';
                 ratesArr: [],
                 idProf: 0,
                 idDoc: 0,
-                currentDate: ""
+                currentDate: "",
+                shouldUpdate: 1
             }
         }
 
@@ -29,6 +31,19 @@ import '../../style/ProfessionRows.css';
                 currentDate:date
             })
         }
+
+        reloadRows(param) {
+            if(param===0){
+                let myColor = { background: '#FF0000', text: "#FFFFFF" };
+                notify.show("you can not add multiple rates/salaries for one day", "custom", 5000, myColor);
+            }
+            
+
+            this.setState({
+                shouldUpdate: this.state.shouldUpdate + param
+            })
+        }
+
         setStates(){
             let url_string = window.location.href;
             let url = new URL(url_string);
@@ -56,19 +71,28 @@ import '../../style/ProfessionRows.css';
                 || this.state.idDoc!==nextProps.idDoc 
                 || this.props.idProf!==nextProps.idProf 
                 || this.state.idProf!==nextProps.idProf 
-                || 
-                this.state.currentDate!==nextState.currentDate
+                || this.state.currentDate!==nextState.currentDate
                 || this.state.idProf!==nextState.idProf
                 || this.state.idDoc!==nextState.idDoc
-                || this.state.ratesArr!==nextState.ratesArr);
+                || this.state.ratesArr!==nextState.ratesArr
+                || this.state.shouldUpdate!==nextState.shouldUpdate);
         }
+
         componentWillUpdate(nextProps, nextState){
             let url_string = window.location.href;
             let url = new URL(url_string);
             let idDoc = url.searchParams.get("doc");
+            let idProf= url.searchParams.get("prof");
+            if(this.state.ratesArr.length!==0)
+            {
+                let currentRate = this.state.ratesArr.find(rate => rate.State==0);
+                var idForDiv = "salaryinfo" + currentRate.StartDate;
+                //$(idForDiv).addClass("active");
+                document.getElementById(idForDiv).style.backgroundColor="#FFFFFF"
+            }
             if((this.state.idProf===nextState.idProf===0) || this.props.idProf!==nextProps.idProf)
                 this.setStates();
-            if((this.state.idProf!==nextState.idProf) && idDoc===null)
+            if(((this.state.idProf!==nextState.idProf) || (this.state.shouldUpdate!==nextState.shouldUpdate)) && idDoc===null)
             {
                 axios.get(localStorage.getItem("server_url")+'/api/Salary/Rate/get/' + nextState.idProf)
                 .then(response => {
@@ -79,7 +103,7 @@ import '../../style/ProfessionRows.css';
             }
             if((this.state.idDoc===nextState.idDoc===0) || this.props.idDoc!==nextProps.idDoc)
                 this.setStates();
-            if(this.state.idDoc!==nextState.idDoc)
+            if(((this.state.idDoc!==nextState.idDoc || this.state.shouldUpdate!==nextState.shouldUpdate)) && idDoc!==null)
             {
                 axios.get(localStorage.getItem("server_url")+'/api/Salary/Coefficient/get/' + nextState.idDoc)
                 .then(response => {
@@ -89,63 +113,84 @@ import '../../style/ProfessionRows.css';
                 })
             }
         }
+
+        componentDidUpdate(prevProps, prevState) {
+            if(this.state.ratesArr.length!==0)
+            {
+                let currentRate = this.state.ratesArr.find(rate => rate.State==0);
+                var idForDiv = "salaryinfo" + currentRate.StartDate ;
+                //$(idForDiv).addClass("active");
+                document.getElementById(idForDiv).style.backgroundColor="#DCDCDC"
+            }
+          }
         render() 
         {
             let url_string = window.location.href;
             let url = new URL(url_string);
             let idDoc = url.searchParams.get("doc");
+            let idProf= url.searchParams.get("prof");
             let images;
             return (
-            <div className="row ">
-            <div className="col-10">
-            <div className="row professionrow mt-4">
-            <div className="col-6 text-center" id="col-custom">
+            <div className="ml-3 mr-3">
+            <Notifications />
+            <div  className="col-12  col-md-10 d-flex flex-row-reverse" id="DivForAdding">
+            <div type="button" className=" col-12 col-md-5 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
+                <h6 className="mt-2">{idDoc === null ? "Add rate" : "Add coeff"}</h6>
+            </div>
+            </div>
+            <div className="col-12 col-md-10 mt-1" id="RateCoeffTable">
+            <div className="row professionrow">
+            <div className="col-3 text-center" id="col-custom"></div>
+            <div className="col-4 text-center" id="col-custom">
                 
-                    {idDoc === null ? "Rate" : "Coefficient"}
+                    {idDoc === null ? "Rate" : "Coeff"}
                 
             </div>
-            <div className="col-6 text-center" id="col-custom dateDiv">
+            <div className="col-5 text-center" id="col-custom dateDiv">
                 Date
                 </div>
             </div>
             {
             this.state.ratesArr.map(
             rate =>
-            <div className="row professionrow">
-                <div className="col-6" id="col-custom">
-                    <div className="row col-xs-12 col-sm-12 col-md-12">
-                        <div className="col-8">
-                            {
-                                idDoc === null ? rate.Rate : rate.Coeff
-                            }
-                        </div> 
+            <div className="row professionrow" id={"salaryinfo" + rate.StartDate}>
+                <div className="col-3" id="col-custom">
                         {
                         rate.State==1?
                         images =
-                        <div className="col-3 mt-2" >
-                            <i className="fa fa-pencil-alt col-1 mr-2 ml-4" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
-                            <i className="fa fa-times col-1" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
+                        <div className=" row mt-2" >
+                            <i id="edit" className="fa fa-pencil-alt ml-2" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                            <i id="delete" className="fa fa-times ml-2" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
                         </div>
                         : (rate.State==0?
-                            images =
-                            <div className="col-3 mt-2" >
-                                <i className="fa fa-pencil-alt col-1 ml-4" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                            (images =
+                            <div className=" row mt-2" >
+                                <i id="edit" className="fa fa-pencil-alt ml-2" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
                             </div>
+                            
+                            )
+                            
                         : (images="")
                         )
                         }
-                    </div>
                 </div>
-                <div className="col-6 text-center" id="col-custom dateDiv">{rate.StartDate.slice(0, 10)}</div>
-                <DeleteRateToProfession date = {this.state.currentDate}/>
-                <EditRateToProfession  date = {this.state.currentDate}/>
+                <div className="col-4 text-center" id="col-custom">
+                    
+                        
+                            {
+                                idDoc === null ? rate.Rate : rate.Coeff
+                            }
+                        
+                    
+                </div>
+                <div className="col-5 text-center" id="col-custom dateDiv">{rate.StartDate.slice(0, 10)}</div>
+                <DeleteRateToProfession date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
+                <EditRateToProfession  date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
+                <AddRateToProfession callback={this.reloadRows.bind(this)}/>
             </div>
           )
         }
         
-        </div>
-        <div className="col-1 mt-4">
-            <i className="fa fa-plus mt-2" data-toggle="modal" data-target="#EditRateToProfession" ></i>
         </div>
         </div>
         )

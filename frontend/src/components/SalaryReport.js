@@ -14,8 +14,8 @@ class SalaryReport extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      startDate: moment().subtract(1,'months'),
-      endDate: moment(),
+      startDate: moment().subtract(1,'months').date(1),
+      endDate: moment(moment()).subtract(1,'months').endOf('month'),
       salaryData: [],
       days:[],
          };
@@ -39,17 +39,14 @@ class SalaryReport extends React.Component {
                  var searchParameter = new URLSearchParams(window.location.search);
                   searchParameter.set('startdate', this.state.startDate.format('YYYY-MM-DD'));
                   searchParameter.set('enddate', this.state.endDate.format('YYYY-MM-DD'));
-
                    window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
                   axios.get(localStorage.getItem("server_url")+'/DoctorSalaryStatistics/' + this.props.match.params.id +'/' +startdate+ '/' +enddate)
                   .then(res => {
-                       this.setState({
-                      
+                       this.setState({     
                         salaryData: res.data   
                        })
                   });
-              }
-         
+              }     
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChangeEnd = this.handleChangeEnd.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -86,55 +83,43 @@ class SalaryReport extends React.Component {
   searchParameter.set('startdate', start);
   searchParameter.set('enddate', end);
   window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-  //console.log(this.state.salaryData[0][0].Day)
-}
-  // shouldComponentUpdate(nextProps, nextState){
-  //   return(nextState.salaryData!==this.state.salaryData)
-  // }
-
-  // componentWillUpdate(nextProps, nextState){
-  //   let counter = 0;
-  //   nextState.salaryData.map(item1=>
-  //     item1.map(item2=>
-  //   console.log(item2.Day)),
-  //   counter++)
-  //   console.log(counter);
-  // }
-  sumWorkedHours(){
-    let array = this.state.salaryData.map(item => item.WorkedHours)
+ }
+   sumWorkedHours(){
+    let array = this.state.salaryData.map(items =>items.map(item=>item.WorkedHours));
     let total=0;
-   for(let i=0;i<array.length;i++)
-   total+=array[i];
+    for(let i=0;i<array.length;i++){
+      for(let j=0;j<array[i].length;j++)
+      total+=array[i][j];
+    }
     return total;
 }
 averageCoeff(){
-  let array = this.state.salaryData.map(item => item.SalaryCoefficient)
+  let array = this.state.salaryData.map(items =>items.map(item =>item.SalaryCoefficient));
   let total=0;
- for(let i=0;i<array.length;i++)
- total+=array[i]/array.length;
-  return total;
+  for(let i=0;i<array.length;i++){
+    for(let j=0;j<array[i].length;j++)
+    total+=array[i][j]/array[i].length;
+     }
+  return Math.round(total,4);
 }
 averageRate(){
-  let array = this.state.salaryData.map(item => item.SalaryRate)
+  let array = this.state.salaryData.map(items =>items.map(item => item.SalaryRate))
   let total=0;
- for(let i=0;i<array.length;i++)
- total+=array[i]/array.length;
-  return total;
+  for(let i=0;i<array.length;i++){
+ for(let j=0;j<array[i].length;j++)
+ total+=array[i][j]/array[i].length;
+  }
+  return Math.round(total,4);
 }
 earnedMoney(){
-  let array = this.state.salaryData.map(item => item.EarnedMoney)
+  let array = this.state.salaryData.map(items =>items.map(item  => item.EarnedMoney))
   let total=0;
- for(let i=0;i<array.length;i++)
- total+=array[i];
+  for(let i=0;i<array.length;i++){
+    for(let j=0;j<array[i].length;j++)
+    total+=array[i][j];
+  }
   return total;
 }
-forMonth(){
-  let array = this.state.salaryData.map(item => item.Day)
-  for(let i=0;i<array.length;i++)
-  if(array[i].slice(7)==array[i++].slice(7))
-  return array[i];
-}
-
   render() {
 
      return (
@@ -175,7 +160,7 @@ forMonth(){
           </div>
           <div className="row text-center">
             <div className="col-12">
-                   <div className="row row mt-5 mx-1">
+                   <div className="row mt-5 mx-1">
                   <div className="col">
                     <div class="row" id="patientcard">
                     <div class="col-6 col-custom-header" id="col-custom">Total sum</div>
@@ -207,7 +192,7 @@ forMonth(){
                 {this.state.salaryData.map(items =>
                  <div className="col-12 mt-5">
                  <p><a class="btn btn-primary salarybutton" data-toggle="collapse" id="multiCollapse" href={'#' + items.toString()} role="button" aria-expanded="false"
-                   aria-controls="multiCollapseExample">jkjkjkjk</a></p>
+                   aria-controls="multiCollapseExample">{items[0].Day.slice(0,7).toString()}</a></p>
                    <div class="collapse multi-collapse mt-5" id={items.toString()}>
               <div class="row" id="patientcard">
                 <div class="col-3 col-custom-header" id="col-custom">Date</div>
