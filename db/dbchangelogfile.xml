@@ -340,4 +340,10 @@
     <sqlFile path="V3.44_ALTERED_PROCEDURE_EDIT_SOME_COEFF.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
+  <changeSet author="Tetiana Usyk" id="V3.45">
+   <sqlFile path="V3.45_CREATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.45_ALTER_TABLE_MEDICAL_CARD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+ 
+  
 </databaseChangeLog>
