@@ -334,5 +334,67 @@
     <sqlFile path="V3.43_CREATE_PROCEDURE_EDIT_SOME_COEFF.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
     <sqlFile path="V3.43_CREATE_PROCEDURE_DELETE_SOME_COEFF.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.44">
+    <sqlFile path="V3.44_ALTERED_PROCEDURE_EDIT_SOME_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.44_ALTERED_PROCEDURE_EDIT_SOME_COEFF.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
   
+  <changeSet author="Tetiana Usyk" id="V3.45">
+   <sqlFile path="V3.45_CREATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.45_ALTER_TABLE_MEDICAL_CARD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Tetiana Usyk" id="V3.45">
+   <sqlFile path="V3.45_CREATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.45_ALTER_TABLE_MEDICAL_CARD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.46">
+   <sqlFile path="V3.46_CREATE_PROCEDURE_ADD_DISEASE_AND_ADD_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.46_CREATE_PROCEDURE_CLOSE_DISEASE_AND_CLOSE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+ 
+  <changeSet author="Tetiana Usyk" id="V3.47">
+   <sqlFile path="V3.47_CREATE_PROCEDURE_ACTIVE_ALLERGY_AND_NON_ACTIVE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.47_CREATE_PROCEDURE_ACTIVE_DISEASES_AND_NON_ACTIVE_DISEASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.47_CREATE_PROCEDURE_ADD_DESCRIPTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.48">
+   <sqlFile path="V3.48_INSERT_SOME_VALUES_INTO_MEDICAL_MEDICAL_CARD_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.49">
+   <sqlFile path="V3.49_UPDATE_CREATE_PROCEDURE_ADD_DESCRIPTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.50">
+   <sqlFile path="V3.50_ALTER_PROCEDURE_ADD_DESCRIPTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.50_ALTER_PROCEDURE_GET_MEDICAL_CARD_BY_USER_ID.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.53">
+   <sqlFile path="V3.53_CREATE_PROCEDURE_CHECK_IF_DESCRIPTION_EXISTS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.54">
+   <sqlFile path="V3.54_ALTER_PROCEDURE_GET_USER_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.54_ALTER_PROCEDURE_GET_USER_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.54_UPDATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.55">
+   <sqlFile path="V3.55_UPDATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.56">
+   <sqlFile path="V3.56_CREATE_PROCEDURE_FOR_CHOISING_DIASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.56_UPDATE_CLOSE_DISEASE_AND_CLOSE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.57">
+   <sqlFile path="V3.57_UPDATE_CLOSE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+          
 </databaseChangeLog>
