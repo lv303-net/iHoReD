@@ -17,10 +17,10 @@ import DoctorCalendar from './components/DoctorCalendar';
 import MedicalCard from './components/MedicalCard';
 import SalaryReport from './components/SalaryReport';
 import AdminPage from './components/adminPage/AdminMainPage';
-import UserPage from './components/userPage/UserMainPage'
-import DoctorPage from './components/doctorPage/DoctorMainPage'
-import NotFound from './components/NotFound'
-
+import UserPage from './components/userPage/UserMainPage';
+import DoctorPage from './components/doctorPage/DoctorMainPage';
+import NotFound from './components/NotFound';
+import AddMedRecord from './components/AddMedRecord';
 var server_url;
 if(process.env.NODE_ENV==="development")
   localStorage.setItem("server_url", "http://localhost:58511")
@@ -46,6 +46,7 @@ class Home extends Component {
                 <Route path="/user" component={UserPage}/>
                 <Route path="/doctor" component={DoctorPage}/>
                 <Route exact path="/reporting/:id" component={SalaryReport}/>
+                <Route exact path="/AddMedRecord" component={AddMedRecord}/>
                 <Route component={NotFound} />
               </Switch>
             <Footerbar/>

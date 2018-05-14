@@ -3,7 +3,6 @@ import { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import '../style/SalaryReport.css';
  
 import 'react-datepicker/dist/react-datepicker.css';
 import '../style/SalaryReport.css';
