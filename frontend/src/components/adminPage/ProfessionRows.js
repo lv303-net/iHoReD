@@ -11,7 +11,6 @@ import validator from 'validator';
 import Notifications, {notify} from 'react-notify-toast';
 import '../../style/ProfessionRows.css';
 import $ from 'jquery';
-//import '../style/SalaryReport.css';
 
     class ProfessionRows extends React.Component {
         constructor(props)
@@ -87,7 +86,6 @@ import $ from 'jquery';
             {
                 let currentRate = this.state.ratesArr.find(rate => rate.State==0);
                 var idForDiv = "salaryinfo" + currentRate.StartDate;
-                //$(idForDiv).addClass("active");
                 document.getElementById(idForDiv).style.backgroundColor="#FFFFFF"
             }
             if((this.state.idProf===nextState.idProf===0) || this.props.idProf!==nextProps.idProf)
@@ -119,7 +117,6 @@ import $ from 'jquery';
             {
                 let currentRate = this.state.ratesArr.find(rate => rate.State==0);
                 var idForDiv = "salaryinfo" + currentRate.StartDate ;
-                //$(idForDiv).addClass("active");
                 document.getElementById(idForDiv).style.backgroundColor="#DCDCDC"
             }
           }
