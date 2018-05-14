@@ -137,6 +137,22 @@ namespace HoReD.Controllers
         }
 
         [HttpPost]
+        [Route("api/PatientData/CloseAllergy")]
+        public IHttpActionResult ClosePatientAllergy(Models.MedicalRecordBindingModel model)
+        {
+            try
+            {
+                var result = _patientData.ClosePatientAllergy(model.IdPatient, model.Allergy, Convert.ToDateTime(model.EndTime));
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpPost]
         [Route("api/PatientData/AddMedicalRecord")]
         public IHttpActionResult AddMedicalRecord(Models.MedicalRecordBindingModel model)
         {

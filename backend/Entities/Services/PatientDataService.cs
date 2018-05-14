@@ -132,6 +132,26 @@ namespace Entities.Services
                 throw;
             }
         }
+        public int ClosePatientAllergy(int idPatient, int allergy, DateTime endTime)
+        {
+            string cmd = "CLOSE_ALLERGY";
+            var param = new Dictionary<string, object>()
+            {
+                {"@ID_USER", idPatient },
+                {"@ID_ALLERGY", allergy },
+                {"@CLOSE",  endTime}
+            };
+
+            try
+            {
+                return _dbContext.ExecuteQuery(cmd, param);
+            }
+
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
         public int AddMedicalRecord(int idPatient, DateTime startTime, string description, string treatment)
         {
             string cmd = "ADD_DESCRIPTION";

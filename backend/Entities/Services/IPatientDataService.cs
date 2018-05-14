@@ -15,5 +15,6 @@ namespace Entities.Services
         int AddPatientAllergy(int Id, DateTime StartTime, int Allergy);
         int AddPatientDisease(int Id, DateTime StartTime, int Disease);
         int ClosePatientDisease(int Id, int Disease, DateTime EndTime);
+        int ClosePatientAllergy(int Id, int Allergy, DateTime EndTime);
     }
 }
