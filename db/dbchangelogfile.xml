@@ -364,5 +364,9 @@
   <changeSet author="Tetiana Usyk" id="V3.48">
    <sqlFile path="V3.48_INSERT_SOME_VALUES_INTO_MEDICAL_MEDICAL_CARD_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.49">
+   <sqlFile path="V3.49_UPDATE_CREATE_PROCEDURE_ADD_DESCRIPTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
       
 </databaseChangeLog>
