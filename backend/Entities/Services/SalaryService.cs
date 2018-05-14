@@ -20,7 +20,7 @@ namespace Entities.Services
             const string cmd = "GET_RATE_FOR_PROFESSION_PAST";
             var param = new Dictionary<string, object>()
             {
-                {"@PROFFESION_ID", professionId}
+                {"PROFFESION_ID", professionId}
             };
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var listPast = Utils.ParseSqlQuery.GetPastRates(str); 
@@ -40,8 +40,8 @@ namespace Entities.Services
 
             var param = new Dictionary<string, object>()
             {
-                {"@PROFFESION_ID", professionId},
-                {"@START_DATE", startDate},
+                {"PROFFESION_ID", professionId},
+                {"START_DATE", startDate},
             };
 
             return _dbContext.ExecuteQuery(cmd, param);
@@ -53,9 +53,9 @@ namespace Entities.Services
 
             var param = new Dictionary<string, object>()
             {
-                {"@PROFFESION_ID", professionId},
-                {"@RATE", rate },
-                {"@START_DATE", startDate},
+                {"PROFFESION_ID", professionId},
+                {"RATE", rate },
+                {"START_DATE", startDate},
             };
 
             return _dbContext.ExecuteQuery(cmd, param);
@@ -67,9 +67,9 @@ namespace Entities.Services
 
             var param = new Dictionary<string, object>()
             {
-                {"@PROFFESION_ID", professionId},
-                {"@RATE", rate },
-                {"@START_DATE", startDate},
+                {"PROFFESION_ID", professionId},
+                {"RATE", rate },
+                {"START_DATE", startDate},
             };
 
             return _dbContext.ExecuteQuery(cmd, param);
@@ -80,7 +80,7 @@ namespace Entities.Services
             const string cmd = "GET_COEFF_FOR_DOCTOR_PAST";
             var param = new Dictionary<string, object>()
             {
-                {"@DOCTOR_ID", doctorId}
+                {"DOCTOR_ID", doctorId}
             };
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var listPast = Utils.ParseSqlQuery.GetPastCoeff(str);
@@ -102,8 +102,8 @@ namespace Entities.Services
 
             var param = new Dictionary<string, object>()
             {
-                {"@DOCTOR_ID", doctorId},
-                {"@START_DATE", startDate},
+                {"DOCTOR_ID", doctorId},
+                {"START_DATE", startDate},
             };
 
             return _dbContext.ExecuteQuery(cmd, param);
@@ -115,9 +115,9 @@ namespace Entities.Services
 
             var param = new Dictionary<string, object>()
             {
-                {"@DOCTOR_ID", doctorId},
-                {"@COEFFICIENT", coeff },
-                {"@START_DATE", startDate},
+                {"DOCTOR_ID", doctorId},
+                {"COEFFICIENT", coeff },
+                {"START_DATE", startDate},
             };
 
             return _dbContext.ExecuteQuery(cmd, param);
@@ -129,9 +129,9 @@ namespace Entities.Services
 
             var param = new Dictionary<string, object>()
             {
-                {"@DOCTOR_ID", doctorId},
-                {"@COEFFICIENT", coeff },
-                {"@START_DATE", startDate},
+                {"DOCTOR_ID", doctorId},
+                {"COEFFICIENT", coeff },
+                {"START_DATE", startDate},
             };
 
             return _dbContext.ExecuteQuery(cmd, param);

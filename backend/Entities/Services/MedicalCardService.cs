@@ -67,5 +67,15 @@ namespace Entities.Services
                 throw;
             }
         }
+
+        public int CheckIfDescriptionExists(int patientId, DateTime startDate) {
+            string cmd = "CHECK_IF_DESCRIPTION_EXISTS";
+            var param = new Dictionary<string, object>()
+            {
+                {"IDPATIENT", patientId },
+                {"START_DATETIME", startDate}
+            };
+            return _dbContext.ExecuteQuery(cmd, param);
+        }
     }
 }
