@@ -201,13 +201,99 @@ namespace Entities.Utils
             }
             return result;
         }
-        public static List<string> GetPatientAllergies(string bdResult)
+        public static List<IllnessCategory> GetCategories(string bdResult)
         {
             var values = bdResult.Split('*');
-            var result = new List<string>();
-            for (int i = 0; i < values.Length; i++)
+            var result = new List<IllnessCategory>();
+            for (int i = 0; i < values.Length; i +=2)
             {
-                result.Add(values.GetValue(i).ToString());
+                var Category = new IllnessCategory()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Name = values.GetValue(1+i).ToString()
+                };
+                result.Add(Category);
+            }
+            return result;
+        }
+        public static List<IllnessSubCategory> GetSubCategories(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<IllnessSubCategory>();
+            for (int i = 0; i < values.Length; i+=4)
+            {
+                var subCategory = new IllnessSubCategory()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    FirstCode = values.GetValue(1 + i).ToString(),
+                    LastCode = values.GetValue(2 + i).ToString(),
+                    Name = values.GetValue(3 + i).ToString()
+                };
+                result.Add(subCategory);
+            }
+            return result;
+        }
+        public static List<IllnessDiseases> GetDiseasies(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<IllnessDiseases>();
+            for (int i = 0; i < values.Length; i += 3)
+            {
+                var subCategory = new IllnessDiseases()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Code = values.GetValue(1 + i).ToString(),
+                    Name = values.GetValue(2 + i).ToString()
+                };
+                result.Add(subCategory);
+            }
+            return result;
+        }
+        public static List<IllnessSubDiseases> GetPatientSubDiseases(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<IllnessSubDiseases>();
+            for (int i = 0; i < values.Length; i+=2)
+            {
+                var SubDiseases = new IllnessSubDiseases()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Name = values.GetValue(1 + i).ToString()
+                };
+                result.Add(SubDiseases);
+            }
+            return result;
+        }
+        public static List<Allergy> GetPatientActiveAllergies(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<Allergy>();
+            for (int i = 0; i < values.Length; i+=5)
+            {
+                
+                var allergy = new Allergy()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Name = Convert.ToString(values.GetValue(i + 1)),
+                    Visit = Convert.ToInt32(values.GetValue(i + 2))
+                };
+                result.Add(allergy);
+            }
+            return result;
+        }
+        public static List<Allergy> GetPatientNonActiveAllergies(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<Allergy>();
+            for (int i = 0; i < values.Length; i += 2)
+            {
+
+                var allergy = new Allergy()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Name = Convert.ToString(values.GetValue(i + 1))
+                };
+                result.Add(allergy);
             }
             return result;
         }
