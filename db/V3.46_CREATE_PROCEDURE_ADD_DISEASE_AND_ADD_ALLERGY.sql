@@ -19,8 +19,10 @@ BEGIN TRANSACTION;
        FROM SCHEDULE
        WHERE START_DATETIME=@DATE_VISIT AND IDPATIENT=@ID_USER;
 COMMIT TRANSACTION;
+RETURN 1;
 END;
 END;
+GO
 ------------------------------------------------------------------------------------------------------------------
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name ='ADD_ALLERGY')
 BEGIN
@@ -43,5 +45,6 @@ BEGIN
      FROM SCHEDULE
      WHERE START_DATETIME=@DATE_VISIT AND IDPATIENT=@ID_USER;
 COMMIT TRANSACTION;
+RETURN 1;
 END;
 END;
