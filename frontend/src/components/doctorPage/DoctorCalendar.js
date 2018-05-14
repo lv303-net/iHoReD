@@ -203,7 +203,7 @@ class DoctorCalendar extends React.Component{
           </div>
         </div>
 
-        <InfoSchedule idPatient={this.state.idPatient} namePatient={this.state.namePatient}/>
+        <InfoSchedule idPatient={this.state.idPatient} />
       </div>
       return <div>{content}</div>
     }
