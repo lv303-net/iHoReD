@@ -376,6 +376,13 @@
 
   <changeSet author="Iryna Halenok" id="V3.53">
    <sqlFile path="V3.53_CREATE_PROCEDURE_CHECK_IF_DESCRIPTION_EXISTS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
-  </changeSet>   
-      
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.54">
+   <sqlFile path="V3.54_ALTER_PROCEDURE_GET_USER_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.54_ALTER_PROCEDURE_GET_USER_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.54_UPDATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+    
+       
 </databaseChangeLog>
