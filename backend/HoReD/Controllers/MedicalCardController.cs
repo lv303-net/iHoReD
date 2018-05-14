@@ -67,11 +67,11 @@ namespace HoReD.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("CheckIfExists/{patientId}/{startDate}")]
-        public IHttpActionResult CheckIfExist(int patientId, string startDate)
+        [HttpPost]
+        [Route("CheckIfExists")]
+        public IHttpActionResult CheckIfExist(Models.MedicalRecordBindingModel model)
         {
-            return Ok(_medicalCard.CheckIfDescriptionExists(patientId, Convert.ToDateTime(startDate)));
+            return Ok(_medicalCard.CheckIfDescriptionExists(model.IdPatient, model.StartTime));
         }
     }
 }
