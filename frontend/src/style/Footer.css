@@ -49,4 +49,5 @@ p {
 .footer-lv303 .google-map {
     height: 10rem;
     position: relative;
+    max-width: 30rem;;
 }
