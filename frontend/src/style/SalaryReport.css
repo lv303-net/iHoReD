@@ -15,3 +15,24 @@
     float: left; 
     margin-top: 5%;
   }
+  #patientInfoMain{
+    float:left;
+    position: relative;
+    left:2vw;
+    }
+
+    div.react-datepicker__input-container > input {
+      background-image: url(../images/calendar.png);
+      background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-origin: content-box;
+    padding-left: 10px;
+    padding-right: 5px;  
+    }
+    #name{
+    padding-right: 40%;
+    } 
+     .salarybutton{
+      width: 8em;
+    }

@@ -41,3 +41,11 @@ div#professions div#profButton, div#doctors div#docButton {
     overflow: hidden;
     text-overflow: ellipsis; 
   }
+
+#rates #patientcard > .col-custom, div#patientcard div#dateDiv {
+      text-align: center;
+}
+  div#rates div#profRate
+  {
+      padding-left: 15px
+  }

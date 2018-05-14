@@ -31,8 +31,7 @@ class Calendar extends React.Component{
       IdDoctor: this.state.idDoc,
       IdPatient: localStorage.getItem("currentUserId"),
       startDateTime: this.state.startTime,
-      endDateTime:this.state.endTime
-      
+      endDateTime:this.state.endTime      
     }   
     axios.post(localStorage.getItem("server_url") + '/api/Schedule', bookingEvent)
     .then((response => {

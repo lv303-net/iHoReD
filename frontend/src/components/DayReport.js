@@ -23,5 +23,5 @@ import '../style/SalaryReport.css';
       </div>   
       )
       };
-      };
+      }
 export default DayReport;

@@ -171,7 +171,13 @@ div.profDocTable:hover {
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis; 
+  /* font-weight: bold; */
 }
+
+.col-custom-header{
+  font-weight: bold;
+}
+
 #col-head{
   height: auto;
 }
@@ -205,8 +211,8 @@ font-family: sans-serif;
 }
 #datepicker{
   text-align: center;
-padding: 20px;
-font-family: sans-serif;
+  padding: 20px;
+  font-family: sans-serif;
 }
 .react-datepicker-wrapper{
   text-align: center;
@@ -216,3 +222,28 @@ font-family: sans-serif;
   padding-right: 10px;
 }
 
+.fa {
+  padding-left: 10px;
+}
+
+.fa::before {
+  font-size: 1.3rem;
+}
+
+.dayOfWeekLabel input {
+  margin: 0 auto;
+}
+
+#inclusiveAoUCheckbox {
+  margin: auto 10px;
+  padding: 0;
+}
+
+.form-check-input {
+  position: initial;
+  margin: auto 0;
+}
+
+.form-check-label {
+  width: 100%;
+}

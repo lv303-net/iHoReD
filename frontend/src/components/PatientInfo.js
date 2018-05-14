@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import '../style/PatientInfo.css';
 import axios from 'axios';
-
+import photo from '../style/img_avatar1.png';
 class AboutPatient extends React.Component {
     render() {
         return (

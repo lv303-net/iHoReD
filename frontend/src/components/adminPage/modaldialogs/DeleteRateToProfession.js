@@ -6,6 +6,7 @@ import moment from 'moment';
 import EditRateToProfession from './EditRateToProfession';
 import 'react-datepicker/dist/react-datepicker.css';
 import $ from 'jquery';
+import PropTypes from 'prop-types';
 
 class DeleteRateToProfession extends Component{
     constructor(props){
@@ -43,25 +44,21 @@ class DeleteRateToProfession extends Component{
             var url_string = window.location.href;
             var url = new URL(url_string);
             var Profession = url.searchParams.get("prof");
-            var newRate = {
-            professionId: Profession,
-            startDate: nextProps.date
-            }   
-            axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/delete', newRate)
-            .then(response=>{
-                    if(response==0){            
-                        $('#deleting').remove();
-                        // $('#registrationHeader').remove();
-                        $('#textOutp').html("Please check your email."+'<br>'+"To confirm registration follow the link");
-                        $('#buttonCancelForMessage').show();
-                    }
-                    else{            
-                        $('#deleting').remove();
-                        // $('#registrationHeader').remove();
-                        $('#textOutp').html("ffffffffffffffffff."+'<br>'+"To confirm registration follow the link");
-                        $('#buttonCancelForMessage').show();
-                    }
+            var Doctor = url.searchParams.get("doc");
+            if(Doctor===null){
+            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete/' + Profession + '/' + nextProps.date.slice(0,10))
+            .then((res) => 
+            {   
+                this.props.callback(1);   
             })
+            }
+            else{
+                axios.delete(localStorage.getItem("server_url") + '/api/Salary/Coefficient/delete/' + Doctor + '/' + nextProps.date.slice(0,10))
+                .then((res) => 
+                {   
+                    this.props.callback(1);   
+                })  
+            }
         }
       }
     render(){
@@ -82,7 +79,7 @@ class DeleteRateToProfession extends Component{
                             </button>
                         </div>
                         <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3"  onClick={() =>{this.handleSubmitDelete()}}>Submit
+                            <button type="button" className="btn btn-info btn-lg mb-3"  data-dismiss="modal" onClick={() =>{this.handleSubmitDelete()}}>Submit
                         </button>
                         </div>
                         </div>
@@ -97,5 +94,8 @@ class DeleteRateToProfession extends Component{
         )
     }
 }
+DeleteRateToProfession.propTypes = {
+    callback: PropTypes.func
+  };
 
 export default DeleteRateToProfession;
