@@ -42,17 +42,17 @@ namespace HoReD.Controllers
         }
 
         /// <summary>
-        /// Returns all allergies, that current user has
+        /// Returns active allergies, that current user has
         /// </summary>
         /// <param name="id">ID of needed user</param>
-        /// <returns>List of user's allergies names</returns>
+        /// <returns>List of user's allergies names, id and visit</returns>
         [HttpGet]
-        [Route("api/PatientData/Allergies/{id}")]
-        public IHttpActionResult GetPatientAllergies(int id)
+        [Route("api/PatientData/ActiveAllergies/{id}")]
+        public IHttpActionResult GetPatientActiveAllergies(int id)
         {
             try
             {
-                var result = _patientData.GetPatientAllergies(id);
+                var result = _patientData.GetPatientActiveAllergies(id);
                 return Ok(result);
             }
             catch (Exception e)
@@ -61,7 +61,26 @@ namespace HoReD.Controllers
                 throw;
             }
         }
-
+        /// <summary>
+        /// Returns active allergies, that current user has
+        /// </summary>
+        /// <param name="id">ID of needed user</param>
+        /// <returns>List of user's allergies names, id and visit</returns>
+        [HttpGet]
+        [Route("api/PatientData/NonActiveAllergies/{id}")]
+        public IHttpActionResult GetPatientNoNActiveAllergies(int id)
+        {
+            try
+            {
+                var result = _patientData.GetPatientNonActiveAllergies(id);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
         /// <summary>
         /// Returns all allergies, that current user has
         /// </summary>

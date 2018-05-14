@@ -201,13 +201,46 @@ namespace Entities.Utils
             }
             return result;
         }
-        public static List<string> GetPatientAllergies(string bdResult)
+        public static List<string> GetPatientDiseases(string bdResult)
         {
             var values = bdResult.Split('*');
             var result = new List<string>();
             for (int i = 0; i < values.Length; i++)
             {
                 result.Add(values.GetValue(i).ToString());
+            }
+            return result;
+        }
+        public static List<Allergy> GetPatientActiveAllergies(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<Allergy>();
+            for (int i = 0; i < values.Length; i+=5)
+            {
+                
+                var allergy = new Allergy()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Name = Convert.ToString(values.GetValue(i + 1)),
+                    Visit = Convert.ToInt32(values.GetValue(i + 2))
+                };
+                result.Add(allergy);
+            }
+            return result;
+        }
+        public static List<Allergy> GetPatientNonActiveAllergies(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<Allergy>();
+            for (int i = 0; i < values.Length; i += 2)
+            {
+
+                var allergy = new Allergy()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Name = Convert.ToString(values.GetValue(i + 1))
+                };
+                result.Add(allergy);
             }
             return result;
         }

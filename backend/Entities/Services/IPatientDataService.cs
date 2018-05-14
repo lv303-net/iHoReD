@@ -9,7 +9,8 @@ namespace Entities.Services
     public interface IPatientDataService
     {
         List<PatientData> GetPatientDataById(int id);
-        List<string> GetPatientAllergies(int id);
+        List<Allergy> GetPatientActiveAllergies(int id);
+        List<Allergy> GetPatientNonActiveAllergies(int id);
         List<string> GetPatientDiseases(int id);
         int AddMedicalRecord(int idPatient, DateTime StartTime, string Description, string Treatment);
         int AddPatientAllergy(int Id, DateTime StartTime, int Allergy);

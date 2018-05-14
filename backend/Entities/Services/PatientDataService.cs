@@ -34,18 +34,37 @@ namespace Entities.Services
                 throw;
             }
         }
-        public List<string> GetPatientAllergies(int id)
+        public List<Allergy> GetPatientActiveAllergies(int id)
         {
-            string cmd = "GET_USER_ALLERGIES";
+            string cmd = "ACTIVE_ALLERGY";
             var param = new Dictionary<string, object>()
             {
-                {"@USER_ID", id }
+                {"@ID_USER", id }
             };
 
             try
             {
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
-                return Utils.ParseSqlQuery.GetPatientAllergies(data);
+                return Utils.ParseSqlQuery.GetPatientActiveAllergies(data);
+            }
+
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public List<Allergy> GetPatientNonActiveAllergies(int id)
+        {
+            string cmd = "NON_ACTIVE_ALLERGY";
+            var param = new Dictionary<string, object>()
+            {
+                {"@ID_USER", id }
+            };
+
+            try
+            {
+                var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+                return Utils.ParseSqlQuery.GetPatientNonActiveAllergies(data);
             }
 
             catch (Exception e)
@@ -64,7 +83,7 @@ namespace Entities.Services
             try
             {
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
-                return Utils.ParseSqlQuery.GetPatientAllergies(data);
+                return Utils.ParseSqlQuery.GetPatientDiseases(data);
             }
 
             catch (Exception e)
