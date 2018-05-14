@@ -392,5 +392,9 @@
    <sqlFile path="V3.56_CREATE_PROCEDURE_FOR_CHOISING_DIASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
    <sqlFile path="V3.56_UPDATE_CLOSE_DISEASE_AND_CLOSE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.57">
+   <sqlFile path="V3.57_UPDATE_CLOSE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
           
 </databaseChangeLog>
