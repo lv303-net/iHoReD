@@ -13,16 +13,11 @@ class InfoSchedule extends Component{
 
     shouldComponentUpdate(nextProps, nextState)
     {
-      return(this.props.idPatient!==nextProps.idPatient 
-        || this.state.idPatient !== nextState.idPatient
-        || this.state.patientInfo !== nextState.patientInfo )
+      return(this.props.idPatient!==nextProps.idPatient)
     }
 
     componentWillUpdate(nextProps, nextState) {
         console.log(nextProps.idPatient);
-        this.setState({
-            idPatient: nextProps.idPatient
-        })
         console.log(this.state.idPatient);
         axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + nextProps.idPatient)
         .then(res => {
