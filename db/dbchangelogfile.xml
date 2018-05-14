@@ -368,5 +368,11 @@
   <changeSet author="Tetiana Usyk" id="V3.49">
    <sqlFile path="V3.49_UPDATE_CREATE_PROCEDURE_ADD_DESCRIPTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.50">
+   <sqlFile path="V3.50_ALTER_PROCEDURE_ADD_DESCRIPTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.50_ALTER_PROCEDURE_GET_MEDICAL_CARD_BY_USER_ID.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+   
       
 </databaseChangeLog>
