@@ -383,6 +383,9 @@
    <sqlFile path="V3.54_ALTER_PROCEDURE_GET_USER_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
    <sqlFile path="V3.54_UPDATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
-    
+  
+  <changeSet author="Tetiana Usyk" id="V3.55">
+   <sqlFile path="V3.55_UPDATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
        
 </databaseChangeLog>
