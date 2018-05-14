@@ -22,7 +22,6 @@ CREATE PROCEDURE CLOSE_DISEASE
 			RETURN 1;
 	END;
 	END;
-	GO
  -----------------------------------------------------------------------------------------------------------------------------
  IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name ='CLOSE_ALLERGY')
 BEGIN
