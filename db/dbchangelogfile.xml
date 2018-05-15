@@ -430,5 +430,9 @@
    <sqlFile path="V3.65_INSERT_PATIENT_DISEASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
    <sqlFile path="V3.65_INSERT_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.66">
+   <sqlFile path="V3.66_INSERT_MEDICAL_CARD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
   
 </databaseChangeLog>
