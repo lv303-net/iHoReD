@@ -5,9 +5,8 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import '../../../../style/Diagnoses.css';
 import PropTypes from 'prop-types';
-import Diseases from'./Diseases';
 
-class SubCategories extends Component{
+class SubDiseases extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -19,22 +18,7 @@ class SubCategories extends Component{
             ]
         }
     }
-    reloadRows(param) {
-        if(param===0){
-            let myColor = { background: '#FF0000', text: "#FFFFFF" };
-            //notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
-        }
 
-        this.setState({
-            shouldUpdate: this.state.shouldUpdate + param
-        })
-    }
-    getDiseaseId(param) {
-        this.setState({
-          idDisease: param,
-          shouldUpdate: this.state.shouldUpdate + 1
-        })
-    }
     handleChange = (selectedOption) => {
         if(selectedOption!==null){
             this.setState({ selectedOption });
@@ -44,30 +28,26 @@ class SubCategories extends Component{
             this.setState({ 
                 options: [{ value: '0', label: '' } ]
             });
-            this.props.callback(selectedOption);
+            this.props.callback(selectedOption)
         }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.selectedOption!==nextState.selectedOption || this.props.idCategory!==nextProps.idCategory || this.state.options!==nextState.options)
+        return (this.state.selectedOption!==nextState.selectedOption || this.props.idDisease!==nextProps.idDisease || this.state.options!==nextState.options)
     }
 
     componentWillUpdate(nextProps, nextState)
     {
         let _that=this;
-        // _that.setState({
-        //     options: []
-        // });
-        if(this.props.idCategory!==nextProps.idCategory)
+        if(this.props.idDisease!==nextProps.idDisease)
         {
             this.setState({
                 selectedOption: null
             });
-            
-            axios.get(localStorage.getItem("server_url") + '/api/PatientData/SubCategories/' + nextProps.idCategory)
+            axios.get(localStorage.getItem("server_url") + '/api/PatientData/SubDiseases/' + 16 + '/' + nextProps.idDisease)
             .then(function (response) {
                 _that.setState({
-                    options: response.data.map( profession => ({ value: profession.Id, label: profession.Name }))
+                    options: response.data.map( subDisease => ({ value: subDisease.Id, label: subDisease.Name }))
                 })
             })
             _that.handleChange(null);
@@ -78,7 +58,7 @@ class SubCategories extends Component{
     
     return (
         <div className="col-sm-12 mt-3 selectdiagnose">
-        <div className="text-center mb-2">Choose subcategory</div>
+        <div className="text-center mb-2">Choose subdisease</div>
         <Select
             value={this.state.selectedOption}
             name="form-field-name"
@@ -86,14 +66,13 @@ class SubCategories extends Component{
             options={this.state.options}
             clearable={false}
         />
-        {/* <Diseases idSubCategory={this.state.selectedOption.value} callback={this.reloadRows.bind(this)}/> */}
       </div>
       );
     }
 }
 
-SubCategories.propTypes = {
+SubDiseases.propTypes = {
     callback: PropTypes.func
   };
 
-export default SubCategories;
+export default SubDiseases;

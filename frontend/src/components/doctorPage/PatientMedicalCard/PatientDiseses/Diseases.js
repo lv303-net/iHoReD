@@ -2,55 +2,58 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-import SubCategories from'./SubCategories';
 import 'react-select/dist/react-select.css';
 import '../../../../style/Diagnoses.css';
 import PropTypes from 'prop-types';
 
-class Categories extends Component{
+class Diseases extends Component{
     constructor(props){
         super(props);
         this.state = {
             professionsArr:[],
             id:0,
             selectedOption: '',
-            shouldUpdate:1,
             options: [
                 { value: '0', label: '' }
             ]
         }
     }
-    reloadRows(param) {
-        if(param===0){
-            let myColor = { background: '#FF0000', text: "#FFFFFF" };
-            //notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
-        }
-        
-        this.setState({
-            shouldUpdate: this.state.shouldUpdate + param
-        })
-        
-    }
+
     handleChange = (selectedOption) => {
         if(selectedOption!==null){
             this.setState({ selectedOption });
             this.props.callback(selectedOption.value);
         }
+        else{
+            this.setState({ 
+                options: [{ value: '0', label: '' } ]
+            });
+            this.props.callback(selectedOption)
+        }
     }
 
-    componentDidMount()
+    shouldComponentUpdate(nextProps, nextState) {
+        return (this.state.selectedOption!==nextState.selectedOption || this.props.idSubCategory!==nextProps.idSubCategory || this.state.options!==nextState.options)
+    }
+
+    componentWillUpdate(nextProps, nextState)
     {
         let _that=this;
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/Categories')
-        .then(function (response) {
-            _that.setState({
-                options: response.data.map( category => ({ value: category.Id, label: category.Name }))
+        if(this.props.idSubCategory!==nextProps.idSubCategory)
+        {
+            this.setState({
+                selectedOption: null
+            });
+            axios.get(localStorage.getItem("server_url") + '/api/PatientData/Diseases/' + nextProps.idSubCategory)
+            .then(function (response) {
+                _that.setState({
+                    options: response.data.map( disease => ({ value: disease.Id, label: disease.Name }))
+                })
             })
-          })
+            _that.handleChange(null);
+        }
     }
-    shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.selectedOption!==nextState.selectedOption || this.state.shouldUpdate!==nextState.shouldUpdate || this.state.options!==nextState.options)
-    }
+
     getInitialState () {
 		return {
 			clearable: true,
@@ -61,7 +64,7 @@ class Categories extends Component{
     
     return (
         <div className="col-sm-12 mt-3 selectdiagnose">
-        <div className="text-center mb-2">Choose category</div>
+        <div className="text-center mb-2">Choose disease</div>
         <Select
             value={this.state.selectedOption}
             name="form-field-name"
@@ -74,8 +77,8 @@ class Categories extends Component{
     }
 }
 
-Categories.propTypes = {
+Diseases.propTypes = {
     callback: PropTypes.func
   };
 
-export default Categories;
+export default Diseases;
