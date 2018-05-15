@@ -132,12 +132,12 @@ namespace HoReD.Controllers
         /// <param name="id">ID of needed user</param>
         /// <returns>List of user's allergies names</returns>
         [HttpGet]
-        [Route("api/PatientData/SubDiseases/{id}")]
-        public IHttpActionResult GetPatientDiseases(int id)
+        [Route("api/PatientData/SubDiseases/{idPatient}/{idDisease}")]
+        public IHttpActionResult GetPatientDiseases(int idPatient, int idDisease)
         {
             try
             {
-                var result = _patientData.GetPatientSubDiseasies(id);
+                var result = _patientData.GetPatientSubDiseasies(idPatient, idDisease);
                 return Ok(result);
             }
             catch (Exception e)

@@ -75,8 +75,7 @@ namespace Entities.Services
         public List<IllnessCategory> GetCategories()
         {
             string cmd = "RETURN_CATEGORIES";
-            var param = new Dictionary<string, object>()
-            { };
+            var param = new Dictionary<string, object>();
 
             try
             {
@@ -93,8 +92,9 @@ namespace Entities.Services
         {
             string cmd = "RETURN_SUBCATEGORIES";
             var param = new Dictionary<string, object>()
-            { };
-
+            {
+                {"@CATEGORY", idCategory }
+            };
             try
             {
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
@@ -110,7 +110,9 @@ namespace Entities.Services
         {
             string cmd = "RETURN_DISEASES";
             var param = new Dictionary<string, object>()
-            { };
+            {
+                {"@SUBCATEGORY", idSubCategory }
+            };
 
             try
             {
@@ -123,12 +125,13 @@ namespace Entities.Services
                 throw;
             }
         }
-        public List<IllnessSubDiseases> GetPatientSubDiseasies(int idDisease)
+        public List<IllnessSubDiseases> GetPatientSubDiseasies(int idPatient, int idDisease)
         {
-            string cmd = "ACTIVE_DISEASES";
+            string cmd = "NON_ACTIVE_DISEASES_FOR_CATEGORY";
             var param = new Dictionary<string, object>()
             {
-                {"@ID_USER", idDisease }
+                {"@ID_USER", idPatient },
+                {"@DISEASEID",  idDisease}
             };
 
             try

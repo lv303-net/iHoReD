@@ -14,7 +14,7 @@ namespace Entities.Services
         List<IllnessCategory> GetCategories();
         List<IllnessSubCategory> GetSubCategories(int idCategory);
         List<IllnessDiseases> GetDiseasies(int idSubCategory);
-        List<IllnessSubDiseases> GetPatientSubDiseasies(int idDisease);
+        List<IllnessSubDiseases> GetPatientSubDiseasies(int idPatient, int idDisease);
         int AddMedicalRecord(int idPatient, DateTime startTime, string description, string treatment);
         int AddPatientAllergy(int id, DateTime startTime, int allergy);
         int AddPatientDisease(int id, DateTime startTime, int disease);
