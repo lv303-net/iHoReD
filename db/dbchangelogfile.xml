@@ -409,4 +409,8 @@
    <sqlFile path="V3.60_UPDATE_GET_PAGE_COUNT_FOR_MC_DEPENDING_ELEM_COUNT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
-</databaseChangeLog>
+  <changeSet author="Tetiana Usyk" id="V3.61">
+   <sqlFile path=" V3.61_NON_ACTIVE_DISEASES_FOR_CATEGORY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  </databaseChangeLog>
