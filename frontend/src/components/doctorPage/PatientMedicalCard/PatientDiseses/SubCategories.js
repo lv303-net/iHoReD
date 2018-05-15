@@ -41,6 +41,9 @@ class SubCategories extends Component{
             this.props.callback(selectedOption.value);
         }
         else{
+            this.setState({ 
+                options: [{ value: '0', label: '' } ]
+            });
             this.props.callback(selectedOption);
         }
     }

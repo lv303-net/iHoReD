@@ -6,7 +6,7 @@ import 'react-select/dist/react-select.css';
 import '../../../../style/Diagnoses.css';
 import PropTypes from 'prop-types';
 
-class Diseases extends Component{
+class SubDiseases extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -33,38 +33,32 @@ class Diseases extends Component{
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.selectedOption!==nextState.selectedOption || this.props.idSubCategory!==nextProps.idSubCategory || this.state.options!==nextState.options)
+        return (this.state.selectedOption!==nextState.selectedOption || this.props.idDisease!==nextProps.idDisease || this.state.options!==nextState.options)
     }
 
     componentWillUpdate(nextProps, nextState)
     {
         let _that=this;
-        if(this.props.idSubCategory!==nextProps.idSubCategory)
+        if(this.props.idDisease!==nextProps.idDisease)
         {
             this.setState({
                 selectedOption: null
             });
-            axios.get(localStorage.getItem("server_url") + '/api/PatientData/Diseases/' + nextProps.idSubCategory)
+            axios.get(localStorage.getItem("server_url") + '/api/PatientData/SubDiseases/' + 16 + '/' + nextProps.idDisease)
             .then(function (response) {
                 _that.setState({
-                    options: response.data.map( disease => ({ value: disease.Id, label: disease.Name }))
+                    options: response.data.map( subDisease => ({ value: subDisease.Id, label: subDisease.Name }))
                 })
             })
             _that.handleChange(null);
         }
     }
 
-    getInitialState () {
-		return {
-			clearable: true,
-		};
-    }
-
     render() {
     
     return (
         <div className="col-sm-12 mt-3 selectdiagnose">
-        <div className="text-center mb-2">Choose disease</div>
+        <div className="text-center mb-2">Choose subdisease</div>
         <Select
             value={this.state.selectedOption}
             name="form-field-name"
@@ -77,8 +71,8 @@ class Diseases extends Component{
     }
 }
 
-Diseases.propTypes = {
+SubDiseases.propTypes = {
     callback: PropTypes.func
   };
 
-export default Diseases;
+export default SubDiseases;

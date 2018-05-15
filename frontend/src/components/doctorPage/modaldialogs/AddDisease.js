@@ -13,6 +13,8 @@ import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import Categories from './../PatientMedicalCard/PatientDiseses/Categories';
 import SubCategories from './../PatientMedicalCard/PatientDiseses/SubCategories';
 import Diseases from './../PatientMedicalCard/PatientDiseses/Diseases';
+import SubDiseases from './../PatientMedicalCard/PatientDiseses/SubDiseases';
+
 class AddDisease extends Component{
     constructor(props){
         super(props);
@@ -20,6 +22,7 @@ class AddDisease extends Component{
             idCategory: 0,
             idSubCategory: 0,
             idDisease: 0,
+            idSubDisease: 0,
             shouldUpdate: 1
         }
         this.divRate = React.createRef();
@@ -56,6 +59,12 @@ class AddDisease extends Component{
     getDiseaseId(param) {
         this.setState({
           idDisease: param,
+          shouldUpdate: this.state.shouldUpdate + 1
+        })
+    }
+    getSubDiseaseId(param) {
+        this.setState({
+          idSubDisease: param,
           shouldUpdate: this.state.shouldUpdate + 1
         })
     }
@@ -141,6 +150,7 @@ class AddDisease extends Component{
                         <Categories callback={this.getCategoryId.bind(this)}/>
                         <SubCategories idCategory={this.state.idCategory} callback={this.getSubCategoryId.bind(this)}/>
                         <Diseases idSubCategory={this.state.idSubCategory} callback={this.getDiseaseId.bind(this)}/>
+                        <SubDiseases idDisease={this.state.idDisease} callback={this.getSubDiseaseId.bind(this)}/>
                         <div className="row mb-3 mt-5 justify-content-center">
                         <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
