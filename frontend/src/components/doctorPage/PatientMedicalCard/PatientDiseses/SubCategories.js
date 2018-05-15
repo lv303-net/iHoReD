@@ -3,7 +3,9 @@ import { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import '../../../../style/Diagnoses.css';
 import PropTypes from 'prop-types';
+import Diseases from'./Diseases';
 
 class SubCategories extends Component{
     constructor(props){
@@ -13,10 +15,19 @@ class SubCategories extends Component{
             id:0,
             selectedOption: '',
             options: [
-                { value: 'one', label: 'One' },
-                { value: 'two', label: 'Two' }
+                { value: '0', label: '' }
             ]
         }
+    }
+    reloadRows(param) {
+        if(param===0){
+            let myColor = { background: '#FF0000', text: "#FFFFFF" };
+            //notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
+        }
+
+        this.setState({
+            shouldUpdate: this.state.shouldUpdate + param
+        })
     }
 
     handleChange = (selectedOption) => {
@@ -50,8 +61,8 @@ class SubCategories extends Component{
     render() {
     
     return (
-        <div className="col-sm-12 mt-3">
-        <div className="text-center mb-2">Choose profession</div>
+        <div className="col-sm-12 mt-3 selectdiagnose">
+        <div className="text-center mb-2">Choose subcategory</div>
         <Select
             value={this.state.selectedOption}
             name="form-field-name"
@@ -59,6 +70,7 @@ class SubCategories extends Component{
             options={this.state.options}
             clearable={false}
         />
+        <Diseases idSubCategory={this.state.selectedOption.value} callback={this.reloadRows.bind(this)}/>
       </div>
       );
     }
