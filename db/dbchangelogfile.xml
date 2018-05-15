@@ -404,6 +404,9 @@
    <changeSet author="Tetiana Usyk" id="V3.59">
    <sqlFile path="3.59_UPDATE_PROCEDURE_FOR_CHOISING_DIASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
-  
+ 
+  <changeSet author="Tetiana Usyk" id="V3.60">
+   <sqlFile path="V3.60_UPDATE_GET_PAGE_COUNT_FOR_MC_DEPENDING_ELEM_COUNT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
   
 </databaseChangeLog>
