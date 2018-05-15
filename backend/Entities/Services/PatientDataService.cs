@@ -130,7 +130,7 @@ namespace Entities.Services
             string cmd = "NON_ACTIVE_DISEASES_FOR_CATEGORY";
             var param = new Dictionary<string, object>()
             {
-                {"@ID_USER", idDisease },
+                {"@ID_USER", idPatient },
                 {"@DISEASEID",  idDisease}
             };
 
