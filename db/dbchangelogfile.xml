@@ -396,5 +396,9 @@
   <changeSet author="Tetiana Usyk" id="V3.57">
    <sqlFile path="V3.57_UPDATE_CLOSE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.58">
+   <sqlFile path="V3.58_PROCEDURES_FOR_GENERAL_SALARY_STATISTICS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
           
 </databaseChangeLog>
