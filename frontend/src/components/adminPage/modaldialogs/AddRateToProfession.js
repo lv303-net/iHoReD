@@ -5,12 +5,20 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import validator from 'validator';
+import PropTypes from 'prop-types';
+import $ from 'jquery';
+import DeleteRateToProfession from './DeleteRateToProfession';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 
 class AddRateToProfession extends Component{
     constructor(props){
         super(props);
         this.state = {
-            startDate: moment()  
+            startDate: moment(),
+            statusCode: "",
+            show: false
         }
         this.divRate = React.createRef();
         this.handleChangeStart = this.handleChangeStart.bind(this);
@@ -21,8 +29,9 @@ class AddRateToProfession extends Component{
     hideError(divName, inputName) {
         divName.current.textContent = '';
     }
+
     validateRate() {
-        if (validator.isInt(this.rate)) {
+        if (validator.isFloat(this.rate)) {
           this.validRate = true;
           return true;
         } else {
@@ -31,71 +40,100 @@ class AddRateToProfession extends Component{
         }
       }
 
-    showError() {
+    showError() {        
         if (this.validRate){
-            document.getElementById("Rate").style.borderColor = 'green';
+            console.log('valid');
+            document.getElementById("RateAdd").style.borderColor = 'green';
             this.divRate.current.textContent = '';
         }
         else {
-            document.getElementById("Rate").style.borderColor = '#f74131';
-            this.divRate.current.textContent = 'Please enter a valid rate';
+            console.log('unvalid');
+            document.getElementById("RateAdd").style.borderColor = '#f74131';
+            this.divRate.current.textContent = 'Only numbers are allowed';
         }
     }
     handleChangeStart(date) {
         this.setState({
           startDate: date, 
         });
-    }
 
+    }
     handleSubmitEdit() {
+        
         var url_string = window.location.href;
         var url = new URL(url_string);
         var Profession = url.searchParams.get("prof");
-        var newRate = {
-          professionId: Profession,
-          rate: this.rate,
-          startDate: this.state.startDate.format('YYYY-MM-DD')
-          
-        }   
-        axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/add', newRate)
-        .then(response=>{
-          console.log(response.data);
-        })
+        var Doctor = url.searchParams.get("doc");
+        if(Doctor===null){
+            var newRate = {
+            ProfessionId: Profession,
+            Rate: this.rate,
+            StartDate: this.state.startDate.format('YYYY-MM-DD')
+            
+            }   
+            axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/add', newRate)
+            .then(response=>{
+            console.log(response.data);
+            this.props.callback(response.data);
+            })
+        }
+        else{
+            var newCoeff = {
+                DoctorId: Doctor,
+                Coeff: this.rate,
+                StartDate: this.state.startDate.format('YYYY-MM-DD')
+                }   
+                axios.post(localStorage.getItem("server_url") + '/api/Salary/Coefficient/add', newCoeff)
+                .then(response=>{
+                console.log(response.data);
+                this.props.callback(response.data);
+                })
+        }
         
       }
-
     render(){
+            let url_string = window.location.href;
+            let url = new URL(url_string);
+            let idDoc = url.searchParams.get("doc");
         return(
-            <div class="modal fade" id="AddRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="exampleModalLabel">Confirm adding new rate</h3>
+            <div className="modal fade" id="AddRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+             
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h3 className="modal-title" id="exampleModalLabel">
+                            {idDoc === null ? "Confirm adding new rate" : "Confirm adding new coefficient"}
+                            </h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                        <div className="form-row ml-3 justify-content-center">
-                            <div className="form-group justify-content-center col-sm-2 col-xs-12 mb-0">
-                                <p className="labelForm">Rate</p>
+                        <div className="modal-body">
+                        <div className="form-row ml-5 justify-content">
+                            <div className="form-group justify-content-center col-sm-2 col-xs-12 mr-2 mb-0">
+                                <p className="labelForm labelAdd">
+                                {idDoc === null ? "Rate" : "Coeff"}
+                                </p>
                             </div>
-                            <div className="form-group col-sm-5 col-xs-12" id="inputRate">
+                            <div className="form-group justify-content-center col-sm-4 col-xs-12 ml-2" id="inputRate">   
+                                <div className="text-center justify-content-center">                             
                                 <input 
                                 className="form-control"
-                                placeholder="Rate"
+                                placeholder={idDoc === null ? "Rate" : "Coeff"}
                                 onChange={x => { this.rate = x.target.value; this.validateRate(); this.hideError(this.divRate, 'Rate')}}
-                                id="Rate"
+                                onBlur={()=>this.showError()}
+                                id="RateAdd"
                                 />
-                                <div id="invalidRate" className="text-muted" ref={this.divRate}>
+                                </div>
+                                <div id="invalidRate" className="text-muted ml-2" ref={this.divRate}>
                             </div>
                             </div>
                         </div>
-                        <div className="form-row ml-3 justify-content-center">
-                            <div className="form-group justify-content-center col-sm-2 col-xs-12 mb-0">
-                                <p className="labelForm">Date</p>
+                        <div className="form-row ml-5 justify-content">
+                            <div className="form-group justify-content-center col-sm-2 col-xs-12  mb-0">
+                                <p className="labelForm labelAdd">Date</p>
                             </div>
-                            <div className="form-group col-sm-5 col-xs-12 mt-1">
+                            <div className="form-group col-sm-6 col-xs-12 ml-3 mt-1" id="datePickerForm">
                             <DatePicker
                             selected={this.state.startDate}
                             startDate={this.state.startDate}
@@ -105,17 +143,17 @@ class AddRateToProfession extends Component{
                             </div>
                         </div>
                         <div className="row mb-3 mt-5 justify-content-center">
-                        <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
+                        <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
                             </button>
                         </div>
-                        <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit(); this.showError()}}>Submit
+                        <div className="col-sm-3 col-6 text-center">
+                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit()}}>Submit
                             </button>
                         </div>
                         </div>
                         </div>
-                        <div class="modal-footer">
+                        <div className="modal-footer">
                         </div>
                     </div>
                 </div>
@@ -123,5 +161,9 @@ class AddRateToProfession extends Component{
         )
     }
 }
+
+AddRateToProfession.propTypes = {
+    callback: PropTypes.func
+  };
 
 export default AddRateToProfession;

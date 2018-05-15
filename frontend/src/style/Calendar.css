@@ -5,13 +5,13 @@
     border: 2px 1px 2px 1px solid #adc9ff;
   }
   
-  #calendarDiv {
-    background-color: white;
-    padding: 15px;
-    box-shadow: 5px 10px 18px #888888
-  }
-  
-  .fc-day {
-    background-color: #DCDCDC;
-    opacity: 0.5;
+#calendarDiv {
+  background-color: white;
+  padding: 15px;
+  box-shadow: 5px 10px 18px #888888
+}
+
+.fc-day {
+  background-color: #DCDCDC;
+  opacity: 0.5;
 }
