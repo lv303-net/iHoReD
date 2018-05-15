@@ -138,5 +138,10 @@ namespace Entities.Services
         {
             throw new NotImplementedException();
         }
+
+        public SalaryStatistics GetDoctorGeneralSalaryStatistics(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

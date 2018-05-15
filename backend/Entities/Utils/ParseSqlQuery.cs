@@ -102,6 +102,20 @@ namespace Entities.Utils
             return list;
         }
 
+        public static SalaryStatistics GetDoctorGeneralSalaryStatistics(string str)
+        {
+            var values = str.Split('*');
+            SalaryStatistics statistics = new SalaryStatistics()
+            {
+                WorkedHours = Convert.ToDouble(values.GetValue(1)),
+                SalaryRate = Convert.ToDouble(values.GetValue(2)),
+                SalaryCoefficient = Convert.ToDouble(values.GetValue(3)),
+                EarnedMoney = Convert.ToDouble(values.GetValue(4))
+            };
+
+            return statistics;
+        }
+
         /// <summary>
         /// Almost identical to GetDoctorBookedEvents, but also returns name,surname & id of user, that booked session
         /// </summary>

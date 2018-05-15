@@ -590,6 +590,22 @@ namespace Entities.Services
             return Utils.ParseSqlQuery.GetDoctorSalaryStatistics(str);
         }
 
+        
+        public SalaryStatistics GetDoctorGeneralSalaryStatistics(int IdDoctor, DateTime dateStart, DateTime dateFinish)
+        {
+            const string cmd = "GET_GENERAL_SALARY_STATISTICS_FOR_PERIOD";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@DOCTOR_ID", IdDoctor},
+                {"@START_DATE", dateStart},
+                {"@END_DATE",  dateFinish}
+            };
+            var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+
+            return Utils.ParseSqlQuery.GetDoctorGeneralSalaryStatistics(str);
+        }
+
         public List<SalaryStatistics>[] GetDoctorSalaryStatisticsSplitedByMonths(int IdDoctor, DateTime dateStart, DateTime dateFinish)
         {
             if (dateFinish >= DateTime.Now)
@@ -599,31 +615,31 @@ namespace Entities.Services
 
             int numberOfMonths = GetMonthDifference(dateStart, dateFinish);
 
-            List<SalaryStatistics>[] generalList = new List<SalaryStatistics>[numberOfMonths + 1];
+            List<SalaryStatistics>[] listSplitedByMonths = new List<SalaryStatistics>[numberOfMonths + 1];
             if (numberOfMonths == 0)
             {
-                generalList[0] = GetDoctorSalaryStatistics(IdDoctor, dateStart, dateFinish);
-                return generalList;
+                listSplitedByMonths[0] = GetDoctorSalaryStatistics(IdDoctor, dateStart, dateFinish);
+                return listSplitedByMonths;
             }
 
             DateTime firstDayInMonth;
             DateTime lastDayInMonth = new DateTime(dateStart.Year, dateStart.Month, 1).AddMonths(1).AddDays(-1);
-            generalList[0] = GetDoctorSalaryStatistics(IdDoctor, dateStart, lastDayInMonth);
+            listSplitedByMonths[0] = GetDoctorSalaryStatistics(IdDoctor, dateStart, lastDayInMonth);
 
             for (int i = 1; i < numberOfMonths; i++)
             {
                 firstDayInMonth = lastDayInMonth.AddDays(1);
                 lastDayInMonth = firstDayInMonth.AddMonths(1).AddDays(-1);
-                generalList[i] = GetDoctorSalaryStatistics(IdDoctor, firstDayInMonth, lastDayInMonth);
+                listSplitedByMonths[i] = GetDoctorSalaryStatistics(IdDoctor, firstDayInMonth, lastDayInMonth);
             }
             
             firstDayInMonth = lastDayInMonth.AddDays(1);
-            generalList[numberOfMonths] = GetDoctorSalaryStatistics(IdDoctor, firstDayInMonth, dateFinish);
+            listSplitedByMonths[numberOfMonths] = GetDoctorSalaryStatistics(IdDoctor, firstDayInMonth, dateFinish);
 
-            return generalList;
+            return listSplitedByMonths;
         }
 
-        public static int GetMonthDifference(DateTime startDate, DateTime endDate)
+        private static int GetMonthDifference(DateTime startDate, DateTime endDate)
         {
             int monthsApart = 12 * (startDate.Year - endDate.Year) + startDate.Month - endDate.Month;
             return Math.Abs(monthsApart);

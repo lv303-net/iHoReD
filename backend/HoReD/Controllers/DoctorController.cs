@@ -112,7 +112,7 @@ namespace HoReD.Controllers
         }
 
         /// <summary>
-        /// Get doctor's salary statistics in specific range of time
+        /// Get doctor's salary statistics in specific range of time for each day
         /// </summary>
         /// <param name="doctorId"></param>
         /// <param name="dateStart"></param>
@@ -123,8 +123,23 @@ namespace HoReD.Controllers
         [Route("DoctorSalaryStatistics/{doctorId}/{dateStart}/{dateFinish}")]
         public IHttpActionResult GetDoctorSalaryStatistics(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
-            //List<SalaryStatistics> statistics = _doctorService.GetDoctorSalaryStatistics(doctorId, dateStart, dateFinish);
             List<SalaryStatistics>[] statistics = _doctorService.GetDoctorSalaryStatisticsSplitedByMonths(doctorId, dateStart, dateFinish);
+            return Ok(statistics);
+        }
+
+        /// <summary>
+        /// Get doctor's general salary statistics in specific range of time
+        /// </summary>
+        /// <param name="doctorId"></param>
+        /// <param name="dateStart"></param>
+        /// <param name="dateFinish"></param>
+        /// <returns>Instance of the class SalaryStatistics</returns>
+        /// <example>http://localhost:*****/DoctorGeneralSalaryStatistics/{doctorId}/{dateStart}/{dateFinish}</example>
+        [HttpGet]
+        [Route("DoctorGeneralSalaryStatistics/{doctorId}/{dateStart}/{dateFinish}")]
+        public IHttpActionResult GetDoctorGeneralSalaryStatistics(int doctorId, DateTime dateStart, DateTime dateFinish)
+        {           
+            SalaryStatistics statistics = _doctorService.GetDoctorGeneralSalaryStatistics(doctorId, dateStart, dateFinish);
             return Ok(statistics);
         }
     }

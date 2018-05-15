@@ -37,5 +37,7 @@ namespace Entities.Services
 
         List<SalaryStatistics>[] GetDoctorSalaryStatisticsSplitedByMonths(int IdDoctor, DateTime dateStart, DateTime dateFinish);
 
+        SalaryStatistics GetDoctorGeneralSalaryStatistics(int IdDoctor, DateTime dateStart, DateTime dateFinish);
+
     }
 }
