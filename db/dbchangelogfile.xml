@@ -400,5 +400,10 @@
   <changeSet author="Mariia Shkolyk" id="V3.58">
    <sqlFile path="V3.58_PROCEDURES_FOR_GENERAL_SALARY_STATISTICS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
-          
+  
+   <changeSet author="Tetiana Usyk" id="V3.59">
+   <sqlFile path="3.59_UPDATE_PROCEDURE_FOR_CHOISING_DIASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  
 </databaseChangeLog>
