@@ -1,9 +1,9 @@
 BEGIN TRANSACTION;
-INSERT INTO ALLERGIES 'Mushrooms', 'Mushrooms allergy description'
-INSERT INTO ALLERGIES 'Oranges', 'Oranges allergy description'
-INSERT INTO ALLERGIES 'Dust', 'Dust allergy description'
-INSERT INTO ALLERGIES 'Penicillin', 'Penicillin allergy description'
-INSERT INTO ALLERGIES 'Wool', 'Wool allergy description'
-INSERT INTO ALLERGIES 'Mildew', 'Mildew allergy description'
-INSERT INTO ALLERGIES 'Pollen', 'Pollen allergy description'
+EXEC INSERT_NEW_ALLERGY_NAME_AND_ALLERGY_DESCRIPTION 'Mushrooms', 'Mushrooms allergy description'
+EXEC INSERT_NEW_ALLERGY_NAME_AND_ALLERGY_DESCRIPTION 'Oranges', 'Oranges allergy description'
+EXEC INSERT_NEW_ALLERGY_NAME_AND_ALLERGY_DESCRIPTION 'Dust', 'Dust allergy description'
+EXEC INSERT_NEW_ALLERGY_NAME_AND_ALLERGY_DESCRIPTION 'Penicillin', 'Penicillin allergy description'
+EXEC INSERT_NEW_ALLERGY_NAME_AND_ALLERGY_DESCRIPTION 'Wool', 'Wool allergy description'
+EXEC INSERT_NEW_ALLERGY_NAME_AND_ALLERGY_DESCRIPTION 'Mildew', 'Mildew allergy description'
+EXEC INSERT_NEW_ALLERGY_NAME_AND_ALLERGY_DESCRIPTION 'Pollen', 'Pollen allergy description'
 COMMIT TRANSACTION;
