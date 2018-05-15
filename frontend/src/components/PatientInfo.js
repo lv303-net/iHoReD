@@ -7,14 +7,7 @@ class AboutPatient extends React.Component {
     render() {
         return (
             <div>
-                <div className="row" id="patientcard">
-                    <div className="col-12" id="col-head">Patient
-                    <i className="fa fa-heart"></i>
-                        <i className="fa fa-heart"></i>
-                        <i className="fa fa-heart"></i>
-                    </div>
-                </div>
-                <div className="row" id="patientcard">
+                      <div className="row" id="patientcard">
                     <div className="col-5" id="col-custom">First Name</div>
                     <div className="col-7">{this.props.firstname}</div>
                 </div>
@@ -69,22 +62,22 @@ class PatientInfo extends React.Component {
     render() {
         console.log(this.props.PatientId);
         return (
-            <div className="container mt-5" id="patientInfoMain">
-                <div className="row">
-                    <div className ="col-md-8 col-xs-12">
-                        {this.state.userdata.map(item => <AboutPatient firstname={item.FirstName}
-                            lastname={item.LastName} birthday={item.Birthday}
-                            phone={item.Phone} bloodtype={item.BloodType} />)}
-                    </div>
-                    <div className ="col-md-4 col-xs-12">
-                        <div className="row" id="patientcard">
-                            <div className="col-5" id="col-custom">Allergies:</div>
-                            <div className="col-7">
-                                <div className="list-group">
-                                    {this.state.allergies.map(item =>
-                                        <div id="#allergilistitem" className="list-group-item" id="allergilist">{item}</div>)}
-                                </div>
-                            </div>
+            <div className="container mt-5">
+            <div className="card" mt-5 >
+             <img className="card-img-top" src={photo} alt="Card image"></img>
+             <div class="card-body">
+            </div>
+            </div>
+            <div className="container mt-3 col-lg-6 col-md-7 col-10" id="patientInfoMain">
+                {this.state.userdata.map(item => <AboutPatient firstname={item.FirstName}
+                    lastname={item.LastName} birthday={item.Birthday}
+                    phone={item.Phone} bloodtype={item.BloodType} />)}
+                <div className="row" id="patientcard">
+                    <div className="col-5" id="col-custom">Allergies:</div>
+                    <div className="col-7">
+                        <div className="list-group">
+                            {this.state.allergies.map(item =>
+                                <div id="#allergilistitem" className="list-group-item" id="allergilist">{item}</div>)}
                         </div>
                         <div className="row" id="patientcard">
                             <div className="col-5" id="col-custom">Diseases:</div>
@@ -97,7 +90,9 @@ class PatientInfo extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>                
+</div>    
+
         );
     }
 }
