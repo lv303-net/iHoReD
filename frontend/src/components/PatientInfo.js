@@ -40,24 +40,24 @@ class PatientInfo extends React.Component {
             diseases: [],
             id: 1
         };
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + this.props.PatientId)
-            .then(res => {
-                this.setState({
-                    userdata: res.data,
-                });
-            });
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/Allergies/' + this.props.PatientId)
-            .then(res => {
-                this.setState({
-                    allergies: res.data,
-                });
-            });
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/Diseases/' + this.props.PatientId)
-            .then(res => {
-                this.setState({
-                    diseases: res.data,
-                });
-        });
+        // axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + this.props.PatientId)
+        //     .then(res => {
+        //         this.setState({
+        //             userdata: res.data,
+        //         });
+        //     });
+        // axios.get(localStorage.getItem("server_url") + '/api/PatientData/Allergies/' + this.props.PatientId)
+        //     .then(res => {
+        //         this.setState({
+        //             allergies: res.data,
+        //         });
+        //     });
+        // axios.get(localStorage.getItem("server_url") + '/api/PatientData/SubDiseases/' + this.props.PatientId)
+        //     .then(res => {
+        //         this.setState({
+        //             diseases: res.data,
+        //         });
+        // });
     }
     render() {
         console.log(this.props.PatientId);

@@ -4,7 +4,7 @@ import { Component } from 'react';
 //import PatientInfo from '../PatientInfo';
 import PatientInfo from '../../PatientInfo';
 import AllergiesCard from './AllergiesCard';
-
+import AddMedRecord from './../../AddMedRecord'
 class PatientMedicalCard extends Component {
   render() {
     return(
@@ -16,6 +16,7 @@ class PatientMedicalCard extends Component {
           <div className="row mt-5">
             <AllergiesCard/>
           </div>
+          <AddMedRecord/>
         </div>
       </div>
     );
