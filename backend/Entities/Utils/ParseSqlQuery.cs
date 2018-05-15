@@ -85,11 +85,17 @@ namespace Entities.Utils
             var values = str.Split('*');
             var list = new List<SalaryStatistics>();
 
+            DateTime? dt;
             for (int i = 0; i < (values.Length - 1); i += 5)
             {
+                if (string.IsNullOrEmpty(values.GetValue(i).ToString()))
+                    dt = null;
+                else
+                    dt = Convert.ToDateTime(values.GetValue(i));
+
                 SalaryStatistics salaryPerDay = new SalaryStatistics()
                 {
-                    Day = Convert.ToDateTime(values.GetValue(i)),
+                    Day = dt,
                     WorkedHours = Convert.ToDouble(values.GetValue(i + 1)),
                     SalaryRate = Convert.ToDouble(values.GetValue(i + 2)),
                     SalaryCoefficient = Convert.ToDouble(values.GetValue(i + 3)),
@@ -100,6 +106,21 @@ namespace Entities.Utils
             }
 
             return list;
+        }
+
+        public static SalaryStatistics GetDoctorGeneralSalaryStatistics(string str)
+        {
+            var values = str.Split('*');
+            SalaryStatistics statistics = new SalaryStatistics()
+            {
+                Day = null,
+                WorkedHours = Convert.ToDouble(values.GetValue(1)),
+                SalaryRate = Convert.ToDouble(values.GetValue(2)),
+                SalaryCoefficient = Convert.ToDouble(values.GetValue(3)),
+                EarnedMoney = Convert.ToDouble(values.GetValue(4))
+            };
+
+            return statistics;
         }
 
         /// <summary>
