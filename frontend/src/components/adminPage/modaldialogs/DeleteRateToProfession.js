@@ -83,7 +83,7 @@ class DeleteRateToProfession extends Component{
                             </button>
                         </div>
                         <div className="col-sm-3 col-6 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit()}}>Submit
+                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitDelete()}}>Submit
                             </button>
                         </div>
                         </div>

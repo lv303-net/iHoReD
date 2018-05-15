@@ -26,7 +26,10 @@ a:link, a:visited {
     color: white;
     background-color:#74B8FF;
     align-items: stretch;
+}
 
+.navbar .navbar-custom  {
+    width: 100%;
 }
 
 .navbar-toggler-icon{
