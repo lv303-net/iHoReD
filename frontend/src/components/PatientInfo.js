@@ -46,7 +46,7 @@ class PatientInfo extends React.Component {
                     userdata: res.data,
                 });
             });
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/Allergies/' + this.props.PatientId)
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + this.props.PatientId)
             .then(res => {
                 this.setState({
                     allergies: res.data,
@@ -78,7 +78,7 @@ class PatientInfo extends React.Component {
                             <div className="col-7">
                                 <div className="list-group">
                                     {this.state.allergies.map(item =>
-                                        <div id="#allergilistitem" className="list-group-item" id="allergilist">{item}</div>)}
+                                        <div id="#allergilistitem" className="list-group-item" id="allergilist">{item.Name}</div>)}
                                 </div>
                             </div>
                         </div>

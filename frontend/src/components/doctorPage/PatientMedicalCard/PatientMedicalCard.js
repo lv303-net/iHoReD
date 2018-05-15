@@ -10,13 +10,9 @@ class PatientMedicalCard extends Component {
     return(
       <div id="mainDiv">
         <div className="container">
-          <div className="row">
-            <PatientInfo PatientId={this.props.match.params.id}/>
-          </div>
-          <div className="row mt-5">
+            <PatientInfo PatientId={this.props.match.params.id}/>    
             <AllergiesCard/>
-          </div>
-          <AddMedRecord/>
+            <AddMedRecord/>
         </div>
       </div>
     );
