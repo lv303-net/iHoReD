@@ -27,18 +27,24 @@ class Diseases extends Component{
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.selectedOption!==nextState.selectedOption)
+        return (this.state.selectedOption!==nextState.selectedOption| this.props.idSubCategory!==nextProps.idSubCategory || this.state.options!==nextState.options)
     }
 
     componentWillUpdate(nextProps, nextState)
     {
         let _that=this;
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/Diseases/' + nextProps.idSubCategory)
-        .then(function (response) {
-            _that.setState({
-                options: response.data.map( disease => ({ value: disease.Id, label: disease.Name }))
+        if(this.props.idSubCategory!==nextProps.idSubCategory)
+        {
+            this.setState({
+                selectedOption: null
+            });
+            axios.get(localStorage.getItem("server_url") + '/api/PatientData/Diseases/' + nextProps.idSubCategory)
+            .then(function (response) {
+                _that.setState({
+                    options: response.data.map( disease => ({ value: disease.Id, label: disease.Name }))
+                })
             })
-          })
+        }
     }
 
     getInitialState () {

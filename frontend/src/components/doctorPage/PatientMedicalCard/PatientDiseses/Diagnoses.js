@@ -34,12 +34,9 @@ class Salary extends Component{
 
     render(){
         return(
-            <div className="row"> 
-                <div className="col-sm-6">
-                
-                </div>
-                <div type="button" className=" col-12 col-md-5 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
-                    <h6 className="mt-2">hhhhhhhhhhhhhhhhhhhhhh</h6>
+            <div className="row ml-4"> 
+                <div type="button" className=" col-md-2 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
+                    <h6 className="mt-2">hhhh</h6>
                 </div>
                 <div className="col-sm-5 mt-3 ">
                 <AddDisease callback={this.reloadRows.bind(this)}/>

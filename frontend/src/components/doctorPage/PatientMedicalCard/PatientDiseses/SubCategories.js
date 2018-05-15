@@ -29,33 +29,46 @@ class SubCategories extends Component{
             shouldUpdate: this.state.shouldUpdate + param
         })
     }
-
+    getDiseaseId(param) {
+        this.setState({
+          idDisease: param,
+          shouldUpdate: this.state.shouldUpdate + 1
+        })
+    }
     handleChange = (selectedOption) => {
         if(selectedOption!==null){
             this.setState({ selectedOption });
             this.props.callback(selectedOption.value);
         }
+        else{
+            this.props.callback(selectedOption);
+        }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.selectedOption!==nextState.selectedOption)
+        return (this.state.selectedOption!==nextState.selectedOption || this.props.idCategory!==nextProps.idCategory || this.state.options!==nextState.options)
     }
 
     componentWillUpdate(nextProps, nextState)
     {
         let _that=this;
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/SubCategories/' + nextProps.idCategory)
-        .then(function (response) {
-            _that.setState({
-                options: response.data.map( profession => ({ value: profession.Id, label: profession.Name }))
+        // _that.setState({
+        //     options: []
+        // });
+        if(this.props.idCategory!==nextProps.idCategory)
+        {
+            this.setState({
+                selectedOption: null
+            });
+            
+            axios.get(localStorage.getItem("server_url") + '/api/PatientData/SubCategories/' + nextProps.idCategory)
+            .then(function (response) {
+                _that.setState({
+                    options: response.data.map( profession => ({ value: profession.Id, label: profession.Name }))
+                })
             })
-          })
-    }
-
-    getInitialState () {
-		return {
-			clearable: true,
-		};
+            _that.handleChange(null);
+        }
     }
 
     render() {
@@ -70,7 +83,7 @@ class SubCategories extends Component{
             options={this.state.options}
             clearable={false}
         />
-        <Diseases idSubCategory={this.state.selectedOption.value} callback={this.reloadRows.bind(this)}/>
+        {/* <Diseases idSubCategory={this.state.selectedOption.value} callback={this.reloadRows.bind(this)}/> */}
       </div>
       );
     }

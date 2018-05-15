@@ -4,6 +4,7 @@ import axios from 'axios';
 import Select from 'react-select';
 import SubCategories from'./SubCategories';
 import 'react-select/dist/react-select.css';
+import '../../../../style/Diagnoses.css';
 import PropTypes from 'prop-types';
 
 class Categories extends Component{
@@ -13,6 +14,7 @@ class Categories extends Component{
             professionsArr:[],
             id:0,
             selectedOption: '',
+            shouldUpdate:1,
             options: [
                 { value: '0', label: '' }
             ]
@@ -23,10 +25,11 @@ class Categories extends Component{
             let myColor = { background: '#FF0000', text: "#FFFFFF" };
             //notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
         }
-
+        
         this.setState({
             shouldUpdate: this.state.shouldUpdate + param
         })
+        
     }
     handleChange = (selectedOption) => {
         if(selectedOption!==null){
@@ -46,7 +49,7 @@ class Categories extends Component{
           })
     }
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.selectedOption!==nextState.selectedOption)
+        return (this.state.selectedOption!==nextState.selectedOption || this.state.shouldUpdate!==nextState.shouldUpdate || this.state.options!==nextState.options)
     }
     getInitialState () {
 		return {
@@ -57,7 +60,7 @@ class Categories extends Component{
     render() {
     
     return (
-        <div className="col-sm-12 mt-3">
+        <div className="col-sm-12 mt-3 selectdiagnose">
         <div className="text-center mb-2">Choose category</div>
         <Select
             value={this.state.selectedOption}
@@ -66,7 +69,6 @@ class Categories extends Component{
             options={this.state.options}
             clearable={false}
         />
-        <SubCategories idCategory={this.state.selectedOption.value} callback={this.reloadRows.bind(this)}/>
       </div>
       );
     }

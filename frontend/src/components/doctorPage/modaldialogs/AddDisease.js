@@ -11,14 +11,15 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import Categories from './../PatientMedicalCard/PatientDiseses/Categories';
-
+import SubCategories from './../PatientMedicalCard/PatientDiseses/SubCategories';
+import Diseases from './../PatientMedicalCard/PatientDiseses/Diseases';
 class AddDisease extends Component{
     constructor(props){
         super(props);
         this.state = {
-            startDate: moment(),
-            statusCode: "",
-            show: false,
+            idCategory: 0,
+            idSubCategory: 0,
+            idDisease: 0,
             shouldUpdate: 1
         }
         this.divRate = React.createRef();
@@ -40,9 +41,21 @@ class AddDisease extends Component{
             shouldUpdate: this.state.shouldUpdate + param
         })
     }
-    getProfessionId(param) {
+    getCategoryId(param) {
         this.setState({
-          idProf: param,
+          idCategory: param,
+          shouldUpdate: this.state.shouldUpdate + 1
+        })
+    }
+    getSubCategoryId(param) {
+        this.setState({
+          idSubCategory: param,
+          shouldUpdate: this.state.shouldUpdate + 1
+        })
+    }
+    getDiseaseId(param) {
+        this.setState({
+          idDisease: param,
           shouldUpdate: this.state.shouldUpdate + 1
         })
     }
@@ -125,7 +138,9 @@ class AddDisease extends Component{
                             </button>
                         </div>
                         <div className="modal-body">
-                        <Categories callback={this.reloadRows.bind(this)}/>
+                        <Categories callback={this.getCategoryId.bind(this)}/>
+                        <SubCategories idCategory={this.state.idCategory} callback={this.getSubCategoryId.bind(this)}/>
+                        <Diseases idSubCategory={this.state.idSubCategory} callback={this.getDiseaseId.bind(this)}/>
                         <div className="row mb-3 mt-5 justify-content-center">
                         <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
