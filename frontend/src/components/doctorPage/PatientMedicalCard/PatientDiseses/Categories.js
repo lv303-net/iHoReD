@@ -2,10 +2,11 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
+import SubCategories from'./SubCategories';
 import 'react-select/dist/react-select.css';
 import PropTypes from 'prop-types';
 
-class SelectProfession extends Component{
+class Categories extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -13,36 +14,41 @@ class SelectProfession extends Component{
             id:0,
             selectedOption: '',
             options: [
-                { value: '', label: '' }
+                { value: 'one', label: 'One' },
+                { value: 'two', label: 'Two' }
             ]
         }
     }
+    reloadRows(param) {
+        if(param===0){
+            let myColor = { background: '#FF0000', text: "#FFFFFF" };
+            //notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
+        }
 
+        this.setState({
+            shouldUpdate: this.state.shouldUpdate + param
+        })
+    }
     handleChange = (selectedOption) => {
-        var searchParameter = new URLSearchParams(window.location.search);
         if(selectedOption!==null){
             this.setState({ selectedOption });
-            searchParameter.set('prof', selectedOption.value);
-            searchParameter.delete('doc');
-            window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
             this.props.callback(selectedOption.value);
-        }
-        else{
-            searchParameter.delete('prof');
         }
     }
 
     componentDidMount()
     {
         let _that=this;
-        axios.get(localStorage.getItem("server_url") + '/AllProfessions')
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/Categories')
         .then(function (response) {
             _that.setState({
-                options: response.data.map( profession => ({ value: profession[0], label: profession[1] }))
+                options: response.data.map( category => ({ value: category.Id, label: category.Name }))
             })
           })
     }
-
+    shouldComponentUpdate(nextProps, nextState) {
+        return (this.selectedOption!==nextState.selectedOption)
+    }
     getInitialState () {
 		return {
 			clearable: true,
@@ -50,32 +56,25 @@ class SelectProfession extends Component{
     }
 
     render() {
-    let url_string = window.location.href;
-    let url = new URL(url_string);
-    let idProf;
-    if (url.search !== '') {
-        idProf = url.searchParams.get("prof");
-    }
-    else{
-        idProf = 0;
-    }
+    
     return (
-        <div className="col-sm-8 mt-3">
+        <div className="col-sm-12 mt-3">
         <div className="text-center mb-2">Choose profession</div>
         <Select
-            value={idProf}
+            value={this.state.selectedOption}
             name="form-field-name"
             onChange={this.handleChange}
             options={this.state.options}
             clearable={false}
         />
+        <SubCategories idCategory={this.state.selectedOption.value} callback={this.reloadRows.bind(this)}/>
       </div>
       );
     }
 }
 
-SelectProfession.propTypes = {
+Categories.propTypes = {
     callback: PropTypes.func
   };
 
-export default SelectProfession;
+export default Categories;

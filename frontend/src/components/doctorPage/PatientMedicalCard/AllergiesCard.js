@@ -20,7 +20,7 @@ class AllergiesCard extends Component{
     render(){
         return(
             <div>
-            <div className="row"> 
+            <div className="row mt-5"> 
                 <div className="col-sm-6 col-12">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#AddAllergyModal">Add allergy</button>
                 </div>
