@@ -5,4 +5,9 @@
 div#allergilist.list-group-item:last-child {
      border-bottom: none;
    }
+
+.card-img-top{
+  width: 100%;
+  height: auto;
+}
    
