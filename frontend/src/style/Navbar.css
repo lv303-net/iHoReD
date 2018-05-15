@@ -26,7 +26,10 @@ a:link, a:visited {
     color: white;
     background-color:#74B8FF;
     align-items: stretch;
-width: 100vw;
+}
+
+.navbar .navbar-custom  {
+    width: 100%;
 }
 
 .navbar-toggler-icon{
@@ -50,4 +53,35 @@ width: 100vw;
 .nav-item a#link-custom {
     padding-top: 1rem;
     padding-bottom: 0.6rem;
+}
+
+.navbar-collapse .navbar-nav .nav-item {
+    background-color: rgb(255, 255, 255);
+}
+
+.navbar-collapse .navbar-nav .nav-item {
+    border-right: 1px solid #74B8FF;
+}
+
+.navbar-collapse .navbar-nav .nav-item:last-child {
+    border-right: none;
+}
+
+.navbar .active#itemlink1,
+.navbar .active#itemlink2,
+.navbar .active#itemlink3  {
+    background-color: #49A2FF;
+    border-right: none;
+}
+
+.navbar .active#itemlink1 #link1,
+.navbar .active#itemlink2 #link2,
+.navbar .active#itemlink3 #link3 {
+    color: white;
+}
+
+@media only screen and (max-width : 480px) {
+    .nav-item#itemlink3 {
+        height: 64px;
+    }
 }

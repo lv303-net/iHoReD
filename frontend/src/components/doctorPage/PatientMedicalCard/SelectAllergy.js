@@ -22,22 +22,32 @@ class SelectAllergy extends Component{
     handleChange = (selectedOption) => {
         if(selectedOption!==null){
             this.setState({ selectedOption });
-            //searchParameter.set('allergy', selectedOption.value);
-            // //searchParameter.delete('doc');
-            // window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
             this.props.callback(selectedOption.value);
         }
     }
 
+    reloadRows(param) {
+        if(param===0){
+            let myColor = { background: '#FF0000', text: "#FFFFFF" };
+            //notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
+        }
+        this.setState({
+            shouldUpdate: this.state.shouldUpdate + param
+        })
+    }
     componentDidMount()
     {
         let _that=this;
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/NonActiveAllergies/' + 111)//this.props.PatientId)
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' +  _that.props.id)
         .then(function (response) {
             _that.setState({
                 options: response.data.map( allergy => ({ value: allergy.Id, label: allergy.Name }))
             })
           })
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return (this.selectedOption!==nextState.selectedOption)
     }
 
     getInitialState () {
@@ -46,19 +56,19 @@ class SelectAllergy extends Component{
 		};
     }
 
+
     render() {
-    let idAllergy;
-    return (
-        <div className="col-sm-8 mt-3">
-            <Select
-                value={idAllergy}
-                name="form-field-name"
-                onChange={this.handleChange}
-                options={this.state.options}
-                clearable={false}
-            />
-      </div>
-      );
+        return (
+            <div className="col-sm-8 mt-3">
+                <Select
+                    value={this.state.selectedOption}
+                    name="form-field-name"
+                    onChange={this.handleChange}
+                    options={this.state.options}
+                    clearable={false}
+                />
+            </div>
+        );
     }
 }
 

@@ -6,7 +6,6 @@ import moment from 'moment';
 import EditRateToProfession from './EditRateToProfession';
 import 'react-datepicker/dist/react-datepicker.css';
 import $ from 'jquery';
-import PropTypes from 'prop-types';
 
 class DeleteRateToProfession extends Component{
     constructor(props){
@@ -44,21 +43,25 @@ class DeleteRateToProfession extends Component{
             var url_string = window.location.href;
             var url = new URL(url_string);
             var Profession = url.searchParams.get("prof");
-            var Doctor = url.searchParams.get("doc");
-            if(Doctor===null){
-            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete/' + Profession + '/' + nextProps.date.slice(0,10))
-            .then((res) => 
-            {   
-                this.props.callback(1);   
+            var newRate = {
+            ProfessionId: Profession,
+            StartDate: nextProps.date
+            }   
+            var config = {
+                headers: {
+                    'User-Agent':'',
+                    'Accept':'',
+                    'Host':''
+                }
+            };
+    
+            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete/' + Profession + '/' +nextProps.date.slice(0,10)).then((res) => 
+            {      
+                console.log("sdfghjkl");
             })
-            }
-            else{
-                axios.delete(localStorage.getItem("server_url") + '/api/Salary/Coefficient/delete/' + Doctor + '/' + nextProps.date.slice(0,10))
-                .then((res) => 
-                {   
-                    this.props.callback(1);   
-                })  
-            }
+            .catch( function(error) {
+                console.log(JSON.stringify(error, null, 2));
+            });
         }
       }
     render(){
@@ -73,20 +76,17 @@ class DeleteRateToProfession extends Component{
                             </button>
                         </div>
                         <div className="modal-body">
-                        <div className="row mb-3 mt-5 justify-content-center" id="deleting">
-                        <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
+                        <div className="text-center">Are you sure delete rate/coeff?</div>
+                        <div className="row mb-3 mt-5 justify-content-center">
+                        <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
                             </button>
                         </div>
-                        <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3"  data-dismiss="modal" onClick={() =>{this.handleSubmitDelete()}}>Submit
-                        </button>
+                        <div className="col-sm-3 col-6 text-center">
+                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitDelete()}}>Submit
+                            </button>
                         </div>
                         </div>
-                        <div id="textOutp">
-                        </div>
-                        <button type="button" className="btn btn-danger btn-md " data-dismiss="modal" id="buttonCancelForMessage">Close
-                        </button>
                         </div>
                     </div>
                 </div>
@@ -94,8 +94,5 @@ class DeleteRateToProfession extends Component{
         )
     }
 }
-DeleteRateToProfession.propTypes = {
-    callback: PropTypes.func
-  };
 
 export default DeleteRateToProfession;

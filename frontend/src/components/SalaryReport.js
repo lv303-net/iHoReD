@@ -40,7 +40,7 @@ class SalaryReport extends React.Component {
                   searchParameter.set('startdate', this.state.startDate.format('YYYY-MM-DD'));
                   searchParameter.set('enddate', this.state.endDate.format('YYYY-MM-DD'));
                    window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-                  axios.get(localStorage.getItem("server_url")+'/DoctorSalaryStatistics/' + this.props.match.params.id +'/' +startdate+ '/' +enddate)
+                  axios.get(localStorage.getItem("server_url")+'/DoctorSalaryStatistics/' + this.props.match.params.id +'/' +this.state.startDate.format('YYYY-MM-DD')+ '/' +this.state.endDate.format('YYYY-MM-DD'))
                   .then(res => {
                        this.setState({     
                         salaryData: res.data   
@@ -76,6 +76,13 @@ class SalaryReport extends React.Component {
            salaryData: res.data,      
            })
   });
+
+  $('#multiCollapse').attr('aria-expanded', 'false');
+  $('#multiCollapse').addClass('collapsed');
+  $('#multiCollapseExample1').removeClass('show');
+  $('.monthInfo').removeClass('show');
+  
+  
   var url_string = window.location.href;
   var url = new URL(url_string);
   e.preventDefault();
@@ -124,14 +131,16 @@ earnedMoney(){
 
      return (
       <div>
-        <div class="panel-body text-center py-5 mx-5">
-          <h3 id="name">
+        
+        <div class="panel-body text-center mt-5 mx-5">
+        <h2 class="header">Salary report for period</h2>
+                <h3 id="name">
             {localStorage.getItem("currentUserFirstName") + "    "} 
             {" " + localStorage.getItem("currentUserLastName")}
           </h3>
         </div>
         <div className="container mt-5">
-          <div className="row text-center">
+          <div className="row text-center border-style">
             <div className="col-lg-4 col-md-4 col-12">
               Start Date:
               <DatePicker
@@ -158,25 +167,25 @@ earnedMoney(){
               <button className="btn btn-primary salarybutton" onClick={this.handleClick}>Apply</button>
             </div>
           </div>
-          <div className="row text-center">
+          <div className="row text-center border-style top">
             <div className="col-12">
                    <div className="row mt-5 mx-1">
                   <div className="col">
                     <div class="row" id="patientcard">
                     <div class="col-6 col-custom-header" id="col-custom">Total sum</div>
-                      <div class="col-6" id="col-custom">{this.earnedMoney()}</div>                                   
+                      <div class="col-6">{this.earnedMoney()}</div>                                   
                     </div>
                     <div class="row" id="patientcard">
                       <div class="col-6 col-custom-header" id="col-custom">Average rate</div>
-                      <div class="col-6" id="col-custom">{this.averageRate()}</div>
+                      <div class="col-6">{this.averageRate()}</div>
                     </div>
                     <div class="row" id="patientcard">
                       <div class="col-6 col-custom-header" id="col-custom">Average coefficient</div>
-                      <div class="col-6" id="col-custom">{this.averageCoeff()}</div>
+                      <div class="col-6">{this.averageCoeff()}</div>
                     </div>
                     <div class="row" id="patientcard">
                       <div class="col-6 col-custom-header" id="col-custom">Worked hours</div>
-                      <div class="col-6" id="col-custom">{this.sumWorkedHours()}</div>
+                      <div class="col-6">{this.sumWorkedHours()}</div>
                     </div>
                   </div>
                 </div>
@@ -188,18 +197,18 @@ earnedMoney(){
           </div>
             <div class="collapse multi-collapse mt-5" id="multiCollapseExample1">
              
-              <div id='listProf' className="list-group"> 
+              <div id='collapse-style' className="list-group month"> 
                 {this.state.salaryData.map(items =>
-                 <div className="col-12 mt-5">
+                 <div className="monthInfoButton">
                  <p><a class="btn btn-primary salarybutton" data-toggle="collapse" id="multiCollapse" href={'#' + items.toString()} role="button" aria-expanded="false"
                    aria-controls="multiCollapseExample">{items[0].Day.slice(0,7).toString()}</a></p>
-                   <div class="collapse multi-collapse mt-5" id={items.toString()}>
+                   <div class="collapse multi-collapse mt-5 monthInfo" id={items.toString()}>
               <div class="row" id="patientcard">
                 <div class="col-3 col-custom-header" id="col-custom">Date</div>
                 <div class="col-2 col-custom-header" id="col-custom">Hours</div>
                 <div class="col-2 col-custom-header" id="col-custom">Coeff</div>
                 <div class="col-2 col-custom-header" id="col-custom">Rate</div>
-                <div class="col-3 col-custom-header" id="col-custom">Total</div>
+                <div class="col-3 col-custom-header">Total</div>
               </div>
               
                {
