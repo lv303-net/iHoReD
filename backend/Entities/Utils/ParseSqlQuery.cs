@@ -274,12 +274,14 @@ namespace Entities.Utils
         {
             var values = bdResult.Split('*');
             var result = new List<IllnessSubDiseases>();
-            for (int i = 0; i < values.Length; i+=2)
+            for (int i = 0; i < values.Length; i+=4)
             {
                 var SubDiseases = new IllnessSubDiseases()
                 {
                     Id = Convert.ToInt32(values.GetValue(i)),
-                    Name = values.GetValue(1 + i).ToString()
+                    Name = values.GetValue(1 + i).ToString(),
+                    FirstCode = values.GetValue(2 + i).ToString(),
+                    LastCode  = values.GetValue(3 + i).ToString(),
                 };
                 result.Add(SubDiseases);
             }

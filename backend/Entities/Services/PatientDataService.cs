@@ -125,12 +125,13 @@ namespace Entities.Services
                 throw;
             }
         }
-        public List<IllnessSubDiseases> GetPatientSubDiseasies(int idDisease)
+        public List<IllnessSubDiseases> GetPatientSubDiseasies(int idPatient, int idDisease)
         {
-            string cmd = "ACTIVE_DISEASES";
+            string cmd = "NON_ACTIVE_DISEASES_FOR_CATEGORY";
             var param = new Dictionary<string, object>()
             {
-                {"@ID_USER", idDisease }
+                {"@ID_USER", idDisease },
+                {"@DISEASEID",  idDisease}
             };
 
             try
