@@ -7,14 +7,7 @@ class AboutPatient extends React.Component {
     render() {
         return (
             <div>
-                <div className="row" id="patientcard">
-                    <div className="col-12" id="col-head">Patient
-                    <i className="fa fa-heart"></i>
-                        <i className="fa fa-heart"></i>
-                        <i className="fa fa-heart"></i>
-                    </div>
-                </div>
-                <div className="row" id="patientcard">
+                      <div className="row" id="patientcard">
                     <div className="col-5" id="col-custom">First Name</div>
                     <div className="col-7">{this.props.firstname}</div>
                 </div>
@@ -63,7 +56,12 @@ class PatientInfo extends React.Component {
         console.log(this.props.PatientId);
         return (
             <div className="container mt-5">
-            <div className="container mt-5 col-lg-6 col-md-7 col-10" id="patientInfoMain">
+            <div className="card" mt-5 >
+             <img className="card-img-top" src={photo} alt="Card image"></img>
+             <div class="card-body">
+            </div>
+            </div>
+            <div className="container mt-3 col-lg-6 col-md-7 col-10" id="patientInfoMain">
                 {this.state.userdata.map(item => <AboutPatient firstname={item.FirstName}
                     lastname={item.LastName} birthday={item.Birthday}
                     phone={item.Phone} bloodtype={item.BloodType} />)}
@@ -78,12 +76,7 @@ class PatientInfo extends React.Component {
                 </div>               
             </div>
            
-         <div className="card" mt-5 >
-<img className="card-img-top" src={photo} alt="Card image"></img>
-<div class="card-body">
-    <h4 className="card-title"> {localStorage.getItem("currentUserFirstName")}{localStorage.getItem("currentUserLastName")}</h4>
-    </div>
-    </div>
+         
 </div>    
         );
     }

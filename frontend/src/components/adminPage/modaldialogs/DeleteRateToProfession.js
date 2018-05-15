@@ -55,7 +55,7 @@ class DeleteRateToProfession extends Component{
                 }
             };
     
-            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete/' + 1, config).then((res) => 
+            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete/' + Profession+ '/' +nextProps.date.slice(0,10)).then((res) => 
             {      
                 console.log("sdfghjkl");
             })
