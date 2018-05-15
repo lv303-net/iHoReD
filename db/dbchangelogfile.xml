@@ -415,7 +415,10 @@
   
   <changeSet author="Tetiana Usyk" id="V3.62">
    <sqlFile path="V3.62_UPDATE_NON_ACTIVE_ALLERGY_AND_ACTIVE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
-   <sqlFile path="V3.62_UPDATE_NON_ACTIVE_DISEASES_FOR_CATEGORY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Tetiana Usyk" id="V3.63">
+   <sqlFile path="V3.63_UPDATE_NON_ACTIVE_DISEASES_FOR_CATEGORY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
   </databaseChangeLog>
