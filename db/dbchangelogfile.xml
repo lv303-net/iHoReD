@@ -410,7 +410,7 @@
   </changeSet>
   
   <changeSet author="Tetiana Usyk" id="V3.61">
-   <sqlFile path=" V3.61_NON_ACTIVE_DISEASES_FOR_CATEGORY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.61_NON_ACTIVE_DISEASES_FOR_CATEGORY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
   </databaseChangeLog>
