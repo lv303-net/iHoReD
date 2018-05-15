@@ -54,3 +54,14 @@ a:link, a:visited {
     padding-top: 1rem;
     padding-bottom: 0.6rem;
 }
+
+.navbar-collapse .navbar-nav .nav-item {
+    background-color: rgb(255, 255, 255);
+}
+
+.navbar .active#itemlink1,
+.navbar .active#itemlink2,
+.navbar .active#itemlink3  {
+    background-color: #49A2FF;
+    color: white;
+}
