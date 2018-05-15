@@ -100,11 +100,11 @@ class EditRateToProfession extends Component{
                             </div>
                         </div>
                         <div className="row mb-3 mt-5 justify-content-center">
-                        <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
+                        <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
                             </button>
                         </div>
-                        <div className="col-xs-3 col-sm-3 col-md-3 text-center">
+                        <div className="col-sm-3 col-6 text-center">
                             <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit()}}>Submit
                             </button>
                         </div>
