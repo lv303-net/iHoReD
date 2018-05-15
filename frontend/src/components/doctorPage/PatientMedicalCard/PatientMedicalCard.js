@@ -6,17 +6,15 @@ import PatientInfo from '../../PatientInfo';
 import AllergiesCard from './AllergiesCard';
 import AddMedRecord from './../../AddMedRecord'
 class PatientMedicalCard extends Component {
+  
   render() {
+    console.log(this.props.match.params.startDate)
     return(
       <div id="mainDiv">
         <div className="container">
-          <div className="row">
-            <PatientInfo PatientId={this.props.match.params.id}/>
-          </div>
-          <div className="row mt-5">
+            <PatientInfo PatientId={this.props.match.params.id}/>    
             <AllergiesCard/>
-          </div>
-          <AddMedRecord/>
+            <AddMedRecord/>
         </div>
       </div>
     );
