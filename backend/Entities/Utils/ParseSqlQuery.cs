@@ -85,11 +85,11 @@ namespace Entities.Utils
             var values = str.Split('*');
             var list = new List<SalaryStatistics>();
 
+            DateTime? dt;
             for (int i = 0; i < (values.Length - 1); i += 5)
             {
-                DateTime dt;
                 if (string.IsNullOrEmpty(values.GetValue(i).ToString()))
-                    dt = new DateTime();
+                    dt = null;
                 else
                     dt = Convert.ToDateTime(values.GetValue(i));
 
@@ -113,6 +113,7 @@ namespace Entities.Utils
             var values = str.Split('*');
             SalaryStatistics statistics = new SalaryStatistics()
             {
+                Day = null,
                 WorkedHours = Convert.ToDouble(values.GetValue(1)),
                 SalaryRate = Convert.ToDouble(values.GetValue(2)),
                 SalaryCoefficient = Convert.ToDouble(values.GetValue(3)),
