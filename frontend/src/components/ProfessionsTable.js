@@ -53,7 +53,6 @@ class ProfessionsTable extends React.Component {
     }
   }
 
-  // after updating occurs
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.shouldShow) {
       var idForDiv = "#prof" + this.state.id;
@@ -82,14 +81,6 @@ class ProfessionsTable extends React.Component {
       id: idP,
       shouldDocBeShown: true
     })
-  }
-
-  getIdProf(e) {
-    e.preventDefault();
-    var caller = e.target;
-    var idProf = caller.id.split('prof')[1];
-    this.setStateID(idProf);
-    this.addUrl(idProf);
   }
 
   showList() {
