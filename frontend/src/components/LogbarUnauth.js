@@ -104,7 +104,7 @@ class LogbarUnauth extends Component {
   }
 
   hideError(divName, inputName) {
-//    document.getElementById(inputName).style.borderColor = '#ced4da';
+    document.getElementById(inputName).style.borderColor = '#ced4da';
     divName.current.textContent = '';
   }
 
@@ -197,7 +197,7 @@ class LogbarUnauth extends Component {
   }
 
   validateEmail() {
-    if (validator.isEmail(this.emailRegistr)) {
+    if (validator.isEmail(this.emailRegistr) && !this.emailRegistr.includes("*")){
       this.validEmail = true;
       return true;
     } else {

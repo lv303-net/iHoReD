@@ -30,10 +30,10 @@ class Salary extends Component{
 
     render(){
         return(
-            <div className="row"> 
+            <div className="row" id="salaryDiv"> 
                 <div className="col-sm-6">
                 <SelectProfession callback={this.getProfessionId.bind(this)}/>
-                <SelectDoctor idProf={this.state.idProf} callback={this.getDoctorId.bind(this)}/>
+                <SelectDoctor idProf={this.state.idProf} shouldUpdate={this.state.shouldUpdate} callback={this.getDoctorId.bind(this)}/>
                 </div>
                 <div className="col-sm-5 mt-3 ">
                 <ProfessionRows idProf={this.state.idProf} idDoc={this.state.idDoc} shouldUpdate={this.state.shouldUpdate}/>
