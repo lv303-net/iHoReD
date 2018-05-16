@@ -105,7 +105,7 @@ class AddOrUpdateRule extends Component{
                                 </div>
                                 <div className="form-row mb-3 justify-content-center">
                                     <div className="form-group col-sm-6 col-xs-12">
-                                        <input type="time" className="form-control" id="hourstartAoUInput"placeholder="Hour Start" onBlur={(x) => this.NewData.HourStart = x.target.value}/>
+                                        <input type="time" className="form-control" id="hourstartAoUInput" placeholder="Hour Start" onBlur={(x) => this.NewData.HourStart = x.target.value}/>
                                     </div>
                                 </div>
                                 <div className="form-row mb-3 justify-content-center">
