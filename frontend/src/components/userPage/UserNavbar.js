@@ -56,6 +56,7 @@ class UserNavbar extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
+    this.getValueFromURL();
     $(".main-nav1").find(".active").removeClass("active");
     $('.main-nav1 #item'+nextState.idLink).addClass('active'); 
   }
@@ -65,7 +66,7 @@ class UserNavbar extends Component {
     return (
       <nav className="navbar navbar-light bg-light" id="navbarAdmin">
         <div className="navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav main-nav1" onClick={(e) => { this.colorSelected(e) }} >
+          <ul className="navbar-nav main-nav1" onClick={(e) => { this.tabSelected(e) }} >
             <li className="nav-item" id="itemlink1">
               <Link to='/user/schedule'>
                 <span className="nav-link" id="link1">Schedule</span>

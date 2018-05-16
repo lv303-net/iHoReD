@@ -50,6 +50,7 @@ class AdminNavbar extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
+    this.getValueFromURL();
     $(".main-nav1").find(".active").removeClass("active");
     $('.main-nav1 #item'+nextState.idLink).addClass('active'); 
   }
