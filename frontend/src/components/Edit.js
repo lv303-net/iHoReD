@@ -59,9 +59,9 @@ class Edit extends React.Component {
     if (!this.validateFirstName()) return "Invalid firstname!";
     if (!this.validateLastName()) return "Invalid lastname!";
     if (!this.validateEmail()) return "Invalid email!";
-    if (!this.validateCity()) return "Invalid city!";
-    if (!this.validateCountry()) return "Invalid country!";
-    if (!this.validateApartment()) return "Invalid apartment!";
+    if (!this.validateCity() && this.state.city !== "") return "Invalid city!";
+    if (!this.validateCountry() && this.state.country !== "") return "Invalid country!";
+    if (!this.validateApartment() && this.state.apartment !== "") return "Invalid apartment!";
     if (!this.validatePhone()) return "Invalid phone number!";
     return null;
   }
