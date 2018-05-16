@@ -106,7 +106,7 @@ namespace Entities.Services
                 throw;
             }
         }
-        public List<IllnessDiseases> GetDiseasies(int idSubCategory)
+        public List<IllnessDiseases> GetDiseases(int idSubCategory)
         {
             string cmd = "RETURN_DISEASES";
             var param = new Dictionary<string, object>()
@@ -117,7 +117,7 @@ namespace Entities.Services
             try
             {
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
-                return Utils.ParseSqlQuery.GetDiseasies(data);
+                return Utils.ParseSqlQuery.GetDiseases(data);
             }
 
             catch (Exception e)
@@ -125,7 +125,7 @@ namespace Entities.Services
                 throw;
             }
         }
-        public List<IllnessSubDiseases> GetPatientSubDiseasies(int idPatient, int idDisease)
+        public List<IllnessSubDiseases> GetPatientSubDiseases(int idPatient, int idDisease)
         {
             string cmd = "NON_ACTIVE_DISEASES_FOR_CATEGORY";
             var param = new Dictionary<string, object>()

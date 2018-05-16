@@ -254,7 +254,7 @@ namespace Entities.Utils
             }
             return result;
         }
-        public static List<IllnessDiseases> GetDiseasies(string bdResult)
+        public static List<IllnessDiseases> GetDiseases(string bdResult)
         {
             var values = bdResult.Split('*');
             var result = new List<IllnessDiseases>();

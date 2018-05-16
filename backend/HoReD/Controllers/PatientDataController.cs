@@ -62,10 +62,10 @@ namespace HoReD.Controllers
             }
         }
         /// <summary>
-        /// Returns active allergies, that current user has
+        /// Returns active allergies, that current user don't has
         /// </summary>
         /// <param name="id">ID of needed user</param>
-        /// <returns>List of user's allergies names, id and visit</returns>
+        /// <returns>List of user's allergies names, id</returns>
         [HttpGet]
         [Route("api/PatientData/NonActiveAllergies/{id}")]
         public IHttpActionResult GetPatientNoNActiveAllergies(int id)
@@ -81,6 +81,11 @@ namespace HoReD.Controllers
                 throw;
             }
         }
+        /// <summary>
+        /// Returns active diseases, that current user has
+        /// </summary>
+        /// <param name="id">ID of needed user</param>
+        /// <returns>List of user's diseases names, id</returns>
         [HttpGet]
         [Route("api/PatientData/ActiveDiseases/{id}")]
         public IHttpActionResult GetPatientActiveDiseases(int id)
@@ -96,6 +101,10 @@ namespace HoReD.Controllers
                 throw;
             }
         }
+        /// <summary>
+        /// Returns diseases categories
+        /// </summary>
+        /// <returns>List of  diseases categories id, name</returns>
         [HttpGet]
         [Route("api/PatientData/Categories")]
         public IHttpActionResult GetCategories()
@@ -111,6 +120,11 @@ namespace HoReD.Controllers
                 throw;
             }
         }
+        /// <summary>
+        /// Returns diseases subcategories, that current category has
+        /// </summary>
+        /// <param name="id">ID of needed category</param>
+        /// <returns>List of  diseases subcategories, id, firstcode, lastcode, name</returns>
         [HttpGet]
         [Route("api/PatientData/SubCategories/{id}")]
         public IHttpActionResult GetSubCategories(int id )
@@ -126,13 +140,18 @@ namespace HoReD.Controllers
                 throw;
             }
         }
+        /// <summary>
+        /// Returns diseases diseases, that current subcategory has
+        /// </summary>
+        /// <param name="id">ID of needed subcategory</param>
+        /// <returns>List of  diseases id, code, name</returns>
         [HttpGet]
         [Route("api/PatientData/Diseases/{id}")]
         public IHttpActionResult GetDiseases(int id)
         {
             try
             {
-                var result = _patientData.GetDiseasies(id);
+                var result = _patientData.GetDiseases(id);
                 return Ok(result);
             }
             catch (Exception e)
@@ -142,17 +161,18 @@ namespace HoReD.Controllers
             }
         }
         /// <summary>
-        /// Returns all allergies, that current user has
+        /// Returns all subdiseases, that current user don't has
         /// </summary>
-        /// <param name="id">ID of needed user</param>
-        /// <returns>List of user's allergies names</returns>
+        /// <param name="idPatient">ID of needed user</param>
+        /// <param name="idDisease">ID of needed subdisease</param>
+        /// <returns>List of user's nonactive subdiseases</returns>
         [HttpGet]
         [Route("api/PatientData/SubDiseases/{idPatient}/{idDisease}")]
         public IHttpActionResult GetPatientDiseases(int idPatient, int idDisease)
         {
             try
             {
-                var result = _patientData.GetPatientSubDiseasies(idPatient, idDisease);
+                var result = _patientData.GetPatientSubDiseases(idPatient, idDisease);
                 return Ok(result);
             }
             catch (Exception e)
@@ -165,8 +185,7 @@ namespace HoReD.Controllers
         /// <summary>
         /// Adds allergies for patient
         /// </summary>
-        /// <param name="idDoctor">ID of needed doctor</param>
-        /// <param name="StartTime">start time of visit</param>
+        /// <param name="model">Id patient, starttime of visit and idallergy</param>
         /// <returns>Integer: 1 - if allergy added </returns>
         [HttpPost]
         [Route("api/PatientData/AddAllergy")]
@@ -183,7 +202,11 @@ namespace HoReD.Controllers
                 throw;
             }
         }
-
+        /// <summary>
+        /// Adds disease for patient
+        /// </summary>
+        /// <param name="model">Id patient, starttime of visit and iddisease</param>
+        /// <returns>Integer: 1 - if disease added </returns>
         [HttpPost]
         [Route("api/PatientData/AddDisease")]
         public IHttpActionResult AddPatientDisease(Models.MedicalRecordBindingModel model)
@@ -199,7 +222,11 @@ namespace HoReD.Controllers
                 throw;
             }
         }
-        
+        /// <summary>
+        /// Closes disease for patient
+        /// </summary>
+        /// <param name="model">Id patient, starttime of visit and iddisease</param>
+        /// <returns>Integer: 1 - if disease closed </returns>
         [HttpPost]
         [Route("api/PatientData/CloseDisease")]
         public IHttpActionResult ClosePatientDisease(Models.MedicalRecordBindingModel model)
@@ -215,7 +242,11 @@ namespace HoReD.Controllers
                 throw;
             }
         }
-
+        /// <summary>
+        /// Closes allergy for patient
+        /// </summary>
+        /// <param name="model">Id patient, starttime of visit and iddallergy</param>
+        /// <returns>Integer: 1 - if allergy closed </returns>
         [HttpPost]
         [Route("api/PatientData/CloseAllergy")]
         public IHttpActionResult ClosePatientAllergy(Models.MedicalRecordBindingModel model)
@@ -231,7 +262,11 @@ namespace HoReD.Controllers
                 throw;
             }
         }
-
+        /// <summary>
+        /// Adds description and treatment for visit
+        /// </summary>
+        /// <param name="model">Id patient, starttime of visit, description and treatment</param>
+        /// <returns>Integer: 1 - if record added </returns>
         [HttpPost]
         [Route("api/PatientData/AddMedicalRecord")]
         public IHttpActionResult AddMedicalRecord(Models.MedicalRecordBindingModel model)
