@@ -11,7 +11,6 @@ import validator from 'validator';
 import Notifications, {notify} from 'react-notify-toast';
 import '../../style/ProfessionRows.css';
 import $ from 'jquery';
-//import '../style/SalaryReport.css';
 
     class ProfessionRows extends React.Component {
         constructor(props)
@@ -35,7 +34,7 @@ import $ from 'jquery';
         reloadRows(param) {
             if(param===0){
                 let myColor = { background: '#FF0000', text: "#FFFFFF" };
-                notify.show("you can not add multiple rates/salaries for one day", "custom", 5000, myColor);
+                notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
             }
             
 
@@ -75,7 +74,8 @@ import $ from 'jquery';
                 || this.state.idProf!==nextState.idProf
                 || this.state.idDoc!==nextState.idDoc
                 || this.state.ratesArr!==nextState.ratesArr
-                || this.state.shouldUpdate!==nextState.shouldUpdate);
+                || this.state.shouldUpdate!==nextState.shouldUpdate
+                || this.props.shouldUpdate!==nextProps.shouldUpdate);
         }
 
         componentWillUpdate(nextProps, nextState){
@@ -87,12 +87,11 @@ import $ from 'jquery';
             {
                 let currentRate = this.state.ratesArr.find(rate => rate.State==0);
                 var idForDiv = "salaryinfo" + currentRate.StartDate;
-                //$(idForDiv).addClass("active");
                 document.getElementById(idForDiv).style.backgroundColor="#FFFFFF"
             }
             if((this.state.idProf===nextState.idProf===0) || this.props.idProf!==nextProps.idProf)
                 this.setStates();
-            if(((this.state.idProf!==nextState.idProf) || (this.state.shouldUpdate!==nextState.shouldUpdate)) && idDoc===null)
+            if(((this.state.idProf!==nextState.idProf) || (this.state.shouldUpdate!==nextState.shouldUpdate) || this.props.shouldUpdate!==nextProps.shouldUpdate) && idDoc===null)
             {
                 axios.get(localStorage.getItem("server_url")+'/api/Salary/Rate/get/' + nextState.idProf)
                 .then(response => {
@@ -119,7 +118,6 @@ import $ from 'jquery';
             {
                 let currentRate = this.state.ratesArr.find(rate => rate.State==0);
                 var idForDiv = "salaryinfo" + currentRate.StartDate ;
-                //$(idForDiv).addClass("active");
                 document.getElementById(idForDiv).style.backgroundColor="#DCDCDC"
             }
           }
@@ -133,10 +131,9 @@ import $ from 'jquery';
             return (
             <div className="ml-3 mr-3">
             <Notifications />
-            <div  className="col-12  col-md-10 d-flex flex-row-reverse" id="DivForAdding">
-            <div type="button" className=" col-12 col-md-5 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
-                <h6 className="mt-2">{idDoc === null ? "Add rate" : "Add coeff"}</h6>
-            </div>
+            <div className="row col-md-3 mt-4">
+                <i className="fa fa-plus align-middle mt-2 mr-1" id="addNewRate" data-toggle="modal" data-target="#AddRateToProfession"></i>
+                <h6 className="mt-2 text-center">{idDoc === null ? "Add rate" : "Add coeff"}</h6>
             </div>
             <div className="col-12 col-md-10 mt-1" id="RateCoeffTable">
             <div className="row professionrow">
@@ -159,13 +156,13 @@ import $ from 'jquery';
                         rate.State==1?
                         images =
                         <div className=" row mt-2" >
-                            <i id="edit" className="fa fa-pencil-alt ml-2" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
-                            <i id="delete" className="fa fa-times ml-2" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
+                            <i className="fa fa-pencil-alt ml-2 edit" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                            <i className="fa fa-times ml-2 delete" data-toggle="modal" data-target="#DeleteRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>  
                         </div>
                         : (rate.State==0?
                             (images =
                             <div className=" row mt-2" >
-                                <i id="edit" className="fa fa-pencil-alt ml-2" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
+                                <i  className="fa fa-pencil-alt ml-2 edit" data-toggle="modal" data-target="#EditRateToProfession" onClick = {() => this.changeCurrentDate(rate.StartDate)}></i>
                             </div>
                             
                             )

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Notifications, {notify} from 'react-notify-toast';
+import validator from 'validator';
 
 class Edit extends React.Component {
   constructor(){
@@ -22,20 +24,48 @@ class Edit extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.validate = this.validate.bind(this);
   }
   handleChange(event){
     this.setState({[event.target.name] : event.target.value});
   }
   submitForm(){
-    axios.post(localStorage.getItem("server_url")+'/EditUserInfo',this.state).then(response => { 
-      console.log(response+response.status)
-    })
-    .catch(error => {
-        console.log(error.response)
-    });
+    let validator = this.validate();
+    let axResponse;
+    if (validator === null){
+      axResponse = axios.post(localStorage.getItem("server_url")+'/EditUserInfo',this.state).then(response => { 
+        if (response.status == 200)      {
+            let myColor = { background: '#000F00', text: "#FFFFFF" };
+            notify.show("Your personal information has been updated", "custom", 5000, myColor);
+        }
+        else{
+          let myColor = { background: '#FF0000', text: "#FFFFFF" };
+          notify.show(response.status+" - "+response.statusText, "custom", 5000, myColor);
+        }
+      })
+      .catch(error => {
+          //console.log(error.response);
+          let myColor = { background: '#FF0000', text: "#FFFFFF" };
+          notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, myColor);
+      });
+    }
+    else{
+      let myColor = { background: '#FF0000', text: "#FFFFFF" };
+      notify.show(validator, "custom", 5000, myColor);
+    }
+    console.log(axResponse);
+  }
+  validate(){
+    if (!this.validateFirstName()) return "Invalid firstname!";
+    if (!this.validateLastName()) return "Invalid lastname!";
+    if (!this.validateEmail()) return "Invalid email!";
+    if (!this.validateCity()) return "Invalid city!";
+    if (!this.validateCountry()) return "Invalid country!";
+    if (!this.validateApartment()) return "Invalid apartment!";
+    if (!this.validatePhone()) return "Invalid phone number!";
+    return null;
   }
   componentWillMount(){
-    //localStorage.setItem('currentUserId','111');
     axios.get(localStorage.getItem("server_url")+'/GetUserInfoById/'+localStorage.getItem('currentUserId'))
     .then(res=>
       {
@@ -67,6 +97,7 @@ class Edit extends React.Component {
   render() {
     return (
       <div id="editMainDiv">
+      <Notifications/>
        <div className="container col-sm-8 mt-5" id="editInfoWindow">
       <div id="editUserInfoHeader">
         <p className="col-sm-5 offset-sm-1" id="basicInfoID"><b>Basic info</b></p>
@@ -141,6 +172,30 @@ class Edit extends React.Component {
     </div>
     </div>
     );
+  }
+  validateFirstName() {
+    return (validator.isAlpha(this.state.firstName, 'en-GB'));
+  }
+
+  validateLastName() {
+    return (validator.isAlpha(this.state.lastName, 'en-GB'));
+  }
+
+  validatePhone() {
+    return (validator.isMobilePhone(this.state.phone, 'uk-UA'));
+  }
+
+  validateEmail() {
+    return (validator.isEmail(this.state.email)) ;
+  }
+  validateCountry(){
+    return (validator.isAlpha(this.state.country, 'en-GB')) ;
+  }
+  validateCity(){
+    return (validator.isAlpha(this.state.city, 'en-GB')) ;
+  }
+  validateApartment(){
+    return (!validator.isEmpty(this.state.apartment)); //Apartment can contain symbols like ' ' or '/', letters and numbers
   }
 }
 

@@ -18,20 +18,22 @@ class SalaryReport extends React.Component {
       endDate: moment(moment()).subtract(1,'months').endOf('month'),
       salaryData: [],
       days:[],
+      totaldata:[]
          };
         var url_string = window.location.href;
         var url = new URL(url_string);
         if (url.search !== '') {
+          
           var startdate = Number(url.searchParams.get("startdate"));
           var enddate = Number(url.searchParams.get("enddate"));
         
           
          axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' +this.state.startDate.format('YYYY-MM-DD')+ '/' +this.state.endDate.format('YYYY-MM-DD'))
          .then(res => {
-           this.setState({
-            
+           this.setState({            
             salaryData: res.data     
                 })
+             
               });
             }
               else
@@ -98,7 +100,7 @@ averageCoeff(){
   let total=0;
   for(let i=0;i<array.length;i++){
     for(let j=0;j<array[i].length;j++)
-    total+=array[i][j]/array[i].length;
+    total+=array[i][j]/(array[i].length*array.length);
      }
   return Math.round(total,4);
 }
@@ -107,7 +109,7 @@ averageRate(){
   let total=0;
   for(let i=0;i<array.length;i++){
  for(let j=0;j<array[i].length;j++)
- total+=array[i][j]/array[i].length;
+ total+=array[i][j]/(array[i].length*array.length);
   }
   return Math.round(total,4);
 }
@@ -121,7 +123,6 @@ earnedMoney(){
   return total;
 }
   render() {
-
      return (
       <div>
         <div class="panel-body text-center py-5 mx-5">
@@ -200,8 +201,7 @@ earnedMoney(){
                 <div class="col-2 col-custom-header" id="col-custom">Coeff</div>
                 <div class="col-2 col-custom-header" id="col-custom">Rate</div>
                 <div class="col-3 col-custom-header" id="col-custom">Total</div>
-              </div>
-              
+              </div>             
                {
                 items.map(item=> <DayReport  day={item.Day}
                   workedHours={item.WorkedHours} salaryCoefficient={item.SalaryCoefficient}

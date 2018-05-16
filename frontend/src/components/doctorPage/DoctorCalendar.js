@@ -6,9 +6,8 @@ import validator from 'validator';
 import axios from 'axios';
 import { divideDurationByDuration } from 'fullcalendar';
 import InfoSchedule from './modaldialogs/InfoSchedule'
+import Notifications, {notify} from 'react-notify-toast';
 import '../../style/Calendar.css';
-
-
 
 class DoctorCalendar extends React.Component{
   constructor(props){      
@@ -20,14 +19,16 @@ class DoctorCalendar extends React.Component{
       startTime:'', 
       endTime:'',
       idPatient:0,
-      namePatient: ""
+      namePatient: "",
+      startTime: ""
     };  
     this.setId=this.setId.bind(this);   
   }
-  setId(id, name){
+  setId(id, name, startTime){
     this.setState({
       idPatient : id,
-      namePatient: name    
+      namePatient: name,
+      startTime: startTime
     });
   }
 
@@ -38,11 +39,6 @@ class DoctorCalendar extends React.Component{
       idDoc :1,
       idPatient :11
     })
-    console.log(start);
-    console.log(end);
-    console.log(this.endTime);
-    console.log(this.startTime);
-
   }
     
   saveCurrentTimeStartEnd(start, end){
@@ -89,8 +85,7 @@ class DoctorCalendar extends React.Component{
           $("#modButton").trigger("click");
         } else {
           _that.saveCurrentTimeStartEnd(event.start._i, event.end._i); 
-          _that.setId(event.patientId, event.patientName);
-          //this.setState({idPatient : event.idPatient});
+          _that.setId(event.patientId, event.patientName, event.start);
           $("#blockClickButton").trigger("click");
         }
       }, 
@@ -175,10 +170,16 @@ class DoctorCalendar extends React.Component{
     }
   }
 
+  showError(param) {
+    let myColor = { background: '#FF0000', text: "#FFFFFF" };
+    notify.show("There is already record for this visit", "custom", 1000, myColor);
+  }
+
     render(){      
       let content;
         content = 
       <div>
+        <Notifications />
         <div className="row justify-content-center">
         <div className="col-sm-11 col-md-10 mt-5" id = "calendarDiv">
         <div id = "calendar">
@@ -203,7 +204,7 @@ class DoctorCalendar extends React.Component{
           </div>
         </div>
 
-        <InfoSchedule idPatient={this.state.idPatient} />
+        <InfoSchedule idPatient={this.state.idPatient} startTime={this.state.startTime} callback={this.showError.bind(this)} />
       </div>
       return <div>{content}</div>
     }

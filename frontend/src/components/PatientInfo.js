@@ -8,13 +8,6 @@ class AboutPatient extends React.Component {
         return (
             <div>
                 <div className="row" id="patientcard">
-                    <div className="col-12" id="col-head">Patient
-                    <i className="fa fa-heart"></i>
-                        <i className="fa fa-heart"></i>
-                        <i className="fa fa-heart"></i>
-                    </div>
-                </div>
-                <div className="row" id="patientcard">
                     <div className="col-5" id="col-custom">First Name</div>
                     <div className="col-7">{this.props.firstname}</div>
                 </div>
@@ -23,7 +16,7 @@ class AboutPatient extends React.Component {
                     <div className="col-7">{this.props.lastname}</div>
                 </div>
                 <div className="row" id="patientcard">
-                    <div className="col-5" id="col-custom">Date Of Birds</div>
+                    <div className="col-5" id="col-custom">Date Of Birth</div>
                     <div className="col-7">{this.props.birthday.slice(0,10)}</div>
                 </div>
                 <div className="row" id="patientcard">
@@ -31,7 +24,7 @@ class AboutPatient extends React.Component {
                     <div className="col-7">{this.props.phone}</div>
                 </div>
                 <div className="row" id="patientcard">
-                    <div className="col-5" id="col-custom">BllodType</div>
+                    <div className="col-5" id="col-custom">Blood Type</div>
                     <div className="col-7">{this.props.bloodtype}</div>
                 </div>
             </div>
@@ -44,6 +37,7 @@ class PatientInfo extends React.Component {
         this.state = {
             userdata: [],
             allergies: [],
+            diseases: [],
             id: 1
         };
         axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + this.props.PatientId)
@@ -52,30 +46,54 @@ class PatientInfo extends React.Component {
                     userdata: res.data,
                 });
             });
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/Allergies/' + this.props.PatientId)
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + this.props.PatientId)
             .then(res => {
                 this.setState({
                     allergies: res.data,
                 });
             });
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + this.props.PatientId)
+            .then(res => {
+                this.setState({
+                    diseases: res.data,
+                });
+        });
     }
     render() {
         console.log(this.props.PatientId);
         return (
-            <div className="container mt-5 col-lg-4 col-md-6 col-10" id="patientInfoMain">
-                {this.state.userdata.map(item => <AboutPatient firstname={item.FirstName}
-                    lastname={item.LastName} birthday={item.Birthday}
-                    phone={item.Phone} bloodtype={item.BloodType} />)}
-                <div className="row" id="patientcard">
-                    <div className="col-5" id="col-custom">Allergies:</div>
-                    <div className="col-7">
-                        <div className="list-group">
-                            {this.state.allergies.map(item =>
-                                <div id="#allergilistitem" className="list-group-item" id="allergilist">{item}</div>)}
+            <div className="container mt-5">
+                <div className="row">
+                    <div className="col-xs-12 col-2">
+                        <img className="card-img-top" src={photo} alt="Card image"></img>
+                    </div>
+                    <div className="col-xs-12 col-5">
+                        {this.state.userdata.map(item => <AboutPatient firstname={item.FirstName}
+                            lastname={item.LastName} birthday={item.Birthday}
+                            phone={item.Phone} bloodtype={item.BloodType} />)}
+                    </div>
+                    <div className="col-xs-12 col-5">
+                        <div className="row" id="patientcard">
+                            <div className="col-5" id="col-custom">Allergies:</div>
+                            <div className="col-7">
+                                <div className="list-group">
+                                    {this.state.allergies.map(item =>
+                                        <div id="#allergilistitem" className="list-group-item" id="allergilist">{item.Name}</div>)}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row" id="patientcard">
+                            <div className="col-5" id="col-custom">Diseases:</div>
+                            <div className="col-7">
+                                <div className="list-group">
+                                    {this.state.diseases.map(item =>
+                                        <div id="#allergilistitem" className="list-group-item" id="allergilist">{item.Name}</div>)}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>             
+            </div>    
         );
     }
 }

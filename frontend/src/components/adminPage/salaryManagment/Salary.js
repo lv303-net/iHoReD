@@ -10,13 +10,15 @@ class Salary extends Component{
         super(props);
         this.state = {
           idProf: 0,
-          idDoc: 0
+          idDoc: 0,
+          shouldUpdate: 1
         }
     }
 
     getProfessionId(param) {
         this.setState({
-          idProf: param
+          idProf: param,
+          shouldUpdate: this.state.shouldUpdate + 1
         })
     }
 
@@ -34,7 +36,7 @@ class Salary extends Component{
                 <SelectDoctor idProf={this.state.idProf} callback={this.getDoctorId.bind(this)}/>
                 </div>
                 <div className="col-sm-5 mt-3 ">
-                <ProfessionRows idProf={this.state.idProf} idDoc={this.state.idDoc}/>
+                <ProfessionRows idProf={this.state.idProf} idDoc={this.state.idDoc} shouldUpdate={this.state.shouldUpdate}/>
                 </div>
             </div>
         )

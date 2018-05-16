@@ -2,47 +2,54 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
+import SubCategories from'./SubCategories';
 import 'react-select/dist/react-select.css';
+import '../../../../style/Diagnoses.css';
 import PropTypes from 'prop-types';
 
-class SelectProfession extends Component{
+class Categories extends Component{
     constructor(props){
         super(props);
         this.state = {
             professionsArr:[],
             id:0,
             selectedOption: '',
+            shouldUpdate:1,
             options: [
-                { value: '', label: '' }
+                { value: '0', label: '' }
             ]
         }
     }
-
+    reloadRows(param) {
+        if(param===0){
+            let myColor = { background: '#FF0000', text: "#FFFFFF" };
+        }
+        
+        this.setState({
+            shouldUpdate: this.state.shouldUpdate + param
+        })
+        
+    }
     handleChange = (selectedOption) => {
-        var searchParameter = new URLSearchParams(window.location.search);
         if(selectedOption!==null){
             this.setState({ selectedOption });
-            searchParameter.set('prof', selectedOption.value);
-            searchParameter.delete('doc');
-            window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
             this.props.callback(selectedOption.value);
-        }
-        else{
-            searchParameter.delete('prof');
         }
     }
 
     componentDidMount()
     {
         let _that=this;
-        axios.get(localStorage.getItem("server_url") + '/AllProfessions')
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/Categories')
         .then(function (response) {
             _that.setState({
-                options: response.data.map( profession => ({ value: profession[0], label: profession[1] }))
+                options: response.data.map( category => ({ value: category.Id, label: category.Name }))
             })
           })
     }
-
+    shouldComponentUpdate(nextProps, nextState) {
+        return (this.state.selectedOption!==nextState.selectedOption || this.state.shouldUpdate!==nextState.shouldUpdate || this.state.options!==nextState.options)
+    }
     getInitialState () {
 		return {
 			clearable: true,
@@ -50,20 +57,12 @@ class SelectProfession extends Component{
     }
 
     render() {
-    let url_string = window.location.href;
-    let url = new URL(url_string);
-    let idProf;
-    if (url.search !== '') {
-        idProf = url.searchParams.get("prof");
-    }
-    else{
-        idProf = 0;
-    }
+    
     return (
-        <div className="col-sm-8 mt-3">
-        <div className="text-center mb-2">Choose profession</div>
+        <div className="col-sm-12 mt-3 selectdiagnose">
+        <div className="text-center mb-2">Choose category</div>
         <Select
-            value={idProf}
+            value={this.state.selectedOption}
             name="form-field-name"
             onChange={this.handleChange}
             options={this.state.options}
@@ -74,8 +73,8 @@ class SelectProfession extends Component{
     }
 }
 
-SelectProfession.propTypes = {
+Categories.propTypes = {
     callback: PropTypes.func
   };
 
-export default SelectProfession;
+export default Categories;
