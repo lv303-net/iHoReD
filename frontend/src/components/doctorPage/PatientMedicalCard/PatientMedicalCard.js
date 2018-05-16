@@ -7,7 +7,17 @@ import AllergiesCard from './AllergiesCard';
 import AddMedRecord from './../../AddMedRecord';
 import Diagnoses from './PatientDiseses/Diagnoses'
 class PatientMedicalCard extends Component {
-  
+  constructor(){
+    super();
+    this.state = {
+      shouldUpdate: 1
+    }
+  }
+  reloadComponent(param){
+    this.setState({
+      shouldUpdate: this.state.shouldUpdate + param
+    })
+  }
   render() {
     console.log(this.props.match.params.startDate)
     return(
@@ -16,7 +26,7 @@ class PatientMedicalCard extends Component {
             <PatientInfo PatientId={this.props.match.params.id}/>
             <div className="row">
               <div className="col-sm-12 col-6">
-                <Diagnoses PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate}/>
+                <Diagnoses PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)}/>
               </div>
               <div className="col-sm-12 col-6">
                 <AllergiesCard className="col-3"  PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate}/>

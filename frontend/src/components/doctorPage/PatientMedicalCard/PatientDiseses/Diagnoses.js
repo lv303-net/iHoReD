@@ -3,6 +3,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import Categories from './Categories';
 import AddDisease from './../../modaldialogs/AddDisease';
+import PropTypes from 'prop-types';
 
 class Diagnoses extends Component{
     constructor(props) {
@@ -14,10 +15,7 @@ class Diagnoses extends Component{
         }
     }
     reloadRows(param) {
-        if(param===0){
-            let myColor = { background: '#FF0000', text: "#FFFFFF" };
-            //notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
-        }
+        this.props.callback(param);
     }
     getProfessionId(param) {
         this.setState({
@@ -44,5 +42,7 @@ class Diagnoses extends Component{
         )
     }
 }
-
+Diagnoses.propTypes = {
+    callback: PropTypes.func
+  };
 export default Diagnoses
