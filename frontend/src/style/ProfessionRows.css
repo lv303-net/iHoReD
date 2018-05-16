@@ -50,5 +50,9 @@ div#inputRate input#RateAdd, div.react-datepicker__input-container > input#admin
   }
 }
 
+#salaryDiv {
+  margin-right: 0px;
+}
+
 
  
