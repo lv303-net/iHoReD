@@ -25,7 +25,7 @@ class Footerbar extends Component{
                                     <br/>Phone: 0322 527 011
                                 </p>
                             </div>
-                            <div className="col-12 col-md-4">
+                            <div className="col-12 col-md-4 embed-responsive">
                                 <div className="google-map"><iframe frameBorder="0" style={{border: 0}} src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2571.3114564247403!2d24.037428315141177!3d49.87417737940008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473adc57dc4191e7%3A0x2cc24ce997f893e!2z0LLRg9C70LjRhtGPINCG0LLQsNC90LAg0JzQuNC60L7Qu9Cw0LnRh9GD0LrQsCwgOSwg0JvRjNCy0ZbQsiwg0JvRjNCy0ZbQstGB0YzQutCwINC-0LHQu9Cw0YHRgtGMLCA3OTAwMA!5e0!3m2!1suk!2sua!4v1525338801787" allowFullScreen></iframe></div>
                             </div>
                         </div>
