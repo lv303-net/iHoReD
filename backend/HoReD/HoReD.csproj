@@ -196,10 +196,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="AuthFilters\AuthenticationFailureResult.cs" />
+    <Compile Include="AuthFilters\TokenAuthenticate.cs" />
     <Compile Include="Controllers\DoctorScheduleController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MembershipController.cs" />
     <Compile Include="Controllers\PatientDataController.cs" />
     <Compile Include="Controllers\MedicalCardController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />

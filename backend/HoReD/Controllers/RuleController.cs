@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Entities;
 using Entities.Services;
+using HoReD.AuthFilters;
 
 namespace HoReD.Controllers
 {
+    [TokenAuthenticate]
     public class RuleController : ApiController
     {
         private readonly IRuleService _ruleService;
