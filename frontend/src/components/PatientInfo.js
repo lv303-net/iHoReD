@@ -52,12 +52,12 @@ class PatientInfo extends React.Component {
                     allergies: res.data,
                 });
             });
-        // axios.get(localStorage.getItem("server_url") + '/api/PatientData/SubDiseases/' + this.props.PatientId)
-        //     .then(res => {
-        //         this.setState({
-        //             diseases: res.data,
-        //         });
-        // });
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + this.props.PatientId)
+            .then(res => {
+                this.setState({
+                    diseases: res.data,
+                });
+        });
     }
     render() {
         console.log(this.props.PatientId);
@@ -87,7 +87,7 @@ class PatientInfo extends React.Component {
                             <div className="col-7">
                                 <div className="list-group">
                                     {this.state.diseases.map(item =>
-                                        <div id="#allergilistitem" className="list-group-item" id="allergilist">{item}</div>)}
+                                        <div id="#allergilistitem" className="list-group-item" id="allergilist">{item.Name}</div>)}
                                 </div>
                             </div>
                         </div>
