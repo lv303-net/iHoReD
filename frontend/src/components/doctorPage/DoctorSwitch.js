@@ -4,10 +4,11 @@ import { Switch, Route, Redirect} from 'react-router-dom';
 import App from './../../App'
 import DoctorCalendar from './../doctorPage/DoctorCalendar'
 import NotFound from './../NotFound'
-import '../../style/DoctorPage.css'
 import PatientMedicalCard from './PatientMedicalCard/PatientMedicalCard'
 import Diagnoses from './PatientMedicalCard/PatientDiseses/Diagnoses'
 import SalaryReport from './../SalaryReport'
+import '../../style/DoctorPage.css'
+
 
 class DoctorSwitch extends Component {
   render() {
