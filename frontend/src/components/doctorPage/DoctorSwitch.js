@@ -7,6 +7,7 @@ import NotFound from './../NotFound'
 import '../../style/DoctorPage.css'
 import PatientMedicalCard from './PatientMedicalCard/PatientMedicalCard'
 import Diagnoses from './PatientMedicalCard/PatientDiseses/Diagnoses'
+import SalaryReport from './../SalaryReport'
 
 class DoctorSwitch extends Component {
   render() {
@@ -17,7 +18,7 @@ class DoctorSwitch extends Component {
             <Route exact path="/doctor/schedule" component={App}/>
             <Route exact path="/doctor/mySchedule" component={DoctorCalendar}/>
             <Route exact path="/doctor/patientMedicalCard/:id/:startDate" component={PatientMedicalCard}/>
-            <Route exact path="/doctor/salary" />
+            <Route exact path="/doctor/salary/:id" component={SalaryReport} />
             <Route exact path="/doctor/patientDiseases" component={Diagnoses}/>
             <Route component={NotFound} />
           </Switch>

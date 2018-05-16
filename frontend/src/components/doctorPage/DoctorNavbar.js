@@ -56,6 +56,7 @@ class DoctorNavbar extends Component {
   }
 
   render() {
+    var id = localStorage.getItem("currentUserId");
     return (
       <nav className="navbar navbar-light bg-light" id="navbarAdmin">
         <div className="navbar-collapse" id="navbarNavDropdown">
@@ -71,7 +72,7 @@ class DoctorNavbar extends Component {
               </Link>
             </li>
             <li className="nav-item" id="itemlink3">
-              <Link to='/doctor/salary'>
+              <Link to={'/doctor/salary/' +id}>
                 <span className="nav-link" id="link3">Salary Report</span>
               </Link>
             </li>
