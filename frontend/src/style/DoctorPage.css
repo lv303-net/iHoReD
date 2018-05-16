@@ -1,3 +1,7 @@
 #doctorCalendarDiv {
     margin-right: 0px;
 }
+
+#BlockClickModal .btn {
+    background-color: #007bff;
+}
