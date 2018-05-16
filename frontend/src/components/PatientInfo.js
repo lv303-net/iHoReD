@@ -16,7 +16,7 @@ class AboutPatient extends React.Component {
                     <div className="col-7">{this.props.lastname}</div>
                 </div>
                 <div className="row" id="patientcard">
-                    <div className="col-5" id="col-custom">Date Of Birds</div>
+                    <div className="col-5" id="col-custom">Date Of Birth</div>
                     <div className="col-7">{this.props.birthday.slice(0,10)}</div>
                 </div>
                 <div className="row" id="patientcard">
@@ -24,7 +24,7 @@ class AboutPatient extends React.Component {
                     <div className="col-7">{this.props.phone}</div>
                 </div>
                 <div className="row" id="patientcard">
-                    <div className="col-5" id="col-custom">BllodType</div>
+                    <div className="col-5" id="col-custom">Blood Type</div>
                     <div className="col-7">{this.props.bloodtype}</div>
                 </div>
             </div>
