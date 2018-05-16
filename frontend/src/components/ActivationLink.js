@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Loader from 'react-loader';
+import { Link } from 'react-router-dom'
+import '../style/NotFound.css'
 
 class Direction extends React.Component {
   constructor(props) {
@@ -12,20 +14,24 @@ class Direction extends React.Component {
   componentDidMount() {
     var url = window.location.origin;
     setTimeout(() => {
-      if (this.props.status === 1 || this.props.status === 0) window.location.href = url + "/startPage";
+      if (this.props.status === 1 || this.props.status === 0) window.location.href = url + "/";
     }, 4000);
   }
   render() {
+    
     if (this.props.hasError) {
            return <div className="container mt-5">
-        <h2 id="shaddow" className='font-italic text-center text-muted'>Something went wrong...</h2>>
+        <h2 id="shaddow" className='font-italic text-center text-muted'>Something went wrong...</h2>
+        <h5 className="text-center">
+                <Link to='/'> Redirect to the main page </Link> ?
+            </h5>
     </div>
     }
     else
       return (
         this.props.redirect ? (
           <div className="container mt-5">
-            <h2 id="shaddow" className='font-italic text-center text-success'>{this.props.text}</h2>>
+            <h2 id="shaddow" className='font-italic text-center text-success'>{this.props.text}</h2>
           </div>
         )
           :
@@ -33,6 +39,8 @@ class Direction extends React.Component {
             <h2 id="shaddow" className='font-italic text-center text-danger'>{this.props.text}</h2>
           </div>
       );
+    
+      
   }
 }
 class ActivationLink extends React.Component {
@@ -77,10 +85,12 @@ class ActivationLink extends React.Component {
         .then(rez => {
           this.setState({ isRegistrated: rez.data });
           this.eventHandler(this.state.isRegistrated);
-         
+         console.log("hello");
         })
-        .catch(err => this.setState({ hasError: true }));
+        .catch(err => this.setState({ hasError: true }),
+        console.log("hellczdco"));
       this.setState({ loading: false });
+     
        }, 2000);
   }
  
@@ -91,8 +101,15 @@ class ActivationLink extends React.Component {
     const { hasError } = this.state;
     console.log(this.state.hasError);
     console.log(this.userId);
+    console.log(localStorage.getItem("server_url") + '/Registration/' + this.userId)
     return (
-      this.state.loading ? <Loader /> : <Direction hasError={hasError} text={text} redirect={redirect} status={isRegistrated} />
+      <div id='containerNotFound'>
+        <div className="container-fluid mt-5">
+            <h5 className="text-center">
+           {this.state.loading ? <Loader /> : <Direction hasError={hasError} text={text} redirect={redirect} status={isRegistrated} />}
+            </h5>
+        </div>
+      </div>       
     )
   }
 }
