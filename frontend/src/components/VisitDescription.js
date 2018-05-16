@@ -23,7 +23,7 @@ class VisitDescription extends Component {
     }
   render() {
     return(
-      <div id="mainDiv">
+      <div>
       <form>
     <div className="container">
       <div className="row">

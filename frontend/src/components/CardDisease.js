@@ -45,7 +45,6 @@ class CardDisease extends React.Component {
       <div className="modal-content">
       
         <div className="modal-header">
-          <h4 className="modal-title">{this.props.diagnosisFullName}</h4>
           <button type="button" className="close" data-dismiss="modal">&times;</button>
         </div>
         

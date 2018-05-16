@@ -64,15 +64,15 @@ class PatientInfo extends React.Component {
         return (
             <div className="container mt-5">
                 <div className="row">
-                    <div className="col-xs-12 col-2">
+                    <div className="col-sm-12 col-md-2 mb-3">
                         <img className="card-img-top" src={photo} alt="Card image"></img>
                     </div>
-                    <div className="col-xs-12 col-5">
+                    <div className="col-sm-12 col-md-5 mb-3">
                         {this.state.userdata.map(item => <AboutPatient firstname={item.FirstName}
                             lastname={item.LastName} birthday={item.Birthday}
                             phone={item.Phone} bloodtype={item.BloodType} />)}
                     </div>
-                    <div className="col-xs-12 col-5">
+                    <div className="col-sm-12 col-md-5">
                         <div className="row" id="patientcard">
                             <div className="col-5" id="col-custom">Allergies:</div>
                             <div className="col-7">

@@ -13,10 +13,15 @@ class PatientMedicalCard extends Component {
     return(
       <div id="mainDiv">
         <div className="container">
-            <PatientInfo PatientId={this.props.match.params.id}/> 
-            <Diagnoses PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate}/> 
-            {/* PatientId={this.props.match.params.id} StartDate={this.props.match.params.startDate}/>    */}
-            <AllergiesCard/>
+            <PatientInfo PatientId={this.props.match.params.id}/>
+            <div className="row">
+              <div className="col-sm-12 col-6">
+                <Diagnoses PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate}/>
+              </div>
+              <div className="col-sm-12 col-6">
+                <AllergiesCard className="col-3"  PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate}/>
+              </div>
+            </div>
             <AddMedRecord/>
         </div>
       </div>

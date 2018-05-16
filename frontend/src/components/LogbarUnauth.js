@@ -5,6 +5,7 @@ import validator from 'validator';
 import logo from '../images/logo.png';
 import '../style/Navbar.css';
 import $ from 'jquery';
+import Notifications, {notify} from 'react-notify-toast';
 
 
 class LogbarUnauth extends Component {
@@ -51,7 +52,11 @@ class LogbarUnauth extends Component {
         localStorage.setItem("currentUserId", (response.data.Id));
         localStorage.setItem("currentUserFirstName", (response.data.FirstName));
         localStorage.setItem("currentUserLastName", (response.data.LastName));
-      });
+      }).catch(error => {
+        //console.log(error.response);
+        let myColor = { background: '#FF0000', text: "#FFFFFF" };
+        notify.show("Wrong login or password!", "custom", 5000, myColor);
+    });
   }
 
   handleSubmitRegistr = event => {
@@ -76,11 +81,11 @@ class LogbarUnauth extends Component {
           $('#buttonCancelForMessage').show();
 
         })
-        .catch(function (response) {
-          //handle error
-          console.log(response);
-
-        });
+        .catch(error => {
+          //console.log(error.response);
+          let myColor = { background: '#FF0000', text: "#FFFFFF" };
+          notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, myColor);
+      });
     }
   }
 
@@ -99,7 +104,7 @@ class LogbarUnauth extends Component {
   }
 
   hideError(divName, inputName) {
-//    document.getElementById(inputName).style.borderColor = '#ced4da';
+    document.getElementById(inputName).style.borderColor = '#ced4da';
     divName.current.textContent = '';
   }
 
@@ -381,6 +386,7 @@ class LogbarUnauth extends Component {
         </div>
 
         <div className="modal fade" id="SignInModal">
+        <Notifications/>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header mb-5">
