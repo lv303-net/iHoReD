@@ -70,7 +70,9 @@ class PatientInfo extends React.Component {
     }
 
     componentWillUpdate(nextProps, nextState){
-        this.getPatientData(this.props.PatientId);
+        if(this.props.shouldUpdate!==nextProps.shouldUpdate){
+            this.getPatientData(this.props.PatientId);
+        }
     }
     render() {
         console.log(this.props.PatientId);
