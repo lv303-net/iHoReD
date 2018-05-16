@@ -434,5 +434,9 @@
   <changeSet author="Iryna Halenok" id="V3.66">
    <sqlFile path="V3.66_INSERT_MEDICAL_CARD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.67">
+   <sqlFile path="V3.67_ALTER_PROCEDURE_REGISTER_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
   
 </databaseChangeLog>
