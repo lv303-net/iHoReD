@@ -6,6 +6,7 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import $ from'jquery';
+import validator from 'validator';
 
 class EditRateToProfession extends Component{
     constructor(props){
@@ -14,9 +15,11 @@ class EditRateToProfession extends Component{
             startDate: moment(),
             rate: 0
         }
+        this.divRate = React.createRef();
         this.handleChangeStart = this.handleChangeStart.bind(this);
         this.handleSubmitEdit=this.handleSubmitEdit.bind(this);
         this.rate = "";
+        this.validRate="";
     }
 
     handleChangeStart(date) {
@@ -27,12 +30,34 @@ class EditRateToProfession extends Component{
     }
     
     handleSubmitEdit() {
-        this.setState({
-            rate: this.rate
-        }) 
-        $('#Rate').val('');
-        this.rate="";
+        this.validateRate();
+        if (this.validRate) {
+            this.setState({
+                rate: this.rate
+            }) 
+            
+            this.rate="";
+            $('#RateEdit').val("");
+            document.getElementById("RateEdit").style.borderColor = '#ced4da';
+            $('#invalidRate').text("");
+            $("#cancelEdit").trigger('click');
+        }
+        else{
+        }
       }
+
+      showError() {        
+        if (this.validRate){
+            console.log('valid');
+            document.getElementById("RateEdit").style.borderColor = 'green';
+            this.divRate.current.textContent = '';
+        }
+        else {
+            console.log('unvalid');
+            document.getElementById("RateEdit").style.borderColor = '#f74131';
+            this.divRate.current.textContent = 'Only numbers are allowed';
+        }
+    }
       shouldComponentUpdate(nextProps, nextState)
       {
         return((this.props.date!==nextProps.date ) || (this.state.rate!==nextState.rate))
@@ -69,9 +94,24 @@ class EditRateToProfession extends Component{
                 this.props.callback(response.data);
                 })
             }
+            
+            $('#RateEdit').val("");
+            document.getElementById("RateEdit").style.borderColor = '#ced4da';
+            $('#invalidRate').text("");
         }
         
       }
+
+      validateRate() {
+        if (validator.isFloat(this.rate)) {
+          this.validRate = true;
+          return true;
+        } else {
+          this.validRate = false;
+          return false;
+        }
+      }
+
     render(){
         return(
             <div class="modal fade" id="EditRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -88,24 +128,24 @@ class EditRateToProfession extends Component{
                             <div className="form-group justify-content-center col-sm-2 col-xs-12 mb-0">
                                 <p className="labelForm">Rate</p>
                             </div>
-                            <div className="form-group col-sm-5 col-xs-12" id="inputRate">
+                            <div className="form-group col-sm-6 col-xs-12" id="inputRate">
                                 <input 
                                 className="form-control"
                                 placeholder="Rate"
                                 onChange={x => { this.rate = x.target.value;}}
                                 id="RateEdit"
                                 />
-                                <div id="invalidPassword" className="text-muted">
+                                <div id="invalidRate" className="text-muted" ref={this.divRate}>
                                 </div>
                             </div>
                         </div>
                         <div className="row mb-3 mt-5 justify-content-center">
                         <div className="col-sm-3 col-6 text-center" >
-                            <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
+                            <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal" id="cancelEdit">Cancel
                             </button>
                         </div>
                         <div className="col-sm-3 col-6 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit()}}>Submit
+                            <button type="button" className="btn btn-info btn-lg mb-3" onClick={() =>{this.handleSubmitEdit(), this.showError()}}>Submit
                             </button>
                         </div>
                         </div>
