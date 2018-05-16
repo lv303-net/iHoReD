@@ -73,6 +73,7 @@
     <Compile Include="DoctorInfo.cs" />
     <Compile Include="DoctorRules.cs" />
     <Compile Include="IllnessCategory.cs" />
+    <Compile Include="PatientDiseases.cs" />
     <Compile Include="IllnessSubDiseases.cs" />
     <Compile Include="IllnessSubCategory.cs" />
     <Compile Include="IllnessDiseases.cs" />
