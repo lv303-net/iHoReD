@@ -63,26 +63,25 @@ namespace Entities.Services
         public int ExecuteSqlQuery(string cmd, string outparam, IDictionary<string, object> data)
         {
             int outval = 0;
-            _myConnection.Open();
-
+           _myConnection.Open();
+           
             using (var sqlCommand = new SqlCommand(cmd, _myConnection))
             {
-                sqlCommand.CommandType = CommandType.StoredProcedure;
+               sqlCommand.CommandType = CommandType.StoredProcedure;
                 foreach (var d in data)
                 {
                     sqlCommand.AddParameter(d.Key, d.Value);
+                    sqlCommand.Parameters.Add(outparam, SqlDbType.Int).Direction = ParameterDirection.Output;
                 }
-                sqlCommand.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int));
-                sqlCommand.Parameters["@RETURN_VALUE"].Direction = ParameterDirection.ReturnValue;
                 sqlCommand.ExecuteNonQuery();
-                outval = (int)sqlCommand.Parameters["@RETURN_VALUE"].Value;
-
+                 outval =(int) sqlCommand.Parameters[outparam].Value;
+                
             }
             _myConnection.Close();
-            return outval;
+           return outval;
         }
 
-        public int ExecuteQuery(string cmd, IDictionary<string, object> data)
+            public int ExecuteQuery(string cmd, IDictionary<string, object> data)
         {
             int outval = 0;
             _myConnection.Open();
