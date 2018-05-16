@@ -89,7 +89,9 @@ class AddRateToProfession extends Component{
                 this.props.callback(response.data);
                 })
         }
-        
+        $('#RateAdd').val("");
+        document.getElementById("RateAdd").style.borderColor = '#ced4da';
+        $('#invalidRate').text("");
       }
     render(){
             let url_string = window.location.href;
@@ -115,7 +117,7 @@ class AddRateToProfession extends Component{
                                 {idDoc === null ? "Rate" : "Coeff"}
                                 </p>
                             </div>
-                            <div className="form-group justify-content-center col-sm-4 col-xs-12 ml-2" id="inputRate">   
+                            <div className="form-group justify-content-center col-sm-6 col-xs-12 ml-2" id="inputRate">   
                                 <div className="text-center justify-content-center">                             
                                 <input 
                                 className="form-control"
