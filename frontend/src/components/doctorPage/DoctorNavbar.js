@@ -51,25 +51,12 @@ class DoctorNavbar extends Component {
 
   componentWillUpdate(nextProps, nextState) {
     this.getValueFromURL();
-    let i;
-    //alert(nextState.idLink);
     $(".main-nav1").find(".active").removeClass("active");
-    $('.main-nav1 #item'+nextState.idLink).addClass('active');
-    /*for (i = 0; i <= $(".main-nav1 span").length; i++) { 
-      $( ".main-nav1  span#link"+i).css("background-color", "#fff");
-      $( ".main-nav1  span#link"+i).css("color", "rgba(0,0,0,.5)");
-      $( ".main-nav1  li#"+i).css("background-color", "#fff");
-      $( ".main-nav1  li#"+i).css("color", "rgba(0,0,0,.5)");
-    }
-    $('.main-nav1 span#'+nextState.idLink).css("color", "white");
-    $('.main-nav1 span#'+nextState.idLink).css("background-color", "#49A2FF");
-    $('.main-nav1 li#'+nextState.idLink).css("color", "white");
-    $('.main-nav1 li#'+nextState.idLink).css("background-color", "#49A2FF"); */
-
-    
+    $('.main-nav1 #item'+nextState.idLink).addClass('active');    
   }
 
   render() {
+    var id = localStorage.getItem("currentUserId");
     return (
       <nav className="navbar navbar-light bg-light" id="navbarAdmin">
         <div className="navbar-collapse" id="navbarNavDropdown">
@@ -85,7 +72,7 @@ class DoctorNavbar extends Component {
               </Link>
             </li>
             <li className="nav-item" id="itemlink3">
-              <Link to='/doctor/salary'>
+              <Link to={'/doctor/salary/' +id}>
                 <span className="nav-link" id="link3">Salary Report</span>
               </Link>
             </li>

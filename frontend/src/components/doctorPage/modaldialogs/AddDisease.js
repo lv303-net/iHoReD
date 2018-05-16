@@ -25,25 +25,9 @@ class AddDisease extends Component{
             idSubDisease: 0,
             shouldUpdate: 1
         }
-        this.divRate = React.createRef();
-        this.handleChangeStart = this.handleChangeStart.bind(this);
-        this.handleSubmitEdit=this.handleSubmitEdit.bind(this);
-        this.rate = "";
-        this.validRate = false;
+        this.handleAddDisease=this.handleAddDisease.bind(this);
     }
-    hideError(divName, inputName) {
-        divName.current.textContent = '';
-    }
-    reloadRows(param) {
-        if(param===0){
-            let myColor = { background: '#FF0000', text: "#FFFFFF" };
-            //notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
-        }
 
-        this.setState({
-            shouldUpdate: this.state.shouldUpdate + param
-        })
-    }
     getCategoryId(param) {
         this.setState({
           idCategory: param,
@@ -68,71 +52,21 @@ class AddDisease extends Component{
           shouldUpdate: this.state.shouldUpdate + 1
         })
     }
-    validateRate() {
-        if (validator.isFloat(this.rate)) {
-          this.validRate = true;
-          return true;
-        } else {
-          this.validRate = false;
-          return false;
-        }
-      }
 
-    showError() {        
-        if (this.validRate){
-            console.log('valid');
-            document.getElementById("RateAdd").style.borderColor = 'green';
-            this.divRate.current.textContent = '';
-        }
-        else {
-            console.log('unvalid');
-            document.getElementById("RateAdd").style.borderColor = '#f74131';
-            this.divRate.current.textContent = 'Only numbers are allowed';
-        }
-    }
-    handleChangeStart(date) {
-        this.setState({
-          startDate: date, 
-        });
+    handleAddDisease() {
 
-    }
-    handleSubmitEdit() {
-        
-        var url_string = window.location.href;
-        var url = new URL(url_string);
-        var Profession = url.searchParams.get("prof");
-        var Doctor = url.searchParams.get("doc");
-        if(Doctor===null){
-            var newRate = {
-            ProfessionId: Profession,
-            Rate: this.rate,
-            StartDate: this.state.startDate.format('YYYY-MM-DD')
-            
+            var newDisease = {
+                IdPatient: this.props.PatientId,
+                StartTime: this.props.Visit,
+                Disease: this.state.idSubDisease
             }   
-            axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/add', newRate)
+            axios.post(localStorage.getItem("server_url") + '/api/PatientData/AddDisease', newDisease)
             .then(response=>{
             console.log(response.data);
             this.props.callback(response.data);
             })
-        }
-        else{
-            var newCoeff = {
-                DoctorId: Doctor,
-                Coeff: this.rate,
-                StartDate: this.state.startDate.format('YYYY-MM-DD')
-                }   
-                axios.post(localStorage.getItem("server_url") + '/api/Salary/Coefficient/add', newCoeff)
-                .then(response=>{
-                console.log(response.data);
-                this.props.callback(response.data);
-                })
-        }
-        
       }
     render(){
-            let url_string = window.location.href;
-            let url = new URL(url_string);
-            let idDoc = url.searchParams.get("doc");
         return(
             <div className="modal fade" id="AddRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
              
@@ -140,7 +74,7 @@ class AddDisease extends Component{
                     <div className="modal-content">
                         <div className="modal-header">
                             <h3 className="modal-title" id="exampleModalLabel">
-                            {idDoc === null ? "Confirm adding new rate" : "Confirm adding new coefficient"}
+                            Add new disease
                             </h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -150,14 +84,14 @@ class AddDisease extends Component{
                         <Categories callback={this.getCategoryId.bind(this)}/>
                         <SubCategories idCategory={this.state.idCategory} callback={this.getSubCategoryId.bind(this)}/>
                         <Diseases idSubCategory={this.state.idSubCategory} callback={this.getDiseaseId.bind(this)}/>
-                        <SubDiseases idDisease={this.state.idDisease} callback={this.getSubDiseaseId.bind(this)}/>
+                        <SubDiseases idDisease={this.state.idDisease} callback={this.getSubDiseaseId.bind(this)} PatientId={this.props.PatientId}/>
                         <div className="row mb-3 mt-5 justify-content-center">
                         <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
                             </button>
                         </div>
                         <div className="col-sm-3 col-6 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitEdit()}}>Submit
+                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleAddDisease()}}>Add
                             </button>
                         </div>
                         </div>
