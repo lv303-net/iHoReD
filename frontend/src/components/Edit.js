@@ -59,14 +59,16 @@ class Edit extends React.Component {
     console.log(axResponse);
   }
   validate(){
+    let toRet = "";
     if (!this.validateFirstName()) return "Invalid firstname!";
     if (!this.validateLastName()) return "Invalid lastname!";
-    if (!this.validateEmail()) return "Invalid email!";
+    if (!this.validateEmail() || this.state.email.includes("*")) return "Invalid email!";
     if (!this.validateCity() && this.state.city !== "") return "Invalid city!";
     if (!this.validateCountry() && this.state.country !== "") return "Invalid country!";
     if (!this.validateApartment() && this.state.apartment !== "") return "Invalid apartment!";
     if (!this.validatePhone()) return "Invalid phone number!";
-    return null;
+    if (toRet == "")  return null;
+    else return toRet;
   }
   componentWillMount(){
     axios.get(localStorage.getItem("server_url")+'/GetUserInfoById/'+localStorage.getItem('currentUserId'))

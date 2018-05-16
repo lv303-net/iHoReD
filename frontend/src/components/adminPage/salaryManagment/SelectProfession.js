@@ -29,6 +29,7 @@ class SelectProfession extends Component{
         }
         else{
             searchParameter.delete('prof');
+            this.props.callback(selectedOption);
         }
     }
 
