@@ -10,7 +10,6 @@ class AdminNavbar extends Component {
     this.state = {
       idLink: 0
     };
-    this.tabSelected = this.tabSelected.bind(this);
     this.getValueFromURL = this.getValueFromURL.bind(this);
   };
 
@@ -24,11 +23,11 @@ class AdminNavbar extends Component {
   }
 
   getValueFromURL() {
-    if(window.location.href.indexOf("rules") != -1) {
+    if (window.location.href.indexOf("rules") != -1) {
       this.setState({
         idLink: "link1"
       })
-    } 
+    }
     else if (window.location.href.indexOf("salary") != -1) {
       this.setState({
         idLink: "link2"
@@ -50,8 +49,9 @@ class AdminNavbar extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
+    this.getValueFromURL();
     $(".main-nav1").find(".active").removeClass("active");
-    $('.main-nav1 #item'+nextState.idLink).addClass('active'); 
+    $('.main-nav1 #item' + nextState.idLink).addClass('active');
   }
 
   render() {

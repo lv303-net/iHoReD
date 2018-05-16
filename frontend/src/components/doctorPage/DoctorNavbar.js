@@ -10,7 +10,6 @@ class DoctorNavbar extends Component {
     this.state = {
       idLink: 0
     };
-    this.tabSelected = this.tabSelected.bind(this);
     this.getValueFromURL = this.getValueFromURL.bind(this);
   };
 
@@ -24,17 +23,17 @@ class DoctorNavbar extends Component {
   }
 
   getValueFromURL() {
-    if(window.location.href.indexOf("schedule") != -1) {
+    if (window.location.href.indexOf("schedule") != -1) {
       this.setState({
         idLink: "link1"
       })
-    } 
+    }
     else if (window.location.href.indexOf("mySchedule") != -1) {
       this.setState({
         idLink: "link2"
       })
     }
-    else if (window.location.href.indexOf("salary") != -1){
+    else if (window.location.href.indexOf("salary") != -1) {
       this.setState({
         idLink: "link3"
       })
@@ -57,7 +56,7 @@ class DoctorNavbar extends Component {
   componentWillUpdate(nextProps, nextState) {
     this.getValueFromURL();
     $(".main-nav1").find(".active").removeClass("active");
-    $('.main-nav1 #item'+nextState.idLink).addClass('active');    
+    $('.main-nav1 #item' + nextState.idLink).addClass('active');
   }
 
   render() {
@@ -77,7 +76,7 @@ class DoctorNavbar extends Component {
               </Link>
             </li>
             <li className="nav-item" id="itemlink3">
-              <Link to={'/doctor/salary/' +id}>
+              <Link to={'/doctor/salary/' + id}>
                 <span className="nav-link" id="link3">Salary Report</span>
               </Link>
             </li>
