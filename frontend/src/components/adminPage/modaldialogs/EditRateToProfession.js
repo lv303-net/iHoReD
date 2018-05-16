@@ -6,6 +6,7 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import $ from'jquery';
+import validator from 'validator';
 
 class EditRateToProfession extends Component{
     constructor(props){
@@ -17,6 +18,7 @@ class EditRateToProfession extends Component{
         this.handleChangeStart = this.handleChangeStart.bind(this);
         this.handleSubmitEdit=this.handleSubmitEdit.bind(this);
         this.rate = "";
+        this.validRate="";
     }
 
     handleChangeStart(date) {
@@ -27,11 +29,14 @@ class EditRateToProfession extends Component{
     }
     
     handleSubmitEdit() {
-        this.setState({
-            rate: this.rate
-        }) 
-        $('#Rate').val('');
-        this.rate="";
+        this.validateRate();
+        if (this.validRate) {
+            this.setState({
+                rate: this.rate
+            }) 
+            $('#Rate').val('');
+            this.rate="";
+        }
       }
       shouldComponentUpdate(nextProps, nextState)
       {
@@ -69,9 +74,21 @@ class EditRateToProfession extends Component{
                 this.props.callback(response.data);
                 })
             }
+            $('#RateEdit').val("");
         }
         
       }
+
+      validateRate() {
+        if (validator.isFloat(this.rate)) {
+          this.validRate = true;
+          return true;
+        } else {
+          this.validRate = false;
+          return false;
+        }
+      }
+
     render(){
         return(
             <div class="modal fade" id="EditRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
