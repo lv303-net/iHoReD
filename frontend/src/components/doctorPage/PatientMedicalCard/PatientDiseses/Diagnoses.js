@@ -35,12 +35,11 @@ class Salary extends Component{
     render(){
         return(
             <div className="row ml-4"> 
-                <div type="button" className=" col-md-2 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
-                    <h6 className="mt-2">hhhh</h6>
+                <div className="col-sm-5 col-md-2 text-center mt-4">
+                    <button type="button" className="btn btn-info btn-lg mb-3" id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">Add disease
+                    </button>
                 </div>
-                <div className="col-sm-5 mt-3 ">
-                <AddDisease callback={this.reloadRows.bind(this)}/>
-                </div>
+                <AddDisease callback={this.reloadRows.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId}/>
             </div>
         )
     }

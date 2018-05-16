@@ -131,8 +131,9 @@ import $ from 'jquery';
             return (
             <div className="ml-3 mr-3">
             <Notifications />
-            <div  className="col-12  col-md-10 d-flex flex-row-reverse" id="DivForAdding">
-            <div type="button" className=" col-12 col-md-5 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
+            <div  className="col-12 col-md-10" id="DivForAdding">
+            <div type="button" className=" col-12 col-md-3 mt-4 text-center " id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">
+                <i className="fa fa-plus align-middle"></i>
                 <h6 className="mt-2">{idDoc === null ? "Add rate" : "Add coeff"}</h6>
             </div>
             </div>
