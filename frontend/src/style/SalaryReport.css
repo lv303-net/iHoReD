@@ -10,6 +10,11 @@
      
   left:2vw;
   }
+  #multiCollapse{
+  position: relative;
+    float: left; 
+    margin-top: 5%;
+  }
   #patientInfoMain{
     float:left;
     position: relative;
@@ -26,8 +31,38 @@
     padding-right: 5px;  
     }
     #name{
-    padding-right: 40%;
+      color: white;
+      font-style: italic;
+      text-shadow: black 2px 2px 2px;
     } 
      .salarybutton{
       width: 8em;
     }
+    .monthInfoButton {
+      float: left;
+    }
+    .border-style{
+      padding: 10px;
+      border: 3px solid #bdb4b47a;
+    }
+    .top{
+      border-top:none;
+    }
+    #collapse-style{
+      width: 90%;
+      margin-left: 5%;
+      padding-left: 1.5%;
+    }
+    .header{
+      color: white;
+      font-style: italic;
+      text-shadow: black 2px 2px 2px;
+    }
+    .month{
+      padding-left: 1.5%;
+       } 
+#multiCollapseExample{
+       -webkit-transition: all .5s ease-out;
+    -o-transition: all .5s ease-out;
+    transition: all .5s ease-out;
+}

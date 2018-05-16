@@ -55,7 +55,7 @@ class DeleteRateToProfession extends Component{
                 }
             };
     
-            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete/' + 1, config).then((res) => 
+            axios.delete(localStorage.getItem("server_url") + '/api/Salary/Rate/delete/' + Profession + '/' +nextProps.date.slice(0,10)).then((res) => 
             {      
                 console.log("sdfghjkl");
             })
@@ -76,20 +76,17 @@ class DeleteRateToProfession extends Component{
                             </button>
                         </div>
                         <div className="modal-body">
-                        <div className="row mb-3 mt-5 justify-content-center" id="deleting">
-                        <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
+                        <div className="text-center">Are you sure delete rate/coeff?</div>
+                        <div className="row mb-3 mt-5 justify-content-center">
+                        <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
                             </button>
                         </div>
-                        <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3"  onClick={() =>{this.handleSubmitDelete()}}>Submit
-                        </button>
+                        <div className="col-sm-3 col-6 text-center">
+                            <button type="button" className="btn btn-info btn-lg mb-3"data-dismiss="modal" onClick={() =>{this.handleSubmitDelete()}}>Submit
+                            </button>
                         </div>
                         </div>
-                        <div id="textOutp">
-                        </div>
-                        <button type="button" className="btn btn-danger btn-md " data-dismiss="modal" id="buttonCancelForMessage">Close
-                        </button>
                         </div>
                     </div>
                 </div>

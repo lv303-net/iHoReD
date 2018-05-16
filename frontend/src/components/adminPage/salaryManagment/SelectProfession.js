@@ -13,8 +13,7 @@ class SelectProfession extends Component{
             id:0,
             selectedOption: '',
             options: [
-                { value: 'one', label: 'One' },
-                { value: 'two', label: 'Two' }
+                { value: '', label: '' }
             ]
         }
     }
