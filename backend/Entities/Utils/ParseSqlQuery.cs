@@ -287,6 +287,21 @@ namespace Entities.Utils
             }
             return result;
         }
+        public static List<PatientDiseases> GetPatientActiveDiseases(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<PatientDiseases>();
+            for (int i = 0; i < values.Length; i += 2)
+            {
+                var Diseases = new PatientDiseases()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Name = values.GetValue(1 + i).ToString()
+                };
+                result.Add(Diseases);
+            }
+            return result;
+        }
         public static List<Allergy> GetPatientActiveAllergies(string bdResult)
         {
             var values = bdResult.Split('*');
