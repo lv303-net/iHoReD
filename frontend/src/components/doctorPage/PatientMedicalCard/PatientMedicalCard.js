@@ -17,7 +17,7 @@ class PatientMedicalCard extends Component {
             <Diagnoses PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate}/> 
             {/* PatientId={this.props.match.params.id} StartDate={this.props.match.params.startDate}/>    */}
             <AllergiesCard/>
-            <AddMedRecord/>
+            <AddMedRecord PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate}/>
         </div>
       </div>
     );

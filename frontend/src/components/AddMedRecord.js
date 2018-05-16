@@ -6,6 +6,7 @@ class AddMedRecord extends Component {
     constructor(props){
         super(props);
         this.getText = this.getText.bind(this);
+        this.SaveAll = this.SaveAll.bind(this);
         this.state = {
             treatment:"",
             description:""
@@ -15,12 +16,12 @@ class AddMedRecord extends Component {
     SaveAll()
 {
     var data ={
-        user:this.props.user,
-        startDate:this.props.startDate,
-        description:this.state.description,
-        treatment:this.state.treatment
+        IdPatient:this.props.PatientId,
+        StartTime:this.props.Visit,
+        Description:this.state.description,
+        Treatment:this.state.treatment
       }
-    axios.post(localStorage.getItem("server_url") + '/api/Login',data).catch(function (response) {
+    axios.post(localStorage.getItem("server_url") + '/api/PatientData/AddMedicalRecord',data).catch(function (response) {
         console.log(response);
     });
 }
@@ -41,15 +42,17 @@ class AddMedRecord extends Component {
 
   render() {
     return(
-      <div id="mainDiv">
+      <div>
 <div>
 <VisitDescription getText={this.getText} newTreatment={this.state.treatment} newDescription={this.state.description}/>
 </div>
+<div className="row">
 <div className="container">
 <div className="btn-group-lg">
-<button type="button" class="btn btn-primary btn-lg float-left" onClick={this.SaveAll()}>Save</button>
-</div>
+<button type="button" class="btn btn-info btn-lg float-left" onClick={this.SaveAll}>Save</button>
 <button type="button" class="btn btn-danger btn-lg float-right">Cancel</button>
+</div>
+</div>
       </div>
       </div>
     );

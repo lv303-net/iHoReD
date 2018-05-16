@@ -292,7 +292,7 @@ class PatientDiagnosesTable extends React.Component{
                     for(var i=0;i<col;i++)
                     {
                     var item= <div className="card-column col-md-6">
-                    {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.DiseaseName.slice(0,width)+'...'} diagnosisFullName={diagnoses.DiseaseName}/>)}
+                    {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.Description.slice(0,width)+'...'}/>)}
                     </div>
                     arr.push(item);
                 }
@@ -303,7 +303,7 @@ class PatientDiagnosesTable extends React.Component{
                 for(var i=0;i<col;i++)
                 {
                 var item= <div className="card-column col-md-4">
-                {this.state.diagnosesArr.slice(i+j,(i+2+j)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.DiseaseName.slice(0,width)+'...'} diagnosisFullName={diagnoses.DiseaseName}/>)}
+                {this.state.diagnosesArr.slice(i+j,(i+2+j)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.Description.slice(0,width)+'...'}/>)}
                 </div>
                 arr.push(item);
                 j++;
@@ -314,7 +314,7 @@ class PatientDiagnosesTable extends React.Component{
                 for(var i=0;i<col;i++)
                 {
                 var item= <div className="card-column col-md-3">
-                {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.DiseaseName.slice(0,width)+'...'} diagnosisFullName={diagnoses.DiseaseName}/>)}
+                {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.Description.slice(0,width)+'...'}/>)}
                 </div>
                 arr.push(item);
              }
@@ -324,7 +324,7 @@ class PatientDiagnosesTable extends React.Component{
                 for(var i=0;i<col;i++)
                 {
                 var item= <div className="card-column col-md-12">
-                {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.DiseaseName.slice(0,width)+'...'} diagnosisFullName={diagnoses.DiseaseName}/>)}
+                {this.state.diagnosesArr.slice(row*i,row*(i+1)).map(diagnoses => <CardDisease treatment={diagnoses.CardId} treatmentDescr={diagnoses.Cure} diseaseDescr={diagnoses.Description} doctor={diagnoses.DoctorFirstname+diagnoses.Doctorlastname} date={diagnoses.StartDateTime.slice(0,10)} diagnosis={diagnoses.Description.slice(0,width)+'...'} />)}
                 </div>
                 arr.push(item);
              }
