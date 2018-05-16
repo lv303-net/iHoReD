@@ -14,7 +14,7 @@ class SelectDoctor extends Component{
             idProf:0,
             selectedOption: '',
             options: [
-                { value: '0', label: 'j' }
+                { value: '0', label: '' }
             ]
         }
     }
