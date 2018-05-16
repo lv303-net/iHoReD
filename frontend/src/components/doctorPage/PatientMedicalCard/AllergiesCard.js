@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import AddAllergy from './../modaldialogs/AddAllergy';
+import PropTypes from 'prop-types';
 
 class AllergiesCard extends Component{
     constructor(props) {
@@ -17,7 +18,9 @@ class AllergiesCard extends Component{
             PatientId:this.props.PatientId
         }
     }
-
+    reloadRows(param) {
+        this.props.callback(param);
+    }
     render(){
         return(
             <div>
@@ -27,10 +30,12 @@ class AllergiesCard extends Component{
                 </div>
             </div>
 
-            <AddAllergy Visit={this.props.Visit} PatientId={this.props.PatientId}/>
+            <AddAllergy Visit={this.props.Visit} PatientId={this.props.PatientId} callback={this.reloadRows.bind(this)}/>
         </div>
         )
     }
 }
-
+AllergiesCard.propTypes = {
+    callback: PropTypes.func
+  };
 export default AllergiesCard
