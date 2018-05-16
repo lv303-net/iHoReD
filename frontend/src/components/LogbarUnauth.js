@@ -99,7 +99,7 @@ class LogbarUnauth extends Component {
   }
 
   hideError(divName, inputName) {
-//    document.getElementById(inputName).style.borderColor = '#ced4da';
+    document.getElementById(inputName).style.borderColor = '#ced4da';
     divName.current.textContent = '';
   }
 

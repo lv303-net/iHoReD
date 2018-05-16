@@ -36,8 +36,8 @@ class DoctorCalendar extends React.Component{
     this.setState({
       startPeriod: start,
       endPeriod: end,
-      idDoc :1,
-      idPatient :11
+      idDoc: localStorage.getItem("currentUserId")
+      // idPatient :11
     })
   }
     
