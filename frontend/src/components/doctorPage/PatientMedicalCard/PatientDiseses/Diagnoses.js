@@ -4,7 +4,7 @@ import axios from 'axios';
 import Categories from './Categories';
 import AddDisease from './../../modaldialogs/AddDisease';
 
-class Salary extends Component{
+class Diagnoses extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -45,4 +45,4 @@ class Salary extends Component{
     }
 }
 
-export default Salary
+export default Diagnoses
