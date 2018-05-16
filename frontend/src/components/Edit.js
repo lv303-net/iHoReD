@@ -37,6 +37,9 @@ class Edit extends React.Component {
         if (response.status == 200)      {
             let myColor = { background: '#00FF00', text: "#FFFFFF" };
             notify.show("Your personal information has been updated", "custom", 5000, myColor);
+            localStorage.setItem("currentUserFirstName", this.state.firstName);
+            localStorage.setItem("currentUserLastName",this.state.lastName);
+            window.location.reload();
         }
         else{
           let myColor = { background: '#FF0000', text: "#FFFFFF" };
