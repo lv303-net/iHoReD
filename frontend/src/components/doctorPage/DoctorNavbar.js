@@ -10,11 +10,11 @@ class DoctorNavbar extends Component {
     this.state = {
       idLink: 0
     };
-    this.colorSelected = this.colorSelected.bind(this);
+    this.tabSelected = this.tabSelected.bind(this);
     this.getValueFromURL = this.getValueFromURL.bind(this);
   };
 
-  colorSelected(e) {
+  tabSelected(e) {
     e.preventDefault();
     var caller = e.target || e.srcElement;
     var id = caller.id;
@@ -34,9 +34,14 @@ class DoctorNavbar extends Component {
         idLink: "link2"
       })
     }
-    else {
+    else if (window.location.href.indexOf("salary") != -1){
       this.setState({
         idLink: "link3"
+      })
+    }
+    else {
+      this.setState({
+        idLink: "link0"
       })
     }
   }
@@ -60,7 +65,7 @@ class DoctorNavbar extends Component {
     return (
       <nav className="navbar navbar-light bg-light" id="navbarAdmin">
         <div className="navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav main-nav1" onClick={(e) => { this.colorSelected(e) }} >
+          <ul className="navbar-nav main-nav1" onClick={(e) => { this.tabSelected(e) }} >
             <li className="nav-item active" id="itemlink1">
               <Link to='/doctor/schedule'>
                 <span className="nav-link" id="link1">Schedule</span>

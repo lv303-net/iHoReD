@@ -11,11 +11,11 @@ class UserNavbar extends Component {
     this.state = {
       idLink: 0
     };
-    this.colorSelected = this.colorSelected.bind(this);
+    this.tabSelected = this.tabSelected.bind(this);
     this.getValueFromURL = this.getValueFromURL.bind(this);
   };
 
-  colorSelected(e) {
+  tabSelected(e) {
     e.preventDefault();
     var caller = e.target || e.srcElement;
     var id = caller.id;
@@ -35,9 +35,14 @@ class UserNavbar extends Component {
         idLink: "link2"
       })
     }
-    else {
+    else if (window.location.href.indexOf("medicalCard") != -1) {
       this.setState({
         idLink: "link3"
+      })
+    }
+    else {
+      this.setState({
+        idLink: "link0"
       })
     }
   }
@@ -51,14 +56,12 @@ class UserNavbar extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    this.getValueFromURL();
     $(".main-nav1").find(".active").removeClass("active");
     $('.main-nav1 #item'+nextState.idLink).addClass('active'); 
   }
 
   render() {    
     var id = localStorage.getItem("currentUserId");
-    console.log(id);
     return (
       <nav className="navbar navbar-light bg-light" id="navbarAdmin">
         <div className="navbar-collapse" id="navbarNavDropdown">
