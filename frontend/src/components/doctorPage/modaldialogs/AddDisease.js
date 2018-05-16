@@ -84,7 +84,7 @@ class AddDisease extends Component{
                         <Categories callback={this.getCategoryId.bind(this)}/>
                         <SubCategories idCategory={this.state.idCategory} callback={this.getSubCategoryId.bind(this)}/>
                         <Diseases idSubCategory={this.state.idSubCategory} callback={this.getDiseaseId.bind(this)}/>
-                        <SubDiseases idDisease={this.state.idDisease} callback={this.getSubDiseaseId.bind(this)}/>
+                        <SubDiseases idDisease={this.state.idDisease} callback={this.getSubDiseaseId.bind(this)} PatientId={this.props.PatientId}/>
                         <div className="row mb-3 mt-5 justify-content-center">
                         <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
