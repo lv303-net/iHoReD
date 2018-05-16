@@ -130,7 +130,7 @@ namespace Entities.Services
             string cmd = "NON_ACTIVE_DISEASES_FOR_CATEGORY";
             var param = new Dictionary<string, object>()
             {
-                {"@ID_USER", idDisease },
+                {"@ID_USER", idPatient },
                 {"@DISEASEID",  idDisease}
             };
 
@@ -138,6 +138,25 @@ namespace Entities.Services
             {
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
                 return Utils.ParseSqlQuery.GetPatientSubDiseases(data);
+            }
+
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public List<PatientDiseases> GetPatientActiveDiseases(int idPatient)
+        {
+            string cmd = "ACTIVE_DISEASES";
+        var param = new Dictionary<string, object>()
+            {
+                {"@ID_USER", idPatient }
+            };
+
+            try
+            {
+                var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+                return Utils.ParseSqlQuery.GetPatientActiveDiseases(data);
             }
 
             catch (Exception e)
