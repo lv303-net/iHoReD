@@ -35,7 +35,7 @@ class Edit extends React.Component {
     if (validator === null){
       axResponse = axios.post(localStorage.getItem("server_url")+'/EditUserInfo',this.state).then(response => { 
         if (response.status == 200)      {
-            let myColor = { background: '#000F00', text: "#FFFFFF" };
+            let myColor = { background: '#00FF00', text: "#FFFFFF" };
             notify.show("Your personal information has been updated", "custom", 5000, myColor);
         }
         else{

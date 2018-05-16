@@ -13,8 +13,7 @@ class SelectAllergy extends Component{
             id:0,
             selectedOption: '',
             options: [
-                { value: 'one', label: 'One' },
-                { value: 'two', label: 'Two' }
+                { value: '0', label: '' }
             ]
         }
     }
@@ -24,21 +23,24 @@ class SelectAllergy extends Component{
             this.setState({ selectedOption });
             this.props.callback(selectedOption.value);
         }
+        else{
+            this.setState({ 
+                options: [{ value: '0', label: '' } ]
+            });
+            this.props.callback(selectedOption)
+        }
     }
 
-    reloadRows(param) {
-        if(param===0){
-            let myColor = { background: '#FF0000', text: "#FFFFFF" };
-            //notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
+    SaveAll(){
+        var data = {
+            Visit:this.props.Visit,
+            PatientId:this.props.PatientId
         }
-        this.setState({
-            shouldUpdate: this.state.shouldUpdate + param
-        })
     }
     componentDidMount()
     {
         let _that=this;
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' +  _that.props.id)
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/NonActiveAllergies/' +  _that.props.PatientId)
         .then(function (response) {
             _that.setState({
                 options: response.data.map( allergy => ({ value: allergy.Id, label: allergy.Name }))
@@ -50,16 +52,9 @@ class SelectAllergy extends Component{
         return (this.selectedOption!==nextState.selectedOption)
     }
 
-    getInitialState () {
-		return {
-			clearable: true,
-		};
-    }
-
-
     render() {
         return (
-            <div className="col-sm-8 mt-3">
+            <div className="col-sm-12 mt-3">
                 <Select
                     value={this.state.selectedOption}
                     name="form-field-name"
