@@ -456,4 +456,8 @@
    <sqlFile path="V3.71_ALTER_PROCEDURE_GET_MEDICAL_RECORDS_FOR_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Maksym Sikorskyi" id="V3.72">
+   <sqlFile path="V3.72_UPDATED_PROCEDURE_GET_PAGE_COUNT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
