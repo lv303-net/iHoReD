@@ -23,12 +23,20 @@ namespace HoReD.Controllers
 
 
         [HttpPost]
-        public async Task<UserInfoWithToken> Authenticate(LoginUserBindingModel loginInfo)
+        public async Task<IHttpActionResult> Authenticate(LoginUserBindingModel loginInfo)
         {
-            UserInfoWithToken userInfoWithToken = new UserInfoWithToken();
-            userInfoWithToken.Token = await _authService.GenerateJwtTokenAsync(loginInfo.Email, loginInfo.Password);
-            userInfoWithToken.User = _userService.GetUserInfo(loginInfo.Email);
-            return userInfoWithToken;
+            try
+            {
+                UserInfoWithToken userInfoWithToken = new UserInfoWithToken();
+                userInfoWithToken.Token = await _authService.GenerateJwtTokenAsync(loginInfo.Email, loginInfo.Password);
+                userInfoWithToken.User = _userService.GetUserInfo(loginInfo.Email);
+                return Ok(userInfoWithToken);
+            }
+            catch (Exception e)
+            {
+                return Unauthorized();
+            }
+            
         }
     }
 }

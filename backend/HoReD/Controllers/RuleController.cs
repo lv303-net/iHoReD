@@ -7,7 +7,6 @@ using HoReD.AuthFilters;
 
 namespace HoReD.Controllers
 {
-    [TokenAuthenticate]
     public class RuleController : ApiController
     {
         private readonly IRuleService _ruleService;
@@ -17,6 +16,7 @@ namespace HoReD.Controllers
             _ruleService = ruleService;
         }
 
+        [TokenAuthenticate]
         [HttpGet]
         [Route("Rule")]
         public IHttpActionResult GetRules()
