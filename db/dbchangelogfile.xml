@@ -438,5 +438,14 @@
   <changeSet author="Iryna Halenok" id="V3.67">
    <sqlFile path="V3.67_ALTER_PROCEDURE_REGISTER_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Olya Solyar" id="V3.68">
+   <sqlFile path="V3.68_ALTERED_PROCEDURE_GET_MEDICAL_CARD_BY_USER_ID.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.69">
+   <sqlFile path="V3.69_ALTERED_NON_ACTIVE_DISEASES_FOR_CATEGORY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.69_ALTERED_NON_ACTIVE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
   
 </databaseChangeLog>
