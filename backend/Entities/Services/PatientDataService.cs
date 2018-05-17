@@ -145,6 +145,25 @@ namespace Entities.Services
                 throw;
             }
         }
+        public List<PatientDiseases> GetPatientActiveDiseases(int idPatient)
+        {
+            string cmd = "ACTIVE_DISEASES";
+        var param = new Dictionary<string, object>()
+            {
+                {"@ID_USER", idPatient }
+            };
+
+            try
+            {
+                var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+                return Utils.ParseSqlQuery.GetPatientActiveDiseases(data);
+            }
+
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
         public int AddPatientAllergy(int idPatient, DateTime startTime, int allergy)
         {
             string cmd = "ADD_ALLERGY";

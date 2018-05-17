@@ -82,6 +82,21 @@ namespace HoReD.Controllers
             }
         }
         [HttpGet]
+        [Route("api/PatientData/ActiveDiseases/{id}")]
+        public IHttpActionResult GetPatientActiveDiseases(int id)
+        {
+            try
+            {
+                var result = _patientData.GetPatientActiveDiseases(id);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        [HttpGet]
         [Route("api/PatientData/Categories")]
         public IHttpActionResult GetCategories()
         {
