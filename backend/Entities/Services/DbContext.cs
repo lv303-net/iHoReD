@@ -33,7 +33,7 @@ namespace Entities.Services
                     {
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
-                            result.Append(reader.GetValue(i));
+                            result.Append(reader.GetValue(i).ToString().Trim('*').ToString());
                             result.Append(separatedChar);
                         }
                     }
