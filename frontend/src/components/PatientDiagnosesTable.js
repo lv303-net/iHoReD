@@ -148,18 +148,37 @@ class PatientDiagnosesTable extends React.Component{
         var url = new URL(url_string);
         e.preventDefault();
          var caller = e.target;
-        var number = caller.innerHTML;
+        var number = parseInt(caller.innerHTML);
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('elem', number);
         var newPageNumber;
-        if((this.state.elementsCount*this.state.pageNumber)<number)
+        if(this.state.elementsCount<number)
         {
-            newPageNumber=Math.ceil((this.state.elementsCount*this.state.pageNumber)/number);
+            for(var i=1;i<number;i++)
+            {
+                var start=this.state.elementsCount*(this.state.pageNumber-1)+1;
+                if((start>=((i-1)*number+1))&&((start+this.state.elementsCount-1)<=((i-1)*number+number)))
+                {
+                    newPageNumber=i;
+                }
+                else
+                {
+                    if((start>=((i-1)*number+1))&&((start)<=((i-1)*number+number)))
+                    {
+                        newPageNumber=i;
+                    }
+                }
+            }
+            if(newPageNumber==null)
+            {
+                 newPageNumber=1;
+            }
         }
         else
         {
             newPageNumber=1;
         }
+        this.setState({pageNumber:newPageNumber});
         searchParameter.set('page', newPageNumber);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
         this.AddDropdown(number);

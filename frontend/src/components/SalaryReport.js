@@ -22,12 +22,9 @@ class SalaryReport extends React.Component {
          };
         var url_string = window.location.href;
         var url = new URL(url_string);
-        if (url.search !== '') {
-          
+        if (url.search !== '') { 
           var startdate = Number(url.searchParams.get("startdate"));
-          var enddate = Number(url.searchParams.get("enddate"));
-        
-          
+          var enddate = Number(url.searchParams.get("enddate"));      
          axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' +this.state.startDate.format('YYYY-MM-DD')+ '/' +this.state.endDate.format('YYYY-MM-DD'))
          .then(res => {
            this.setState({            
@@ -38,14 +35,14 @@ class SalaryReport extends React.Component {
             }
               else
               { 
-                 var searchParameter = new URLSearchParams(window.location.search);
-                  searchParameter.set('startdate', this.state.startDate.format('YYYY-MM-DD'));
-                  searchParameter.set('enddate', this.state.endDate.format('YYYY-MM-DD'));
-                   window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-                  axios.get(localStorage.getItem("server_url")+'/DoctorSalaryStatistics/' + this.props.match.params.id +'/' +startdate+ '/' +enddate)
-                  .then(res => {
-                       this.setState({     
-                        salaryData: res.data   
+       var searchParameter = new URLSearchParams(window.location.search);
+        searchParameter.set('startdate', this.state.startDate.format('YYYY-MM-DD'));
+       searchParameter.set('enddate', this.state.endDate.format('YYYY-MM-DD'));
+         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+         axios.get(localStorage.getItem("server_url")+'/DoctorSalaryStatistics/' + this.props.match.params.id +'/' +this.state.startDate.format('YYYY-MM-DD')+ '/' +this.state.endDate.format('YYYY-MM-DD'))
+         .then(res => {
+        this.setState({     
+        salaryData: res.data   
                        })
                   });
               }     
@@ -78,6 +75,10 @@ class SalaryReport extends React.Component {
            salaryData: res.data,      
            })
   });
+  $('#multiCollapse').attr('aria-expanded', 'false');
+  $('#multiCollapse').addClass('collapsed');
+  $('#multiCollapseExample1').removeClass('show');
+  $('.monthInfo').removeClass('show');
   var url_string = window.location.href;
   var url = new URL(url_string);
   e.preventDefault();
@@ -90,8 +91,9 @@ class SalaryReport extends React.Component {
     let array = this.state.salaryData.map(items =>items.map(item=>item.WorkedHours));
     let total=0;
     for(let i=0;i<array.length;i++){
-      for(let j=0;j<array[i].length;j++)
-      total+=array[i][j];
+     
+      total+=array[i][array[i].length-1];
+       
     }
     return total;
 }
@@ -99,17 +101,15 @@ averageCoeff(){
   let array = this.state.salaryData.map(items =>items.map(item =>item.SalaryCoefficient));
   let total=0;
   for(let i=0;i<array.length;i++){
-    for(let j=0;j<array[i].length;j++)
-    total+=array[i][j]/(array[i].length*array.length);
-     }
-  return Math.round(total,4);
+    total+=array[i][array[i].length-1]/array.length;
+         }
+         return Math.round(total,4);
 }
 averageRate(){
   let array = this.state.salaryData.map(items =>items.map(item => item.SalaryRate))
   let total=0;
   for(let i=0;i<array.length;i++){
- for(let j=0;j<array[i].length;j++)
- total+=array[i][j]/(array[i].length*array.length);
+    total+=array[i][array[i].length-1]/array.length;
   }
   return Math.round(total,4);
 }
@@ -117,21 +117,23 @@ earnedMoney(){
   let array = this.state.salaryData.map(items =>items.map(item  => item.EarnedMoney))
   let total=0;
   for(let i=0;i<array.length;i++){
-    for(let j=0;j<array[i].length;j++)
-    total+=array[i][j];
+    total+=array[i][array[i].length-1];
   }
   return total;
 }
   render() {
      return (
       <div>
-        <div class="panel-body text-center py-5 mx-5">
+        <div className="panel-body text-center py-5 mx-5">
+        <h2 id="name" className="font-italic text-center text-muted">
+            Salary Report
+          </h2>
           <h3 id="name">
             {localStorage.getItem("currentUserFirstName") + "    "} 
             {" " + localStorage.getItem("currentUserLastName")}
           </h3>
         </div>
-        <div className="container mt-5">
+        <div className="container mt-5" id="picker">
           <div className="row text-center">
             <div className="col-lg-4 col-md-4 col-12">
               Start Date:
@@ -163,44 +165,49 @@ earnedMoney(){
             <div className="col-12">
                    <div className="row mt-5 mx-1">
                   <div className="col">
-                    <div class="row" id="patientcard">
-                    <div class="col-6 col-custom-header" id="col-custom">Total sum</div>
-                      <div class="col-6" id="col-custom">{this.earnedMoney()}</div>                                   
+                    <div className="row" id="patientcard">
+                    <div className="col-6 col-custom-header" id="col-custom">Total sum</div>
+                      <div className="col-6">{this.earnedMoney()}</div>                                   
                     </div>
-                    <div class="row" id="patientcard">
-                      <div class="col-6 col-custom-header" id="col-custom">Average rate</div>
-                      <div class="col-6" id="col-custom">{this.averageRate()}</div>
+                    <div className="row" id="patientcard">
+                      <div className="col-6 col-custom-header" id="col-custom">Average rate</div>
+                      <div className="col-6">{this.averageRate()}</div>
                     </div>
-                    <div class="row" id="patientcard">
-                      <div class="col-6 col-custom-header" id="col-custom">Average coefficient</div>
-                      <div class="col-6" id="col-custom">{this.averageCoeff()}</div>
+                    <div className="row" id="patientcard">
+                      <div className="col-6 col-custom-header" id="col-custom">Average coefficient</div>
+                      <div className="col-6">{this.averageCoeff()}</div>
                     </div>
-                    <div class="row" id="patientcard">
-                      <div class="col-6 col-custom-header" id="col-custom">Worked hours</div>
-                      <div class="col-6" id="col-custom">{this.sumWorkedHours()}</div>
+                    <div className="row" id="patientcard">
+                      <div className="col-6 col-custom-header" id="col-custom">Worked hours</div>
+                      <div className="col-6">{this.sumWorkedHours()}</div>
                     </div>
                   </div>
                 </div>
             </div>
             <div className="col-3 mt-5">
-              <p><a class="btn btn-primary salarybutton" data-toggle="collapse" id="multiCollapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+              <p><a class="btn btn-primary salarybutton" data-toggle="collapse" id="multiCollapse" href="#collapseExample1" role="button" aria-expanded="false"
                 aria-controls="multiCollapseExample1">More details</a></p>
             </div>
           </div>
-            <div class="collapse multi-collapse mt-5" id="multiCollapseExample1">
+         
+            <div class="collapse multi-collapse mt-5" id="collapseExample1">
              
-              <div id='listProf' className="list-group"> 
+             
                 {this.state.salaryData.map(items =>
-                 <div className="col-12 mt-5">
-                 <p><a class="btn btn-primary salarybutton" data-toggle="collapse" id="multiCollapse" href={'#' + items.toString()} role="button" aria-expanded="false"
+                 <div className="monthButton"> 
+               <div className="row">
+               <div className="col-3 col-md-4">
+                 <p><a className="btn btn-primary salarybutton" data-toggle="collapse" id="multiCollapse" href={'#' + items.toString()} role="button" aria-expanded="true"
                    aria-controls="multiCollapseExample">{items[0].Day.slice(0,7).toString()}</a></p>
-                   <div class="collapse multi-collapse mt-5" id={items.toString()}>
-              <div class="row" id="patientcard">
-                <div class="col-3 col-custom-header" id="col-custom">Date</div>
-                <div class="col-2 col-custom-header" id="col-custom">Hours</div>
-                <div class="col-2 col-custom-header" id="col-custom">Coeff</div>
-                <div class="col-2 col-custom-header" id="col-custom">Rate</div>
-                <div class="col-3 col-custom-header" id="col-custom">Total</div>
+                  </div>
+                  </div>
+                   <div className="collapse multi-collapse mt-5 monthInfo" id={items.toString()}>
+              <div className="row" id="patientcard">
+                <div className="col-3 col-custom-header" id="col-custom">Date</div>
+                <div className="col-2 col-custom-header" id="col-custom">Hours</div>
+                <div className="col-2 col-custom-header" id="col-custom">Coeff</div>
+                <div className="col-2 col-custom-header" id="col-custom">Rate</div>
+                <div className="col-3 col-custom-header">Total</div>
               </div>             
                {
                 items.map(item=> <DayReport  day={item.Day}
@@ -209,12 +216,14 @@ earnedMoney(){
                 />)
                  }
                  </div>
-                 </div>
+                </div>
+                
               )}
               </div>
-              </div>
+              </div> 
+                     
         </div>
-      </div>
+     
 
     )
   }
