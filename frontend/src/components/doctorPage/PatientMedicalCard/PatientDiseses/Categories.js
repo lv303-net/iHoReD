@@ -23,7 +23,6 @@ class Categories extends Component{
     reloadRows(param) {
         if(param===0){
             let myColor = { background: '#FF0000', text: "#FFFFFF" };
-            //notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
         }
         
         this.setState({

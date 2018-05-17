@@ -81,6 +81,8 @@ a:link, a:visited {
 }
 
 @media only screen and (max-width : 480px) {
+    .nav-item#itemlink1,
+    .nav-item#itemlink2,
     .nav-item#itemlink3 {
         height: 64px;
     }

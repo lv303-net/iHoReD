@@ -36,8 +36,8 @@ class DoctorCalendar extends React.Component{
     this.setState({
       startPeriod: start,
       endPeriod: end,
-      idDoc :1,
-      idPatient :11
+      idDoc: localStorage.getItem("currentUserId")
+      // idPatient :11
     })
   }
     
@@ -180,7 +180,7 @@ class DoctorCalendar extends React.Component{
         content = 
       <div>
         <Notifications />
-        <div className="row justify-content-center">
+        <div className="row justify-content-center" id="doctorCalendarDiv">
         <div className="col-sm-11 col-md-10 mt-5" id = "calendarDiv">
         <div id = "calendar">
           <button data-toggle="modal" data-target="#mModal" id = "modButton" style={{display: "none"}}>
