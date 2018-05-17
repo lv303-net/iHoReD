@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import '../style/PatientDiagnosesTable.css';
 import CardDisease from '../components/CardDisease';
+import { EALREADY } from 'constants';
 
 localStorage.removeItem("currentProfession");
 
@@ -166,39 +167,38 @@ class PatientDiagnosesTable extends React.Component{
                 if((start>=((i-1)*number+1))&&((start+this.state.elementsCount-1)<=((i-1)*number+number)))
                 {
                     newPageNumber=i;
-                    if((i+1)<this.state.pageCount)
-                    {
-                        this.setState({numberStart:i,numberFinish:i+1})
-                    }
                 }
                 else
                 {
                     if((start>=((i-1)*number+1))&&((start)<=((i-1)*number+number)))
                     {
                         newPageNumber=i;
-                        if((i+1)<this.state.pageCount)
-                        {
-                            this.setState({numberStart:i,numberFinish:i+1})
-                        }
                     }
                 }
             }
             if(newPageNumber==null)
             {
                  newPageNumber=1;
-                 if(2<this.state.pageCount)
-                        {
-                            this.setState({numberStart:1,numberFinish:2})
-                        }
-                        else
-                        {
-                            this.setState({numberStart:1,numberFinish:1})
-                        }
             }
         }
         else
         {
             newPageNumber=1;
+        }
+        if((newPageNumber+1)<this.state.pageCount)
+        {
+            this.setState({numberStart:newPageNumber,numberFinish:newPageNumber+1})
+        }
+        else
+        {
+            if((newPageNumber-1)>=1)
+        {
+            this.setState({numberStart:newPageNumber-1,numberFinish:newPageNumber})
+        }
+        else
+        {
+            this.setState({numberStart:newPageNumber,numberFinish:newPageNumber})
+        }
         }
         this.setState({pageNumber:newPageNumber});
         searchParameter.set('page', newPageNumber);
