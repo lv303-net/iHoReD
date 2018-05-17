@@ -25,14 +25,14 @@ class PatientMedicalCard extends Component {
         <div className="container">
             <PatientInfo PatientId={this.props.match.params.id} shouldUpdate={this.state.shouldUpdate}/>
             <div className="row">
-              <div className="col-sm-12 col-6">
+              <div className="col-6">
                 <Diagnoses PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)}/>
               </div>
-              <div className="col-sm-12 col-6">
-                <AllergiesCard className="col-3"  PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)}/>
+              <div className="col-6">
+                <AllergiesCard PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)}/>
               </div>
             </div>
-            <AddMedRecord/>
+            <AddMedRecord PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate}/>
         </div>
       </div>
     );

@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import '../style/PatientDiagnosesTable.css';
 import CardDisease from '../components/CardDisease';
+import { EALREADY } from 'constants';
 
 localStorage.removeItem("currentProfession");
 
@@ -19,7 +20,8 @@ class PatientDiagnosesTable extends React.Component{
           pageNumber:'1',
           pageCount:2,
           numberStart:1,
-          numberFinish:2
+          numberFinish:2,
+          ifArrow:false
         };
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -95,7 +97,7 @@ class PatientDiagnosesTable extends React.Component{
                 searchParameter.delete('page');
                 let tempStart=this.state.numberStart+1;
                 let tempFinish=this.state.numberFinish+1;
-                this.setState({numberStart:tempStart,numberFinish:tempFinish});
+                this.setState({numberStart:tempStart,numberFinish:tempFinish,ifArrow:true});
                 this.removeActive();
             }
         }
@@ -108,7 +110,7 @@ class PatientDiagnosesTable extends React.Component{
                 searchParameter.delete("page");
                 let tempStart=this.state.numberStart-1;
                 let tempFinish=this.state.numberFinish-1;
-                this.setState({numberStart:tempStart,numberFinish:tempFinish});
+                this.setState({numberStart:tempStart,numberFinish:tempFinish,ifArrow:true});
                 this.removeActive();
             }
         }
@@ -121,7 +123,8 @@ class PatientDiagnosesTable extends React.Component{
         .then(res => {
              this.setState({
               diagnosesArr: res.data,
-              pageNumber:number
+              pageNumber:number,
+              ifArrow:false
              })
         });
         }
@@ -138,7 +141,7 @@ class PatientDiagnosesTable extends React.Component{
        {
         let i;
         for (i = this.state.numberStart; i <= this.state.numberFinish; i++) { 
-            $('.pages li#mypageitem'+i).removeClass('active');
+            $('.pages li#mypageitem'+(i)).removeClass('active');
           }
        }
 
@@ -166,39 +169,38 @@ class PatientDiagnosesTable extends React.Component{
                 if((start>=((i-1)*number+1))&&((start+this.state.elementsCount-1)<=((i-1)*number+number)))
                 {
                     newPageNumber=i;
-                    if((i+1)<this.state.pageCount)
-                    {
-                        this.setState({numberStart:i,numberFinish:i+1})
-                    }
                 }
                 else
                 {
                     if((start>=((i-1)*number+1))&&((start)<=((i-1)*number+number)))
                     {
                         newPageNumber=i;
-                        if((i+1)<this.state.pageCount)
-                        {
-                            this.setState({numberStart:i,numberFinish:i+1})
-                        }
                     }
                 }
             }
             if(newPageNumber==null)
             {
                  newPageNumber=1;
-                 if(2<this.state.pageCount)
-                        {
-                            this.setState({numberStart:1,numberFinish:2})
-                        }
-                        else
-                        {
-                            this.setState({numberStart:1,numberFinish:1})
-                        }
             }
         }
         else
         {
             newPageNumber=1;
+        }
+        if((newPageNumber+1)<this.state.pageCount)
+        {
+            this.setState({numberStart:newPageNumber,numberFinish:newPageNumber+1})
+        }
+        else
+        {
+            if((newPageNumber-1)>=1)
+        {
+            this.setState({numberStart:newPageNumber-1,numberFinish:newPageNumber})
+        }
+        else
+        {
+            this.setState({numberStart:newPageNumber,numberFinish:newPageNumber})
+        }
         }
         this.setState({pageNumber:newPageNumber});
         searchParameter.set('page', newPageNumber);
@@ -312,7 +314,10 @@ class PatientDiagnosesTable extends React.Component{
            var item=<li className="page-item mypag-item" id={"mypageitem"+(i+1)}><a className="page-link mypag-link" id="mypagelink">{(i+1).toString()}</a></li>
             arr.push(item);
         }
-        this.activePages(Number(url.searchParams.get("page")));
+        if(!this.state.ifArrow)
+        {
+            this.activePages(Number(url.searchParams.get("page")));
+        }
         return arr;
       }
 
