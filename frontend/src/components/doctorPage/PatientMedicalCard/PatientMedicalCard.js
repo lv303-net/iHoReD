@@ -32,7 +32,7 @@ class PatientMedicalCard extends Component {
                 <AllergiesCard PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)}/>
               </div>
             </div>
-            <AddMedRecord/>
+            <AddMedRecord PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate}/>
         </div>
       </div>
     );
