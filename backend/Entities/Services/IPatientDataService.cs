@@ -13,8 +13,8 @@ namespace Entities.Services
         List<Allergy> GetPatientNonActiveAllergies(int id);
         List<IllnessCategory> GetCategories();
         List<IllnessSubCategory> GetSubCategories(int idCategory);
-        List<IllnessDiseases> GetDiseasies(int idSubCategory);
-        List<IllnessSubDiseases> GetPatientSubDiseasies(int idPatient, int idDisease); 
+        List<IllnessDiseases> GetDiseases(int idSubCategory);
+        List<IllnessSubDiseases> GetPatientSubDiseases(int idPatient, int idDisease); 
         List<PatientDiseases> GetPatientActiveDiseases(int idPatient);
         int AddMedicalRecord(int idPatient, DateTime startTime, string description, string treatment);
         int AddPatientAllergy(int id, DateTime startTime, int allergy);

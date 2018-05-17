@@ -212,11 +212,11 @@ namespace Entities.Utils
             {
                 var patientData = new PatientData
                 {
-                    FirstName = values.GetValue(i).ToString(),
-                    LastName = values.GetValue(1 + i).ToString(),
-                    Birthday = Convert.ToDateTime(values.GetValue(2 + i)),
-                    Phone = values.GetValue(3 + i).ToString(),
-                    BloodType = values.GetValue(4 + i).ToString(),
+                    FirstName = (values.GetValue(i) ?? "Not specified").ToString(),
+                    LastName = (values.GetValue(1 + i) ?? "Not specified").ToString(),
+                    Birthday = Convert.ToDateTime((values.GetValue(2 + i) != "") ? values.GetValue(2 + i) : new DateTime(1900, 1, 1)),
+                    Phone = (values.GetValue(3 + i) ?? "Not specified").ToString(),
+                    BloodType = (values.GetValue(4 + i) ?? "Not specified").ToString(),
                 };
                 result.Add(patientData);
             }
@@ -254,7 +254,7 @@ namespace Entities.Utils
             }
             return result;
         }
-        public static List<IllnessDiseases> GetDiseasies(string bdResult)
+        public static List<IllnessDiseases> GetDiseases(string bdResult)
         {
             var values = bdResult.Split('*');
             var result = new List<IllnessDiseases>();
