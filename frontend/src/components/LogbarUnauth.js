@@ -48,7 +48,8 @@ class LogbarUnauth extends Component {
 
     axios.post(localStorage.getItem("server_url") + '/api/Login', userAuth)
       .then(function (response) {
-        window.location.reload();
+        //window.location.reload();
+        window.location.href = window.location.origin + '/user';
         localStorage.setItem("currentUserId", (response.data.Id));
         localStorage.setItem("currentUserFirstName", (response.data.FirstName));
         localStorage.setItem("currentUserLastName", (response.data.LastName));
