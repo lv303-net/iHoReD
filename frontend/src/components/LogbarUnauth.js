@@ -45,12 +45,13 @@ class LogbarUnauth extends Component {
       password: this.passwordAuth
     }
 
-    axios.post(localStorage.getItem("server_url") + '/api/Login', userAuth)
+    axios.post(localStorage.getItem("server_url") + '/api/membership', userAuth)
       .then(function (response) {
         window.location.reload();
-        localStorage.setItem("currentUserId", (response.data.Id));
-        localStorage.setItem("currentUserFirstName", (response.data.FirstName));
-        localStorage.setItem("currentUserLastName", (response.data.LastName));
+        localStorage.setItem("currentUserId", (response.data.User.Id));
+        localStorage.setItem("currentUserFirstName", (response.data.User.FirstName));
+        localStorage.setItem("currentUserLastName", (response.data.User.LastName));
+        localStorage.setItem("accessToken", response.data.Token)
       });
   }
 
