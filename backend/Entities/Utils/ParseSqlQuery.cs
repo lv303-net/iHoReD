@@ -204,6 +204,28 @@ namespace Entities.Utils
             
             return result;
         }
+        public static List<MedicalCard> GetMedicalRecords(string dbResult)
+        {
+            var values = dbResult.Split('*');
+            var result = new List<MedicalCard>();
+            for (int i = 0; i < values.Length - 1; i += 8)
+            {
+                var medicalCard = new MedicalCard
+                {
+                    CardId = Convert.ToInt32(values.GetValue(i)),
+                    Description = values.GetValue(1 + i).ToString(),
+                    Cure = values.GetValue(2 + i).ToString(),
+                    DoctorFirstname = values.GetValue(3 + i).ToString(),
+                    Doctorlastname = values.GetValue(4 + i).ToString(),
+                    IdPatient = Convert.ToInt32(values.GetValue(5 + i)),
+                    StartDateTime = Convert.ToDateTime(values.GetValue(6 + i)),
+                    IdVisit = Convert.ToInt32(values.GetValue(7 + i))
+                };
+                result.Add(medicalCard);
+            }
+
+            return result;
+        }
         public static List<PatientData> GetPatientData(string bdResult)
         {
             var values = bdResult.Split('*');

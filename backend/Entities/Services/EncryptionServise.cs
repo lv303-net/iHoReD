@@ -12,7 +12,7 @@ namespace Entities.Services
     {
         public static string Encrypt(string clearText)
         {
-            string EncryptionKey = "abc123";
+            string EncryptionKey = "a";
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
             using (Aes encryptor = Aes.Create())
             {
@@ -33,8 +33,7 @@ namespace Entities.Services
         }
         public static string Decrypt(string cipherText)
         {
-            string EncryptionKey = "abc123";
-            cipherText = cipherText.Replace(' ', '+').Replace('/', '_');
+            string EncryptionKey = "a";
             byte[] cipherBytes = Convert.FromBase64String(cipherText);   
             using (Aes encryptor = Aes.Create())
             {
