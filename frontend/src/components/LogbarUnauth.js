@@ -46,13 +46,14 @@ class LogbarUnauth extends Component {
       password: this.passwordAuth
     }
 
-    axios.post(localStorage.getItem("server_url") + '/api/Login', userAuth)
+    axios.post(localStorage.getItem("server_url") + '/api/membership', userAuth)
       .then(function (response) {
         //window.location.reload();
         window.location.href = window.location.origin + '/user';
-        localStorage.setItem("currentUserId", (response.data.Id));
-        localStorage.setItem("currentUserFirstName", (response.data.FirstName));
-        localStorage.setItem("currentUserLastName", (response.data.LastName));
+        localStorage.setItem("currentUserId", (response.data.User.Id));
+        localStorage.setItem("currentUserFirstName", (response.data.User.FirstName));
+        localStorage.setItem("currentUserLastName", (response.data.User.LastName));
+        localStorage.setItem("accessToken", response.data.Token)
       }).catch(error => {
         //console.log(error.response);
         let myColor = { background: '#FF0000', text: "#FFFFFF" };
@@ -196,6 +197,7 @@ class LogbarUnauth extends Component {
   }
 
   validateEmail() {
+
     if (validator.isEmail(this.emailRegistr) && !this.emailRegistr.includes("*")){
       this.validEmail = true;
       return true;
