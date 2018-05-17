@@ -150,7 +150,7 @@ import $ from 'jquery';
             {
             this.state.ratesArr.map(
             rate =>
-            <div className="row professionrow" id={"salaryinfo" + rate.StartDate}>
+            <div className="row professionrow" id={"salaryinfo" + rate.StartDate} key={"salaryinfo" + rate.StartDate}>
                 <div className="col-3" id="col-custom">
                         {
                         rate.State==1?
@@ -181,14 +181,14 @@ import $ from 'jquery';
                     
                 </div>
                 <div className="col-5 text-center" id="col-custom dateDiv">{rate.StartDate.slice(0, 10)}</div>
-                <DeleteRateToProfession date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
-                <EditRateToProfession  date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
-                <AddRateToProfession callback={this.reloadRows.bind(this)}/>
             </div>
           )
         }
         
         </div>
+        <DeleteRateToProfession date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
+        <EditRateToProfession  date = {this.state.currentDate} callback={this.reloadRows.bind(this)}/>
+        <AddRateToProfession callback={this.reloadRows.bind(this)}/>
         </div>
         )
         }

@@ -114,16 +114,16 @@ class EditRateToProfession extends Component{
 
     render(){
         return(
-            <div class="modal fade" id="EditRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="exampleModalLabel">Confirm editing</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div className="modal fade" id="EditRateToProfession" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h3 className="modal-title" id="exampleModalLabel">Confirm editing</h3>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
                         <div className="form-row ml-3 justify-content-center">
                             <div className="form-group justify-content-center col-sm-2 col-xs-12 mb-0">
                                 <p className="labelForm">Rate</p>

@@ -98,7 +98,7 @@ class AddRateToProfession extends Component{
             let url = new URL(url_string);
             let idDoc = url.searchParams.get("doc");
         return(
-            <div className="modal fade" id="AddRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="AddRateToProfession" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
              
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
@@ -106,7 +106,7 @@ class AddRateToProfession extends Component{
                             <h3 className="modal-title" id="exampleModalLabel">
                             {idDoc === null ? "Confirm adding new rate" : "Confirm adding new coefficient"}
                             </h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
