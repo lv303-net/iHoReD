@@ -15,7 +15,7 @@ import '../style/SalaryReport.css';
       render() {  
               return (              
         <div className="row" id="patientcard">
-        <div className="col-3" id="col-custom">{(this.props.day==null) ? <strong>Total</strong> : this.props.day.slice(0,7)}</div>
+        <div className="col-3" id="col-custom">{(this.props.day==null) ? <strong>Total</strong> : this.props.day.slice(0,10)}</div>
         <div className="col-2"id="col-custom">{this.props.workedHours}</div>
         <div className="col-2"id="col-custom">{this.props.salaryCoefficient}</div>
         <div className="col-2"id="col-custom">{this.props.salaryRate}</div>
