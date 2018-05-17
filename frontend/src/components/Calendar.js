@@ -248,7 +248,6 @@ class Calendar extends React.Component{
     render(){
       var doctor;
       doctor = $("#doc"+this.state.idDoc).text();
-      console.log(doctor);
       if($('#nameDoc').text()==="")
         doctor = $("#doc"+this.state.idDoc).text();
       else

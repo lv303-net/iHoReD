@@ -15,7 +15,7 @@ class UserSwitch extends Component {
             <Route exact path='/user' render={() => <Redirect to="/user/schedule" />}/>
             <Route exact path="/user/schedule" component={App}/>
             <Route exact path="/user/edit" component={Edit}/>
-            <Route path="/user/medicalCard/:id" component={MedicalCard}/>
+            <Route exact path="/user/medicalCard/:id" component={MedicalCard}/>
             <Route component={NotFound} />
           </Switch>
         </main>

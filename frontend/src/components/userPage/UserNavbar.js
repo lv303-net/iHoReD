@@ -11,11 +11,10 @@ class UserNavbar extends Component {
     this.state = {
       idLink: 0
     };
-    this.colorSelected = this.colorSelected.bind(this);
     this.getValueFromURL = this.getValueFromURL.bind(this);
   };
 
-  colorSelected(e) {
+  tabSelected(e) {
     e.preventDefault();
     var caller = e.target || e.srcElement;
     var id = caller.id;
@@ -25,19 +24,24 @@ class UserNavbar extends Component {
   }
 
   getValueFromURL() {
-    if(window.location.href.indexOf("schedule") != -1) {
+    if (window.location.href.indexOf("schedule") != -1) {
       this.setState({
         idLink: "link1"
       })
-    } 
+    }
     else if (window.location.href.indexOf("edit") != -1) {
       this.setState({
         idLink: "link2"
       })
     }
-    else {
+    else if (window.location.href.indexOf("medicalCard") != -1) {
       this.setState({
         idLink: "link3"
+      })
+    }
+    else {
+      this.setState({
+        idLink: "link0"
       })
     }
   }
@@ -53,16 +57,15 @@ class UserNavbar extends Component {
   componentWillUpdate(nextProps, nextState) {
     this.getValueFromURL();
     $(".main-nav1").find(".active").removeClass("active");
-    $('.main-nav1 #item'+nextState.idLink).addClass('active'); 
+    $('.main-nav1 #item' + nextState.idLink).addClass('active');
   }
 
-  render() {    
+  render() {
     var id = localStorage.getItem("currentUserId");
-    console.log(id);
     return (
       <nav className="navbar navbar-light bg-light" id="navbarAdmin">
         <div className="navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav main-nav1" onClick={(e) => { this.colorSelected(e) }} >
+          <ul className="navbar-nav main-nav1" onClick={(e) => { this.tabSelected(e) }} >
             <li className="nav-item" id="itemlink1">
               <Link to='/user/schedule'>
                 <span className="nav-link" id="link1">Schedule</span>
@@ -74,7 +77,7 @@ class UserNavbar extends Component {
               </Link>
             </li>
             <li className="nav-item" id="itemlink3">
-              <Link to={'/user/medicalCard/' +id}>
+              <Link to={'/user/medicalCard/' + id}>
                 <span className="nav-link" id="link3">Medical Card</span>
               </Link>
             </li>

@@ -38,6 +38,7 @@ class AddAllergy extends Component{
             }   
             axios.post(localStorage.getItem("server_url") + '/api/PatientData/AddAllergy', newAllergy)
             .then(response=>{
+                this.props.callback(response.data);
             })     
     }
     

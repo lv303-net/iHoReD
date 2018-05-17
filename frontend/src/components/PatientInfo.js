@@ -40,24 +40,39 @@ class PatientInfo extends React.Component {
             diseases: [],
             id: 1
         };
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + this.props.PatientId)
-            .then(res => {
-                this.setState({
-                    userdata: res.data,
-                });
+        this.getPatientData(this.props.PatientId);
+    }
+    componentDidMount(){
+        this.getPatientData(this.props.PatientId);
+    }
+    getPatientData(PatientId){
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + PatientId)
+        .then(res => {
+            this.setState({
+                userdata: res.data,
             });
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + this.props.PatientId)
+        });
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + PatientId)
             .then(res => {
                 this.setState({
                     allergies: res.data,
                 });
             });
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + this.props.PatientId)
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + PatientId)
             .then(res => {
                 this.setState({
                     diseases: res.data,
                 });
         });
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        return (this.props.shouldUpdate!==nextProps.shouldUpdate || this.state!==nextState)
+    }
+
+    componentWillUpdate(nextProps, nextState){
+        if(this.props.shouldUpdate!==nextProps.shouldUpdate){
+            this.getPatientData(this.props.PatientId);
+        }
     }
     render() {
         console.log(this.props.PatientId);
