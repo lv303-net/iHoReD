@@ -14,7 +14,7 @@ class SelectDoctor extends Component{
             idProf:0,
             selectedOption: '',
             options: [
-                { value: '0', label: 'j' }
+                { value: '0', label: '' }
             ]
         }
     }
@@ -31,6 +31,7 @@ class SelectDoctor extends Component{
         }
         else{
             //searchParameter.delete('doc');
+            this.props.callback(selectedOption);
         }
     }
 
@@ -65,22 +66,28 @@ class SelectDoctor extends Component{
     }
 
     shouldComponentUpdate(nextProps, nextState){
-        return (this.state.idProf !== nextState.idProf || this.state.options!==nextState.options || this.props.idProf !==nextProps.idProf || this.state.idDoc!==nextState.idDoc)
+        return (this.state.idProf !== nextState.idProf || this.state.options!==nextState.options || this.props.shouldUpdate!==nextProps.shouldUpdate || this.props.idProf !==nextProps.idProf || this.state.idDoc!==nextState.idDoc)
       }
     componentWillUpdate(nextProps, nextState){
         // if(this.state.idProf === nextState.idProf)
         // {
             this.setStateIdProf();
         //}
+        if(this.props.shouldUpdate!==nextProps.shouldUpdate){
+            this.setState({
+                selectedOption: null
+            })
+        }
         let _that = this;
         if(this.state.idProf !== nextState.idProf)
-        {
+        {   
         axios.get(localStorage.getItem("server_url") + '/GetDoctors/' + nextState.idProf)
             .then(function (response) {
                 _that.setState({
                     options: response.data.map( doctor => ({ value: doctor[2], label: doctor[0] + " " + doctor[1]}))
                 })
             })
+            _that.handleChange(null);
         }
     }
     render() {

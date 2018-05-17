@@ -10,7 +10,6 @@ class Calendar extends React.Component{
     this.state = { idDoc: 0, 
       startPeriod: '', 
       endPeriod: '', 
-      events:[], 
       startTime:'', 
       endTime:'',
       shouldUpdate: 1,
@@ -121,8 +120,7 @@ class Calendar extends React.Component{
       },
       defaultView: "agendaDay",
       selectable: false,
-      selectHelper: true,
-      editable: true,
+      editable: false,
       themeSystem: 'bootstrap4',
       allDaySlot: false,
       lazyFetching: true,
@@ -179,14 +177,8 @@ class Calendar extends React.Component{
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (( this.state.shouldUpdate!==nextState.shouldUpdate) 
-    ||(this.state.startPeriod!== nextState.startPeriod) 
-    || (this.state.endPeriod!== nextState.endPeriod) 
-    || (this.state.startTime!== nextState.startTime) 
-    || (this.state.endTime!== nextState.endTime) 
-    || (this.state.idDoc!== nextState.idDoc)
-    || (this.props.idDoctor!==nextProps.idDoctor)
-    || (this.state.bookingModalMessage!==nextState.bookingModalMessage));       
+    return (( this.state!==nextState)
+    || (this.props.idDoctor!==nextProps.idDoctor));       
   }
 
   componentWillUpdate(nextProps, nextState){
@@ -248,7 +240,6 @@ class Calendar extends React.Component{
     render(){
       var doctor;
       doctor = $("#doc"+this.state.idDoc).text();
-      console.log(doctor);
       if($('#nameDoc').text()==="")
         doctor = $("#doc"+this.state.idDoc).text();
       else

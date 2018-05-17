@@ -3,6 +3,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import Categories from './Categories';
 import AddDisease from './../../modaldialogs/AddDisease';
+import PropTypes from 'prop-types';
 
 class Diagnoses extends Component{
     constructor(props) {
@@ -14,10 +15,7 @@ class Diagnoses extends Component{
         }
     }
     reloadRows(param) {
-        if(param===0){
-            let myColor = { background: '#FF0000', text: "#FFFFFF" };
-            //notify.show("You can not add multiple rates/salaries for one day", "custom", 5000, myColor);
-        }
+        this.props.callback(param);
     }
     getProfessionId(param) {
         this.setState({
@@ -34,8 +32,8 @@ class Diagnoses extends Component{
 
     render(){
         return(
-            <div className="row ml-4"> 
-                <div className="col-sm-5 col-md-2 text-center mt-4">
+            <div className="row justify-content-center"> 
+                <div className="col-md-6 col-8 text-center mt-4">
                     <button type="button" className="btn btn-info btn-lg mb-3" id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">Add disease
                     </button>
                 </div>
@@ -44,5 +42,7 @@ class Diagnoses extends Component{
         )
     }
 }
-
+Diagnoses.propTypes = {
+    callback: PropTypes.func
+  };
 export default Diagnoses

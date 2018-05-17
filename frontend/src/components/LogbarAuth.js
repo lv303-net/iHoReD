@@ -4,12 +4,24 @@ import logo from '../images/logo.png';
 import '../style/Navbar.css';
 
 class LogbarAuth extends Component {
+  constructor(){
+    super();
+    this.state={
+      firstName: localStorage.getItem("currentUserFirstName"),
+      lastName: localStorage.getItem("currentUserLastName"),
+    }
+  }
   SignOut(){
       localStorage.removeItem("currentUserFirstName");
       localStorage.removeItem("currentUserLastName");
       localStorage.removeItem("accessToken");
   }
   
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+        this.state.firstName!==nextState.firstName
+        || this.props.lastName!==nextProps.lastName);
+}
   render(){
     return (
       <div>
@@ -24,7 +36,7 @@ class LogbarAuth extends Component {
           <form className="form-inline text-center" action="/action_page.php">
             <ul className="nav">
               <li className="nav-item btn-custom">
-                <a className="nav-link" id ="link-custom">{localStorage.getItem("currentUserFirstName") + " " + localStorage.getItem("currentUserLastName") + " "}</a>
+                <a className="nav-link" id ="link-custom">{this.state.firstName + " " + this.state.lastName + " "}</a>
               </li>
               <li className="nav-item btn-custom">
                 <a className="nav-link" id ="link-custom"  href="/" onClick={this.SignOut}>Sign out</a> 

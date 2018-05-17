@@ -40,39 +40,54 @@ class PatientInfo extends React.Component {
             diseases: [],
             id: 1
         };
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + this.props.PatientId)
-            .then(res => {
-                this.setState({
-                    userdata: res.data,
-                });
+        this.getPatientData(this.props.PatientId);
+    }
+    componentDidMount(){
+        this.getPatientData(this.props.PatientId);
+    }
+    getPatientData(PatientId){
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + PatientId)
+        .then(res => {
+            this.setState({
+                userdata: res.data,
             });
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + this.props.PatientId)
+        });
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + PatientId)
             .then(res => {
                 this.setState({
                     allergies: res.data,
                 });
             });
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + this.props.PatientId)
+        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + PatientId)
             .then(res => {
                 this.setState({
                     diseases: res.data,
                 });
         });
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        return (this.props.shouldUpdate!==nextProps.shouldUpdate || this.state!==nextState)
+    }
+
+    componentWillUpdate(nextProps, nextState){
+        if(this.props.shouldUpdate!==nextProps.shouldUpdate){
+            this.getPatientData(this.props.PatientId);
+        }
+    }
     render() {
         console.log(this.props.PatientId);
         return (
             <div className="container mt-5">
                 <div className="row">
-                    <div className="col-xs-12 col-2">
+                    <div className="col-sm-12 col-md-2 mb-3">
                         <img className="card-img-top" src={photo} alt="Card image"></img>
                     </div>
-                    <div className="col-xs-12 col-5">
+                    <div className="col-sm-12 col-md-5 mb-3">
                         {this.state.userdata.map(item => <AboutPatient firstname={item.FirstName}
                             lastname={item.LastName} birthday={item.Birthday}
                             phone={item.Phone} bloodtype={item.BloodType} />)}
                     </div>
-                    <div className="col-xs-12 col-5">
+                    <div className="col-sm-12 col-md-5">
                         <div className="row" id="patientcard">
                             <div className="col-5" id="col-custom">Allergies:</div>
                             <div className="col-7">

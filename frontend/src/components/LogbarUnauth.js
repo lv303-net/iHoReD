@@ -5,6 +5,7 @@ import validator from 'validator';
 import logo from '../images/logo.png';
 import '../style/Navbar.css';
 import $ from 'jquery';
+import Notifications, {notify} from 'react-notify-toast';
 
 
 class LogbarUnauth extends Component {
@@ -47,12 +48,17 @@ class LogbarUnauth extends Component {
 
     axios.post(localStorage.getItem("server_url") + '/api/membership', userAuth)
       .then(function (response) {
-        window.location.reload();
+        //window.location.reload();
+        window.location.href = window.location.origin + '/user';
         localStorage.setItem("currentUserId", (response.data.User.Id));
         localStorage.setItem("currentUserFirstName", (response.data.User.FirstName));
         localStorage.setItem("currentUserLastName", (response.data.User.LastName));
         localStorage.setItem("accessToken", response.data.Token)
-      });
+      }).catch(error => {
+        //console.log(error.response);
+        let myColor = { background: '#FF0000', text: "#FFFFFF" };
+        notify.show("Wrong login or password!", "custom", 5000, myColor);
+    });
   }
 
   handleSubmitRegistr = event => {
@@ -65,8 +71,6 @@ class LogbarUnauth extends Component {
       phone: this.phoneRegistr
     };
     if (this.validAll) {
-      localStorage.setItem("currentUserFirstName", (this.firstNameRegistr));
-      localStorage.setItem("currentUserLastName", (this.lastNameRegistr));
 
       axios.post(localStorage.getItem("server_url") + '/api/Registration', userRegister)
         .then(rez => {
@@ -77,11 +81,11 @@ class LogbarUnauth extends Component {
           $('#buttonCancelForMessage').show();
 
         })
-        .catch(function (response) {
-          //handle error
-          console.log(response);
-
-        });
+        .catch(error => {
+          //console.log(error.response);
+          let myColor = { background: '#FF0000', text: "#FFFFFF" };
+          notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, myColor);
+      });
     }
   }
 
@@ -100,7 +104,7 @@ class LogbarUnauth extends Component {
   }
 
   hideError(divName, inputName) {
-//    document.getElementById(inputName).style.borderColor = '#ced4da';
+    document.getElementById(inputName).style.borderColor = '#ced4da';
     divName.current.textContent = '';
   }
 
@@ -193,7 +197,8 @@ class LogbarUnauth extends Component {
   }
 
   validateEmail() {
-    if (validator.isEmail(this.emailRegistr)) {
+
+    if (validator.isEmail(this.emailRegistr) && !this.emailRegistr.includes("*")){
       this.validEmail = true;
       return true;
     } else {
@@ -382,6 +387,7 @@ class LogbarUnauth extends Component {
         </div>
 
         <div className="modal fade" id="SignInModal">
+        <Notifications/>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header mb-5">

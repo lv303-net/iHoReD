@@ -11,6 +11,7 @@ div#professions, div#doctors {
 
 #tableProf, #tableDoc {
     box-shadow: 5px 10px 18px #888888;
+    background-color: #007bff;
 }
 
 #tablesBlock {
