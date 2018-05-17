@@ -197,7 +197,7 @@ class LogbarUnauth extends Component {
   }
 
   validateEmail() {
-    if (validator.isEmail(this.emailRegistr)) {
+    if (validator.isEmail(this.emailRegistr) && !this.emailRegistr.includes("*")){
       this.validEmail = true;
       return true;
     } else {

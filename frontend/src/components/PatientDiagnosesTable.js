@@ -148,28 +148,63 @@ class PatientDiagnosesTable extends React.Component{
         var url = new URL(url_string);
         e.preventDefault();
          var caller = e.target;
-        var number = caller.innerHTML;
+        var number = parseInt(caller.innerHTML);
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('elem', number);
         var newPageNumber;
-        if((this.state.elementsCount*this.state.pageNumber)<number)
-        {
-            newPageNumber=Math.ceil((this.state.elementsCount*this.state.pageNumber)/number);
-        }
-        else
-        {
-            newPageNumber=1;
-        }
-        searchParameter.set('page', newPageNumber);
-        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-        this.AddDropdown(number);
-        var columnCount=this.getColumnsAndRowsNumber(number)[0];
         axios.get(localStorage.getItem("server_url")+'/MedicalCard/GetPageCount/'+this.props.PatientId+'/'+number)
         .then(res => {
              this.setState({
               pageCount: res.data    
              })
         });
+        if(this.state.elementsCount<number)
+        {
+            for(var i=1;i<number;i++)
+            {
+                var start=this.state.elementsCount*(this.state.pageNumber-1)+1;
+                if((start>=((i-1)*number+1))&&((start+this.state.elementsCount-1)<=((i-1)*number+number)))
+                {
+                    newPageNumber=i;
+                    if((i+1)<this.state.pageCount)
+                    {
+                        this.setState({numberStart:i,numberFinish:i+1})
+                    }
+                }
+                else
+                {
+                    if((start>=((i-1)*number+1))&&((start)<=((i-1)*number+number)))
+                    {
+                        newPageNumber=i;
+                        if((i+1)<this.state.pageCount)
+                        {
+                            this.setState({numberStart:i,numberFinish:i+1})
+                        }
+                    }
+                }
+            }
+            if(newPageNumber==null)
+            {
+                 newPageNumber=1;
+                 if(2<this.state.pageCount)
+                        {
+                            this.setState({numberStart:1,numberFinish:2})
+                        }
+                        else
+                        {
+                            this.setState({numberStart:1,numberFinish:1})
+                        }
+            }
+        }
+        else
+        {
+            newPageNumber=1;
+        }
+        this.setState({pageNumber:newPageNumber});
+        searchParameter.set('page', newPageNumber);
+        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+        this.AddDropdown(number);
+        var columnCount=this.getColumnsAndRowsNumber(number)[0];
         axios.get(localStorage.getItem("server_url")+'/medicalcard/getbyuserid/'+this.props.PatientId+'/'+newPageNumber+'/'+number+'/'+columnCount)
         .then(res => {
              this.setState({
