@@ -68,7 +68,7 @@ class AddRateToProfession extends Component{
             var newRate = {
             ProfessionId: Profession,
             Rate: this.rate,
-            StartDate: this.state.startDate
+            StartDate: this.state.startDate.format('YYYY-MM-DD')
             
             }   
             axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/add', newRate)
@@ -81,7 +81,7 @@ class AddRateToProfession extends Component{
             var newCoeff = {
                 DoctorId: Doctor,
                 Coeff: this.rate,
-                StartDate: this.state.startDate
+                StartDate: this.state.startDate.format('YYYY-MM-DD')
                 }   
                 axios.post(localStorage.getItem("server_url") + '/api/Salary/Coefficient/add', newCoeff)
                 .then(response=>{
