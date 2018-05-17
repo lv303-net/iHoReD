@@ -79,8 +79,8 @@ class AddOrUpdateRule extends Component{
         document.getElementById("rulenameAoUInput").value = nextProps.currentRule.RuleName;
         document.getElementById("hourstartAoUInput").value = nextProps.currentRule.HourStart;
         document.getElementById("hourendAoUInput").value = nextProps.currentRule.HourFinish;
-        document.getElementById("periodstartAoUinput").value = nextProps.currentRule.PeriodStart;
-        document.getElementById("periodendAoUinput").value = nextProps.currentRule.PeriodFinish;
+        document.getElementById("periodstartAoUinput").value = nextProps.currentRule.PeriodStart.slice(0,10);
+        document.getElementById("periodendAoUinput").value = nextProps.currentRule.PeriodFinish.slice(0,10);
         document.getElementById('inclusiveAoUCheckbox').checked = nextProps.currentRule.IfInclusive;
         Object.keys(this.state.currentRule.Week).map((key) => {document.getElementById(key.toLowerCase() +'AoUCheckbox').checked = nextProps.currentRule.Week[key]});
     }
