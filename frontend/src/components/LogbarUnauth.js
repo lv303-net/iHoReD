@@ -70,8 +70,6 @@ class LogbarUnauth extends Component {
       phone: this.phoneRegistr
     };
     if (this.validAll) {
-      localStorage.setItem("currentUserFirstName", (this.firstNameRegistr));
-      localStorage.setItem("currentUserLastName", (this.lastNameRegistr));
 
       axios.post(localStorage.getItem("server_url") + '/api/Registration', userRegister)
         .then(rez => {
