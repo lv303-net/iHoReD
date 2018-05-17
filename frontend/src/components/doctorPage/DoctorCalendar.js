@@ -63,7 +63,7 @@ class DoctorCalendar extends React.Component {
         defaultView: "agendaDay",
         selectable: false,
         selectHelper: true,
-        editable: true,
+        editable: false,
         themeSystem: 'bootstrap4',
         allDaySlot: false,
         lazyFetching: true,
