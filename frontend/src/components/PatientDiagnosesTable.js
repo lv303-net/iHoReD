@@ -20,7 +20,8 @@ class PatientDiagnosesTable extends React.Component{
           pageNumber:'1',
           pageCount:2,
           numberStart:1,
-          numberFinish:2
+          numberFinish:2,
+          ifArrow:false
         };
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -96,7 +97,7 @@ class PatientDiagnosesTable extends React.Component{
                 searchParameter.delete('page');
                 let tempStart=this.state.numberStart+1;
                 let tempFinish=this.state.numberFinish+1;
-                this.setState({numberStart:tempStart,numberFinish:tempFinish});
+                this.setState({numberStart:tempStart,numberFinish:tempFinish,ifArrow:true});
                 this.removeActive();
             }
         }
@@ -109,7 +110,7 @@ class PatientDiagnosesTable extends React.Component{
                 searchParameter.delete("page");
                 let tempStart=this.state.numberStart-1;
                 let tempFinish=this.state.numberFinish-1;
-                this.setState({numberStart:tempStart,numberFinish:tempFinish});
+                this.setState({numberStart:tempStart,numberFinish:tempFinish,ifArrow:true});
                 this.removeActive();
             }
         }
@@ -122,7 +123,8 @@ class PatientDiagnosesTable extends React.Component{
         .then(res => {
              this.setState({
               diagnosesArr: res.data,
-              pageNumber:number
+              pageNumber:number,
+              ifArrow:false
              })
         });
         }
@@ -139,7 +141,7 @@ class PatientDiagnosesTable extends React.Component{
        {
         let i;
         for (i = this.state.numberStart; i <= this.state.numberFinish; i++) { 
-            $('.pages li#mypageitem'+i).removeClass('active');
+            $('.pages li#mypageitem'+(i)).removeClass('active');
           }
        }
 
@@ -312,7 +314,10 @@ class PatientDiagnosesTable extends React.Component{
            var item=<li className="page-item mypag-item" id={"mypageitem"+(i+1)}><a className="page-link mypag-link" id="mypagelink">{(i+1).toString()}</a></li>
             arr.push(item);
         }
-        this.activePages(Number(url.searchParams.get("page")));
+        if(!this.state.ifArrow)
+        {
+            this.activePages(Number(url.searchParams.get("page")));
+        }
         return arr;
       }
 
