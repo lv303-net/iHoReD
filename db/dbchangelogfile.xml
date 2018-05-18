@@ -460,4 +460,9 @@
    <sqlFile path="V3.72_UPDATED_PROCEDURE_GET_PAGE_COUNT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Iryna Halenok" id="V4.0">
+   <sqlFile path="V4.0_ALTER_TABLE_SALARY_COEFFICIENTS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V4.0_INSERT_INTO_SALARY_COEFFICIENTS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
