@@ -34,11 +34,11 @@ class RulesPage extends Component {
 
         axios.get(localStorage.getItem("server_url") + '/rule')
         .then(res => {
-            this.setState({
-                massiveRules: res.data
+                this.setState({
+                    massiveRules: res.data
+                })
+                this.state.massiveRules.map(data => console.log(data))
             })
-            this.state.massiveRules.map(data => console.log(data))
-        })
         .catch(error => {
             console.log(error.message);
         })

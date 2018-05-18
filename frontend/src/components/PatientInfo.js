@@ -3,6 +3,8 @@ import { Component } from 'react';
 import '../style/PatientInfo.css';
 import axios from 'axios';
 import photo from '../style/img_avatar1.png';
+import PropTypes from 'prop-types';
+
 class AboutPatient extends React.Component {
     render() {
         return (
@@ -51,6 +53,7 @@ class PatientInfo extends React.Component {
             this.setState({
                 userdata: res.data,
             });
+            
         });
         axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + PatientId)
             .then(res => {
@@ -64,6 +67,7 @@ class PatientInfo extends React.Component {
                     diseases: res.data,
                 });
         });
+        
     }
     shouldComponentUpdate(nextProps, nextState) {
         return (this.props.shouldUpdate!==nextProps.shouldUpdate || this.state!==nextState)
@@ -72,6 +76,7 @@ class PatientInfo extends React.Component {
     componentWillUpdate(nextProps, nextState){
         if(this.props.shouldUpdate!==nextProps.shouldUpdate){
             this.getPatientData(this.props.PatientId);
+            this.props.callback(1);
         }
     }
     render() {
@@ -113,5 +118,8 @@ class PatientInfo extends React.Component {
     }
 }
 
+PatientInfo.propTypes = {
+    callback: PropTypes.func
+  };
 
 export default PatientInfo;

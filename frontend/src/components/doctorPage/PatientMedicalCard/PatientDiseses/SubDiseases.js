@@ -33,13 +33,13 @@ class SubDiseases extends Component{
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.selectedOption!==nextState.selectedOption || this.props.idDisease!==nextProps.idDisease || this.state.options!==nextState.options)
+        return (this.state.selectedOption!==nextState.selectedOption || this.props.idDisease!==nextProps.idDisease || this.props.reload!==nextProps.reload || this.state.options!==nextState.options)
     }
 
     componentWillUpdate(nextProps, nextState)
     {
         let _that=this;
-        if(this.props.idDisease!==nextProps.idDisease)
+        if(this.props.idDisease!==nextProps.idDisease || this.props.reload!==nextProps.reload)
         {
             this.setState({
                 selectedOption: null

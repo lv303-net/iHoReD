@@ -10,7 +10,8 @@ class PatientMedicalCard extends Component {
   constructor(){
     super();
     this.state = {
-      shouldUpdate: 1
+      shouldUpdate: 1,
+      updateDiseases:1 
     }
   }
   reloadComponent(param){
@@ -18,15 +19,22 @@ class PatientMedicalCard extends Component {
       shouldUpdate: this.state.shouldUpdate + param
     })
   }
+
+  updateDiseases(param){
+    this.setState({
+      updateDiseases: this.state.updateDiseases + param
+    })
+  }
+
   render() {
     console.log(this.props.match.params.startDate)
     return(
       <div id="mainDiv">
         <div className="container">
-            <PatientInfo PatientId={this.props.match.params.id} shouldUpdate={this.state.shouldUpdate}/>
+            <PatientInfo PatientId={this.props.match.params.id} shouldUpdate={this.state.shouldUpdate} callback={this.updateDiseases.bind(this)}/>
             <div className="row">
               <div className="col-6">
-                <Diagnoses PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)}/>
+                <Diagnoses PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)} reload={this.state.updateDiseases}/>
               </div>
               <div className="col-6">
                 <AllergiesCard PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)}/>

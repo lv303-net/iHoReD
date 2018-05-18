@@ -58,7 +58,7 @@ class SubCategories extends Component{
         // _that.setState({
         //     options: []
         // });
-        if(this.props.idCategory!==nextProps.idCategory)
+        if(this.props.idCategory!==nextProps.idCategory )
         {
             this.setState({
                 selectedOption: null

@@ -23,7 +23,8 @@ class AddDisease extends Component{
             idSubCategory: 0,
             idDisease: 0,
             idSubDisease: 0,
-            shouldUpdate: 1
+            shouldUpdate: 1, 
+            updateChild: 1
         }
         this.handleAddDisease=this.handleAddDisease.bind(this);
     }
@@ -65,7 +66,8 @@ class AddDisease extends Component{
             console.log(response.data);
             this.props.callback(response.data);
             })
-      }
+    }
+    
     render(){
         return(
             <div className="modal fade" id="AddRateToProfession" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -84,7 +86,7 @@ class AddDisease extends Component{
                         <Categories callback={this.getCategoryId.bind(this)}/>
                         <SubCategories idCategory={this.state.idCategory} callback={this.getSubCategoryId.bind(this)}/>
                         <Diseases idSubCategory={this.state.idSubCategory} callback={this.getDiseaseId.bind(this)}/>
-                        <SubDiseases idDisease={this.state.idDisease} callback={this.getSubDiseaseId.bind(this)} PatientId={this.props.PatientId}/>
+                        <SubDiseases idDisease={this.state.idDisease} callback={this.getSubDiseaseId.bind(this)} PatientId={this.props.PatientId} reload={this.props.reload}/>
                         <div className="row mb-3 mt-5 justify-content-center">
                         <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
