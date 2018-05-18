@@ -29,7 +29,9 @@ class Diagnoses extends Component{
           idDoc: param
         })
     }
-
+    shouldComponentUpdate(nextProps, nextState){
+        return(this.props.reload!==nextProps.reload)
+    }
     render(){
         return(
             <div className="row justify-content-center"> 
@@ -37,7 +39,7 @@ class Diagnoses extends Component{
                     <button type="button" className="btn btn-info btn-lg mb-3" id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">Add disease
                     </button>
                 </div>
-                <AddDisease callback={this.reloadRows.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId}/>
+                <AddDisease callback={this.reloadRows.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload}/>
             </div>
         )
     }
