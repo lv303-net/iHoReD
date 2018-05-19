@@ -5,38 +5,38 @@ import SelectProfession from './SelectProfession';
 import SelectDoctor from './SelectDoctor';
 import ProfessionRows from '../ProfessionRows';
 
-class Salary extends Component{
+class Salary extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          idProf: 0,
-          idDoc: 0,
-          shouldUpdate: 1
+            idProf: 0,
+            idDoc: 0,
+            shouldUpdate: 1
         }
     }
 
     getProfessionId(param) {
         this.setState({
-          idProf: param,
-          shouldUpdate: this.state.shouldUpdate + 1
+            idProf: param,
+            shouldUpdate: this.state.shouldUpdate + 1
         })
     }
 
     getDoctorId(param) {
         this.setState({
-          idDoc: param
+            idDoc: param
         })
     }
 
-    render(){
-        return(
-            <div className="row" id="salaryDiv"> 
+    render() {
+        return (
+            <div className="row" id="salaryDiv">
                 <div className="col-sm-6">
-                <SelectProfession callback={this.getProfessionId.bind(this)}/>
-                <SelectDoctor idProf={this.state.idProf} shouldUpdate={this.state.shouldUpdate} callback={this.getDoctorId.bind(this)}/>
+                    <SelectProfession callback={this.getProfessionId.bind(this)} />
+                    <SelectDoctor idProf={this.state.idProf} shouldUpdate={this.state.shouldUpdate} callback={this.getDoctorId.bind(this)} />
                 </div>
                 <div className="col-sm-5 mt-3 ">
-                <ProfessionRows idProf={this.state.idProf} idDoc={this.state.idDoc} shouldUpdate={this.state.shouldUpdate}/>
+                    <ProfessionRows idProf={this.state.idProf} idDoc={this.state.idDoc} shouldUpdate={this.state.shouldUpdate} />
                 </div>
             </div>
         )

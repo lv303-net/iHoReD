@@ -57,8 +57,18 @@ class AddOrUpdateRule extends Component{
     }
 
     AddOrUpdateRule(){
-        axios.post(localStorage.getItem("server_url") + '/rule/' + this.NewData.IdRule, this.NewData)
-        .then(console.log("Inserted" + this.NewData))
+        axios({
+            method: 'post',
+            url: localStorage.getItem("server_url") + '/rule/' + this.NewData.IdRule,
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            },
+            data: JSON.stringify(this.NewData)
+        })
+        .then(
+            console.log("Inserted" + this.NewData)
+        )
         .catch(error => {
             console.log(error.message);
         })

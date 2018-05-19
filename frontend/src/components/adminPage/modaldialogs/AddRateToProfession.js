@@ -42,12 +42,10 @@ class AddRateToProfession extends Component{
 
     showError() {        
         if (this.validRate){
-            console.log('valid');
             document.getElementById("RateAdd").style.borderColor = 'green';
             this.divRate.current.textContent = '';
         }
         else {
-            console.log('unvalid');
             document.getElementById("RateAdd").style.borderColor = '#f74131';
             this.divRate.current.textContent = 'Only numbers are allowed';
         }
@@ -71,10 +69,17 @@ class AddRateToProfession extends Component{
             StartDate: this.state.startDate.format('YYYY-MM-DD')
             
             }   
-            axios.post(localStorage.getItem("server_url") + '/api/Salary/Rate/add', newRate)
+            axios({
+                method: 'post',
+                url: localStorage.getItem("server_url") + '/api/Salary/Rate/add',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                },
+                data: JSON.stringify(newRate)
+            })
             .then(response=>{
-            console.log(response.data);
-            this.props.callback(response.data);
+                this.props.callback(response.data);
             })
         }
         else{
@@ -83,10 +88,17 @@ class AddRateToProfession extends Component{
                 Coeff: this.rate,
                 StartDate: this.state.startDate.format('YYYY-MM-DD')
                 }   
-                axios.post(localStorage.getItem("server_url") + '/api/Salary/Coefficient/add', newCoeff)
+                axios({
+                    method: 'post',
+                    url: localStorage.getItem("server_url") + '/api/Salary/Coefficient/add',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    },
+                    data: JSON.stringify(newCoeff)
+                })
                 .then(response=>{
-                console.log(response.data);
-                this.props.callback(response.data);
+                    this.props.callback(response.data);
                 })
         }
         $('#RateAdd').val("");

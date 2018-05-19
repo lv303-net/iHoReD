@@ -40,7 +40,14 @@ class SelectAllergy extends Component{
     componentDidMount()
     {
         let _that=this;
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/NonActiveAllergies/' +  _that.props.PatientId)
+        axios({
+            method: 'get',
+            url: localStorage.getItem("server_url") + '/api/PatientData/NonActiveAllergies/' +  _that.props.PatientId,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
+        })
         .then(function (response) {
             _that.setState({
                 options: response.data.map( allergy => ({ value: allergy.Id, label: allergy.Name }))
