@@ -33,25 +33,49 @@ class ActiveDiseases extends Component{
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.selectedOption!==nextState.selectedOption || this.props.idDisease!==nextProps.idDisease || this.props.reload!==nextProps.reload || this.state.options!==nextState.options)
+        return (this.state.selectedOption!==nextState.selectedOption || this.props.reload!==nextProps.reload || this.state.options!==nextState.options)
     }
 
     componentWillUpdate(nextProps, nextState)
     {
-        let _that=this;
-        if(this.props.idDisease!==nextProps.idDisease || this.props.reload!==nextProps.reload)
-        {
-            this.setState({
-                selectedOption: null
-            });
-            axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + this.props.PatientId)
-            .then(function (response) {
-                _that.setState({
-                    options: response.data.map( subDisease => ({ value: subDisease.Id, label: subDisease.Name }))
+        if(this.props.reload!==nextProps.reload){
+            let _that=this;
+                this.setState({
+                    selectedOption: null
                 })
-            })
+                axios({
+                    method: 'get',
+                    url: localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + this.props.PatientId,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    }
+                })
+                .then(function (response) {
+                        _that.setState({
+                            options: response.data.map( subDisease => ({ value: subDisease.Id, label: subDisease.Name }))
+                        })
+                    });
             _that.handleChange(null);
-        }
+            }
+    }
+    componentWillMount()
+    {
+        let _that=this;
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + this.props.PatientId,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+            .then(function (response) {
+                    _that.setState({
+                        options: response.data.map( subDisease => ({ value: subDisease.Id, label: subDisease.Name }))
+                    })
+                });
+           _that.handleChange(null);
     }
 
     render() {
