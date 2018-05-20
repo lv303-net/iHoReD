@@ -195,7 +195,11 @@ class Calendar extends React.Component{
          this.setStateIdDoc();
 
       }
-    var getData = ((this.state.startPeriod!== nextState.startPeriod) ||(this.state.endPeriod!== nextState.endPeriod) || (this.state.idDoc!== nextState.idDoc) || this.state.shouldUpdate!==nextState.shouldUpdate); 
+    var getData = (((this.state.startPeriod!== nextState.startPeriod) ||
+                  (this.state.endPeriod!== nextState.endPeriod) || 
+                  (this.state.idDoc!== nextState.idDoc) || 
+                  (this.state.shouldUpdate!==nextState.shouldUpdate)) &&
+                  (nextState.idDoc != null)); 
     if(getData){
       $('#calendar').fullCalendar( 'removeEvents');
       var isMonth;

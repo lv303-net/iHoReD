@@ -25,15 +25,15 @@ class VisitDescription extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-6">
-                <div class="form-group">
+                <div className="form-group">
                   <label for="descriptionOfVisit">Add description of a visit</label>
-                  <textarea class="form-control" id="descriptionOfVisit" rows="3" onBlur={e => (this.saveText(e))}>{this.props.newDescription}</textarea>
+                  <textarea className="form-control" id="descriptionOfVisit" rows="3" onBlur={e => (this.saveText(e))}>{this.props.newDescription}</textarea>
                 </div>
               </div>
               <div className="col-md-6">
-                <div class="form-group">
+                <div className="form-group">
                   <label for="treatmentOfVisit">Add treatment of a visit</label>
-                  <textarea class="form-control" id="treatmentOfVisit" rows="3" onBlur={e => (this.saveText(e))}>{this.props.newTreatment}</textarea>
+                  <textarea className="form-control" id="treatmentOfVisit" rows="3" onBlur={e => (this.saveText(e))}>{this.props.newTreatment}</textarea>
                 </div>
               </div>
             </div>

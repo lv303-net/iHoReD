@@ -94,7 +94,6 @@ class ProfessionsTable extends React.Component {
     this.setState({
       shouldShow: !this.state.shouldShow
     })
-
   }
 
   render() {

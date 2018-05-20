@@ -48,7 +48,6 @@ class PatientInfo extends React.Component {
         this.getPatientData(this.props.PatientId);
     }
     getPatientData(PatientId) {
-        //axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + PatientId)
         axios({
             method: 'get',
             url: localStorage.getItem("server_url") + '/api/PatientData/' + PatientId,
@@ -63,7 +62,6 @@ class PatientInfo extends React.Component {
                 });
 
             });
-        //axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + PatientId)
         axios({
             method: 'get',
             url: localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + PatientId,
@@ -77,7 +75,6 @@ class PatientInfo extends React.Component {
                     allergies: res.data,
                 });
             });
-        //axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + PatientId)
         axios({
             method: 'get',
             url: localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + PatientId,
