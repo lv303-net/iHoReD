@@ -10,12 +10,9 @@ import $ from 'jquery';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
-import Categories from './../PatientMedicalCard/PatientDiseses/Categories';
-import SubCategories from './../PatientMedicalCard/PatientDiseses/SubCategories';
-import Diseases from './../PatientMedicalCard/PatientDiseses/Diseases';
-import SubDiseases from './../PatientMedicalCard/PatientDiseses/SubDiseases';
+import ActiveDiseases from './../PatientMedicalCard/PatientDiseses/SubDiseases';
 
-class AddDisease extends Component{
+class CloseDisease extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -56,12 +53,12 @@ class AddDisease extends Component{
 
     handleAddDisease() {
 
-            var newDisease = {
+            var Disease = {
                 IdPatient: this.props.PatientId,
                 StartTime: this.props.Visit,
                 Disease: this.state.idSubDisease
             }   
-            axios.post(localStorage.getItem("server_url") + '/api/PatientData/AddDisease', newDisease)
+            axios.post(localStorage.getItem("server_url") + '/api/PatientData/AddDisease', Disease)
             .then(response=>{
             console.log(response.data);
             this.props.callback(response.data);
@@ -70,7 +67,7 @@ class AddDisease extends Component{
     
     render(){
         return(
-            <div className="modal fade" id="AddDisease" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="CloseDisease" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
              
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
@@ -83,10 +80,7 @@ class AddDisease extends Component{
                             </button>
                         </div>
                         <div className="modal-body">
-                        <Categories callback={this.getCategoryId.bind(this)}/>
-                        <SubCategories idCategory={this.state.idCategory} callback={this.getSubCategoryId.bind(this)}/>
-                        <Diseases idSubCategory={this.state.idSubCategory} callback={this.getDiseaseId.bind(this)}/>
-                        <SubDiseases idDisease={this.state.idDisease} callback={this.getSubDiseaseId.bind(this)} PatientId={this.props.PatientId} reload={this.props.reload}/>
+                        <ActiveDiseases callback={this.getSubDiseaseId.bind(this)} PatientId={this.props.PatientId} reload={this.props.reload}/>
                         <div className="row mb-3 mt-5 justify-content-center">
                         <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
@@ -107,8 +101,8 @@ class AddDisease extends Component{
     }
 }
 
-AddDisease.propTypes = {
+CloseDisease.propTypes = {
     callback: PropTypes.func
   };
 
-export default AddDisease;
+export default CloseDisease;
