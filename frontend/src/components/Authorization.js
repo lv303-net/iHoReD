@@ -21,21 +21,23 @@ class Authorization extends React.Component {
         password: this.passwordAuth
       }
   
-      axios.post(localStorage.getItem("server_url") + '/api/Login',userAuth)
+      //axios.post(localStorage.getItem("server_url") + '/api/Login',userAuth)
+      axios({
+        method: 'post',
+        url: localStorage.getItem("server_url") + '/api/Login',
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        },
+        data: JSON.stringify(userAuth)
+      })
         .then(function (response) {
             //handle success
-            window.location.assign("/startPage")
-            console.log(response.data);
-            console.log(localStorage.getItem("currentUserLastName"));
+            window.location.assign("/startPage");
             localStorage.setItem("currentUserFirstName", (response.data.FirstName));
             localStorage.setItem("currentUserLastName", (response.data.LastName));
-            console.log(localStorage.getItem("currentUserFirstName"));
-            console.log(localStorage.getItem("currentUserLastName"));
         })
-        .catch(function (response) {
-            //handle error
-            console.log(response);
-        });
+        .catch();
     }
   
       render() {

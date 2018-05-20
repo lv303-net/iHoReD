@@ -32,7 +32,15 @@ class Calendar extends React.Component{
       startDateTime: this.state.startTime,
       endDateTime:this.state.endTime      
     }   
-    axios.post(localStorage.getItem("server_url") + '/api/Schedule', bookingEvent)
+    axios({
+      method: 'post',
+      url: localStorage.getItem("server_url") + '/api/Schedule',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+      },
+      data: JSON.stringify(bookingEvent)
+    })
     .then((response => {
       // 1 - booking went fine
       // 0 - booking is outdated (start time <= now)
@@ -195,7 +203,14 @@ class Calendar extends React.Component{
         isMonth = true;
       else 
         isMonth = false;
-      axios.get(localStorage.getItem("server_url")+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod)
+      axios({
+        method: 'get',
+        url: localStorage.getItem("server_url")+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        }
+    })
       .then(response => {
         var col;
         var building = $.map(response.data, function(event){

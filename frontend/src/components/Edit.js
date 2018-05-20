@@ -33,7 +33,17 @@ class Edit extends React.Component {
     let validator = this.validate();
     let axResponse;
     if (validator === null){
-      axResponse = axios.post(localStorage.getItem("server_url")+'/EditUserInfo',this.state).then(response => { 
+      axResponse = 
+      axios({
+        method: 'post',
+        url: localStorage.getItem("server_url")+'/EditUserInfo',
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        },
+        data: JSON.stringify(this.state)
+      })
+      .then(response => { 
         if (response.status == 200)      {
             let myColor = { background: '#00FF00', text: "#FFFFFF" };
             notify.show("Your personal information has been updated", "custom", 5000, myColor);
@@ -71,7 +81,14 @@ class Edit extends React.Component {
     else return toRet;
   }
   componentWillMount(){
-    axios.get(localStorage.getItem("server_url")+'/GetUserInfoById/'+localStorage.getItem('currentUserId'))
+    axios({
+      method: 'get',
+      url: localStorage.getItem("server_url")+'/GetUserInfoById/'+localStorage.getItem('currentUserId'),
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+      }
+  })
     .then(res=>
       {
         this.setState({

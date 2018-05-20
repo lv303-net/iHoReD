@@ -46,7 +46,15 @@ class LogbarUnauth extends Component {
       password: this.passwordAuth
     }
 
-    axios.post(localStorage.getItem("server_url") + '/api/Login', userAuth)
+    axios({
+      method: 'post',
+      url: localStorage.getItem("server_url") + '/api/Login',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+      },
+      data: JSON.stringify(userAuth)
+    })
       .then(function (response) {
         //window.location.reload();
         window.location.href = window.location.origin + '/user';
@@ -70,8 +78,15 @@ class LogbarUnauth extends Component {
       phone: this.phoneRegistr
     };
     if (this.validAll) {
-
-      axios.post(localStorage.getItem("server_url") + '/api/Registration', userRegister)
+      axios({
+        method: 'post',
+        url: localStorage.getItem("server_url") + '/api/Registration',
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        },
+        data: JSON.stringify(userRegister)
+      })
         .then(rez => {
           //handle success             
           $('#formRegistr').remove();
@@ -92,7 +107,6 @@ class LogbarUnauth extends Component {
     var password = this.passwordRegistr;
     var confirmPassword = this.confirmPasswordRegistr;
     if (password !== confirmPassword) {
-      console.log("Password isn't the same");
       this.validConfirmPassword = false;
       return false;
     }
@@ -196,7 +210,6 @@ class LogbarUnauth extends Component {
   }
 
   validateEmail() {
-
     if (validator.isEmail(this.emailRegistr) && !this.emailRegistr.includes("*")){
       this.validEmail = true;
       return true;

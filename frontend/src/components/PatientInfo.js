@@ -19,7 +19,7 @@ class AboutPatient extends React.Component {
                 </div>
                 <div className="row" id="patientcard">
                     <div className="col-5" id="col-custom">Date Of Birth</div>
-                    <div className="col-7">{this.props.birthday.slice(0,10)}</div>
+                    <div className="col-7">{this.props.birthday.slice(0, 10)}</div>
                 </div>
                 <div className="row" id="patientcard">
                     <div className="col-5" id="col-custom">Phone Number</div>
@@ -44,37 +44,61 @@ class PatientInfo extends React.Component {
         };
         this.getPatientData(this.props.PatientId);
     }
-    componentDidMount(){
+    componentDidMount() {
         this.getPatientData(this.props.PatientId);
     }
-    getPatientData(PatientId){
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + PatientId)
-        .then(res => {
-            this.setState({
-                userdata: res.data,
+    getPatientData(PatientId) {
+        //axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + PatientId)
+        axios({
+            method: 'get',
+            url: localStorage.getItem("server_url") + '/api/PatientData/' + PatientId,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
+        })
+            .then(res => {
+                this.setState({
+                    userdata: res.data,
+                });
+
             });
-            
-        });
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + PatientId)
+        //axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + PatientId)
+        axios({
+            method: 'get',
+            url: localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + PatientId,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
+        })
             .then(res => {
                 this.setState({
                     allergies: res.data,
                 });
             });
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + PatientId)
+        //axios.get(localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + PatientId)
+        axios({
+            method: 'get',
+            url: localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + PatientId,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
+        })
             .then(res => {
                 this.setState({
                     diseases: res.data,
                 });
-        });
-        
+            });
+
     }
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.props.shouldUpdate!==nextProps.shouldUpdate || this.state!==nextState)
+        return (this.props.shouldUpdate !== nextProps.shouldUpdate || this.state !== nextState)
     }
 
-    componentWillUpdate(nextProps, nextState){
-        if(this.props.shouldUpdate!==nextProps.shouldUpdate){
+    componentWillUpdate(nextProps, nextState) {
+        if (this.props.shouldUpdate !== nextProps.shouldUpdate) {
             this.getPatientData(this.props.PatientId);
             this.props.callback(1);
         }
@@ -112,14 +136,14 @@ class PatientInfo extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>             
-            </div>    
+                </div>
+            </div>
         );
     }
 }
 
 PatientInfo.propTypes = {
     callback: PropTypes.func
-  };
+};
 
 export default PatientInfo;
