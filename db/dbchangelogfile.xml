@@ -470,4 +470,8 @@
    <sqlFile path="V4.1_UPDATE_CLOSE_DISEASE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Iryna Halenok" id="V4.2">
+   <sqlFile path="V4.2_CREATE_PROCEDURE_GET_DISEASE_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
