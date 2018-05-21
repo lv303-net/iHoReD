@@ -65,5 +65,9 @@ position: relative;
   width:100%;
 }
 #picker{
-  border:3px solid #c1b7b7;
+  border:5px solid #eff3fb;
+  padding: 15px;
+}
+.salarybutton{
+  text-align:center;
 }
