@@ -47,7 +47,7 @@ class DiseaseInfo extends Component{
 
     render() {
         return (
-            <div className="modal fade" id="AddDisease">
+            <div className="modal fade" id="DiseaseInfo">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">

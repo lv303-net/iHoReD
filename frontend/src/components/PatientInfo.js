@@ -146,7 +146,7 @@ class PatientInfo extends React.Component {
                             <div className="col-7" id="diseaselist">
                                 <div className="list-group">
                                     {this.state.diseases.map(item =>
-                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#AddDisease" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div>)}
+                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#DiseaseInfo" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div>)}
                                 </div>
                             </div>
                         </div>
