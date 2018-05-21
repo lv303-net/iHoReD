@@ -4,6 +4,7 @@ import '../style/PatientInfo.css';
 import axios from 'axios';
 import photo from '../style/img_avatar1.png';
 import PropTypes from 'prop-types';
+//import DiseaseInfo from './doctorPage/modaldialogs/DiseaseInfo';
 import DiseaseInfo from './doctorPage/modaldialogs/DiseaseInfo';
 
 class AboutPatient extends React.Component {
@@ -145,7 +146,7 @@ class PatientInfo extends React.Component {
                             <div className="col-7" id="diseaselist">
                                 <div className="list-group">
                                     {this.state.diseases.map(item =>
-                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#BlockClickModal" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div>)}
+                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#AddDisease" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div>)}
                                 </div>
                             </div>
                         </div>
