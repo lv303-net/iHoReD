@@ -27,7 +27,6 @@ class SalaryReport extends React.Component {
          var enddate =url.searchParams.get("enddate");
          this.state.startDate=moment(startdate); 
          this.state.endDate=moment(enddate); 
-         //axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' +this.state.startDate.format('YYYY-MM-DD')+ '/' +this.state.endDate.format('YYYY-MM-DD'))
          axios({
           method: 'get',
           url: localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' +  this.props.match.params.id + '/' + startdate+ '/' +enddate,

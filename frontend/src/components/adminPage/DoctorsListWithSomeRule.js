@@ -13,7 +13,6 @@ class DoctorsListWithSomeRule extends Component {
       IdRule: this.state.idRule,
       IdDoctor: idDoc
     }
-    //axios.post(localStorage.getItem("server_url") + "/Rule/" + this.state.idRule + "/DoctorHasRule/" + idDoc + "/Dismiss", model)
     axios({
       method: 'post',
       url: localStorage.getItem("server_url") + "/Rule/" + this.state.idRule + "/DoctorHasRule/" + idDoc + "/Dismiss",

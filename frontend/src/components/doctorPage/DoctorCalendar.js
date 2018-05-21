@@ -121,7 +121,6 @@ class DoctorCalendar extends React.Component {
         isMonth = true;
       else
         isMonth = false;
-      //axios.get(localStorage.getItem("server_url") + '/DoctorEventsForDoctor/' + nextState.idDoc + '/' + nextState.startPeriod + '/' + nextState.endPeriod)
       axios({
         method: 'get',
         url: localStorage.getItem("server_url") + '/DoctorEventsForDoctor/' + nextState.idDoc + '/' + nextState.startPeriod + '/' + nextState.endPeriod,
