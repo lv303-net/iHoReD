@@ -314,6 +314,25 @@ namespace Entities.Utils
             }
             return result;
         }
+        public static DiseaseInfo GetDiagnoseInfo(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new DiseaseInfo();
+            if (bdResult == "")
+                result = new DiseaseInfo();
+            else
+            {
+                result = new DiseaseInfo()
+                {
+                    FirstName = (values.GetValue(0)).ToString(),
+                    LastName = values.GetValue(1).ToString(),
+                    StartDateTime = Convert.ToDateTime(values.GetValue(2)),
+                    Description = values.GetValue(3).ToString(),
+                    Treatment = values.GetValue(4).ToString()
+                };
+            }
+            return result;
+        }
         public static List<PatientDiseases> GetPatientActiveDiseases(string bdResult)
         {
             var values = bdResult.Split('*');
@@ -338,16 +357,21 @@ namespace Entities.Utils
         {
             var values = bdResult.Split('*');
             var result = new List<Allergy>();
-            for (int i = 0; i < values.Length; i+=5)
+            if (bdResult == "")
+                result.Add(new Allergy());
+            else
             {
-                
-                var allergy = new Allergy()
+                for (int i = 0; i < values.Length; i += 5)
                 {
-                    Id = Convert.ToInt32(values.GetValue(i)),
-                    Name = Convert.ToString(values.GetValue(i + 1)),
-                    Visit = Convert.ToInt32(values.GetValue(i + 2))
-                };
-                result.Add(allergy);
+
+                    var allergy = new Allergy()
+                    {
+                        Id = Convert.ToInt32(values.GetValue(i)),
+                        Name = Convert.ToString(values.GetValue(i + 1)),
+                        Visit = Convert.ToInt32(values.GetValue(i + 2))
+                    };
+                    result.Add(allergy);
+                }
             }
             return result;
         }
