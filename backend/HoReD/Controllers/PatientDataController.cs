@@ -233,7 +233,7 @@ namespace HoReD.Controllers
         {
             try
             {
-                var result = _patientData.ClosePatientDisease(model.IdPatient, model.Disease, Convert.ToDateTime(model.EndTime));
+                var result = _patientData.ClosePatientDisease(model.IdPatient, model.Disease, Convert.ToDateTime(model.StartTime));
                 return Ok(result);
             }
             catch (Exception e)

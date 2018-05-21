@@ -296,16 +296,21 @@ namespace Entities.Utils
         {
             var values = bdResult.Split('*');
             var result = new List<IllnessSubDiseases>();
-            for (int i = 0; i < values.Length; i+=4)
+            if (bdResult == "")
+                result.Add(new IllnessSubDiseases());
+            else
             {
-                var SubDiseases = new IllnessSubDiseases()
+                for (int i = 0; i < values.Length; i += 4)
                 {
-                    Id = Convert.ToInt32(values.GetValue(i)),
-                    Name = values.GetValue(1 + i).ToString(),
-                    FirstCode = values.GetValue(2 + i).ToString(),
-                    LastCode  = values.GetValue(3 + i).ToString(),
-                };
-                result.Add(SubDiseases);
+                    var SubDiseases = new IllnessSubDiseases()
+                    {
+                        Id = Convert.ToInt32(values.GetValue(i)),
+                        Name = values.GetValue(1 + i).ToString(),
+                        FirstCode = values.GetValue(2 + i).ToString(),
+                        LastCode = values.GetValue(3 + i).ToString(),
+                    };
+                    result.Add(SubDiseases);
+                }
             }
             return result;
         }
@@ -313,14 +318,19 @@ namespace Entities.Utils
         {
             var values = bdResult.Split('*');
             var result = new List<PatientDiseases>();
-            for (int i = 0; i < values.Length; i += 2)
+            if (bdResult == "")
+                result.Add(new PatientDiseases());
+            else
             {
-                var Diseases = new PatientDiseases()
+                for (int i = 0; i < values.Length; i += 2)
                 {
-                    Id = Convert.ToInt32(values.GetValue(i)),
-                    Name = values.GetValue(1 + i).ToString()
-                };
-                result.Add(Diseases);
+                    var Diseases = new PatientDiseases()
+                    {
+                        Id = Convert.ToInt32(values.GetValue(i)),
+                        Name = values.GetValue(1 + i).ToString()
+                    };
+                    result.Add(Diseases);
+                }
             }
             return result;
         }

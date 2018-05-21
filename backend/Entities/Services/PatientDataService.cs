@@ -204,14 +204,14 @@ namespace Entities.Services
                 throw;
             }
         }
-        public int ClosePatientDisease(int idPatient, int disease, DateTime endTime)
+        public int ClosePatientDisease(int idPatient, int disease, DateTime startTime)
         {
             string cmd = "CLOSE_DISEASE";
             var param = new Dictionary<string, object>()
             {
                 {"@ID_USER", idPatient },
                 {"@ID_DISEASE", disease },
-                {"@CLOSE",  endTime}
+                {"@START_VISIT_TIME",  startTime}
             };
 
             try
