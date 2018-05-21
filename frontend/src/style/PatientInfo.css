@@ -5,7 +5,16 @@
 div#allergilist.list-group-item:last-child {
      border-bottom: none;
    }
-
+#diseaselistitem{
+    border:none;
+    border-bottom: 2px solid #adc9ff;
+   }
+#diseaselist{
+    padding: 0px;
+}
+.diseaseelement{
+  cursor: pointer;
+}
 .card-img-top{
   width: 100%;
   height: auto;

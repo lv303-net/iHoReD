@@ -4,6 +4,7 @@ import '../style/PatientInfo.css';
 import axios from 'axios';
 import photo from '../style/img_avatar1.png';
 import PropTypes from 'prop-types';
+import DiseaseInfo from './doctorPage/modaldialogs/DiseaseInfo';
 
 class AboutPatient extends React.Component {
     render() {
@@ -40,6 +41,8 @@ class PatientInfo extends React.Component {
             userdata: [],
             allergies: [],
             diseases: [],
+            currentDiseaseId: 0,
+            currentDiseaseName: "",
             id: 1
         };
         this.getPatientData(this.props.PatientId);
@@ -90,6 +93,14 @@ class PatientInfo extends React.Component {
             });
 
     }
+
+    getDiseaseData(id, name) {
+        this.setState({
+            currentDiseaseId: id,
+            currentDiseaseName: name
+        })
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
         return (this.props.shouldUpdate !== nextProps.shouldUpdate || this.state !== nextState)
     }
@@ -102,6 +113,12 @@ class PatientInfo extends React.Component {
     }
     render() {
         console.log(this.props.PatientId);
+        let variable = "qwertyuiop12";
+        console.log(variable);
+        console.log(variable.slice(10));
+        variable = "qwertyuiop12456";
+        console.log(variable);
+        console.log(variable.slice(10));
         return (
             <div className="container mt-5">
                 <div className="row">
@@ -125,15 +142,16 @@ class PatientInfo extends React.Component {
                         </div>
                         <div className="row" id="patientcard">
                             <div className="col-5" id="col-custom">Diseases:</div>
-                            <div className="col-7">
+                            <div className="col-7" id="diseaselist">
                                 <div className="list-group">
                                     {this.state.diseases.map(item =>
-                                        <div id="#allergilistitem" className="list-group-item" id="allergilist">{item.Name}</div>)}
+                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#BlockClickModal" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div>)}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <DiseaseInfo PatientId={this.props.PatientId} DiseaseId={this.state.currentDiseaseId} DiseaseName={this.state.currentDiseaseName}/>
             </div>
         );
     }
