@@ -134,10 +134,10 @@ class PatientInfo extends React.Component {
                     <div className="col-sm-12 col-md-5">
                         <div className="row" id="patientcard">
                             <div className="col-5" id="col-custom">Allergies:</div>
-                            <div className="col-7">
+                            <div className="col-7" id="diseaselist">
                                 <div className="list-group">
                                     {this.state.allergies.map(item =>
-                                        <div id="#allergilistitem" className="list-group-item" id="allergilist">{item.Name}</div>)}
+                                        <div id="#allergilistitem" className="list-group-item">{item.Name}</div>)}
                                 </div>
                             </div>
                         </div>
