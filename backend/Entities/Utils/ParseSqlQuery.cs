@@ -134,10 +134,10 @@ namespace Entities.Utils
             var list = new List<Tuple<Event,User>>();
             string datePattern = "yyyy-MM-dd";
             string timePattern = "HH:mm:ss";
-            for (int i = 0; i < (values.Length - 1); i += 6)
+            for (int i = 0; i < (values.Length - 1); i += 3)
             {
-                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(datePattern),
-                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(timePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(timePattern) };
+                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.DatePattern),
+                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.TimePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(StaticData.TimePattern) };
                 var eventToPaste = new Event()
                 {
                     dateTime = startEndDateTime,
