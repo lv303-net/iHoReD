@@ -6,6 +6,7 @@ import photo from '../style/img_avatar1.png';
 import PropTypes from 'prop-types';
 //import DiseaseInfo from './doctorPage/modaldialogs/DiseaseInfo';
 import DiseaseInfo from './doctorPage/modaldialogs/DiseaseInfo';
+import ClosedDiseasesInfo from './doctorPage/modaldialogs/ClosedDiseasesInfo';
 
 class AboutPatient extends React.Component {
     render() {
@@ -44,7 +45,8 @@ class PatientInfo extends React.Component {
             diseases: [],
             currentDiseaseId: 0,
             currentDiseaseName: "",
-            id: 1
+            id: 1,
+            reload: 1
         };
         this.getPatientData(this.props.PatientId);
     }
@@ -152,6 +154,11 @@ class PatientInfo extends React.Component {
                         </div>
                     </div>
                 </div>
+                {/* <div className="row justify-content-end"> */}
+                    <button type="button" className="btn btn-info btn-lg mt-3 col-sm-4" id="AddRate" data-toggle="modal" data-target="#ClosedDiseasesInfo">All diseases history
+                    </button>
+                {/* </div> */}
+                <ClosedDiseasesInfo PatientId={this.props.PatientId} reload={this.props.shouldUpdate}/>
                 <DiseaseInfo PatientId={this.props.PatientId} DiseaseId={this.state.currentDiseaseId} DiseaseName={this.state.currentDiseaseName}/>
             </div>
         );
