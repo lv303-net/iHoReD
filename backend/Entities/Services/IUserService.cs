@@ -15,5 +15,7 @@ namespace Entities.Services
             string phone, string sex, string country, string city, string street, string apartment);
         UserInfo GetUserInfoById(int id);
         int ActivateUser(int Id);
+        List<UserRole> GetAllUsers();
+
     }
 }

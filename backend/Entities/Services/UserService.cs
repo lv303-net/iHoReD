@@ -115,5 +115,19 @@ namespace Entities.Services
 
             return userInfo;
         }
+
+        public List<UserRole> GetAllUsers()
+        {
+            const string cmd = "GET_ALL_USERS";
+            //var param = new Dictionary<string, object>()
+            //{
+            //    {"@PageNumber", pageNumber},
+            //};
+            var param = new Dictionary<string, object>();
+            var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var values = data.Split('*');
+            var users = Utils.ParseSqlQuery.GetAllUsers(data);
+            return users;
+        }
     }
 }
