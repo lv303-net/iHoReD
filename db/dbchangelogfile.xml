@@ -479,4 +479,12 @@
    <sqlFile path="V4.3_UPDATE_CLOSE_DISEASE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Vadym Ivanov" id="V4.4">
+   <sqlFile path="V4.4_CREATE PROCEDURE GET_INFO_ABOUT_CLOSE_DISEASE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Vadym Ivanov" id="V4.5">
+   <sqlFile path="V4.5_ALTER_PROCEDURE_GET_INFO_ABOUT_CLOSE_DISEASE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
