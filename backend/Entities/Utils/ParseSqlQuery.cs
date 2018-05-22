@@ -489,6 +489,25 @@ namespace Entities.Utils
             }
             return result;
         }
+        public static List<UserRole> GetAllUsers(string str)
+        {
+            var values = str.Split('*');
+            var list = new List<UserRole>();
+            for (int i = 0; i < (values.Length - 1); i += 4)
+            {
+                var user = new UserRole
+                {
+                    FirstName = values.GetValue(i).ToString(),
+                    LastName = values.GetValue(1 + i).ToString(),
+                    IsAdmin = Convert.ToInt32(values.GetValue(2 + i)),
+                    Proffession= values.GetValue(3 + i).ToString()
+                };
+                list.Add(user);
+            }
+            return list;
+        }
+
+
 
 
     }

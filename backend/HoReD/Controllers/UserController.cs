@@ -47,5 +47,12 @@ namespace HoReD.Controllers
             return Ok(_userService.GetUserInfoById(UserInfoId));
         }
 
+        [HttpGet]
+        [Route("GetInfoAboutAllUsers")]
+        public IHttpActionResult GetInfoAboutAllUsers()
+        {
+            return Ok(_userService.GetAllUsers());
+        }
+
     }
 }
