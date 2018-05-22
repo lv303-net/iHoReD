@@ -4,7 +4,6 @@ import '../style/PatientInfo.css';
 import axios from 'axios';
 import photo from '../style/img_avatar1.png';
 import PropTypes from 'prop-types';
-//import DiseaseInfo from './doctorPage/modaldialogs/DiseaseInfo';
 import DiseaseInfo from './doctorPage/modaldialogs/DiseaseInfo';
 
 class AboutPatient extends React.Component {
