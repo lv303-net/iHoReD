@@ -27,7 +27,6 @@ class SalaryReport extends React.Component {
          var enddate =url.searchParams.get("enddate");
          this.state.startDate=moment(startdate); 
          this.state.endDate=moment(enddate); 
-         //axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' +this.state.startDate.format('YYYY-MM-DD')+ '/' +this.state.endDate.format('YYYY-MM-DD'))
          axios({
           method: 'get',
           url: localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' +  this.props.match.params.id + '/' + startdate+ '/' +enddate,
@@ -62,7 +61,6 @@ class SalaryReport extends React.Component {
       searchParameter.set('startdate', this.state.startDate.format('YYYY-MM-DD'));
       searchParameter.set('enddate', this.state.endDate.format('YYYY-MM-DD'));
       window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-      //axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'))
       axios({
         method: 'get',
         url: localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'),
@@ -115,7 +113,6 @@ class SalaryReport extends React.Component {
     var start = this.state.startDate.format('YYYY-MM-DD');
     var end = this.state.endDate.format('YYYY-MM-DD');
 
-    //axios.get(localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + start + '/' + end)
     axios({
       method: 'get',
       url: localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + start + '/' + end,

@@ -26,7 +26,6 @@ class InfoSchedule extends Component {
             startTime: nextProps.startTime
         })
         if (this.state.patientInfo === nextState.patientInfo) {
-            //axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + nextProps.idPatient)
             axios({
                 method: 'get',
                 url: localStorage.getItem("server_url") + '/api/PatientData/' + nextProps.idPatient,

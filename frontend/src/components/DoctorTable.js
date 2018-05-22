@@ -57,8 +57,6 @@ class DoctorTable extends React.Component {
       })
     }
 
-
-    //axios.get(localStorage.getItem("server_url") + '/GetDoctors/' + nextProps.idProf)
     axios({
       method: 'get',
       url: localStorage.getItem("server_url") + '/GetDoctors/' + nextProps.idProf,

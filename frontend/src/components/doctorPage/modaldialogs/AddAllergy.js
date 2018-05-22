@@ -36,7 +36,6 @@ class AddAllergy extends Component {
             StartTime: this.props.Visit,
             Allergy: this.state.idAllergy
         }
-        //axios.post(localStorage.getItem("server_url") + '/api/PatientData/AddAllergy', newAllergy)
         axios({
             method: 'post',
             url: localStorage.getItem("server_url") + '/api/PatientData/AddAllergy',

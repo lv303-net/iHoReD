@@ -5,6 +5,7 @@ import AdminRulesPage from '../adminPage/AdminRulesPage';
 import ProfessionsRatesPage from './ProfessionsRatesPage';
 import Edit from '../Edit'
 import Salary from './salaryManagment/Salary';
+import Roles from './AdminChangingRoles'
 import NotFound from '../NotFound'
 import '../../style/AdminPage.css'
 
@@ -17,6 +18,7 @@ class AdminSwitch extends Component {
             <Route exact path='/admin' render={() => <Redirect to="/admin/rules" />}/>
             <Route exact path="/admin/rules" component={AdminRulesPage}/>
             <Route exact path="/admin/salary" component={Salary}/>
+            <Route exact path="/admin/roles" component={Roles}/>
             <Route component={NotFound} />
           </Switch>
         </main>
