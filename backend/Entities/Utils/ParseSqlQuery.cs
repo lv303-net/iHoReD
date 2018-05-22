@@ -132,12 +132,10 @@ namespace Entities.Utils
         {
             var values = str.Split('*');
             var list = new List<Tuple<Event,User>>();
-            string datePattern = "yyyy-MM-dd";
-            string timePattern = "HH:mm:ss";
-            for (int i = 0; i < (values.Length - 1); i += 6)
+            for (int i = 0; i < (values.Length - 1); i += 3)
             {
-                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(datePattern),
-                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(timePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(timePattern) };
+                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.DatePattern),
+                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.TimePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(StaticData.TimePattern) };
                 var eventToPaste = new Event()
                 {
                     dateTime = startEndDateTime,
@@ -152,7 +150,11 @@ namespace Entities.Utils
             return list;
         }
 
-
+        /// <summary>
+        /// Returns basic info about user
+        /// </summary>
+        /// <param name="str">Received Query</param>
+        /// <returns>UserInfo object</returns>
         public static UserInfo GetAllUserInfo(string str)
         {
             var values = str.Split('*');
@@ -324,8 +326,8 @@ namespace Entities.Utils
             {
                 result = new DiseaseInfo()
                 {
-                    FirstName = (values.GetValue(0)).ToString(),
-                    LastName = values.GetValue(1).ToString(),
+                    DoctorOpenFirstName = (values.GetValue(0)).ToString(),
+                    DoctorOpenLastName = values.GetValue(1).ToString(),
                     StartDateTime = Convert.ToDateTime(values.GetValue(2)),
                     Description = values.GetValue(3).ToString(),
                     Treatment = values.GetValue(4).ToString()
@@ -347,6 +349,32 @@ namespace Entities.Utils
                     {
                         Id = Convert.ToInt32(values.GetValue(i)),
                         Name = values.GetValue(1 + i).ToString()
+                    };
+                    result.Add(Diseases);
+                }
+            }
+            return result;
+        }
+        public static List<DiseaseInfo> GetClosedDiseaseInfo(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<DiseaseInfo>();
+            if (bdResult == "")
+                result.Add(new DiseaseInfo());
+            else
+            {
+                for (int i = 0; i < values.Length; i += 8)
+                {
+                    var Diseases = new DiseaseInfo()
+                    {
+                        DoctorOpenFirstName = values.GetValue(i).ToString(),
+                        DoctorOpenLastName = values.GetValue(1 + i).ToString(),
+                        StartDateTime = Convert.ToDateTime(values.GetValue(2 + i)),
+                        Description = values.GetValue(3 + i).ToString(),
+                        Treatment = values.GetValue(4 + i).ToString(),
+                        DoctorCloseFirstName = values.GetValue(5 + i).ToString(),
+                        DoctorCloseLastName = values.GetValue(6 + i).ToString(),
+                        EndDateTime = Convert.ToDateTime(values.GetValue(7 + i))
                     };
                     result.Add(Diseases);
                 }
