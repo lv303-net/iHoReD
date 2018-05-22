@@ -39,7 +39,7 @@ class SubDiseases extends Component{
     componentWillUpdate(nextProps, nextState)
     {
         let _that=this;
-        if(this.props.idDisease!==nextProps.idDisease || this.props.reload!==nextProps.reload)
+        if((this.props.idDisease!==nextProps.idDisease || this.props.reload!==nextProps.reload) && (nextProps.idDisease!==0))
         {
             this.setState({
                 selectedOption: null

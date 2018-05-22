@@ -26,7 +26,14 @@ class InfoSchedule extends Component {
             startTime: nextProps.startTime
         })
         if (this.state.patientInfo === nextState.patientInfo) {
-            axios.get(localStorage.getItem("server_url") + '/api/PatientData/' + nextProps.idPatient)
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/api/PatientData/' + nextProps.idPatient,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
                 .then(res => {
                     this.setState({
                         patientInfo: res.data
@@ -40,7 +47,15 @@ class InfoSchedule extends Component {
             IdPatient: this.state.idPatient,
             StartTime: this.state.startTime
         }
-        axios.post(localStorage.getItem("server_url") + '/MedicalCard/CheckIfExists', visit)
+        axios({
+            method: 'post',
+            url: localStorage.getItem("server_url") + '/MedicalCard/CheckIfExists',
+            headers: {
+              'Content-Type': 'application/json',
+              // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            },
+            data: JSON.stringify(visit)
+          })
             .then(res => {
                 this.setState({
                     statusCode: res.data

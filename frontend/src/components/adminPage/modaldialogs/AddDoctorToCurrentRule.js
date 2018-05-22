@@ -21,9 +21,16 @@ class AddDoctorToCurrentRule extends Component{
                     IdDoctor: idDoctor,
                     IdRule: this.props.IdRule
                 }
-
-                axios.post(localStorage.getItem("server_url") + "/Rule/" + model.IdRule + "/DoctorHasRule/false/" + model.IdDoctor + "/Assign", model)
-                .then() 
+                axios({
+                    method: 'post',
+                    url: localStorage.getItem("server_url") + "/Rule/" + model.IdRule + "/DoctorHasRule/false/" + model.IdDoctor + "/Assign",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    },
+                    data: JSON.stringify(model)
+                })
+                .then()
                 .catch()
             }
         )
@@ -39,7 +46,14 @@ class AddDoctorToCurrentRule extends Component{
             this.setState({
                 loaded: false
             })
-            axios.get(localStorage.getItem("server_url") + "/Rule/" + nextProps.IdRule + "/DoctorHasRule/false")
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + "/Rule/" + nextProps.IdRule + "/DoctorHasRule/false",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
             .then(res => {
                 this.setState({
                     listDoctors: res.data,

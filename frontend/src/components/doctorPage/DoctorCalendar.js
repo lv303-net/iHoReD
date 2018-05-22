@@ -47,7 +47,7 @@ class DoctorCalendar extends React.Component {
       startTime: start
     })
   }
-  
+
   componentDidMount() {
     var _that = this;
     $('#calendar').fullCalendar('changeView', 'agendaDay');
@@ -121,7 +121,14 @@ class DoctorCalendar extends React.Component {
         isMonth = true;
       else
         isMonth = false;
-      axios.get(localStorage.getItem("server_url") + '/DoctorEventsForDoctor/' + nextState.idDoc + '/' + nextState.startPeriod + '/' + nextState.endPeriod)
+      axios({
+        method: 'get',
+        url: localStorage.getItem("server_url") + '/DoctorEventsForDoctor/' + nextState.idDoc + '/' + nextState.startPeriod + '/' + nextState.endPeriod,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        }
+      })
         .then(response => {
           var col;
           var building = $.map(response.data, function (event) {

@@ -18,7 +18,14 @@ class ProfessionsTable extends React.Component {
       shouldDocBeShown: false
     };
     this.setStateID = this.setStateID.bind(this);
-    axios.get(localStorage.getItem("server_url") + '/ProfessionsStatic')
+    axios({
+      method: 'get',
+      url: localStorage.getItem("server_url") + '/ProfessionsStatic',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+      }
+    })
       .then(res => {
         res.data.forEach(profession => {
           const professionsArr = res.data;
@@ -87,7 +94,6 @@ class ProfessionsTable extends React.Component {
     this.setState({
       shouldShow: !this.state.shouldShow
     })
-
   }
 
   render() {

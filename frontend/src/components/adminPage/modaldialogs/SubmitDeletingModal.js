@@ -3,18 +3,25 @@ import { Component } from 'react';
 import axios from 'axios';
 
 class SubmitDeleting extends Component {
-    DeleteCurrentRule(){
-        axios.post(localStorage.getItem("server_url") + '/rule/' + this.props.currentRule.IdRule + '/delete')
-        .then(
-            console.log("Deleted rule with id" + this.props.currentRule.RuleName)
-        )
-        .catch(error => {
-            console.log(error.message);
+    DeleteCurrentRule() {
+        axios({
+            method: 'post',
+            url: localStorage.getItem("server_url") + '/rule/' + this.props.currentRule.IdRule + '/delete',
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            },
         })
+            .then(
+                console.log("Deleted rule with id" + this.props.currentRule.RuleName)
+            )
+            .catch(error => {
+                console.log(error.message);
+            })
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="modal fade" id="submitDeletingData" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">

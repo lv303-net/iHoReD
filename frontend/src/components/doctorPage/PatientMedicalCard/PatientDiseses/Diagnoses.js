@@ -3,6 +3,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import Categories from './Categories';
 import AddDisease from './../../modaldialogs/AddDisease';
+import CloseDisease from './../../modaldialogs/CloseDisease';
 import PropTypes from 'prop-types';
 
 class Diagnoses extends Component{
@@ -36,10 +37,15 @@ class Diagnoses extends Component{
         return(
             <div className="row justify-content-center"> 
                 <div className="col-md-6 col-8 text-center mt-4">
-                    <button type="button" className="btn btn-info btn-lg mb-3" id="AddRate" data-toggle="modal" data-target="#AddRateToProfession">Add disease
+                    <button type="button" className="btn btn-info btn-lg mb-3" id="AddRate" data-toggle="modal" data-target="#AddDisease">Add disease
+                    </button>
+                </div>
+                <div className="col-md-6 col-8 text-center mt-4">
+                    <button type="button" className="btn btn-info btn-lg mb-3" id="AddRate" data-toggle="modal" data-target="#CloseDisease">Close disease
                     </button>
                 </div>
                 <AddDisease callback={this.reloadRows.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload}/>
+                <CloseDisease callback={this.reloadRows.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload}/>
             </div>
         )
     }

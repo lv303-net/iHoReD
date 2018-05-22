@@ -36,7 +36,14 @@ class SelectProfession extends Component{
     componentDidMount()
     {
         let _that=this;
-        axios.get(localStorage.getItem("server_url") + '/AllProfessions')
+        axios({
+            method: 'get',
+            url: localStorage.getItem("server_url") + '/AllProfessions',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
+        })
         .then(function (response) {
             _that.setState({
                 options: response.data.map( profession => ({ value: profession[0], label: profession[1] }))

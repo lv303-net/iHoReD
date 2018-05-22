@@ -18,14 +18,14 @@ class Direction extends React.Component {
     }, 4000);
   }
   render() {
-    
+
     if (this.props.hasError) {
-           return <div className="container mt-5">
+      return <div className="container mt-5">
         <h2 id="shaddow" className='font-italic text-center text-muted'>Something went wrong...</h2>
         <h5 className="text-center">
-                <Link to='/'> Redirect to the main page </Link> ?
+          <Link to='/'> Redirect to the main page </Link> ?
             </h5>
-    </div>
+      </div>
     }
     else
       return (
@@ -39,8 +39,8 @@ class Direction extends React.Component {
             <h2 id="shaddow" className='font-italic text-center text-danger'>{this.props.text}</h2>
           </div>
       );
-    
-      
+
+
   }
 }
 class ActivationLink extends React.Component {
@@ -78,22 +78,29 @@ class ActivationLink extends React.Component {
     }
   }
   userId = this.props.match.params.id;
- 
+
   componentDidMount() {
     setTimeout(() => {
-      axios.get(localStorage.getItem("server_url") + '/Registration/' + this.userId)
+      axios({
+        method: 'get',
+        url: localStorage.getItem("server_url") + '/Registration/' + this.userId,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        }
+      })
         .then(rez => {
           this.setState({ isRegistrated: rez.data });
           this.eventHandler(this.state.isRegistrated);
-         console.log("hello");
+          console.log("hello");
         })
         .catch(err => this.setState({ hasError: true }),
-        console.log("hellczdco"));
+          console.log("hellczdco"));
       this.setState({ loading: false });
-     
-       }, 2000);
+
+    }, 2000);
   }
- 
+
   render() {
     const { text } = this.state;
     const { isRegistrated } = this.state;
@@ -105,11 +112,11 @@ class ActivationLink extends React.Component {
     return (
       <div id='containerNotFound'>
         <div className="container-fluid mt-5">
-            <h5 className="text-center">
-           {this.state.loading ? <Loader /> : <Direction hasError={hasError} text={text} redirect={redirect} status={isRegistrated} />}
-            </h5>
+          <h5 className="text-center">
+            {this.state.loading ? <Loader /> : <Direction hasError={hasError} text={text} redirect={redirect} status={isRegistrated} />}
+          </h5>
         </div>
-      </div>       
+      </div>
     )
   }
 }

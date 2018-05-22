@@ -32,13 +32,20 @@ class RulesPage extends Component {
             }
         }
 
-        axios.get(localStorage.getItem("server_url") + '/rule')
+        axios({
+            method: 'get',
+            url: localStorage.getItem("server_url") + '/rule',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
+        })
         .then(res => {
-                this.setState({
-                    massiveRules: res.data
-                })
-                this.state.massiveRules.map(data => console.log(data))
+            this.setState({
+                massiveRules: res.data
             })
+            this.state.massiveRules.map(data => console.log(data))
+        })
         .catch(error => {
             console.log(error.message);
         })

@@ -12,14 +12,14 @@ import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import SelectAllergy from './../PatientMedicalCard/SelectAllergy';
 
-class AddAllergy extends Component{
-    constructor(props){
+class AddAllergy extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             idAllergy: 0,
             shouldUpdate: 1
         }
-        this.handleAddAllergy=this.handleAddAllergy.bind(this);
+        this.handleAddAllergy = this.handleAddAllergy.bind(this);
     }
 
     getAllergyId(param) {
@@ -31,19 +31,27 @@ class AddAllergy extends Component{
 
     handleAddAllergy() {
 
-            var newAllergy = {
-                IdPatient: this.props.PatientId,
-                StartTime: this.props.Visit,
-                Allergy: this.state.idAllergy
-            }   
-            axios.post(localStorage.getItem("server_url") + '/api/PatientData/AddAllergy', newAllergy)
-            .then(response=>{
+        var newAllergy = {
+            IdPatient: this.props.PatientId,
+            StartTime: this.props.Visit,
+            Allergy: this.state.idAllergy
+        }
+        axios({
+            method: 'post',
+            url: localStorage.getItem("server_url") + '/api/PatientData/AddAllergy',
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            },
+            data: JSON.stringify(newAllergy)
+        })
+            .then(response => {
                 this.props.callback(response.data);
-            })     
+            })
     }
-    
-    render(){
-        return(
+
+    render() {
+        return (
             <div className="modal fade" id="AddAllergyModal">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -52,10 +60,10 @@ class AddAllergy extends Component{
                             <button type="button" className="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div className="modal-body">
-                            <SelectAllergy callback={this.getAllergyId.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId}/>
+                            <SelectAllergy callback={this.getAllergyId.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} />
                             <div className="row mb-3 mt-5 justify-content-center">
                                 <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                                    <button type="submit" className="btn btn-info btn-lg mb-3"  data-dismiss="modal"  onClick={() =>{this.handleAddAllergy()}}>Submit
+                                    <button type="submit" className="btn btn-info btn-lg mb-3" data-dismiss="modal" onClick={() => { this.handleAddAllergy() }}>Submit
                                     </button>
                                 </div>
                                 <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
@@ -67,12 +75,12 @@ class AddAllergy extends Component{
                     </div>
                 </div>
             </div>
-            )
-        }
+        )
     }
+}
 
-    AddAllergy.propTypes = {
-        callback: PropTypes.func
-        };
+AddAllergy.propTypes = {
+    callback: PropTypes.func
+};
 
-    export default AddAllergy;
+export default AddAllergy;
