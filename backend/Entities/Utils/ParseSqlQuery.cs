@@ -132,8 +132,6 @@ namespace Entities.Utils
         {
             var values = str.Split('*');
             var list = new List<Tuple<Event,User>>();
-            string datePattern = "yyyy-MM-dd";
-            string timePattern = "HH:mm:ss";
             for (int i = 0; i < (values.Length - 1); i += 3)
             {
                 string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.DatePattern),
@@ -152,7 +150,11 @@ namespace Entities.Utils
             return list;
         }
 
-
+        /// <summary>
+        /// Returns basic info about user
+        /// </summary>
+        /// <param name="str">Received Query</param>
+        /// <returns>UserInfo object</returns>
         public static UserInfo GetAllUserInfo(string str)
         {
             var values = str.Split('*');
