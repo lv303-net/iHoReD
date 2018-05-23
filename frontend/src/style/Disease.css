@@ -2,3 +2,21 @@
     height: 400px;
     overflow-y: auto;
 }
+
+#ClosedDiseases {
+    background-color: #007bff;
+    color: white;
+    height: 40px;
+    padding: 0px;
+    white-space: nowrap; 
+    width: inherit; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 600px) {
+    button#ClosedDiseases {
+      width: 495px;
+    }
+  }
