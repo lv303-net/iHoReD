@@ -522,14 +522,15 @@ namespace Entities.Utils
         {
             var values = str.Split('*');
             var list = new List<UserRole>();
-            for (int i = 0; i < (values.Length - 1); i += 4)
+            for (int i = 0; i < (values.Length - 1); i += 5)
             {
                 var user = new UserRole
                 {
-                    FirstName = values.GetValue(i).ToString(),
-                    LastName = values.GetValue(1 + i).ToString(),
-                    IsAdmin = Convert.ToBoolean(Convert.ToInt32(values.GetValue(2 + i))),
-                    Proffession= values.GetValue(3 + i).ToString()
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    FirstName = values.GetValue(i+1).ToString(),
+                    LastName = values.GetValue(i+2).ToString(),
+                    IsAdmin = Convert.ToBoolean(Convert.ToInt32(values.GetValue(i+3))),
+                    Proffession= values.GetValue(i+4).ToString()
                 };
                 list.Add(user);
             }

@@ -16,6 +16,6 @@ namespace Entities.Services
         UserInfo GetUserInfoById(int id);
         int ActivateUser(int Id);
         List<UserRole> GetAllUsers(int numberPage,int countInPage);
-        int GetPaginationCount();
+        int GetPaginationCount(int countInPage);
     }
 }
