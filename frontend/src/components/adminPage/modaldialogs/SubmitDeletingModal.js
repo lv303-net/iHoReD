@@ -4,7 +4,6 @@ import axios from 'axios';
 
 class SubmitDeleting extends Component {
     DeleteCurrentRule() {
-        /*axios.post(localStorage.getItem("server_url") + '/rule/' + this.props.currentRule.IdRule + '/delete')*/
         axios({
             method: 'post',
             url: localStorage.getItem("server_url") + '/rule/' + this.props.currentRule.IdRule + '/delete',

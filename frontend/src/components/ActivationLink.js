@@ -81,7 +81,6 @@ class ActivationLink extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      // axios.get(localStorage.getItem("server_url") + '/Registration/' + this.userId)
       axios({
         method: 'get',
         url: localStorage.getItem("server_url") + '/Registration/' + this.userId,

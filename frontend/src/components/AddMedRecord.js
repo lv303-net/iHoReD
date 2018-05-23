@@ -23,7 +23,6 @@ class AddMedRecord extends Component {
             Description: this.state.description,
             Treatment: this.state.treatment
         }
-        // axios.post(localStorage.getItem("server_url") + '/api/PatientData/AddMedicalRecord', data)
         axios({
             method: 'post',
             url: localStorage.getItem("server_url") + '/api/PatientData/AddMedicalRecord',

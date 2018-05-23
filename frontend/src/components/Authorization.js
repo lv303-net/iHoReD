@@ -21,7 +21,6 @@ class Authorization extends React.Component {
         password: this.passwordAuth
       }
   
-      //axios.post(localStorage.getItem("server_url") + '/api/Login',userAuth)
       axios({
         method: 'post',
         url: localStorage.getItem("server_url") + '/api/Login',

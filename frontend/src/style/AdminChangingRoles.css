@@ -1,0 +1,8 @@
+div.row > div#rolesMainTable {
+    padding-right: 0px;
+}
+
+.checkboxEach {
+    width: 20px;
+    height: 18px;
+}

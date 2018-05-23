@@ -32,7 +32,6 @@ class RulesPage extends Component {
             }
         }
 
-        //axios.get(localStorage.getItem("server_url") + '/rule')
         axios({
             method: 'get',
             url: localStorage.getItem("server_url") + '/rule',
