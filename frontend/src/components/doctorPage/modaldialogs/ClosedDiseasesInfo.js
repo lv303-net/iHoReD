@@ -62,17 +62,17 @@ class ClosedDiseasesInfo extends Component{
                                     <div className="ml-3 mb-2 mt-2">
                                         <b>Disease : </b>{item.DiseaseName}<br/>
 
-                                        <br/><b>Open disease : </b>{item.DoctorOpenFirstName  + " " + item.DoctorOpenLastName}<br/>
+                                        <b>Open disease : </b>{item.DoctorOpenFirstName  + " " + item.DoctorOpenLastName}<br/>
                                     
-                                        <br/><b>Start time of treatment : </b>{item.StartDateTime }<br/>
+                                        <b>Start time of treatment : </b>{item.StartDateTime }<br/>
                                     
-                                        <br/><b>Description : </b>{item.Description }<br/>
+                                        <b>Description : </b>{item.Description }<br/>
                                     
-                                        <br/><b>Treatment : </b>{item.Treatment }<br/>
+                                        <b>Treatment : </b>{item.Treatment }<br/>
                                     
-                                        <br/><b>Close disease : </b>{item.DoctorCloseFirstName + " " + item.DoctorCloseLastName}<br/>
+                                        <b>Close disease : </b>{item.DoctorCloseFirstName + " " + item.DoctorCloseLastName}<br/>
                                     
-                                        <br/><b>End time of treatment : </b>{item.EndDateTime }<br/>
+                                        <b>End time of treatment : </b>{item.EndDateTime }<br/>
                                     </div>
                                 </div>
                                 )}
