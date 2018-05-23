@@ -14,6 +14,7 @@ class LogbarAuth extends Component {
   SignOut(){
       localStorage.removeItem("currentUserFirstName");
       localStorage.removeItem("currentUserLastName");
+      localStorage.removeItem("accessToken");
   }
   
   shouldComponentUpdate(nextProps, nextState) {

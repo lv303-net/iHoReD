@@ -50,6 +50,10 @@ class AdminChangingRoles extends Component {
         }
     };
 
+    addCountOfElements(e) {
+        
+    }
+
     render() {
         return (
             <div className="container">
@@ -85,7 +89,7 @@ class AdminChangingRoles extends Component {
                         <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Elements per page
                         </button>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" onClick={e => (this.addCountOfElements(e))}>
                             <button type="button" className="dropdown-item">10</button>
                             <button type="button" className="dropdown-item">20</button>
                             <button type="button" className="dropdown-item">50</button>
@@ -94,16 +98,16 @@ class AdminChangingRoles extends Component {
                     <div>
                         <nav >
                             <ul className="pagination pages">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
+                                <li className="page-item">
+                                    <a className="page-link" href="#" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                         <span class="sr-only">Previous</span>
                                     </a>
                                 </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
+                                <li className="page-item">
+                                    <a className="page-link" href="#" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
+                                        <span className="sr-only">Next</span>
                                     </a>
                                 </li>
                             </ul>
