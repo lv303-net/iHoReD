@@ -488,6 +488,6 @@
   </changeSet>
 
   <changeSet author="Olya Solyar" id="V4.6">
-   <sqlFile path="V4.6_ALTERED_INSERT_SCHEDULE_RECORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V4.6_ALTERED_INSERT_SCHEDULE_RECORD.sql" endDelimiter="\nGO" encoding="UTF-16LE" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 </databaseChangeLog>
