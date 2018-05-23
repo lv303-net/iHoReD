@@ -33,7 +33,19 @@ class AdminChangingRoles extends Component {
                     this.setState({
                         rolesList: res.data
                     })
-
+                }, this.activePages(this.state.currentPage));
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/NumbersOfPage/' + this.state.countElements,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+                .then(res => {
+                    this.setState({
+                        pageCount: res.data
+                    })
                 });
         }
         else {
@@ -53,9 +65,66 @@ class AdminChangingRoles extends Component {
                     this.setState({
                         rolesList: res.data
                     })
+                }, this.activePages(this.state.currentPage));
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/NumbersOfPage/' + this.state.countElements,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+                .then(res => {
+                    this.setState({
+                        pageCount: res.data
+                    })
                 });
         }
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return ((this.state.countElements !== nextState.countElements) ||
+                (this.state.currentPage !== nextState.currentPage) ||
+                (this.state.rolesList !== nextState.rolesList) ||
+                (this.state.pageCount !== nextState.pageCount))
+    }
+    
+    componentWillUpdate(nextProps, nextState) {
+        if ((this.state.rolesList === nextState.rolesList)){
+        axios({
+            method: 'get',
+            url: localStorage.getItem("server_url") + '/NumbersOfPage/' + nextState.countElements,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
+        })
+            .then(res => {
+                this.setState({
+                    pageCount: res.data
+                })
+            }); 
+        }
+
+        if (this.state.pageCount !== nextState.pageCount) {
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/GetInfoAboutAllUsers/' + nextState.currentPage + '/' + nextState.countElements,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+                .then(res => {
+                    this.setState({
+                        rolesList: res.data,
+                        countElements: this.state.countElements,
+                        numberStart: 1,
+                        numberFinish: 2
+                    })
+                });
+            }
+    }
 
     addPage(e) {
         e.preventDefault();
@@ -85,8 +154,10 @@ class AdminChangingRoles extends Component {
             else {
                 var searchParameter = new URLSearchParams(window.location.search);
                 searchParameter.set('page', number);
+                this.setState({ currentPage: number});
                 window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
                 this.activePages(number);
+
                 axios({
                     method: 'get',
                     url: localStorage.getItem("server_url") + '/GetInfoAboutAllUsers/' + number + '/' + this.state.countElements,
@@ -99,8 +170,6 @@ class AdminChangingRoles extends Component {
                         this.setState({
                             rolesList: res.data,
                             currentPage: number,
-                            numberStart: 1,
-                            numberFinish: 2,
                             ifArrow: false
                         })
                     });
@@ -155,20 +224,10 @@ class AdminChangingRoles extends Component {
         var number = parseInt(caller.innerHTML);
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('count', number);
-        var newPageNumber;
-        axios({
-            method: 'get',
-            url: localStorage.getItem("server_url") + '/NumbersOfPage/' + number,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-            }
+        this.setState({
+            countElements: number
         })
-            .then(res => {
-                this.setState({
-                    pageCount: res.data
-                })
-            });
+        var newPageNumber;
         if (this.state.elementsCount < number) {
             for (var i = 1; i < number; i++) {
                 var start = this.state.elementsCount * (this.state.pageNumber - 1) + 1;
@@ -199,35 +258,10 @@ class AdminChangingRoles extends Component {
                 this.setState({ numberStart: newPageNumber, numberFinish: newPageNumber })
             }
         }
-        this.setState({ pageNumber: newPageNumber });
+        this.setState({ pageNumber: newPageNumber, currentPage: newPageNumber });
         searchParameter.set('page', newPageNumber);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
         this.AddDropdown(number);
-        axios({
-            method: 'get',
-            url: localStorage.getItem("server_url") + '/GetInfoAboutAllUsers/' + number + '/' + this.state.countElements,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-            }
-        })
-            .then(res => {
-                this.setState({
-                    rolesList: res.data,
-                    countElements: number,
-                    numberStart: 1,
-                    numberFinish: 2
-                })
-            });
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return ((this.state.currentPage !== this.nextState.currentPage) ||
-                (this.state.countElements !== this.nextState.countElements))
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-        
     }
 
     render() {
@@ -281,7 +315,6 @@ class AdminChangingRoles extends Component {
                                     </a>
                                 </li>
                                 {this.generatePages(this.state.numberStart, this.state.numberFinish)}
-                                {/* {this.generatePages(1, 10)} */}
                                 <li className="page-item">
                                     <a className="page-link" href="#" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
@@ -291,7 +324,6 @@ class AdminChangingRoles extends Component {
                             </ul>
                         </nav>
                     </div>
-
                 </div>
             </div>
         );
