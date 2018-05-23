@@ -47,6 +47,7 @@ class Categories extends Component{
             })
           })
     }
+    
     shouldComponentUpdate(nextProps, nextState) {
         return (this.state.selectedOption!==nextState.selectedOption || this.state.shouldUpdate!==nextState.shouldUpdate || this.state.options!==nextState.options)
     }
