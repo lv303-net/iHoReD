@@ -60,7 +60,7 @@ class AddAllergy extends Component {
                             <button type="button" className="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div className="modal-body">
-                            <SelectAllergy callback={this.getAllergyId.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} />
+                            <SelectAllergy callback={this.getAllergyId.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload} />
                             <div className="row mb-3 mt-5 justify-content-center">
                                 <div className="col-xs-3 col-sm-3 col-md-3 text-center">
                                     <button type="submit" className="btn btn-info btn-lg mb-3" data-dismiss="modal" onClick={() => { this.handleAddAllergy() }}>Submit

@@ -61,8 +61,8 @@ class LogbarUnauth extends Component {
         localStorage.setItem("currentUserId", (response.data.Id));
         localStorage.setItem("currentUserFirstName", (response.data.FirstName));
         localStorage.setItem("currentUserLastName", (response.data.LastName));
+        localStorage.setItem("accessToken", response.data.Token);
       }).catch(error => {
-        //console.log(error.response);
         let myColor = { background: '#FF0000', text: "#FFFFFF" };
         notify.show("Wrong login or password!", "custom", 5000, myColor);
     });
@@ -88,15 +88,12 @@ class LogbarUnauth extends Component {
         data: JSON.stringify(userRegister)
       })
         .then(rez => {
-          //handle success             
           $('#formRegistr').remove();
-          // $('#registrationHeader').remove();
           $('#textOutp').html("Please check your email."+'<br>'+"To confirm registration follow the link");
           $('#buttonCancelForMessage').show();
 
         })
         .catch(error => {
-          //console.log(error.response);
           let myColor = { background: '#FF0000', text: "#FFFFFF" };
           notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, myColor);
       });
