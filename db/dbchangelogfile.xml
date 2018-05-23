@@ -487,4 +487,13 @@
    <sqlFile path="V4.5_ALTER_PROCEDURE_GET_INFO_ABOUT_CLOSE_DISEASE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Olya Solyar" id="V4.6">
+   <sqlFile path="V4.6_ALTERED_INSERT_SCHEDULE_RECORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Tetiana Usyk" id="V4.7">
+   <sqlFile path="V4.7_CREATE_PROCEDURE GET_PAGINATION_COUNT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V4.7_CREATE_PROCEDURE_GET_ALL_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
 </databaseChangeLog>
