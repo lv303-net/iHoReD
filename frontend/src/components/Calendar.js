@@ -48,6 +48,7 @@ class Calendar extends React.Component{
       // -2 - patient already has event on that time slot
       // -3 - doctor and patient is the same person
       // -4 - start time >= end tame
+      // -5 - limit for booking exceeded
 
       var message
       switch (response.data) {
@@ -65,6 +66,9 @@ class Calendar extends React.Component{
             break;
         case -3:
             message = "This booking is not availible for You.";
+            break;
+        case -5:
+            message = "Sorry, limit for booking for this day exceeded. Please, choose another day.";
             break;
         }
       this.setState({

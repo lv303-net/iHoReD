@@ -32,33 +32,26 @@ class SelectAllergy extends Component{
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.state.selectedOption!==nextState.selectedOption || this.props.idAllergy!==nextProps.idAllergy || this.props.reload!==nextProps.reload || this.state.options!==nextState.options)
+        return (this.state.selectedOption!==nextState.selectedOption || this.props.reload!==nextProps.reload || this.state.options!==nextState.options)
     }
 
     componentWillUpdate(nextProps, nextState)
     {
         let _that=this;
-        if((this.props.idAllergy!==nextProps.idAllergy || this.props.reload!==nextProps.reload) && (nextProps.idAllergy!==0))
+        if(( this.props.reload!==nextProps.reload))
         {
             this.setState({
                 selectedOption: null
             });
-            axios.get(localStorage.getItem("server_url") + '/api/PatientData//NonActiveAllergies/' +  _that.props.PatientId)
+            axios.get(localStorage.getItem("server_url") + '/api/PatientData/NonActiveAllergies/' +  _that.props.PatientId)
             .then(function (response) {
                 _that.setState({
                     options: response.data.map( subDisease => ({ value: subDisease.Id, label: subDisease.Name }))
                 })
             })
-            _that.handleChange(null);
+           _that.handleChange(null);
         }
     }
-
-    // SaveAll(){
-    //     var data = {
-    //         Visit:this.props.Visit,
-    //         PatientId:this.props.PatientId
-    //     }
-    // }
 
     componentDidMount()
     {

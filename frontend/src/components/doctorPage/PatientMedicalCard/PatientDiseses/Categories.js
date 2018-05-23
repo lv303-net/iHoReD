@@ -30,6 +30,7 @@ class Categories extends Component{
         })
         
     }
+    
     handleChange = (selectedOption) => {
         if(selectedOption!==null){
             this.setState({ selectedOption });
