@@ -54,10 +54,10 @@ namespace HoReD.Controllers
             return Ok(_userService.GetAllUsers(numberPage,countInPage));
         }
         [HttpGet]
-        [Route("NumbersOfPage")]
-        public IHttpActionResult NumbersOfPage()
+        [Route("NumbersOfPage/{countInPage}")]
+        public IHttpActionResult NumbersOfPage(int countInPage)
         {
-            return Ok(_userService.GetPaginationCount());
+            return Ok(_userService.GetPaginationCount(countInPage));
         }
 
     }

@@ -130,11 +130,14 @@ namespace Entities.Services
             var users = Utils.ParseSqlQuery.GetAllUsers(data);
             return users;
         }
-        public int GetPaginationCount()
+        public int GetPaginationCount(int countInPage)
         {
             const string cmd = "GET_PAGINATION_COUNT";
             string outparam = "@PAGINATION";
-            var param = new Dictionary<string, object>(); 
+            var param = new Dictionary<string, object>()
+            {
+                {"@COUNTINPAGE", countInPage }
+            };
             int outval = _dbContext.ExecuteSqlQuery(cmd, outparam, param);
             return outval;
             
