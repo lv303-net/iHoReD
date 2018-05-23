@@ -363,18 +363,19 @@ namespace Entities.Utils
                 result.Add(new DiseaseInfo());
             else
             {
-                for (int i = 0; i < values.Length; i += 8)
+                for (int i = 0; i < values.Length; i += 9)
                 {
                     var Diseases = new DiseaseInfo()
                     {
-                        DoctorOpenFirstName = values.GetValue(i).ToString(),
-                        DoctorOpenLastName = values.GetValue(1 + i).ToString(),
-                        StartDateTime = Convert.ToDateTime(values.GetValue(2 + i)),
-                        Description = values.GetValue(3 + i).ToString(),
-                        Treatment = values.GetValue(4 + i).ToString(),
-                        DoctorCloseFirstName = values.GetValue(5 + i).ToString(),
-                        DoctorCloseLastName = values.GetValue(6 + i).ToString(),
-                        EndDateTime = Convert.ToDateTime(values.GetValue(7 + i))
+                        DiseaseName = values.GetValue(i).ToString(),
+                        DoctorOpenFirstName = values.GetValue(1 + i).ToString(),
+                        DoctorOpenLastName = values.GetValue(2 + i).ToString(),
+                        StartDateTime = Convert.ToDateTime(values.GetValue(3 + i)),
+                        Description = values.GetValue(4 + i).ToString(),
+                        Treatment = values.GetValue(5 + i).ToString(),
+                        DoctorCloseFirstName = values.GetValue(6 + i).ToString(),
+                        DoctorCloseLastName = values.GetValue(7 + i).ToString(),
+                        EndDateTime = Convert.ToDateTime(values.GetValue(8 + i))
                     };
                     result.Add(Diseases);
                 }
