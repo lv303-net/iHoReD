@@ -48,10 +48,16 @@ namespace HoReD.Controllers
         }
 
         [HttpGet]
-        [Route("GetInfoAboutAllUsers")]
-        public IHttpActionResult GetInfoAboutAllUsers()
+        [Route("GetInfoAboutAllUsers/{numberPage}/{countInPage}")]
+        public IHttpActionResult GetInfoAboutAllUsers(int numberPage, int countInPage)
         {
-            return Ok(_userService.GetAllUsers());
+            return Ok(_userService.GetAllUsers(numberPage,countInPage));
+        }
+        [HttpGet]
+        [Route("NumbersOfPage")]
+        public IHttpActionResult NumbersOfPage()
+        {
+            return Ok(_userService.GetPaginationCount());
         }
 
     }
