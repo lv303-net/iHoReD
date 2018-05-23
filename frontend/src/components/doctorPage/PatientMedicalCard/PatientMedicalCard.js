@@ -40,7 +40,7 @@ class PatientMedicalCard extends Component {
       <div id="mainDiv">
         <div className="container">
             <PatientInfo PatientId={this.props.match.params.id} shouldUpdate={this.state.shouldUpdate} callback={this.updateDiseases.bind(this)}/>
-              <div className="row">
+              <div className="row" id="AllClosedDiseases">
               <div className="col-md-7"/>
               <div className="row col-md-5">
               {/* <div className="col-12"/> */}
