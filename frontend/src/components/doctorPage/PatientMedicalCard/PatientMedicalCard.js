@@ -13,7 +13,8 @@ class PatientMedicalCard extends Component {
     super();
     this.state = {
       shouldUpdate: 1,
-      updateDiseases:1 
+      updateDiseases:1,
+      updateAllergies:1
     }
   }
   
@@ -40,7 +41,7 @@ class PatientMedicalCard extends Component {
     return(
       <div id="mainDiv">
         <div className="container">
-            <PatientInfo PatientId={this.props.match.params.id} shouldUpdate={this.state.shouldUpdate} callback={this.updateDiseases.bind(this)}/>
+            <PatientInfo PatientId={this.props.match.params.id} shouldUpdate={this.state.shouldUpdate} callback={this.updateAllergies.bind(this)}/>
               <div className="row" id="AllClosedDiseases">
               <div className="col-md-7"/>
               <div className="row col-md-5">
