@@ -8,7 +8,8 @@ class AllergiesCard extends Component{
     constructor(props) {
         super(props);
         this.state = {
-          idAllergy: 0
+          idAllergy: 0,
+          shouldUpdate: 1
         }
     }
 
@@ -18,9 +19,15 @@ class AllergiesCard extends Component{
             PatientId:this.props.PatientId
         }
     }
+
     reloadRows(param) {
         this.props.callback(param);
     }
+
+    shouldComponentUpdate(nextProps, nextState){
+        return(this.props.reload!==nextProps.reload)
+    }
+
     render(){
         return(
             <div>
@@ -29,8 +36,7 @@ class AllergiesCard extends Component{
                     <button type="button" className="btn btn-info btn-lg mb-3" id="AddRate" data-toggle="modal" data-target="#AddAllergyModal">Add allergy</button>
                 </div>
             </div>
-
-            <AddAllergy Visit={this.props.Visit} PatientId={this.props.PatientId} callback={this.reloadRows.bind(this)}/>
+            <AddAllergy callback={this.reloadRows.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload}/>
         </div>
         )
     }
