@@ -285,5 +285,24 @@ namespace Entities.Services
                 throw;
             }
         }
+        public List<DiseaseInfo> GetClosedDiseaseInfo(int idPatient)
+        {
+            string cmd = "GET_INFO_ABOUT_CLOSE_DISEASE";
+            var param = new Dictionary<string, object>()
+            {
+                {"@PATIENT_ID",  idPatient}
+            };
+
+            try
+            {
+                var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+                return Utils.ParseSqlQuery.GetClosedDiseaseInfo(data);
+            }
+
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -303,5 +303,25 @@ namespace HoReD.Controllers
                 throw;
             }
         }
+        /// <summary>
+        /// Get description, treatment, doctor and date for diagnose
+        /// </summary>
+        /// <param name="idPatient">ID of needed user</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/PatientData/GetClosedDiseaseInfo/{idPatient}")]
+        public IHttpActionResult GetClosedDiseaseInfo(int idPatient)
+        {
+            try
+            {
+                var result = _patientData.GetClosedDiseaseInfo(idPatient);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }
