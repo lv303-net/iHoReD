@@ -116,18 +116,28 @@ namespace Entities.Services
             return userInfo;
         }
 
-        public List<UserRole> GetAllUsers()
+        public List<UserRole> GetAllUsers(int numberPage, int countInPage)
         {
             const string cmd = "GET_ALL_USERS";
-            //var param = new Dictionary<string, object>()
-            //{
-            //    {"@PageNumber", pageNumber},
-            //};
-            var param = new Dictionary<string, object>();
+            var param = new Dictionary<string, object>()
+            {
+                {"@PAGENUMBER", numberPage},
+                {"@COUNTINPAGE", countInPage},
+            };
+            
             var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var values = data.Split('*');
             var users = Utils.ParseSqlQuery.GetAllUsers(data);
             return users;
+        }
+        public int GetPaginationCount()
+        {
+            const string cmd = "GET_PAGINATION_COUNT";
+            string outparam = "@PAGINATION";
+            var param = new Dictionary<string, object>(); 
+            int outval = _dbContext.ExecuteSqlQuery(cmd, outparam, param);
+            return outval;
+            
         }
     }
 }

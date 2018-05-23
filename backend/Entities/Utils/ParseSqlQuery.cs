@@ -527,7 +527,7 @@ namespace Entities.Utils
                 {
                     FirstName = values.GetValue(i).ToString(),
                     LastName = values.GetValue(1 + i).ToString(),
-                    IsAdmin = Convert.ToInt32(values.GetValue(2 + i)),
+                    IsAdmin = Convert.ToBoolean(Convert.ToInt32(values.GetValue(2 + i))),
                     Proffession= values.GetValue(3 + i).ToString()
                 };
                 list.Add(user);

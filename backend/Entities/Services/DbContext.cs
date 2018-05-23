@@ -71,8 +71,9 @@ namespace Entities.Services
                 foreach (var d in data)
                 {
                     sqlCommand.AddParameter(d.Key, d.Value);
-                    sqlCommand.Parameters.Add(outparam, SqlDbType.Int).Direction = ParameterDirection.Output;
+                   
                 }
+                sqlCommand.Parameters.Add(outparam, SqlDbType.Int).Direction = ParameterDirection.Output;
                 sqlCommand.ExecuteNonQuery();
                  outval =(int) sqlCommand.Parameters[outparam].Value;
                 
