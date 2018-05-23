@@ -17,7 +17,8 @@ class AddAllergy extends Component {
         super(props);
         this.state = {
             idAllergy: 0,
-            shouldUpdate: 1
+            shouldUpdate: 1,
+            updateChild: 1
         }
         this.handleAddAllergy = this.handleAddAllergy.bind(this);
     }

@@ -14,6 +14,7 @@ class PatientMedicalCard extends Component {
       updateDiseases:1 
     }
   }
+  
   reloadComponent(param){
     this.setState({
       shouldUpdate: this.state.shouldUpdate + param
