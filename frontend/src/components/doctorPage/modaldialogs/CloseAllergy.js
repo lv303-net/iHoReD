@@ -10,17 +10,17 @@ import $ from 'jquery';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
-import ActiveDiseases from './../PatientMedicalCard/PatientDiseses/ActiveDisease';
+import ActiveAllergies from './../PatientMedicalCard/ActiveAllergies';
 
 class CloseAllergy extends Component{
     constructor(props){
         super(props);
         this.state = {
-            idActiveDisease: 0,
+            idActiveAllergy: 0,
             shouldUpdate: 1, 
             updateChild: 1
         }
-        this.handleAddDisease=this.handleAddDisease.bind(this);
+        this.handleCloseAllergy=this.handleCloseAllergy.bind(this);
     }
 
     getActiveAllergyId(param) {
@@ -32,12 +32,12 @@ class CloseAllergy extends Component{
 
     handleCloseAllergy() {
 
-            var Disease = {
+            var Allergy = {
                 IdPatient: this.props.PatientId,
                 StartTime: this.props.Visit,
-                Disease: this.state.idActiveDisease
+                Allergy: this.state.idActiveAllergy
             }   
-            axios.post(localStorage.getItem("server_url") + '/api/PatientData/CloseAllergy', Disease)
+            axios.post(localStorage.getItem("server_url") + '/api/PatientData/CloseAllergy', Allergy)
             .then(response=>{
             console.log(response.data);
             this.props.callback(response.data);
@@ -59,14 +59,14 @@ class CloseAllergy extends Component{
                             </button>
                         </div>
                         <div className="modal-body">
-                        <ActiveAllergy callback={this.getActiveDiseaseId.bind(this)} PatientId={this.props.PatientId} reload={this.props.reload}/>
+                        <ActiveAllergies callback={this.getActiveAllergyId.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload}/>
                         <div className="row mb-3 mt-5 justify-content-center">
                         <div className="col-sm-3 col-6 text-center" >
                             <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
                             </button>
                         </div>
                         <div className="col-sm-3 col-6 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3" data-dismiss="modal" onClick={() =>{this.handleAddDisease()}}>Close
+                            <button type="button" className="btn btn-info btn-lg mb-3" data-dismiss="modal" onClick={() =>{this.handleCloseAllergy()}}>Close
                             </button>
                         </div>
                         </div>
