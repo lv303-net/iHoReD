@@ -224,14 +224,14 @@ namespace Entities.Services
                 throw;
             }
         }
-        public int ClosePatientAllergy(int idPatient, int allergy, DateTime endTime)
+        public int ClosePatientAllergy(int idPatient, int allergy, DateTime startTime)
         {
             string cmd = "CLOSE_ALLERGY";
             var param = new Dictionary<string, object>()
             {
                 {"@ID_USER", idPatient },
                 {"@ID_ALLERGY", allergy },
-                {"@CLOSE",  endTime}
+                {"@START_VISIT_TIME",  startTime}
             };
 
             try

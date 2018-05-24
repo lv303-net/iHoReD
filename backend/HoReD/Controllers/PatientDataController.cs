@@ -253,7 +253,7 @@ namespace HoReD.Controllers
         {
             try
             {
-                var result = _patientData.ClosePatientAllergy(model.IdPatient, model.Allergy, Convert.ToDateTime(model.EndTime));
+                var result = _patientData.ClosePatientAllergy(model.IdPatient, model.Allergy, Convert.ToDateTime(model.StartTime));
                 return Ok(result);
             }
             catch (Exception e)
