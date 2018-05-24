@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import AddAllergy from './../modaldialogs/AddAllergy';
+import CloseAllergy from './../modaldialogs/CloseAllergy';
 import PropTypes from 'prop-types';
 
 class AllergiesCard extends Component{
@@ -31,13 +32,18 @@ class AllergiesCard extends Component{
     render(){
         return(
             <div>
-            <div className="row justify-content-center"> 
-                <div className="col-md-6 col-8 text-center mt-4">
-                    <button type="button" className="btn btn-info btn-lg mb-3" id="AddRate" data-toggle="modal" data-target="#AddAllergyModal">Add allergy</button>
+                <div className="row justify-content-center"> 
+                    <div className="col-md-6 col-8 text-center mt-4">
+                        <button type="button" className="btn btn-info btn-lg mb-3" id="AddRate" data-toggle="modal" data-target="#AddAllergyModal">Add allergy</button>
+                    </div>
                 </div>
+                <div className="col-md-6 col-8 text-center mt-4">
+                    <button type="button" className="btn btn-info btn-lg mb-3" id="AddRate" data-toggle="modal" data-target="#CloseAllergy">Close allergy
+                    </button>
+                </div>
+                <AddAllergy callback={this.reloadRows.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload}/>
+                <CloseAllergy callback={this.reloadRows.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload}/>
             </div>
-            <AddAllergy callback={this.reloadRows.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload}/>
-        </div>
         )
     }
 }
