@@ -54,6 +54,13 @@ namespace HoReD.Controllers
             return Ok(_userService.GetAllUsers(numberPage,countInPage));
         }
         [HttpGet]
+        [Route("FiterAllUsers/{firstOrlastname}/{isAdmin}/{isDoctor}")]
+        public IHttpActionResult FiterAllUsers(string firstOrlastname, bool isAdmin, bool isDoctor)
+        {
+            return Ok(_userService.FiteringUsers(firstOrlastname,isAdmin,isDoctor));
+        }
+
+        [HttpGet]
         [Route("NumbersOfPage/{countInPage}")]
         public IHttpActionResult NumbersOfPage(int countInPage)
         {

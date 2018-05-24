@@ -130,6 +130,22 @@ namespace Entities.Services
             var users = Utils.ParseSqlQuery.GetAllUsers(data);
             return users;
         }
+
+        public List<UserRole> FiteringUsers(string firstOrlastname, bool isAdmin,bool isDoctor)
+        {
+            const string cmd = "FILTERING_USERS";
+            var param = new Dictionary<string, object>()
+            {
+                {"@FIRSTORLASTNAME", firstOrlastname},
+                {"@ISADMIN", isAdmin},
+                {"@ISADOCTOR",isDoctor }
+            };
+
+            var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var values = data.Split('*');
+            var users = Utils.ParseSqlQuery.GetAllUsers(data);
+            return users;
+        }
         public int GetPaginationCount(int countInPage)
         {
             const string cmd = "GET_PAGINATION_COUNT";
