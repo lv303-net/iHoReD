@@ -408,9 +408,15 @@ namespace Entities.Utils
         {
             var values = bdResult.Split('*');
             var result = new List<Allergy>();
+
+            if (string.IsNullOrEmpty(bdResult))
+            {
+                result.Add(new Allergy());
+                return result;
+            }
+
             for (int i = 0; i < values.Length; i += 2)
             {
-
                 var allergy = new Allergy()
                 {
                     Id = Convert.ToInt32(values.GetValue(i)),
