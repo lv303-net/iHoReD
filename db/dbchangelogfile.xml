@@ -495,5 +495,8 @@
    <sqlFile path="V4.7_CREATE_PROCEDURE GET_PAGINATION_COUNT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
    <sqlFile path="V4.7_CREATE_PROCEDURE_GET_ALL_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
-  
+
+  <changeSet author="Sikorskyi Maksym" id="V4.8">
+   <sqlFile path="V4.8_ALTER_PROCEDURE_GET_PATIENT_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>  
 </databaseChangeLog>
