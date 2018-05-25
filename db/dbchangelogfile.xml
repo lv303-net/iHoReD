@@ -504,4 +504,8 @@
    <sqlFile path="V4.9_PROCEDURE_FOR_CLOSED_ALLERGIES_STATISTICS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
+  <changeSet author="Mariia Shkolyk" id="V4.10">
+   <sqlFile path="V4.10_GETTING_INFO_ABOUT_ACTIVE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
 </databaseChangeLog>
