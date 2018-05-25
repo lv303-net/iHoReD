@@ -182,7 +182,6 @@ namespace Entities.Utils
             }
         }
 
-
         public static List<MedicalCard> GetMedicalCards(string dbResult)
         {
             var values = dbResult.Split('*');
@@ -206,6 +205,7 @@ namespace Entities.Utils
             
             return result;
         }
+
         public static List<MedicalCard> GetMedicalRecords(string dbResult)
         {
             var values = dbResult.Split('*');
@@ -228,6 +228,7 @@ namespace Entities.Utils
 
             return result;
         }
+
         public static List<PatientData> GetPatientData(string bdResult)
         {
             var values = bdResult.Split('*');
@@ -246,6 +247,7 @@ namespace Entities.Utils
             }
             return result;
         }
+
         public static List<IllnessCategory> GetCategories(string bdResult)
         {
             var values = bdResult.Split('*');
@@ -261,6 +263,7 @@ namespace Entities.Utils
             }
             return result;
         }
+
         public static List<IllnessSubCategory> GetSubCategories(string bdResult)
         {
             var values = bdResult.Split('*');
@@ -278,6 +281,7 @@ namespace Entities.Utils
             }
             return result;
         }
+
         public static List<IllnessDiseases> GetDiseases(string bdResult)
         {
             var values = bdResult.Split('*');
@@ -294,6 +298,7 @@ namespace Entities.Utils
             }
             return result;
         }
+
         public static List<IllnessSubDiseases> GetPatientSubDiseases(string bdResult)
         {
             var values = bdResult.Split('*');
@@ -316,6 +321,7 @@ namespace Entities.Utils
             }
             return result;
         }
+
         public static DiseaseInfo GetDiagnoseInfo(string bdResult)
         {
             var values = bdResult.Split('*');
@@ -335,6 +341,7 @@ namespace Entities.Utils
             }
             return result;
         }
+
         public static List<PatientDiseases> GetPatientActiveDiseases(string bdResult)
         {
             var values = bdResult.Split('*');
@@ -355,6 +362,7 @@ namespace Entities.Utils
             }
             return result;
         }
+
         public static List<DiseaseInfo> GetClosedDiseaseInfo(string bdResult)
         {
             var values = bdResult.Split('*');
@@ -382,15 +390,19 @@ namespace Entities.Utils
             }
             return result;
         }
+
         public static List<Allergy> GetPatientActiveAllergies(string bdResult)
         {
             var values = bdResult.Split('*');
             var result = new List<Allergy>();
-            if (bdResult == "")
-                result.Add(new Allergy());
-            else
+
+            if (string.IsNullOrEmpty(bdResult))
             {
-                for (int i = 0; i < values.Length; i += 5)
+                result.Add(new Allergy());
+                return result;
+            }
+
+            for (int i = 0; i < values.Length; i += 5)
                 {
 
                     var allergy = new Allergy()
@@ -401,16 +413,22 @@ namespace Entities.Utils
                     };
                     result.Add(allergy);
                 }
-            }
             return result;
         }
+
         public static List<Allergy> GetPatientNonActiveAllergies(string bdResult)
         {
             var values = bdResult.Split('*');
             var result = new List<Allergy>();
+
+            if (string.IsNullOrEmpty(bdResult))
+            {
+                result.Add(new Allergy());
+                return result;
+            }
+
             for (int i = 0; i < values.Length; i += 2)
             {
-
                 var allergy = new Allergy()
                 {
                     Id = Convert.ToInt32(values.GetValue(i)),
@@ -518,6 +536,7 @@ namespace Entities.Utils
             }
             return result;
         }
+
         public static List<UserRole> GetAllUsers(string str)
         {
             var values = str.Split('*');
@@ -534,10 +553,25 @@ namespace Entities.Utils
             }
             return list;
         }
-       
 
+        public static VisitInfo GetActiveAllergyInfo(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new VisitInfo();
 
+            if (string.IsNullOrEmpty(bdResult))
+                return new VisitInfo();
 
+            VisitInfo info = new VisitInfo()
+            {
+                DoctorFirstName = Convert.ToString(values.GetValue(0)),
+                DoctorLastName = Convert.ToString(values.GetValue(1)),
+                StartDateTime = Convert.ToDateTime(values.GetValue(2)),
+                Description = Convert.ToString(values.GetValue(3)),
+                Treatment = Convert.ToString(values.GetValue(4))
+            };
 
+            return info;
+        }
     }
 }
