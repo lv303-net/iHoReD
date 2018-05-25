@@ -498,5 +498,10 @@
 
   <changeSet author="Sikorskyi Maksym" id="V4.8">
    <sqlFile path="V4.8_ALTER_PROCEDURE_GET_PATIENT_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
-  </changeSet>  
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V4.9">
+   <sqlFile path="V4.9_PROCEDURE_FOR_CLOSED_ALLERGIES_STATISTICS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
 </databaseChangeLog>
