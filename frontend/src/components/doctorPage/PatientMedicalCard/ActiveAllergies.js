@@ -3,10 +3,10 @@ import { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-import '../../../../style/Diagnoses.css';
+import '../../../style/Diagnoses.css';
 import PropTypes from 'prop-types';
 
-class ActiveAllergie extends Component{
+class ActiveAllergies extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -64,7 +64,7 @@ class ActiveAllergie extends Component{
         let _that=this;
             axios({
                 method: 'get',
-                url: localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + this.props.PatientId,
+                url: localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + this.props.PatientId,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")

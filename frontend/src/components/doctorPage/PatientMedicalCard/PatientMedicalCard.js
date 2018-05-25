@@ -36,34 +36,39 @@ class PatientMedicalCard extends Component {
     })
   }
 
+  updateAllergiesOrDiseasesState(param){
+    this.setState({
+      updateDiseases: this.state.updateDiseases + param,
+      updateAllergies: this.state.updateAllergies + param
+    })
+
+  }
+
+
   render() {
     console.log(this.props.match.params.startDate)
     return(
       <div id="mainDiv">
         <div className="container">
-            <PatientInfo PatientId={this.props.match.params.id} shouldUpdate={this.state.shouldUpdate} callback={this.updateAllergies.bind(this)}/>
-              <div className="row" id="AllClosedDiseases">
+            <PatientInfo PatientId={this.props.match.params.id} shouldUpdate={this.state.shouldUpdate} callback={this.updateAllergiesOrDiseasesState.bind(this)} />
+            <div className="row" id="AllClosedDiseases">
               <div className="col-md-7"/>
-              <div className="row col-md-5">
-              {/* <div className="col-12"/> */}
-              {/* <div className="col-md-5 "> */}
-                <button type="button" className="btn btn-info btn-lg mb-3 col-12" id="ClosedDiseases" data-toggle="modal" data-target="#ClosedDiseasesInfo">All diseases history
-                </button>
-                <ClosedDiseasesInfo PatientId={this.props.match.params.id} reload={this.state.updateDiseases}/>
-              {/* </div> */}
+                <div className="row col-md-5">
+                  <button type="button" className="btn btn-info btn-lg mb-3 col-12" id="ClosedDiseases" data-toggle="modal" data-target="#ClosedDiseasesInfo">All diseases history
+                  </button>
+                  <ClosedDiseasesInfo PatientId={this.props.match.params.id} reload={this.state.updateDiseases}/>
               </div>
-              </div>
-            <div className="row">
-              <div className="col-6">
+            </div>
+            <div className="row mx-0">
+              <div className="col-sm-12 col-md-6">
                 <Diagnoses PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)} reload={this.state.updateDiseases}/>
               </div>
-              <div className="col-6">
+              <div className="col-sm-12 col-md-6">
                 <AllergiesCard PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)} reload={this.state.updateAllergies}/>
               </div>
             </div>
             <AddMedRecord PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate}/>
         </div>
-        {/* mt-3 mr-1 col-sm-12 col-md-3 */}
       </div>
     );
   }
