@@ -30,7 +30,6 @@ class AddAllergy extends Component {
     }
 
     handleAddAllergy() {
-
         var newAllergy = {
             IdPatient: this.props.PatientId,
             StartTime: this.props.Visit,
@@ -50,6 +49,10 @@ class AddAllergy extends Component {
             })
     }
 
+    handleCancel(){
+        this.props.callback(1);
+    }
+
     render() {
         return (
             <div className="modal fade" id="AddAllergyModal">
@@ -57,7 +60,7 @@ class AddAllergy extends Component {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h4 className="modal-title">Choose allergy to add</h4>
-                            <button type="button" className="close" data-dismiss="modal">&times;</button>
+                            <button type="button" className="close" data-dismiss="modal" onClick={() => { this.handleCancel() }}>&times;</button>
                         </div>
                         <div className="modal-body">
                             <SelectAllergy callback={this.getAllergyId.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload} />
@@ -67,7 +70,7 @@ class AddAllergy extends Component {
                                     </button>
                                 </div>
                                 <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
-                                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
+                                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal" onClick={() => { this.handleCancel() }}>Cancel
                                     </button>
                                 </div>
                             </div>

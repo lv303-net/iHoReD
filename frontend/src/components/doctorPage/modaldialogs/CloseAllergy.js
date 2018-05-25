@@ -25,51 +25,51 @@ class CloseAllergy extends Component{
 
     getActiveAllergyId(param) {
         this.setState({
-          idActiveDisease: param,
-          shouldUpdate: this.state.shouldUpdate + 1
+            idActiveAllergy: param,
+            shouldUpdate: this.state.shouldUpdate + 1
         })
     }
 
     handleCloseAllergy() {
+        var Allergy = {
+            IdPatient: this.props.PatientId,
+            StartTime: this.props.Visit,
+            Allergy: this.state.idActiveAllergy
+        }   
+        axios.post(localStorage.getItem("server_url") + '/api/PatientData/CloseAllergy', Allergy)
+        .then(response=>{
+        console.log(response.data);
+        this.props.callback(response.data);
+        })
+    }
 
-            var Allergy = {
-                IdPatient: this.props.PatientId,
-                StartTime: this.props.Visit,
-                Allergy: this.state.idActiveAllergy
-            }   
-            axios.post(localStorage.getItem("server_url") + '/api/PatientData/CloseAllergy', Allergy)
-            .then(response=>{
-            console.log(response.data);
-            this.props.callback(response.data);
-            })
+    handleCancel(){
+        this.props.callback(1);
     }
     
     render(){
         return(
-            <div className="modal fade" id="CloseAllergy" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-             
+            <div className="modal fade" id="CloseAllergy" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">         
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h3 className="modal-title" id="exampleModalLabel">
-                            Close allergy
-                            </h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <h3 className="modal-title" id="exampleModalLabel">Close allergy</h3>
+                            <button type="button" class="close" data-dismiss="modal"  onClick={() => { this.handleCancel() }} aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div className="modal-body">
-                        <ActiveAllergies callback={this.getActiveAllergyId.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload}/>
-                        <div className="row mb-3 mt-5 justify-content-center">
-                        <div className="col-sm-3 col-6 text-center" >
-                            <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
-                            </button>
-                        </div>
-                        <div className="col-sm-3 col-6 text-center">
-                            <button type="button" className="btn btn-info btn-lg mb-3" data-dismiss="modal" onClick={() =>{this.handleCloseAllergy()}}>Close
-                            </button>
-                        </div>
-                        </div>
+                            <ActiveAllergies callback={this.getActiveAllergyId.bind(this)} Visit={this.props.Visit} PatientId={this.props.PatientId} reload={this.props.reload}/>
+                            <div className="row mb-3 mt-5 justify-content-center">
+                                <div className="col-sm-3 col-6 text-center">
+                                    <button type="button" className="btn btn-info btn-lg mb-3" data-dismiss="modal" onClick={() =>{this.handleCloseAllergy()}}>Close
+                                    </button>
+                                </div>
+                                <div className="col-sm-3 col-6 text-center" >
+                                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal"  onClick={() => { this.handleCancel() }}>Cancel
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div className="modal-footer">
                         </div>

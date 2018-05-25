@@ -46,7 +46,7 @@ class SelectAllergy extends Component{
             axios.get(localStorage.getItem("server_url") + '/api/PatientData/NonActiveAllergies/' +  _that.props.PatientId)
             .then(function (response) {
                 _that.setState({
-                    options: response.data.map( subDisease => ({ value: subDisease.Id, label: subDisease.Name }))
+                    options: response.data.map(allergy => ({ value: allergy.Id, label: allergy.Name }))
                 })
             })
            _that.handleChange(null);
@@ -66,7 +66,7 @@ class SelectAllergy extends Component{
         })
         .then(function (response) {
             _that.setState({
-                options: response.data.map( allergy => ({ value: allergy.Id, label: allergy.Name }))
+                options: response.data.map(allergy => ({ value: allergy.Id, label: allergy.Name }))
             })
         })
     }

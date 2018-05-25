@@ -13,7 +13,10 @@ class AdminChangingRoles extends Component {
             numberFinish: 2,
             countElements: 10,
             currentPage: 1,
-            ifArrow: false
+            ifArrow: false,
+            textFilter: "",
+            isAdmin: false,
+            isDoctor: false
         };
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -86,7 +89,10 @@ class AdminChangingRoles extends Component {
         return ((this.state.countElements !== nextState.countElements) ||
                 (this.state.currentPage !== nextState.currentPage) ||
                 (this.state.rolesList !== nextState.rolesList) ||
-                (this.state.pageCount !== nextState.pageCount))
+                (this.state.pageCount !== nextState.pageCount) ||
+                (this.state.isAdmin !== nextState.isAdmin) ||
+                (this.state.isDoctor !== nextState.isDoctor ) ||
+                (this.state.textFilter !== nextState.textFilter))
     }
     
     componentWillUpdate(nextProps, nextState) {
@@ -123,6 +129,30 @@ class AdminChangingRoles extends Component {
                         numberFinish: 2
                     })
                 });
+            }
+
+        if (nextState.isAdmin == false && nextState.isDoctor == false && nextState.textFilter === "") {
+            console.log(null)
+        }
+        if ((this.state.isAdmin !== nextState.isAdmin) ||
+            (this.state.isDoctor !== nextState.isDoctor) ||
+            (this.state.textFilter !== nextState.textFilter)){
+                axios({
+                    method: 'get',
+                    url: localStorage.getItem("server_url") + '/FiterAllUsers/' + nextState.textFilter + '/' +nextState.isAdmin+ '/' +nextState.isDoctor,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    }
+                })
+                    .then(res => {
+                        this.setState({
+                            rolesList: res.data,
+                            countElements: this.state.countElements,
+                            numberStart: 1,
+                            numberFinish: 2
+                        })
+                    });
             }
     }
 
@@ -264,28 +294,56 @@ class AdminChangingRoles extends Component {
         this.AddDropdown(number);
     }
 
+    changeAdmin() {
+        this.setState({
+            isAdmin: !this.state.isAdmin,
+        })
+    }
+
+    changeDoctor() {
+        this.setState({
+            isDoctor: !this.state.isDoctor,
+        })
+    }
+
     render() {
         return (
             <div className="container">
-                <div className="row mt-5 ">
-                    <div className="col-12" id="rolesMainTable">
-                        <div className="row text-center" id="patientcard">
-                            <div className="col-4 col-custom-header" id="col-custom">Username</div>
-                            <div className="col-4 col-custom-header" id="col-custom">Admin</div>
-                            <div className="col-4 col-custom-header">Doctor</div>
+                <div className="row mt-5">
+                    <div className="col-9 col-centered" id="rolesMainTable">
+                        <div className="row text-center">
+                            <div className="col-4" >
+                                <input type="text" 
+                                        id="textInputUsername" 
+                                        onChange={x => { this.setState({
+                                            textFilter: x.target.value,
+                                        })}}
+                                        placeholder="Username"/>
+                            </div>
+                            <div className="col-2" >
+                                <input type="checkbox" className="checkboxEach mt-2" id="checkboxAdmin" onChange={() => this.changeAdmin()}/>
+                            </div>
+                            <div className="col-3">
+                                <input type="checkbox" className="checkboxEach mt-2" id="checkboxDoctor" onChange={() => this.changeDoctor()}/>
+                            </div>
+                        </div>
+                        <div className="row text-center mt-1" id="patientcard">
+                            <div className="col-5 col-custom-header" id="col-custom">Username</div>
+                            <div className="col-2 col-custom-header" id="col-custom">Admin</div>
+                            <div className="col-5 col-custom-header">Doctor</div>
                         </div>
                         {
                             this.state.rolesList.map(items =>
                                 <div className="row text-center" id="patientcard" key={items.LastName + items.FirstName + 'Row'}>
-                                    <div className="col-4" id="col-custom" key={items.LastName}>
+                                    <div className="col-5" id="col-custom" key={items.LastName}>
                                         <p className="mt-1 mb-1">{items.FirstName} {items.LastName} </p>
                                     </div>
-                                    <div className="col-4" id="col-custom" key={items.LastName + 'IsAdmin'}>
+                                    <div className="col-2" id="col-custom" key={items.LastName + 'IsAdmin'}>
                                         {items.IsAdmin
                                             ? <input type="checkbox" className="checkboxEach mt-2" disabled="disabled" checked />
                                             : <input type="checkbox" className="checkboxEach mt-2" disabled="disabled" />}
                                     </div>
-                                    <div className="col-4" key={items.LastName + 'Prof'}>
+                                    <div className="col-5" key={items.LastName + 'Prof'}>
                                         <p className="mt-1 mb-1">{items.Proffession}</p>
                                     </div>
                                 </div>
