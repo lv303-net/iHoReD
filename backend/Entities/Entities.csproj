@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
+    <Compile Include="ClosedAllergyInfo.cs" />
     <Compile Include="Doctor.cs" />
     <Compile Include="DoctorInfo.cs" />
     <Compile Include="DoctorRules.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="UserRole.cs" />
     <Compile Include="Utils\ParseSqlQuery.cs" />
     <Compile Include="Utils\StaticData.cs" />
+    <Compile Include="VisitInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

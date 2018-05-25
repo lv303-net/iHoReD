@@ -323,5 +323,27 @@ namespace HoReD.Controllers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Get description, treatment, doctor and date for active allergy
+        /// </summary>
+        /// <param name="idPatient">ID of needed user</param>
+        /// <param name="idAllergy">ID of needed allergy</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/PatientData/GetActiveAllergyInfo/{idPatient}/{idAllergy}")]
+        public IHttpActionResult GetActiveAllergyInfo(int idPatient, int idAllergy)
+        {
+            try
+            {
+                var result = _patientData.GetActiveAllergyInfo(idPatient, idAllergy);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }
