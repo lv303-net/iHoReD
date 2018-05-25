@@ -59,7 +59,7 @@ class PatientMedicalCard extends Component {
                   <ClosedDiseasesInfo PatientId={this.props.match.params.id} reload={this.state.updateDiseases}/>
               </div>
             </div>
-            <div className="row">
+            <div className="row mx-0">
               <div className="col-sm-12 col-md-6">
                 <Diagnoses PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)} reload={this.state.updateDiseases}/>
               </div>

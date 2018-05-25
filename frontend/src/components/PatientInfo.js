@@ -135,10 +135,10 @@ class PatientInfo extends React.Component {
                     <div className="col-sm-12 col-md-5">
                         <div className="row" id="patientcard">
                             <div className="col-5" id="col-custom">Allergies:</div>
-                            <div className="col-7" id="diseaselist">
+                            <div className="col-7 list-group" id="diseaselist">
                                 <div className="list-group">
-                                    {this.state.allergies.map(item =>
-                                        <div id="#allergilistitem" className="list-group-item">{item.Name}</div>)}
+                                    {this.state.allergies.map(item => item.Name !== null ?
+                                    <div id="#allergilistitem" className="list-group-item diseaseelement">{item.Name}</div> : <div></div>)}
                                 </div>
                             </div>
                         </div>
@@ -146,15 +146,13 @@ class PatientInfo extends React.Component {
                             <div className="col-5" id="col-custom">Diseases:</div>
                             <div className="col-7" id="diseaselist">
                                 <div className="list-group">
-                                    {this.state.diseases.map(item =>
-                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#DiseaseInfo" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div>)}
+                                    {this.state.diseases.map(item => item.Name !== null ?
+                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#DiseaseInfo" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div> : <div></div>)}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {/* <div className="row justify-content-end"> */}
-                    
+                </div>                   
                 <DiseaseInfo PatientId={this.props.PatientId} DiseaseId={this.state.currentDiseaseId} DiseaseName={this.state.currentDiseaseName}/>
             </div>
         );
