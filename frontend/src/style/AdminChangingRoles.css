@@ -1,8 +1,20 @@
-div.row > div#rolesMainTable {
-    padding-right: 0px;
+#patientcard {
+    padding-left: 0px;
+    padding-right: 0px !important;
 }
 
 .checkboxEach {
     width: 20px;
     height: 18px;
+}
+
+@media (max-width: 700px) {
+    #textInputUsername {
+        width: 100%;
+    }
+}
+@media (min-width: 700px) {
+#textInputUsername {
+    width: 70%;
+}
 }
