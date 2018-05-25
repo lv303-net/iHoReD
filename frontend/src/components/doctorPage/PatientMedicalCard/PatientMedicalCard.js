@@ -36,12 +36,21 @@ class PatientMedicalCard extends Component {
     })
   }
 
+  updateAllergiesOrDiseasesState(param){
+    this.setState({
+      updateDiseases: this.state.updateDiseases + param,
+      updateAllergies: this.state.updateAllergies + param
+    })
+
+  }
+
+
   render() {
     console.log(this.props.match.params.startDate)
     return(
       <div id="mainDiv">
         <div className="container">
-            <PatientInfo PatientId={this.props.match.params.id} shouldUpdate={this.state.shouldUpdate} callback={this.updateAllergies.bind(this)} callback={this.updateDiseases.bind(this)}/>
+            <PatientInfo PatientId={this.props.match.params.id} shouldUpdate={this.state.shouldUpdate} callback={this.updateAllergiesOrDiseasesState.bind(this)} />
             <div className="row" id="AllClosedDiseases">
               <div className="col-md-7"/>
                 <div className="row col-md-5">
@@ -60,7 +69,6 @@ class PatientMedicalCard extends Component {
             </div>
             <AddMedRecord PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate}/>
         </div>
-        {/* mt-3 mr-1 col-sm-12 col-md-3 */}
       </div>
     );
   }

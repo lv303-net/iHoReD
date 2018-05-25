@@ -9,7 +9,7 @@ class AllergiesCard extends Component{
     constructor(props) {
         super(props);
         this.state = {
-          idAllergy: 0,
+        //   idAllergy: 0,
           shouldUpdate: 1
         }
     }
