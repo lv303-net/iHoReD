@@ -5,6 +5,7 @@ import axios from 'axios';
 import photo from '../style/img_avatar1.png';
 import PropTypes from 'prop-types';
 import DiseaseInfo from './doctorPage/modaldialogs/DiseaseInfo';
+import ActiveAllergyInfo from './doctorPage/modaldialogs/ActiveAllergyInfo';
 import ClosedDiseasesInfo from './doctorPage/modaldialogs/ClosedDiseasesInfo';
 
 class AboutPatient extends React.Component {
@@ -52,6 +53,7 @@ class PatientInfo extends React.Component {
     componentDidMount() {
         this.getPatientData(this.props.PatientId);
     }
+
     getPatientData(PatientId) {
         axios({
             method: 'get',
@@ -114,13 +116,6 @@ class PatientInfo extends React.Component {
         }
     }
     render() {
-        console.log(this.props.PatientId);
-        let variable = "qwertyuiop12";
-        console.log(variable);
-        console.log(variable.slice(10));
-        variable = "qwertyuiop12456";
-        console.log(variable);
-        console.log(variable.slice(10));
         return (
             <div className="container mt-5">
                 <div className="row">
@@ -138,7 +133,7 @@ class PatientInfo extends React.Component {
                             <div className="col-7 list-group" id="diseaselist">
                                 <div className="list-group">
                                     {this.state.allergies.map(item => item.Name !== null ?
-                                    <div id="#allergilistitem" className="list-group-item diseaseelement">{item.Name}</div> : <div></div>)}
+                                    <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#AllergyInfo" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div> : <div></div>)}
                                 </div>
                             </div>
                         </div>
@@ -154,6 +149,7 @@ class PatientInfo extends React.Component {
                     </div>
                 </div>                   
                 <DiseaseInfo PatientId={this.props.PatientId} DiseaseId={this.state.currentDiseaseId} DiseaseName={this.state.currentDiseaseName}/>
+                <ActiveAllergyInfo PatientId={this.props.PatientId} AllergyId={this.state.currentDiseaseId} AllergyName={this.state.currentDiseaseName}/>
             </div>
         );
     }

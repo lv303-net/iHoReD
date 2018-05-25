@@ -20,7 +20,6 @@ class AddAllergy extends Component {
             shouldUpdate: 1
         }
         this.handleAddAllergy = this.handleAddAllergy.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
     }
 
     getAllergyId(param) {
