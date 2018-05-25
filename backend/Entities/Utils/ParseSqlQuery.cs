@@ -386,11 +386,14 @@ namespace Entities.Utils
         {
             var values = bdResult.Split('*');
             var result = new List<Allergy>();
-            if (bdResult == "")
-                result.Add(new Allergy());
-            else
+
+            if (string.IsNullOrEmpty(bdResult))
             {
-                for (int i = 0; i < values.Length; i += 5)
+                result.Add(new Allergy());
+                return result;
+            }
+
+            for (int i = 0; i < values.Length; i += 5)
                 {
 
                     var allergy = new Allergy()
@@ -401,7 +404,6 @@ namespace Entities.Utils
                     };
                     result.Add(allergy);
                 }
-            }
             return result;
         }
         public static List<Allergy> GetPatientNonActiveAllergies(string bdResult)
