@@ -51,7 +51,7 @@ class AddAllergy extends Component {
     }
 
     handleCancel(){
-        this.state.shouldUpdate = this.state.shouldUpdate + 1
+        this.props.callback(1);
     }
 
     render() {

@@ -42,6 +42,10 @@ class CloseAllergy extends Component{
         this.props.callback(response.data);
         })
     }
+
+    handleCancel(){
+        this.props.callback(1);
+    }
     
     render(){
         return(
@@ -50,7 +54,7 @@ class CloseAllergy extends Component{
                     <div className="modal-content">
                         <div className="modal-header">
                             <h3 className="modal-title" id="exampleModalLabel">Close allergy</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal"  onClick={() => { this.handleCancel() }} aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -62,7 +66,7 @@ class CloseAllergy extends Component{
                                     </button>
                                 </div>
                                 <div className="col-sm-3 col-6 text-center" >
-                                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
+                                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal"  onClick={() => { this.handleCancel() }}>Cancel
                                     </button>
                                 </div>
                             </div>
