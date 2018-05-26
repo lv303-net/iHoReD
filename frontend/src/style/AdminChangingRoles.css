@@ -63,7 +63,7 @@
     }
 }
 
-#rolesMainTable .btn {
+#mainDivHeight .btn {
     background-color: #007bff;
 }
 
@@ -80,5 +80,6 @@
 .paginationRow > .dropdown {
     padding-left: 0px;
 }
+
 
 
