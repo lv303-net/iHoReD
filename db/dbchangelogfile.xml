@@ -515,5 +515,9 @@
   <changeSet author="Iryna Halenok" id="V4.12">
    <sqlFile path="V4.12_ALTER_PROCEDURE_FILTERING_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V4.13">
+   <sqlFile path="V4.13_CREATE_PROCEDURE_GET_USER_ROLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
  
 </databaseChangeLog>
