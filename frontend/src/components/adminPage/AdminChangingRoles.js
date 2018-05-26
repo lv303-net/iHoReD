@@ -22,6 +22,9 @@ class AdminChangingRoles extends Component {
         if (url.search !== '') {
             this.state.currentPage = url.searchParams.get("page");
             this.state.countElements = url.searchParams.get("count");
+            this.state.textFilter = url.searchParams.get("text");
+            this.state.isAdmin = url.searchParams.get("isAdmin");
+            this.state.isDoctor = url.searchParams.get("isDoc");
             axios({
                 method: 'get',
                 url: localStorage.getItem("server_url") + '/FiterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
@@ -40,6 +43,9 @@ class AdminChangingRoles extends Component {
             var searchParameter = new URLSearchParams(window.location.search);
             searchParameter.set('page', this.state.currentPage);
             searchParameter.set('count', this.state.countElements);
+            searchParameter.set('text', "");
+            searchParameter.set('isAdmin', false);
+            searchParameter.set('isDoc', false);
             window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
             axios({
                 method: 'get',
@@ -57,6 +63,17 @@ class AdminChangingRoles extends Component {
         }
     };
 
+    componentDidMount() {
+        if (this.state.isAdmin == "true") {
+            $('#checkboxAdmin').prop('checked', true);
+        }
+        if (this.state.isDoctor == "true") {
+            $('#checkboxDoctor').prop('checked', true);
+        }
+        if (this.state.textFilter !== "") {
+            $('#textInputUsername').val(this.state.textFilter);
+        }
+    }
     shouldComponentUpdate(nextProps, nextState) {
         return ((this.state.countElements !== nextState.countElements) ||
                 (this.state.currentPage !== nextState.currentPage) ||
@@ -86,15 +103,29 @@ class AdminChangingRoles extends Component {
     }
 
     changeAdmin() {
-        this.setState({
-            isAdmin: !this.state.isAdmin,
-        })
+        if ($('#checkboxAdmin').is(":checked")){
+            this.setState({
+                isAdmin: true,
+            })
+        }
+        else {
+            this.setState({
+                isAdmin: false,
+            })
+        }
     }
 
     changeDoctor() {
-        this.setState({
-            isDoctor: !this.state.isDoctor,
-        })
+        if ($('#checkboxDoctor').is(":checked")){
+            this.setState({
+                isDoctor: true,
+            })
+        }
+        else {
+            this.setState({
+                isDoctor: false,
+            })
+        }
     }
 
     getPagesAndQuantity(param, param2) {
@@ -108,7 +139,11 @@ class AdminChangingRoles extends Component {
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('page', 1);
         searchParameter.set('count', this.state.countElements);
+        searchParameter.set('text', this.state.textFilter);
+        searchParameter.set('isAdmin', this.state.isAdmin);
+        searchParameter.set('isDoc', this.state.isDoctor);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+        
         this.setState({
             currentPage: 1,
             applyClick: !this.state.applyClick
@@ -117,7 +152,7 @@ class AdminChangingRoles extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container" id="changingRolesDiv">
                 <div className="row mt-5">
                     <div className="col-12">
                         <div className="row" id="rowFilter">

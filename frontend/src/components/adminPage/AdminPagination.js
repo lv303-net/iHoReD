@@ -196,7 +196,7 @@ class AdminPagination extends Component {
                                     <span className="sr-only">Previous</span>
                                 </a>
                             </li>
-                            {this.generatePages(this.state.numberStart, 10)}
+                            {this.generatePages(this.state.numberStart, this.state.numberFinish)}
                             <li className="page-item">
                                 <a className="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
