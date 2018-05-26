@@ -158,7 +158,20 @@ namespace Entities.Services
             };
             int outval = _dbContext.ExecuteSqlQuery(cmd, outparam, param);
             return outval;
-            
+        }
+
+        public UserRole GetUserRole(int idUser)
+        {
+            const string cmd = "GET_USER_ROLE";
+            var param = new Dictionary<string, object>()
+            {
+                {"IDUsers", idUser},
+            };
+
+            var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var values = data.Split('*');
+            var users = Utils.ParseSqlQuery.GetUserRole(data);
+            return users;
         }
     }
 }

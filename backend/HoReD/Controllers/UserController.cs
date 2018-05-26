@@ -68,5 +68,12 @@ namespace HoReD.Controllers
             return Ok(_userService.GetPaginationCount(countInPage));
         }
 
+        [HttpGet]
+        [Route("GetUserRole/{idUser}")]
+        public IHttpActionResult GetUserRole(int idUser)
+        {
+            return Ok(_userService.GetUserRole(idUser));
+        }
+
     }
 }
