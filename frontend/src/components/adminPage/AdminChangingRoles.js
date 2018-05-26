@@ -3,6 +3,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import $ from 'jquery';
 import AdminPagination from './AdminPagination';
+import ChangingRole from './modaldialogs/ChanginRole';
 import '../../style/AdminChangingRoles.css'
 
 class AdminChangingRoles extends Component {
@@ -15,7 +16,8 @@ class AdminChangingRoles extends Component {
             textFilter: "",
             isAdmin: false,
             isDoctor: false, 
-            applyClick: false
+            applyClick: false,
+            idClick: 0
         };
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -27,7 +29,7 @@ class AdminChangingRoles extends Component {
             this.state.isDoctor = url.searchParams.get("isDoc");
             axios({
                 method: 'get',
-                url: localStorage.getItem("server_url") + '/FiterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
+                url: localStorage.getItem("server_url") + '/FilterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -49,7 +51,7 @@ class AdminChangingRoles extends Component {
             window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
             axios({
                 method: 'get',
-                url: localStorage.getItem("server_url") + '/FiterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
+                url: localStorage.getItem("server_url") + '/FilterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -79,7 +81,8 @@ class AdminChangingRoles extends Component {
                 (this.state.currentPage !== nextState.currentPage) ||
                 (this.state.rolesList !== nextState.rolesList) ||
                 (this.state.countElements !== nextState.countElements) ||
-                (this.state.applyClick !== nextState.applyClick))
+                (this.state.applyClick !== nextState.applyClick) ||
+                (this.state.idUser !== nextState.idUser))
     }
     
     componentWillUpdate(nextProps, nextState) {
@@ -88,7 +91,7 @@ class AdminChangingRoles extends Component {
             (this.state.applyClick !== nextState.applyClick)) {
                 axios({
                     method: 'get',
-                    url: localStorage.getItem("server_url") + '/FiterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
+                    url: localStorage.getItem("server_url") + '/FilterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -150,6 +153,14 @@ class AdminChangingRoles extends Component {
         })
     }
 
+    getIdClick(e) {
+        e.preventDefault();
+        var caller = e.target || e.srcElement;
+        this.setState({
+            idUser: caller.id,
+        })
+    }
+
     render() {
         return (
             <div className="container" id="changingRolesDiv">
@@ -184,18 +195,18 @@ class AdminChangingRoles extends Component {
                     </div>
                         
                     <div className="col-md-9 col-12 col-centered" id="rolesMainTable">
-                        <div className="row text-center mt-1" id="patientcard">
-                            <div className="col-5 col-custom-header" id="col-custom">Username</div>
-                            <div className="col-2 col-custom-header" id="col-custom">Admin</div>
+                        <div className="row text-center mt-1 patientcard">
+                            <div className="col-5 col-custom-header column-custom" >Username</div>
+                            <div className="col-2 col-custom-header column-custom">Admin</div>
                             <div className="col-5 col-custom-header">Doctor</div>
                         </div>
                         {
                             this.state.rolesList.map(items =>
-                                <div className="row text-center" id="patientcard" key={items.LastName + items.FirstName + 'Row'}>
-                                    <div className="col-5" id="col-custom" key={items.LastName}>
-                                        <p className="mt-1 mb-1">{items.FirstName} {items.LastName} </p>
+                                <div className="row text-center patientcard" key={items.LastName + items.FirstName + 'Row'}>
+                                    <div className="col-5 column-custom" id={items.IdUser} data-toggle="modal" data-target="#changingRole" onClick={(e)=>this.getIdClick(e)} >
+                                        <p className="mt-1 mb-1" id={items.IdUser}>{items.FirstName} {items.LastName} </p>
                                     </div>
-                                    <div className="col-2" id="col-custom" key={items.LastName + 'IsAdmin'}>
+                                    <div className="col-2 column-custom" key={items.LastName + 'IsAdmin'}>
                                         {items.IsAdmin
                                             ? <input type="checkbox" className="checkboxEach mt-2" disabled="disabled" checked />
                                             : <input type="checkbox" className="checkboxEach mt-2" disabled="disabled" />}
@@ -210,6 +221,7 @@ class AdminChangingRoles extends Component {
                 </div>
 
                 <AdminPagination currPage={this.state.currentPage} callback={this.getPagesAndQuantity.bind(this)}/>
+                <ChangingRole idUser = {this.state.idUser}/>
             </div>
         );
     }
