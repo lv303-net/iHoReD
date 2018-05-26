@@ -11,7 +11,7 @@ class AdminPagination extends Component {
         this.state = {
             numberStart: 1,
             numberFinish: 2,
-            countElements: 10,
+            countElements: 5,
             currentPage: 1,
             pageCount: 1,
             ifArrow: false
@@ -64,7 +64,7 @@ class AdminPagination extends Component {
         else {
             if ((number == '«') || (number == '<span aria-hidden="true">«</span><span class="sr-only">Previous</span>')) {
                 if ((this.state.numberStart - 1) > 0) {
-                    var searchParameter = new URLSearchParams(window.location.search);
+                    searchParameter = new URLSearchParams(window.location.search);
                     searchParameter.delete("page");
                     let tempStart = this.state.numberStart - 1;
                     let tempFinish = this.state.numberFinish - 1;
@@ -73,7 +73,7 @@ class AdminPagination extends Component {
                 }
             }
             else {
-                var searchParameter = new URLSearchParams(window.location.search);
+                searchParameter = new URLSearchParams(window.location.search);
                 searchParameter.set('page', number);
                 this.setState({ currentPage: number });
                 window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
@@ -104,7 +104,7 @@ class AdminPagination extends Component {
             </li>
         arr.push(item);
         for (var i = numberStart; i < numberFinish; i++) {
-            var item =
+            item =
                 <li className="page-item mypag-item" id={"mypageitem" + (i + 1)} key={"mypageitem" + (i + 1)}>
                     <a className="page-link mypag-link" id="mypagelink" key={"mypagelink" + (i + 1)}>{(i + 1).toString()}</a>
                 </li>
@@ -122,8 +122,6 @@ class AdminPagination extends Component {
     }
 
     addCountOfElements(e) {
-        var url_string = window.location.href;
-        var url = new URL(url_string);
         e.preventDefault();
         var caller = e.target;
         var number = parseInt(caller.innerHTML);
@@ -169,10 +167,11 @@ class AdminPagination extends Component {
         this.AddDropdown(number);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.setState({
             currentPage: this.props.currPage
         })
+        this.activePages(this.props.currPage);
     }
 
     render() {

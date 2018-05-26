@@ -10,21 +10,18 @@ class AdminChangingRoles extends Component {
         super(props);
         this.state = {
             rolesList: [],
-            numberStart: 1,
-            numberFinish: 2,
             countElements: 10,
             currentPage: 1,
-            ifArrow: false,
             textFilter: "",
             isAdmin: false,
-            isDoctor: false
+            isDoctor: false, 
+            applyClick: false
         };
         var url_string = window.location.href;
         var url = new URL(url_string);
         if (url.search !== '') {
             this.state.currentPage = url.searchParams.get("page");
             this.state.countElements = url.searchParams.get("count");
-            // this.activePages(this.state.currentPage);
             axios({
                 method: 'get',
                 url: localStorage.getItem("server_url") + '/FiterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
@@ -41,7 +38,7 @@ class AdminChangingRoles extends Component {
         }
         else {
             var searchParameter = new URLSearchParams(window.location.search);
-            searchParameter.set('page', this.state.numberStart);
+            searchParameter.set('page', this.state.currentPage);
             searchParameter.set('count', this.state.countElements);
             window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
             axios({
@@ -64,12 +61,14 @@ class AdminChangingRoles extends Component {
         return ((this.state.countElements !== nextState.countElements) ||
                 (this.state.currentPage !== nextState.currentPage) ||
                 (this.state.rolesList !== nextState.rolesList) ||
-                (this.state.pageCount !== nextState.pageCount))
+                (this.state.countElements !== nextState.countElements) ||
+                (this.state.applyClick !== nextState.applyClick))
     }
     
     componentWillUpdate(nextProps, nextState) {
         if ((this.state.countElements !== nextState.countElements) ||
-            (this.state.currentPage !== nextState.currentPage)) {
+            (this.state.currentPage !== nextState.currentPage) ||
+            (this.state.applyClick !== nextState.applyClick)) {
                 axios({
                     method: 'get',
                     url: localStorage.getItem("server_url") + '/FiterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
@@ -99,28 +98,21 @@ class AdminChangingRoles extends Component {
     }
 
     getPagesAndQuantity(param, param2) {
-        var url_string = window.location.href;
-        var url = new URL(url_string);
         this.setState({
-            currentPage: url.searchParams.get("page"),
+            currentPage: param,
             countElements: param2
         })
     }
 
     handleApply() {
-        axios({
-            method: 'get',
-            url: localStorage.getItem("server_url") + '/FiterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-            }
+        var searchParameter = new URLSearchParams(window.location.search);
+        searchParameter.set('page', 1);
+        searchParameter.set('count', this.state.countElements);
+        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+        this.setState({
+            currentPage: 1,
+            applyClick: !this.state.applyClick
         })
-            .then(res => {
-                this.setState({
-                    rolesList: res.data,
-                })
-            });
     }
 
     render() {
