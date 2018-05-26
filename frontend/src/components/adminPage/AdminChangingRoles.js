@@ -27,7 +27,7 @@ class AdminChangingRoles extends Component {
             // this.activePages(this.state.currentPage);
             axios({
                 method: 'get',
-                url: localStorage.getItem("server_url") + '/GetInfoAboutAllUsers/' + this.state.currentPage + '/' + this.state.countElements,
+                url: localStorage.getItem("server_url") + '/FiterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -35,21 +35,7 @@ class AdminChangingRoles extends Component {
             })
                 .then(res => {
                     this.setState({
-                        rolesList: res.data
-                    })
-                }//, this.activePages(this.state.currentPage)
-            );
-            axios({
-                method: 'get',
-                url: localStorage.getItem("server_url") + '/NumbersOfPage/' + this.state.countElements,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-                }
-            })
-                .then(res => {
-                    this.setState({
-                        pageCount: res.data
+                        rolesList: res.data,
                     })
                 });
         }
@@ -60,7 +46,7 @@ class AdminChangingRoles extends Component {
             window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
             axios({
                 method: 'get',
-                url: localStorage.getItem("server_url") + '/GetInfoAboutAllUsers/' + this.state.currentPage + '/' + this.state.countElements,
+                url: localStorage.getItem("server_url") + '/FiterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -68,20 +54,7 @@ class AdminChangingRoles extends Component {
             })
                 .then(res => {
                     this.setState({
-                        rolesList: res.data
-                    })
-                }, this.activePages(this.state.currentPage));
-            axios({
-                method: 'get',
-                url: localStorage.getItem("server_url") + '/NumbersOfPage/' + this.state.countElements,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-                }
-            })
-                .then(res => {
-                    this.setState({
-                        pageCount: res.data
+                        rolesList: res.data,
                     })
                 });
         }
@@ -91,55 +64,15 @@ class AdminChangingRoles extends Component {
         return ((this.state.countElements !== nextState.countElements) ||
                 (this.state.currentPage !== nextState.currentPage) ||
                 (this.state.rolesList !== nextState.rolesList) ||
-                (this.state.pageCount !== nextState.pageCount) ||
-                (this.state.isAdmin !== nextState.isAdmin) ||
-                (this.state.isDoctor !== nextState.isDoctor ) ||
-                (this.state.textFilter !== nextState.textFilter))
+                (this.state.pageCount !== nextState.pageCount))
     }
     
     componentWillUpdate(nextProps, nextState) {
-        // if ((this.state.rolesList === nextState.rolesList)){
-        // axios({
-        //     method: 'get',
-        //     url: localStorage.getItem("server_url") + '/NumbersOfPage/' + nextState.countElements,
-        //     headers: {
-        //         'Content-Type': 'application/x-www-form-urlencoded',
-        //         // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-        //     }
-        // })
-        //     .then(res => {
-        //         this.setState({
-        //             pageCount: res.data
-        //         })
-        //     }); 
-        // }
-
-        if ((this.state.pageCount !== nextState.pageCount) ||
+        if ((this.state.countElements !== nextState.countElements) ||
             (this.state.currentPage !== nextState.currentPage)) {
-            axios({
-                method: 'get',
-                url: localStorage.getItem("server_url") + '/GetInfoAboutAllUsers/' + nextState.currentPage + '/' + nextState.countElements,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-                }
-            })
-                .then(res => {
-                    this.setState({
-                        rolesList: res.data,
-                        countElements: this.state.countElements,
-                        numberStart: 1,
-                        numberFinish: 2
-                    })
-                });
-            }
-
-        if ((this.state.isAdmin !== nextState.isAdmin) ||
-            (this.state.isDoctor !== nextState.isDoctor) ||
-            (this.state.textFilter !== nextState.textFilter)){
                 axios({
                     method: 'get',
-                    url: localStorage.getItem("server_url") + '/FiterAllUsers/' + this.state.currentPage + '/' +this.state.countElements + '/' +nextState.isAdmin+ '/' +nextState.isDoctor+ '/' + nextState.textFilter,
+                    url: localStorage.getItem("server_url") + '/FiterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -148,9 +81,6 @@ class AdminChangingRoles extends Component {
                     .then(res => {
                         this.setState({
                             rolesList: res.data,
-                            countElements: this.state.countElements,
-                            numberStart: 1,
-                            numberFinish: 2
                         })
                     });
             }
@@ -175,6 +105,22 @@ class AdminChangingRoles extends Component {
             currentPage: url.searchParams.get("page"),
             countElements: param2
         })
+    }
+
+    handleApply() {
+        axios({
+            method: 'get',
+            url: localStorage.getItem("server_url") + '/FiterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
+        })
+            .then(res => {
+                this.setState({
+                    rolesList: res.data,
+                })
+            });
     }
 
     render() {
@@ -204,7 +150,7 @@ class AdminChangingRoles extends Component {
                                 <p>only Doctors</p>
                             </div>                            
                             <div className="col-md-2 col-12 text-center">
-                                <button type="button" className="btn btn-info" onClick={() =>{this.handleSubmitEdit()}}>Apply
+                                <button type="button" className="btn btn-info" onClick={() =>{this.handleApply()}}>Apply
                                 </button>
                             </div>
                         </div>

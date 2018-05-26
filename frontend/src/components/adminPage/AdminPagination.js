@@ -13,8 +13,16 @@ class AdminPagination extends Component {
             numberFinish: 2,
             countElements: 10,
             currentPage: 1,
+            pageCount: 1,
             ifArrow: false
         };
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        if (url.search !== '') {
+            this.state.currentPage = url.searchParams.get("page");
+            this.state.countElements = url.searchParams.get("count");
+            this.activePages(this.state.currentPage);
+        }
     };
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -23,6 +31,19 @@ class AdminPagination extends Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
+        axios({
+            method: 'get',
+            url: localStorage.getItem("server_url") + '/NumbersOfPage/' + this.state.countElements,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
+        })
+        .then(res => {
+            this.setState({
+                pageCount: res.data
+            })
+        });
         this.props.callback(nextState.currentPage, nextState.countElements);
     }
 
@@ -57,21 +78,6 @@ class AdminPagination extends Component {
                 this.setState({ currentPage: number });
                 window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
                 this.activePages(number);
-
-                axios({
-                    method: 'get',
-                    url: localStorage.getItem("server_url") + '/GetInfoAboutAllUsers/' + number + '/' + this.state.countElements,
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-                    }
-                })
-                    .then(res => {
-                        this.setState({
-                            currentPage: number,
-                            ifArrow: false
-                        })
-                    });
             }
         }
     }
@@ -163,10 +169,13 @@ class AdminPagination extends Component {
         this.AddDropdown(number);
     }
 
-    render() {
+    componentWillMount() {
         this.setState({
             currentPage: this.props.currPage
         })
+    }
+
+    render() {
         return (
             <div className="row mt-2 paginationRow">
                 <div className="dropdown mydropdown float-right col-6">
