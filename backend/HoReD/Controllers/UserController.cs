@@ -54,10 +54,11 @@ namespace HoReD.Controllers
             return Ok(_userService.GetAllUsers(numberPage,countInPage));
         }
         [HttpGet]
-        [Route("FiterAllUsers/{firstOrlastname}/{isAdmin}/{isDoctor}")]
-        public IHttpActionResult FiterAllUsers(string firstOrlastname, bool isAdmin, bool isDoctor)
+        [Route("FiterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}")]
+        [Route("FiterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}/{firstOrlastname}")]
+        public IHttpActionResult FiterAllUsers(int numberPage, int countInPage,bool isAdmin, bool isDoctor, string firstOrlastname=null)
         {
-            return Ok(_userService.FiteringUsers(firstOrlastname,isAdmin,isDoctor));
+            return Ok(_userService.FiteringUsers(numberPage, countInPage,isAdmin,isDoctor,firstOrlastname));
         }
 
         [HttpGet]

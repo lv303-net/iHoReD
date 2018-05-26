@@ -131,11 +131,13 @@ namespace Entities.Services
             return users;
         }
 
-        public List<UserRole> FiteringUsers(string firstOrlastname, bool isAdmin,bool isDoctor)
+        public List<UserRole> FiteringUsers(int numberPage, int countInPage,bool isAdmin,bool isDoctor, string firstOrlastname=null)
         {
             const string cmd = "FILTERING_USERS";
             var param = new Dictionary<string, object>()
             {
+                {"@PAGENUMBER", numberPage},
+                {"@COUNTINPAGE", countInPage},
                 {"@FIRSTORLASTNAME", firstOrlastname},
                 {"@ISADMIN", isAdmin},
                 {"@ISADOCTOR",isDoctor }
