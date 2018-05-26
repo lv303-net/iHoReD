@@ -8,13 +8,77 @@
     height: 18px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
     #textInputUsername {
         width: 100%;
     }
 }
-@media (min-width: 700px) {
-#textInputUsername {
-    width: 70%;
+@media (min-width: 768px) {
+    #textInputUsername {
+        width: 70%;
+    }
 }
+
+.admDocLabel {
+    display: none;
 }
+
+@media (max-width: 765px) {
+    div.admDocLabel {
+        display: flex;
+        justify-content: flex-start;
+    }
+    div.admDocCheck {
+        display: flex;
+        justify-content: flex-end;
+    }
+    #rolesMainTable {
+        padding-right: 0px;
+    }
+    #rowFilter div.col-8 {
+        float: none;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 765px) {    
+    div.admDocCheck {
+        display: flex;
+        justify-content: center;
+    }
+    div#rowFilter > div {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    div#rowFilter > .col-8 {
+        display: flex;
+        justify-content: flex-end;
+    }
+    div#rowFilter > .col-5.col-md-1 {
+        display: flex;
+        justify-content: flex-end;
+    }
+    div#rowFilter > .col-5.col-md-4 {
+        padding-left: 9%;
+    }
+}
+
+#rolesMainTable .btn {
+    background-color: #007bff;
+}
+
+#rowFilter {
+    margin: 0px;
+}
+
+.paginationRow > #paginationPages {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0px;
+}
+
+.paginationRow > .dropdown {
+    padding-left: 0px;
+}
+
+

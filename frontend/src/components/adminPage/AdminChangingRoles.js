@@ -307,9 +307,9 @@ class AdminChangingRoles extends Component {
         return (
             <div className="container">
                 <div className="row mt-5">
-                    <div className="col-9 col-centered" id="rolesMainTable">
-                        <div className="row text-center">
-                            <div className="col-5" >
+                    <div className="col-12 col-centered" id="rolesMainTable">
+                        <div className="row" id="rowFilter">
+                            <div className="col-md-5 col-8" >
                                 <input type="text" 
                                         id="textInputUsername" 
                                         onChange={x => { this.setState({
@@ -317,19 +317,26 @@ class AdminChangingRoles extends Component {
                                         })}}
                                         placeholder="Username"/>
                             </div>
-                            <div className="col-2" >
+                            <div className="col-md-1 col-5 admDocCheck" >
                                 <input type="checkbox" className="checkboxEach mt-2" id="checkboxAdmin" onChange={() => this.changeAdmin()}/>
                             </div>
-                            <div className="col-5">
+                            <div className="col-md-2 col-6 mt-1 admDocLabel" >
+                                <p>only Admins</p>
+                            </div>                            
+                            <div className="col-md-4 col-5 admDocCheck">
                                 <input type="checkbox" className="checkboxEach mt-2" id="checkboxDoctor" onChange={() => this.changeDoctor()}/>
                             </div>
-                            <div className="modal-footer">
-                            <div className="col-3 text-center">
-                                <button type="button" className="btn btn-info" onClick={() =>{this.handleSubmitEdit()}}>Submit
+                            <div className="col-md-2 col-6 mt-1 admDocLabel" >
+                                <p>only Doctors</p>
+                            </div>                            
+                            <div className="col-md-2 col-12 text-center">
+                                <button type="button" className="btn btn-info" onClick={() =>{this.handleSubmitEdit()}}>Apply
                                 </button>
                             </div>
-                            </div>
                         </div>
+                    </div>
+                        
+                    <div className="col-md-9 col-12 col-centered" id="rolesMainTable">
                         <div className="row text-center mt-1" id="patientcard">
                             <div className="col-5 col-custom-header" id="col-custom">Username</div>
                             <div className="col-2 col-custom-header" id="col-custom">Admin</div>
@@ -355,8 +362,8 @@ class AdminChangingRoles extends Component {
                     </div>
                 </div>
 
-                <div className="d-flex justify-content-between mt-2">
-                    <div className="dropdown mydropdown float-right">
+                <div className="row mt-2 paginationRow">
+                    <div className="dropdown mydropdown float-right col-6">
                         <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Elements per page
                         </button>
@@ -366,7 +373,7 @@ class AdminChangingRoles extends Component {
                             <button type="button" className="dropdown-item">15</button>
                         </div>
                     </div>
-                    <div>
+                    <div className="col-6" id="paginationPages">
                         <nav >
                             <ul className="pagination pages" onClick={e => (this.addPage(e))}>
                                 <li className="page-item">
