@@ -511,5 +511,9 @@
   <changeSet author="Tetiana Usyk" id="V4.11">
    <sqlFile path="V4.11_CREATE_PROCEDURE_FILTERING_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V4.12">
+   <sqlFile path="V4.12_ALTER_PROCEDURE_FILTERING_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
  
 </databaseChangeLog>
