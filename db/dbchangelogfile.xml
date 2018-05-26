@@ -508,4 +508,8 @@
    <sqlFile path="V4.10_GETTING_INFO_ABOUT_ACTIVE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
+  <changeSet author="Tetiana Usyk" id="V4.11">
+   <sqlFile path="V4.11_CREATE_PROCEDURE_FILTERING_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+ 
 </databaseChangeLog>
