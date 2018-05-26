@@ -253,7 +253,7 @@ namespace HoReD.Controllers
         {
             try
             {
-                var result = _patientData.ClosePatientAllergy(model.IdPatient, model.Allergy, Convert.ToDateTime(model.EndTime));
+                var result = _patientData.ClosePatientAllergy(model.IdPatient, model.Allergy, Convert.ToDateTime(model.StartTime));
                 return Ok(result);
             }
             catch (Exception e)
@@ -315,6 +315,28 @@ namespace HoReD.Controllers
             try
             {
                 var result = _patientData.GetClosedDiseaseInfo(idPatient);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get description, treatment, doctor and date for active allergy
+        /// </summary>
+        /// <param name="idPatient">ID of needed user</param>
+        /// <param name="idAllergy">ID of needed allergy</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/PatientData/GetActiveAllergyInfo/{idPatient}/{idAllergy}")]
+        public IHttpActionResult GetActiveAllergyInfo(int idPatient, int idAllergy)
+        {
+            try
+            {
+                var result = _patientData.GetActiveAllergyInfo(idPatient, idAllergy);
                 return Ok(result);
             }
             catch (Exception e)
