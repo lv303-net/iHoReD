@@ -131,15 +131,12 @@ class AdminChangingRoles extends Component {
                 });
             }
 
-        if (nextState.isAdmin == false && nextState.isDoctor == false && nextState.textFilter === "") {
-            console.log(null)
-        }
         if ((this.state.isAdmin !== nextState.isAdmin) ||
             (this.state.isDoctor !== nextState.isDoctor) ||
             (this.state.textFilter !== nextState.textFilter)){
                 axios({
                     method: 'get',
-                    url: localStorage.getItem("server_url") + '/FiterAllUsers/' + nextState.textFilter + '/' +nextState.isAdmin+ '/' +nextState.isDoctor,
+                    url: localStorage.getItem("server_url") + '/FiterAllUsers/' + this.state.currentPage + '/' +this.state.countElements + '/' +nextState.isAdmin+ '/' +nextState.isDoctor+ '/' + nextState.textFilter,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -312,7 +309,7 @@ class AdminChangingRoles extends Component {
                 <div className="row mt-5">
                     <div className="col-9 col-centered" id="rolesMainTable">
                         <div className="row text-center">
-                            <div className="col-4" >
+                            <div className="col-5" >
                                 <input type="text" 
                                         id="textInputUsername" 
                                         onChange={x => { this.setState({
@@ -323,8 +320,14 @@ class AdminChangingRoles extends Component {
                             <div className="col-2" >
                                 <input type="checkbox" className="checkboxEach mt-2" id="checkboxAdmin" onChange={() => this.changeAdmin()}/>
                             </div>
-                            <div className="col-3">
+                            <div className="col-5">
                                 <input type="checkbox" className="checkboxEach mt-2" id="checkboxDoctor" onChange={() => this.changeDoctor()}/>
+                            </div>
+                            <div className="modal-footer">
+                            <div className="col-3 text-center">
+                                <button type="button" className="btn btn-info" onClick={() =>{this.handleSubmitEdit()}}>Submit
+                                </button>
+                            </div>
                             </div>
                         </div>
                         <div className="row text-center mt-1" id="patientcard">
