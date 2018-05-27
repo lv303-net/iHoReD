@@ -508,4 +508,20 @@
    <sqlFile path="V4.10_GETTING_INFO_ABOUT_ACTIVE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
+  <changeSet author="Tetiana Usyk" id="V4.11">
+   <sqlFile path="V4.11_CREATE_PROCEDURE_FILTERING_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V4.12">
+   <sqlFile path="V4.12_ALTER_PROCEDURE_FILTERING_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V4.13">
+   <sqlFile path="V4.13_CREATE_PROCEDURE_GET_USER_ROLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V4.14">
+   <sqlFile path="V4.14_CREATE_PROCEDURE_GET_USER_AVAILABLE_ROLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+ 
 </databaseChangeLog>
