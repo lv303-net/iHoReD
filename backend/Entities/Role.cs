@@ -1,6 +1,6 @@
 ﻿namespace Entities
 {
-    class Role
+    public class Role
     {
         public int RoleId { get; set; }
 

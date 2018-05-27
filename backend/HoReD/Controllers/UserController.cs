@@ -75,5 +75,12 @@ namespace HoReD.Controllers
             return Ok(_userService.GetUserRole(idUser));
         }
 
+        [HttpGet]
+        [Route("GetUserAvailableRole/{idUser}")]
+        public IHttpActionResult GetUserAvailableRole(int idUser)
+        {
+            return Ok(_userService.GetUserAvailableRole(idUser));
+        }
+
     }
 }

@@ -578,7 +578,7 @@ namespace Entities.Utils
 
         public static UserRole GetUserRole(string str)
         {
-            var values = str.Split('*');            
+            var values = str.Split('*');
             var user = new UserRole
             {
                 FirstName = values.GetValue(0).ToString(),
@@ -586,6 +586,22 @@ namespace Entities.Utils
                 Proffession = values.GetValue(2).ToString()
             };
             return user;
+        }
+
+        public static List<Role> GetUserAvailableRole(string str)
+        {
+            var values = str.Split('*');
+            var list = new List<Role>();
+            for (int i = 0; i < (values.Length - 1); i += 2)
+            {
+                var role = new Role
+                {
+                    RoleId = Convert.ToInt32(values.GetValue(i).ToString()),
+                    RoleName = values.GetValue(i + 1).ToString(),
+                };
+                list.Add(role);
+            }
+            return list;
         }
     }
 }
