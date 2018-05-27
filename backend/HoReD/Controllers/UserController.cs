@@ -54,10 +54,11 @@ namespace HoReD.Controllers
             return Ok(_userService.GetAllUsers(numberPage,countInPage));
         }
         [HttpGet]
-        [Route("FiterAllUsers/{firstOrlastname}/{isAdmin}/{isDoctor}")]
-        public IHttpActionResult FiterAllUsers(string firstOrlastname, bool isAdmin, bool isDoctor)
+        [Route("FilterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}")]
+        [Route("FilterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}/{firstOrlastname}")]
+        public IHttpActionResult FilterAllUsers(int numberPage, int countInPage,bool isAdmin, bool isDoctor, string firstOrlastname=null)
         {
-            return Ok(_userService.FiteringUsers(firstOrlastname,isAdmin,isDoctor));
+            return Ok(_userService.FilteringUsers(numberPage, countInPage,isAdmin,isDoctor,firstOrlastname));
         }
 
         [HttpGet]
@@ -65,6 +66,20 @@ namespace HoReD.Controllers
         public IHttpActionResult NumbersOfPage(int countInPage)
         {
             return Ok(_userService.GetPaginationCount(countInPage));
+        }
+
+        [HttpGet]
+        [Route("GetUserRole/{idUser}")]
+        public IHttpActionResult GetUserRole(int idUser)
+        {
+            return Ok(_userService.GetUserRole(idUser));
+        }
+
+        [HttpGet]
+        [Route("GetUserAvailableRole/{idUser}")]
+        public IHttpActionResult GetUserAvailableRole(int idUser)
+        {
+            return Ok(_userService.GetUserAvailableRole(idUser));
         }
 
     }

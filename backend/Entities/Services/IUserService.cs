@@ -17,6 +17,8 @@ namespace Entities.Services
         int ActivateUser(int Id);
         List<UserRole> GetAllUsers(int numberPage,int countInPage);
         int GetPaginationCount(int countInPage);
-        List<UserRole> FiteringUsers(string firstOrlastname, bool isAdmin, bool isDoctor);
+        List<UserRole> FilteringUsers(int numberPage, int countInPage, bool isAdmin, bool isDoctor, string firstOrlastname = null);
+        UserRole GetUserRole(int idUser);
+        List<Role> GetUserAvailableRole(int idUser);
     }
 }

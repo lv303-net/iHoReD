@@ -128,10 +128,10 @@ namespace Entities.Utils
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static List<Tuple<Event,User>> GetDoctorBookedEventsForDoctor(string str)
+        public static List<Tuple<Event, User>> GetDoctorBookedEventsForDoctor(string str)
         {
             var values = str.Split('*');
-            var list = new List<Tuple<Event,User>>();
+            var list = new List<Tuple<Event, User>>();
             for (int i = 0; i < (values.Length - 1); i += 3)
             {
                 string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.DatePattern),
@@ -145,7 +145,7 @@ namespace Entities.Utils
                 {
                     Id = (values.GetValue(i) == null) ? 0 : Convert.ToInt32(values.GetValue(i)),
                 };
-                list.Add(new Tuple<Event, User>(eventToPaste,userToPaste));
+                list.Add(new Tuple<Event, User>(eventToPaste, userToPaste));
             }
             return list;
         }
@@ -202,7 +202,7 @@ namespace Entities.Utils
                 };
                 result.Add(medicalCard);
             }
-            
+
             return result;
         }
 
@@ -252,12 +252,12 @@ namespace Entities.Utils
         {
             var values = bdResult.Split('*');
             var result = new List<IllnessCategory>();
-            for (int i = 0; i < values.Length; i +=2)
+            for (int i = 0; i < values.Length; i += 2)
             {
                 var Category = new IllnessCategory()
                 {
                     Id = Convert.ToInt32(values.GetValue(i)),
-                    Name = values.GetValue(1+i).ToString()
+                    Name = values.GetValue(1 + i).ToString()
                 };
                 result.Add(Category);
             }
@@ -268,7 +268,7 @@ namespace Entities.Utils
         {
             var values = bdResult.Split('*');
             var result = new List<IllnessSubCategory>();
-            for (int i = 0; i < values.Length; i+=4)
+            for (int i = 0; i < values.Length; i += 4)
             {
                 var subCategory = new IllnessSubCategory()
                 {
@@ -403,16 +403,16 @@ namespace Entities.Utils
             }
 
             for (int i = 0; i < values.Length; i += 5)
-                {
+            {
 
-                    var allergy = new Allergy()
-                    {
-                        Id = Convert.ToInt32(values.GetValue(i)),
-                        Name = Convert.ToString(values.GetValue(i + 1)),
-                        Visit = Convert.ToInt32(values.GetValue(i + 2))
-                    };
-                    result.Add(allergy);
-                }
+                var allergy = new Allergy()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Name = Convert.ToString(values.GetValue(i + 1)),
+                    Visit = Convert.ToInt32(values.GetValue(i + 2))
+                };
+                result.Add(allergy);
+            }
             return result;
         }
 
@@ -541,13 +541,15 @@ namespace Entities.Utils
         {
             var values = str.Split('*');
             var list = new List<UserRole>();
-            for (int i = 0; i < (values.Length - 1); i += 4)
+            for (int i = 0; i < (values.Length - 1); i += 5)
             {
                 var user = new UserRole
-                {   FirstName = values.GetValue(i).ToString(),
-                    LastName = values.GetValue(i+1).ToString(),
-                    IsAdmin = Convert.ToBoolean(Convert.ToInt32(values.GetValue(i+2))),
-                    Proffession= values.GetValue(i+3).ToString()
+                {
+                    IdUser = Convert.ToInt32(values.GetValue(i).ToString()),
+                    FirstName = values.GetValue(i + 1).ToString(),
+                    LastName = values.GetValue(i + 2).ToString(),
+                    IsAdmin = Convert.ToBoolean(Convert.ToInt32(values.GetValue(i + 3))),
+                    Proffession = values.GetValue(i + 4).ToString()
                 };
                 list.Add(user);
             }
@@ -572,6 +574,34 @@ namespace Entities.Utils
             };
 
             return info;
+        }
+
+        public static UserRole GetUserRole(string str)
+        {
+            var values = str.Split('*');
+            var user = new UserRole
+            {
+                FirstName = values.GetValue(0).ToString(),
+                LastName = values.GetValue(1).ToString(),
+                Proffession = values.GetValue(2).ToString()
+            };
+            return user;
+        }
+
+        public static List<Role> GetUserAvailableRole(string str)
+        {
+            var values = str.Split('*');
+            var list = new List<Role>();
+            for (int i = 0; i < (values.Length - 1); i += 2)
+            {
+                var role = new Role
+                {
+                    RoleId = Convert.ToInt32(values.GetValue(i).ToString()),
+                    RoleName = values.GetValue(i + 1).ToString(),
+                };
+                list.Add(role);
+            }
+            return list;
         }
     }
 }
