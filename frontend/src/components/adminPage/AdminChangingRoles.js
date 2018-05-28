@@ -2,6 +2,8 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import $ from 'jquery';
+import AdminPagination from './AdminPagination';
+import ChangingRole from './modaldialogs/ChanginRole';
 import '../../style/AdminChangingRoles.css'
 
 class AdminChangingRoles extends Component {
@@ -9,21 +11,25 @@ class AdminChangingRoles extends Component {
         super(props);
         this.state = {
             rolesList: [],
-            numberStart: 1,
-            numberFinish: 2,
             countElements: 10,
             currentPage: 1,
-            ifArrow: false
+            textFilter: "",
+            isAdmin: false,
+            isDoctor: false, 
+            applyClick: false,
+            idClick: 0
         };
         var url_string = window.location.href;
         var url = new URL(url_string);
         if (url.search !== '') {
             this.state.currentPage = url.searchParams.get("page");
             this.state.countElements = url.searchParams.get("count");
-            this.activePages(this.state.currentPage);
+            this.state.textFilter = url.searchParams.get("text");
+            this.state.isAdmin = url.searchParams.get("isAdmin");
+            this.state.isDoctor = url.searchParams.get("isDoc");
             axios({
                 method: 'get',
-                url: localStorage.getItem("server_url") + '/GetInfoAboutAllUsers/' + this.state.currentPage + '/' + this.state.countElements,
+                url: localStorage.getItem("server_url") + '/FilterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -31,19 +37,21 @@ class AdminChangingRoles extends Component {
             })
                 .then(res => {
                     this.setState({
-                        rolesList: res.data
+                        rolesList: res.data,
                     })
-
                 });
         }
         else {
             var searchParameter = new URLSearchParams(window.location.search);
-            searchParameter.set('page', this.state.numberStart);
+            searchParameter.set('page', this.state.currentPage);
             searchParameter.set('count', this.state.countElements);
+            searchParameter.set('text', "");
+            searchParameter.set('isAdmin', false);
+            searchParameter.set('isDoc', false);
             window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
             axios({
                 method: 'get',
-                url: localStorage.getItem("server_url") + '/GetInfoAboutAllUsers/' + this.state.currentPage + '/' + this.state.countElements,
+                url: localStorage.getItem("server_url") + '/FilterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -51,45 +59,39 @@ class AdminChangingRoles extends Component {
             })
                 .then(res => {
                     this.setState({
-                        rolesList: res.data
+                        rolesList: res.data,
                     })
                 });
         }
     };
 
-    addPage(e) {
-        e.preventDefault();
-        var caller = e.target;
-        var number = caller.innerHTML;
-        if ((number == '»') || (number == '<span aria-hidden="true">»</span><span class="sr-only">Next</span>')) {
-            if ((this.state.numberFinish + 1) <= this.state.pageCount) {
-                var searchParameter = new URLSearchParams(window.location.search);
-                searchParameter.delete('page');
-                let tempStart = this.state.numberStart + 1;
-                let tempFinish = this.state.numberFinish + 1;
-                this.setState({ numberStart: tempStart, numberFinish: tempFinish, ifArrow: true });
-                this.removeActive();
-            }
+    componentDidMount() {
+        if (this.state.isAdmin == "true") {
+            $('#checkboxAdmin').prop('checked', true);
         }
-        else {
-            if ((number == '«') || (number == '<span aria-hidden="true">«</span><span class="sr-only">Previous</span>')) {
-                if ((this.state.numberStart - 1) > 0) {
-                    var searchParameter = new URLSearchParams(window.location.search);
-                    searchParameter.delete("page");
-                    let tempStart = this.state.numberStart - 1;
-                    let tempFinish = this.state.numberFinish - 1;
-                    this.setState({ numberStart: tempStart, numberFinish: tempFinish, ifArrow: true });
-                    this.removeActive();
-                }
-            }
-            else {
-                var searchParameter = new URLSearchParams(window.location.search);
-                searchParameter.set('page', number);
-                window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-                this.activePages(number);
+        if (this.state.isDoctor == "true") {
+            $('#checkboxDoctor').prop('checked', true);
+        }
+        if (this.state.textFilter !== "") {
+            $('#textInputUsername').val(this.state.textFilter);
+        }
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        return ((this.state.countElements !== nextState.countElements) ||
+                (this.state.currentPage !== nextState.currentPage) ||
+                (this.state.rolesList !== nextState.rolesList) ||
+                (this.state.countElements !== nextState.countElements) ||
+                (this.state.applyClick !== nextState.applyClick) ||
+                (this.state.idUser !== nextState.idUser))
+    }
+    
+    componentWillUpdate(nextProps, nextState) {
+        if ((this.state.countElements !== nextState.countElements) ||
+            (this.state.currentPage !== nextState.currentPage) ||
+            (this.state.applyClick !== nextState.applyClick)) {
                 axios({
                     method: 'get',
-                    url: localStorage.getItem("server_url") + '/GetInfoAboutAllUsers/' + number + '/' + this.state.countElements,
+                    url: localStorage.getItem("server_url") + '/FilterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -98,160 +100,118 @@ class AdminChangingRoles extends Component {
                     .then(res => {
                         this.setState({
                             rolesList: res.data,
-                            currentPage: number,
-                            numberStart: 1,
-                            numberFinish: 2,
-                            ifArrow: false
                         })
                     });
             }
+    }
+
+    changeAdmin() {
+        if ($('#checkboxAdmin').is(":checked")){
+            this.setState({
+                isAdmin: true,
+            })
+        }
+        else {
+            this.setState({
+                isAdmin: false,
+            })
         }
     }
 
-    activePages(number) {
-        this.removeActive();
-        $('.pages li#mypageitem' + (number)).addClass('active');
-    }
-
-    removeActive() {
-        let i;
-        for (i = this.state.numberStart; i <= this.state.numberFinish; i++) {
-            $('.pages li#mypageitem' + (i)).removeClass('active');
+    changeDoctor() {
+        if ($('#checkboxDoctor').is(":checked")){
+            this.setState({
+                isDoctor: true,
+            })
+        }
+        else {
+            this.setState({
+                isDoctor: false,
+            })
         }
     }
 
-    generatePages(numberStart, numberFinish) {
-        var arr = []
-        var url_string = window.location.href;
-        var url = new URL(url_string);
-        var item =
-            <li className="page-item mypag-item active" id={"mypageitem" + numberStart} key={"mypageitemli" + numberStart}>
-                <a className="page-link mypag-link" id="mypagelink" key={"mypageitem" + numberStart}>{(numberStart).toString()}</a>
-            </li>
-        arr.push(item);
-        for (var i = numberStart; i < numberFinish; i++) {
-            var item =
-                <li className="page-item mypag-item" id={"mypageitem" + (i + 1)} key={"mypageitem" + (i + 1)}>
-                    <a className="page-link mypag-link" id="mypagelink" key={"mypagelink" + (i + 1)}>{(i + 1).toString()}</a>
-                </li>
-            arr.push(item);
-        }
-        if (!this.state.ifArrow) {
-            this.activePages(Number(url.searchParams.get("page")));
-        }
-        return arr;
+    getPagesAndQuantity(param, param2) {
+        this.setState({
+            currentPage: param,
+            countElements: param2
+        })
     }
 
-    AddDropdown(number) {
-        var button = $('#dropdownMenuButton');
-        button.innerHTML = number;
-    }
-
-    addCountOfElements(e) {
-        var url_string = window.location.href;
-        var url = new URL(url_string);
-        e.preventDefault();
-        var caller = e.target;
-        var number = parseInt(caller.innerHTML);
+    handleApply() {
         var searchParameter = new URLSearchParams(window.location.search);
-        searchParameter.set('count', number);
-        var newPageNumber;
-        axios({
-            method: 'get',
-            url: localStorage.getItem("server_url") + '/NumbersOfPage/' + number,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-            }
-        })
-            .then(res => {
-                this.setState({
-                    pageCount: res.data
-                })
-            });
-        if (this.state.elementsCount < number) {
-            for (var i = 1; i < number; i++) {
-                var start = this.state.elementsCount * (this.state.pageNumber - 1) + 1;
-                if ((start >= ((i - 1) * number + 1)) && ((start + this.state.elementsCount - 1) <= ((i - 1) * number + number))) {
-                    newPageNumber = i;
-                }
-                else {
-                    if ((start >= ((i - 1) * number + 1)) && ((start) <= ((i - 1) * number + number))) {
-                        newPageNumber = i;
-                    }
-                }
-            }
-            if (newPageNumber == null) {
-                newPageNumber = 1;
-            }
-        }
-        else {
-            newPageNumber = 1;
-        }
-        if ((newPageNumber + 1) < this.state.pageCount) {
-            this.setState({ numberStart: newPageNumber, numberFinish: newPageNumber + 1 })
-        }
-        else {
-            if ((newPageNumber - 1) >= 1) {
-                this.setState({ numberStart: newPageNumber - 1, numberFinish: newPageNumber })
-            }
-            else {
-                this.setState({ numberStart: newPageNumber, numberFinish: newPageNumber })
-            }
-        }
-        this.setState({ pageNumber: newPageNumber });
-        searchParameter.set('page', newPageNumber);
+        searchParameter.set('page', 1);
+        searchParameter.set('count', this.state.countElements);
+        searchParameter.set('text', this.state.textFilter);
+        searchParameter.set('isAdmin', this.state.isAdmin);
+        searchParameter.set('isDoc', this.state.isDoctor);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-        this.AddDropdown(number);
-        axios({
-            method: 'get',
-            url: localStorage.getItem("server_url") + '/GetInfoAboutAllUsers/' + number + '/' + this.state.countElements,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-            }
-        })
-            .then(res => {
-                this.setState({
-                    rolesList: res.data,
-                    countElements: number,
-                    numberStart: 1,
-                    numberFinish: 2
-                })
-            });
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return ((this.state.currentPage !== this.nextState.currentPage) ||
-                (this.state.countElements !== this.nextState.countElements))
-    }
-
-    componentWillUpdate(nextProps, nextState) {
         
+        this.setState({
+            currentPage: 1,
+            applyClick: !this.state.applyClick
+        })
+    }
+
+    getIdClick(e) {
+        e.preventDefault();
+        var caller = e.target || e.srcElement;
+        this.setState({
+            idUser: caller.id,
+        })
     }
 
     render() {
         return (
-            <div className="container">
-                <div className="row mt-5 ">
-                    <div className="col-12" id="rolesMainTable">
-                        <div className="row text-center" id="patientcard">
-                            <div className="col-4 col-custom-header" id="col-custom">Username</div>
-                            <div className="col-4 col-custom-header" id="col-custom">Admin</div>
-                            <div className="col-4 col-custom-header">Doctor</div>
+            <div className="container" id="changingRolesDiv">
+                <div className="row mt-5">
+                    <div className="col-12">
+                        <div className="row" id="rowFilter">
+                            <div className="col-md-5 col-8" >
+                                <input type="text" 
+                                        id="textInputUsername" 
+                                        onChange={x => { this.setState({
+                                            textFilter: x.target.value,
+                                        })}}
+                                        placeholder="Username"/>
+                            </div>
+                            <div className="col-md-1 col-5 admDocCheck" >
+                                <input type="checkbox" className="checkboxEach mt-2" id="checkboxAdmin" onChange={() => this.changeAdmin()}/>
+                            </div>
+                            <div className="col-md-2 col-6 mt-1 admDocLabel" >
+                                <p>only Admins</p>
+                            </div>                            
+                            <div className="col-md-4 col-5 admDocCheck">
+                                <input type="checkbox" className="checkboxEach mt-2" id="checkboxDoctor" onChange={() => this.changeDoctor()}/>
+                            </div>
+                            <div className="col-md-2 col-6 mt-1 admDocLabel" >
+                                <p>only Doctors</p>
+                            </div>                            
+                            <div className="col-md-2 col-12 text-center">
+                                <button type="button" className="btn btn-info" onClick={() =>{this.handleApply()}}>Apply
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <div className="col-md-9 col-12 col-centered" id="rolesMainTable">
+                        <div className="row text-center mt-1 patientcard">
+                            <div className="col-5 col-custom-header column-custom" >Username</div>
+                            <div className="col-2 col-custom-header column-custom">Admin</div>
+                            <div className="col-5 col-custom-header">Doctor</div>
                         </div>
                         {
                             this.state.rolesList.map(items =>
-                                <div className="row text-center" id="patientcard" key={items.LastName + items.FirstName + 'Row'}>
-                                    <div className="col-4" id="col-custom" key={items.LastName}>
-                                        <p className="mt-1 mb-1">{items.FirstName} {items.LastName} </p>
+                                <div className="row text-center patientcard" key={items.LastName + items.FirstName + 'Row'}>
+                                    <div className="col-5 column-custom" id={items.IdUser} data-toggle="modal" data-target="#changingRole" onClick={(e)=>this.getIdClick(e)} >
+                                        <p className="mt-1 mb-1" id={items.IdUser}>{items.FirstName} {items.LastName} </p>
                                     </div>
-                                    <div className="col-4" id="col-custom" key={items.LastName + 'IsAdmin'}>
+                                    <div className="col-2 column-custom" key={items.LastName + 'IsAdmin'}>
                                         {items.IsAdmin
                                             ? <input type="checkbox" className="checkboxEach mt-2" disabled="disabled" checked />
                                             : <input type="checkbox" className="checkboxEach mt-2" disabled="disabled" />}
                                     </div>
-                                    <div className="col-4" key={items.LastName + 'Prof'}>
+                                    <div className="col-5" key={items.LastName + 'Prof'}>
                                         <p className="mt-1 mb-1">{items.Proffession}</p>
                                     </div>
                                 </div>
@@ -260,39 +220,8 @@ class AdminChangingRoles extends Component {
                     </div>
                 </div>
 
-                <div className="d-flex justify-content-between mt-2">
-                    <div className="dropdown mydropdown float-right">
-                        <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Elements per page
-                        </button>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" onClick={e => (this.addCountOfElements(e))}>
-                            <button type="button" className="dropdown-item">5</button>
-                            <button type="button" className="dropdown-item">10</button>
-                            <button type="button" className="dropdown-item">15</button>
-                        </div>
-                    </div>
-                    <div>
-                        <nav >
-                            <ul className="pagination pages" onClick={e => (this.addPage(e))}>
-                                <li className="page-item">
-                                    <a className="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span className="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                {this.generatePages(this.state.numberStart, this.state.numberFinish)}
-                                {/* {this.generatePages(1, 10)} */}
-                                <li className="page-item">
-                                    <a className="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span className="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-
-                </div>
+                <AdminPagination currPage={this.state.currentPage} callback={this.getPagesAndQuantity.bind(this)}/>
+                <ChangingRole idUser = {this.state.idUser}/>
             </div>
         );
     }

@@ -16,8 +16,9 @@ class InfoSchedule extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.props.idPatient !== nextProps.idPatient
-            || this.state.patientInfo !== nextState.patientInfo)
+        return ((this.props.idPatient !== nextProps.idPatient) || 
+                (this.state.patientInfo !== nextState.patientInfo) ||
+                (this.state.startTime !== nextProps.startTime))
     }
 
     componentWillUpdate(nextProps, nextState) {

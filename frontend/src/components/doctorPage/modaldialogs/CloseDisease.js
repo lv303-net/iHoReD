@@ -51,7 +51,11 @@ class CloseDisease extends Component {
                 this.props.callback(response.data);
             })
     }
-
+    
+    handleCancel(){
+        this.props.callback(1);
+    }
+    
     render() {
         return (
             <div className="modal fade" id="CloseDisease" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,20 +66,20 @@ class CloseDisease extends Component {
                             <h3 className="modal-title" id="exampleModalLabel">
                                 Close disease
                             </h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={() => { this.handleCancel() }}>
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div className="modal-body">
                             <ActiveDiseases callback={this.getActiveDiseaseId.bind(this)} PatientId={this.props.PatientId} reload={this.props.reload} />
                             <div className="row mb-3 mt-5 justify-content-center">
-                                <div className="col-sm-3 col-6 text-center" >
-                                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal">Cancel
-                            </button>
-                                </div>
                                 <div className="col-sm-3 col-6 text-center">
                                     <button type="button" className="btn btn-info btn-lg mb-3" data-dismiss="modal" onClick={() => { this.handleAddDisease() }}>Close
-                            </button>
+                                    </button>
+                                </div>
+                                <div className="col-sm-3 col-6 text-center" >
+                                    <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal" onClick={() => { this.handleCancel() }}>Cancel
+                                    </button>
                                 </div>
                             </div>
                         </div>

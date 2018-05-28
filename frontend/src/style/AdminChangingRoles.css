@@ -1,8 +1,100 @@
-div.row > div#rolesMainTable {
-    padding-right: 0px;
-}
-
 .checkboxEach {
     width: 20px;
     height: 18px;
+}
+
+.admDocLabel {
+    display: none;
+}
+
+@media (max-width: 765px) {
+    #textInputUsername {
+        width: 100%;
+    }
+    div.admDocLabel {
+        display: flex;
+        justify-content: flex-start;
+    }
+    div.admDocCheck {
+        display: flex;
+        justify-content: flex-end;
+    }
+    #rolesMainTable {
+        padding-right: 0px;
+    }
+    #rowFilter div.col-8 {
+        float: none;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 765px) {
+    #textInputUsername {
+        width: 69%;
+    }    
+    div.admDocCheck {
+        display: flex;
+        justify-content: center;
+    }
+    div#rowFilter > div {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    div#rowFilter > .col-8 {
+        display: flex;
+        justify-content: flex-end;
+    }
+    div#rowFilter > .col-5.col-md-1 {
+        display: flex;
+        justify-content: flex-end;
+    }
+    div#rowFilter > .col-5.col-md-4 {
+        padding-left: 9%;
+    }
+}
+
+#changingRolesDiv #rowFilter .btn {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+#rowFilter {
+    margin: 0px;
+}
+
+.paginationRow > #paginationPages {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0px;
+}
+
+.paginationRow > .dropdown {
+    padding-left: 0px;
+}
+
+.column-custom{
+    border-right:2px solid #adc9ff;
+    height: auto;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+.patientcard {
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid #adc9ff;
+    text-align: start;
+    margin-right: 0%;
+    min-height: 40px;
+    height:  auto; 
+    word-wrap: break-word; 
+}
+
+.patientcard div:first-child {
+    cursor: pointer;
+}
+
+.modalMain {
+    margin-left: 10px;
 }

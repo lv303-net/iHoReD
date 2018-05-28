@@ -5,6 +5,7 @@ import axios from 'axios';
 import photo from '../style/img_avatar1.png';
 import PropTypes from 'prop-types';
 import DiseaseInfo from './doctorPage/modaldialogs/DiseaseInfo';
+import ActiveAllergyInfo from './doctorPage/modaldialogs/ActiveAllergyInfo';
 import ClosedDiseasesInfo from './doctorPage/modaldialogs/ClosedDiseasesInfo';
 
 class AboutPatient extends React.Component {
@@ -52,6 +53,7 @@ class PatientInfo extends React.Component {
     componentDidMount() {
         this.getPatientData(this.props.PatientId);
     }
+
     getPatientData(PatientId) {
         axios({
             method: 'get',
@@ -114,13 +116,6 @@ class PatientInfo extends React.Component {
         }
     }
     render() {
-        console.log(this.props.PatientId);
-        let variable = "qwertyuiop12";
-        console.log(variable);
-        console.log(variable.slice(10));
-        variable = "qwertyuiop12456";
-        console.log(variable);
-        console.log(variable.slice(10));
         return (
             <div className="container mt-5">
                 <div className="row">
@@ -135,10 +130,10 @@ class PatientInfo extends React.Component {
                     <div className="col-sm-12 col-md-5">
                         <div className="row" id="patientcard">
                             <div className="col-5" id="col-custom">Allergies:</div>
-                            <div className="col-7" id="diseaselist">
+                            <div className="col-7 list-group" id="diseaselist">
                                 <div className="list-group">
-                                    {this.state.allergies.map(item =>
-                                        <div id="#allergilistitem" className="list-group-item">{item.Name}</div>)}
+                                    {this.state.allergies.map(item => item.Name !== null ?
+                                    <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#AllergyInfo" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div> : <div></div>)}
                                 </div>
                             </div>
                         </div>
@@ -146,19 +141,15 @@ class PatientInfo extends React.Component {
                             <div className="col-5" id="col-custom">Diseases:</div>
                             <div className="col-7" id="diseaselist">
                                 <div className="list-group">
-                                    {this.state.diseases.map(item =>
-                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#DiseaseInfo" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div>)}
+                                    {this.state.diseases.map(item => item.Name !== null ?
+                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#DiseaseInfo" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div> : <div></div>)}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {/* <div className="row justify-content-end"> */}
-                    <button type="button" className="btn btn-info btn-lg mt-3 col-sm-4" id="AddRate" data-toggle="modal" data-target="#ClosedDiseasesInfo">All diseases history
-                    </button>
-                {/* </div> */}
-                <ClosedDiseasesInfo PatientId={this.props.PatientId} reload={this.props.shouldUpdate}/>
+                </div>                   
                 <DiseaseInfo PatientId={this.props.PatientId} DiseaseId={this.state.currentDiseaseId} DiseaseName={this.state.currentDiseaseName}/>
+                <ActiveAllergyInfo PatientId={this.props.PatientId} AllergyId={this.state.currentDiseaseId} AllergyName={this.state.currentDiseaseName}/>
             </div>
         );
     }

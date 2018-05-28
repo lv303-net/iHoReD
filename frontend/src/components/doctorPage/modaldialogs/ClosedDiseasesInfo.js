@@ -56,26 +56,39 @@ class ClosedDiseasesInfo extends Component{
                         </div>
                         <div className="modal-body" id="CloseDiseaseModal">
                             <div className="ml-3">
+                            <div id="accordion">
                             {
                                 this.state.diseases.map(item =>
-                                <div  id="patientcard">
-                                    <div className="ml-3 mb-2 mt-2">
-                                        <b>Disease : </b>{item.DiseaseName}<br/>
+                                <div>
+                                <div className="card mb-2">
+                                  <div className="card-header" id={"closedDiseaseHeading" + item.Id}>
+                                    <h5 className="mb-0">
+                                      <div data-toggle="collapse" data-target={"#closedDisease" + item.Id} aria-expanded="true" aria-controls={"closedDisease" + item.Id}>
+                                      <b>Disease : </b>{item.DiseaseName}<br/>
+                                      </div>
+                                    </h5>
+                                  </div>
+                              
+                                  <div id={"closedDisease" + item.Id} className="collapse" aria-labelledby={"closedDiseaseHeading" + + item.Id} data-parent="#accordion">
+                                    <div className="ClosedDiseaseInfo ml-3">
 
-                                        <br/><b>Open disease : </b>{item.DoctorOpenFirstName  + " " + item.DoctorOpenLastName}<br/>
-                                    
-                                        <br/><b>Start time of treatment : </b>{item.StartDateTime }<br/>
-                                    
-                                        <br/><b>Description : </b>{item.Description }<br/>
-                                    
-                                        <br/><b>Treatment : </b>{item.Treatment }<br/>
-                                    
-                                        <br/><b>Close disease : </b>{item.DoctorCloseFirstName + " " + item.DoctorCloseLastName}<br/>
-                                    
-                                        <br/><b>End time of treatment : </b>{item.EndDateTime }<br/>
+                                        <b>Open disease : </b>{item.DoctorOpenFirstName  + " " + item.DoctorOpenLastName}<br/>
+
+                                        <b>Start time of treatment : </b>{item.StartDateTime }<br/>
+
+                                        <b>Description : </b>{item.Description }<br/>
+
+                                        <b>Treatment : </b>{item.Treatment }<br/>
+
+                                        <b>Close disease : </b>{item.DoctorCloseFirstName + " " + item.DoctorCloseLastName}<br/>
+
+                                        <b>End time of treatment : </b>{item.EndDateTime }<br/>
                                     </div>
+                                  </div>
                                 </div>
+                              </div>
                                 )}
+                            </div>  
                             </div>
                             
                         </div>
