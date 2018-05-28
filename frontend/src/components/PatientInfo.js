@@ -113,14 +113,8 @@ class PatientInfo extends React.Component {
             this.props.callback(1);
         }
     }
+    
     render() {
-        console.log(this.props.PatientId);
-        let variable = "qwertyuiop12";
-        console.log(variable);
-        console.log(variable.slice(10));
-        variable = "qwertyuiop12456";
-        console.log(variable);
-        console.log(variable.slice(10));
         return (
             <div className="container mt-5">
                 <div className="row">
@@ -137,8 +131,9 @@ class PatientInfo extends React.Component {
                             <div className="col-5" id="col-custom">Allergies:</div>
                             <div className="col-7" id="diseaselist">
                                 <div className="list-group">
-                                    {this.state.allergies.map(item =>
-                                        <div id="#allergilistitem" className="list-group-item">{item.Name}</div>)}
+                                    {this.state.diseases.map(item => item.Name !== null ?
+                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#AllergyInfo"
+                                        onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div> : <div></div>)}
                                 </div>
                             </div>
                         </div>
@@ -146,17 +141,15 @@ class PatientInfo extends React.Component {
                             <div className="col-5" id="col-custom">Diseases:</div>
                             <div className="col-7" id="diseaselist">
                                 <div className="list-group">
-                                    {this.state.diseases.map(item =>
-                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#DiseaseInfo" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div>)}
+                                    {this.state.diseases.map(item =>  item.Name !== null ?
+                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#DiseaseInfo" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div> : <div></div>)}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {/* <div className="row justify-content-end"> */}
-                    <button type="button" className="btn btn-info btn-lg mt-3 col-sm-4" id="AddRate" data-toggle="modal" data-target="#ClosedDiseasesInfo">All diseases history
-                    </button>
-                {/* </div> */}
+                <button type="button" className="btn btn-info btn-lg mt-3 col-sm-4" id="AddRate" data-toggle="modal" data-target="#ClosedDiseasesInfo">All diseases history
+                </button>
                 <ClosedDiseasesInfo PatientId={this.props.PatientId} reload={this.props.shouldUpdate}/>
                 <DiseaseInfo PatientId={this.props.PatientId} DiseaseId={this.state.currentDiseaseId} DiseaseName={this.state.currentDiseaseName}/>
             </div>
