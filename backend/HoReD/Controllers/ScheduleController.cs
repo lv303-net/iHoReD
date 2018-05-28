@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Entities;
 using Entities.Services;
+using HoReD.AuthFilters;
 
 namespace HoReD.Controllers
 {
@@ -25,6 +26,7 @@ namespace HoReD.Controllers
         /// <param name="model"> Stores data about schedule(start time, end time and IDs of doctor and patient</param>
         /// <returns>Status code</returns>
         [HttpPost]
+        [TokenAuthenticate(Role = "doctor")]
         public IHttpActionResult InsertNewScheduleRecord(Models.ScheduleBindingModel model)
         {
             int response;

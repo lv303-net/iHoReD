@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Entities.Services;
+using HoReD.AuthFilters;
 
 namespace HoReD.Controllers
 {
@@ -27,6 +28,7 @@ namespace HoReD.Controllers
         /// <param name="id">ID of needed user</param>
         /// <returns>Patient Data</returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         public IHttpActionResult GetPatientDataByPatientId(int id)
         {
             try
@@ -47,6 +49,7 @@ namespace HoReD.Controllers
         /// <param name="id">ID of needed user</param>
         /// <returns>List of user's allergies names, id and visit</returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/ActiveAllergies/{id}")]
         public IHttpActionResult GetPatientActiveAllergies(int id)
         {
@@ -67,6 +70,7 @@ namespace HoReD.Controllers
         /// <param name="id">ID of needed user</param>
         /// <returns>List of user's allergies names, id</returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/NonActiveAllergies/{id}")]
         public IHttpActionResult GetPatientNoNActiveAllergies(int id)
         {
@@ -87,6 +91,7 @@ namespace HoReD.Controllers
         /// <param name="id">ID of needed user</param>
         /// <returns>List of user's diseases names, id</returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/ActiveDiseases/{id}")]
         public IHttpActionResult GetPatientActiveDiseases(int id)
         {
@@ -106,6 +111,7 @@ namespace HoReD.Controllers
         /// </summary>
         /// <returns>List of  diseases categories id, name</returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/Categories")]
         public IHttpActionResult GetCategories()
         {
@@ -126,6 +132,7 @@ namespace HoReD.Controllers
         /// <param name="id">ID of needed category</param>
         /// <returns>List of  diseases subcategories, id, firstcode, lastcode, name</returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/SubCategories/{id}")]
         public IHttpActionResult GetSubCategories(int id )
         {
@@ -146,6 +153,7 @@ namespace HoReD.Controllers
         /// <param name="id">ID of needed subcategory</param>
         /// <returns>List of  diseases id, code, name</returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/Diseases/{id}")]
         public IHttpActionResult GetDiseases(int id)
         {
@@ -167,6 +175,7 @@ namespace HoReD.Controllers
         /// <param name="idDisease">ID of needed subdisease</param>
         /// <returns>List of user's nonactive subdiseases</returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/SubDiseases/{idPatient}/{idDisease}")]
         public IHttpActionResult GetPatientDiseases(int idPatient, int idDisease)
         {
@@ -188,6 +197,7 @@ namespace HoReD.Controllers
         /// <param name="model">Id patient, starttime of visit and idallergy</param>
         /// <returns>Integer: 1 - if allergy added </returns>
         [HttpPost]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/AddAllergy")]
         public IHttpActionResult AddPatientAllergy(Models.MedicalRecordBindingModel model)
         {
@@ -208,6 +218,7 @@ namespace HoReD.Controllers
         /// <param name="model">Id patient, starttime of visit and iddisease</param>
         /// <returns>Integer: 1 - if disease added </returns>
         [HttpPost]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/AddDisease")]
         public IHttpActionResult AddPatientDisease(Models.MedicalRecordBindingModel model)
         {
@@ -228,6 +239,7 @@ namespace HoReD.Controllers
         /// <param name="model">Id patient, starttime of visit and iddisease</param>
         /// <returns>Integer: 1 - if disease closed </returns>
         [HttpPost]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/CloseDisease")]
         public IHttpActionResult ClosePatientDisease(Models.MedicalRecordBindingModel model)
         {
@@ -248,6 +260,7 @@ namespace HoReD.Controllers
         /// <param name="model">Id patient, starttime of visit and iddallergy</param>
         /// <returns>Integer: 1 - if allergy closed </returns>
         [HttpPost]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/CloseAllergy")]
         public IHttpActionResult ClosePatientAllergy(Models.MedicalRecordBindingModel model)
         {
@@ -268,6 +281,7 @@ namespace HoReD.Controllers
         /// <param name="model">Id patient, starttime of visit, description and treatment</param>
         /// <returns>Integer: 1 - if record added </returns>
         [HttpPost]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/AddMedicalRecord")]
         public IHttpActionResult AddMedicalRecord(Models.MedicalRecordBindingModel model)
         {
@@ -289,6 +303,7 @@ namespace HoReD.Controllers
         /// <param name="idDisease">ID of needed subdisease</param>
         /// <returns></returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/GetDiagnoseInfo/{idPatient}/{idDisease}")]
         public IHttpActionResult GetDiagnoseInfo(int idPatient, int idDisease)
         {
@@ -309,6 +324,7 @@ namespace HoReD.Controllers
         /// <param name="idPatient">ID of needed user</param>
         /// <returns></returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/GetClosedDiseaseInfo/{idPatient}")]
         public IHttpActionResult GetClosedDiseaseInfo(int idPatient)
         {
@@ -331,6 +347,7 @@ namespace HoReD.Controllers
         /// <param name="idAllergy">ID of needed allergy</param>
         /// <returns></returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/GetActiveAllergyInfo/{idPatient}/{idAllergy}")]
         public IHttpActionResult GetActiveAllergyInfo(int idPatient, int idAllergy)
         {
@@ -352,6 +369,7 @@ namespace HoReD.Controllers
         /// <param name="idPatient">ID of needed user</param>
         /// <returns></returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("api/PatientData/GetClosedAllergiesInfo/{idPatient}")]
         public IHttpActionResult GetClosedAllergiesInfo(int idPatient)
         {
