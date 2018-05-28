@@ -126,7 +126,7 @@ class DoctorCalendar extends React.Component {
         url: localStorage.getItem("server_url") + '/DoctorEventsForDoctor/' + nextState.idDoc + '/' + nextState.startPeriod + '/' + nextState.endPeriod,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+          'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
         }
       })
         .then(response => {

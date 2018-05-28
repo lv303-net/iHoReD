@@ -36,7 +36,15 @@ class CloseAllergy extends Component{
             StartTime: this.props.Visit,
             Allergy: this.state.idActiveAllergy
         }   
-        axios.post(localStorage.getItem("server_url") + '/api/PatientData/CloseAllergy', Allergy)
+        axios({
+            method: 'post',
+            url: localStorage.getItem("server_url") + '/api/PatientData/CloseAllergy',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            },
+            data: JSON.stringify(Allergy)
+        })
         .then(response=>{
         console.log(response.data);
         this.props.callback(response.data);

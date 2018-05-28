@@ -40,7 +40,7 @@ class AddAllergy extends Component {
             url: localStorage.getItem("server_url") + '/api/PatientData/AddAllergy',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             },
             data: JSON.stringify(newAllergy)
         })

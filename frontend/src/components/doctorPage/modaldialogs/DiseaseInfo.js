@@ -26,7 +26,7 @@ class DiseaseInfo extends Component{
                 url: localStorage.getItem("server_url") + '/api/PatientData/GetDiagnoseInfo/' + nextProps.PatientId + '/' + nextProps.DiseaseId,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(res => {

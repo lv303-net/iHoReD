@@ -44,7 +44,14 @@ class SubDiseases extends Component{
             this.setState({
                 selectedOption: null
             });
-            axios.get(localStorage.getItem("server_url") + '/api/PatientData/SubDiseases/' + this.props.PatientId + '/' + nextProps.idDisease)
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/api/PatientData/SubDiseases/' + this.props.PatientId + '/' + nextProps.idDisease,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
             .then(function (response) {
                 _that.setState({
                     options: response.data.map( subDisease => ({ value: subDisease.Id, label: subDisease.Name }))

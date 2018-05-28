@@ -23,7 +23,7 @@ class ProfessionsRatesPage extends React.Component {
       url: localStorage.getItem("server_url") + '/AllProfessions',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
       }
     })
       .then(res => {

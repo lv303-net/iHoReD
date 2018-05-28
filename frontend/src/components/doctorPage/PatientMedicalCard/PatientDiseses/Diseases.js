@@ -44,7 +44,14 @@ class Diseases extends Component{
             this.setState({
                 selectedOption: null
             });
-            axios.get(localStorage.getItem("server_url") + '/api/PatientData/Diseases/' + nextProps.idSubCategory)
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/api/PatientData/Diseases/' + nextProps.idSubCategory,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
             .then(function (response) {
                 _that.setState({
                     options: response.data.map( disease => ({ value: disease.Id, label: disease.Name }))

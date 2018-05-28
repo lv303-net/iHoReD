@@ -39,7 +39,7 @@ class Edit extends React.Component {
           url: localStorage.getItem("server_url") + '/EditUserInfo',
           headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
           },
           data: JSON.stringify(this.state)
         })
@@ -86,7 +86,7 @@ class Edit extends React.Component {
       url: localStorage.getItem("server_url") + '/GetUserInfoById/' + localStorage.getItem('currentUserId'),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
       }
     })
       .then(res => {

@@ -77,7 +77,7 @@ class EditRateToProfession extends Component {
                     url: localStorage.getItem("server_url") + '/api/Salary/Rate/edit',
                     headers: {
                         'Content-Type': 'application/json',
-                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                     },
                     data: JSON.stringify(newRate)
                 })
@@ -96,7 +96,7 @@ class EditRateToProfession extends Component {
                     url: localStorage.getItem("server_url") + '/api/Salary/Coefficient/edit',
                     headers: {
                         'Content-Type': 'application/json',
-                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                     },
                     data: JSON.stringify(newCoefficient)
                 })

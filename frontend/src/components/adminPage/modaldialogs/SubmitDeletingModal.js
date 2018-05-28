@@ -9,7 +9,7 @@ class SubmitDeleting extends Component {
             url: localStorage.getItem("server_url") + '/rule/' + this.props.currentRule.IdRule + '/delete',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             },
         })
             .then(

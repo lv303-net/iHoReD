@@ -32,7 +32,7 @@ class AdminChangingRoles extends Component {
                 url: localStorage.getItem("server_url") + '/FilterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(res => {
@@ -54,7 +54,7 @@ class AdminChangingRoles extends Component {
                 url: localStorage.getItem("server_url") + '/FilterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(res => {
@@ -94,7 +94,7 @@ class AdminChangingRoles extends Component {
                     url: localStorage.getItem("server_url") + '/FilterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                     }
                 })
                     .then(res => {
