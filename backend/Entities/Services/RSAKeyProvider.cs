@@ -19,13 +19,13 @@ namespace Entities.Services
             rsaKeyPath = AppDomain.CurrentDomain.BaseDirectory + @"RsaUserKey.txt";
         }
 
-        public async Task<String> GetPrivateAndPublicKeyAsync()
+        public string GetPrivateAndPublicKeyAsync()
         {
-            string result = await ReadPrivateAndPublicKeyAsync();
+            string result = ReadPrivateAndPublicKeyAsync();
             if (string.IsNullOrEmpty(result))
             {
                 string key = CreatePrivateAndPublicKey();
-                Boolean isInserted = await InsertPrivateAndPublicKeyAsync(key);
+                Boolean isInserted = InsertPrivateAndPublicKeyAsync(key);
                 if (isInserted)
                     result = key;
             }
@@ -41,34 +41,31 @@ namespace Entities.Services
             return publicAndPrivateKey;
         }
 
-        private async Task<Boolean> InsertPrivateAndPublicKeyAsync(string key)
+        private bool InsertPrivateAndPublicKeyAsync(string key)
         {
-            Boolean result = false;
             try
             {
                 using (StreamWriter fileStream = new StreamWriter(rsaKeyPath))
                 {
-                    await fileStream.WriteLineAsync(key);
-                    result = true;
+                    fileStream.WriteLineAsync(key);
+                    return true;
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                result = false;
+                return false;
             }
-
-            return result;
         }
 
-        private async Task<String> ReadPrivateAndPublicKeyAsync()
+        private string ReadPrivateAndPublicKeyAsync()
         {
-            String result = null;
+            string result = null;
             try
             {
                 using (StreamReader fileStream = new StreamReader(rsaKeyPath))
                 {
-                    result = await fileStream.ReadToEndAsync();
+                    result = fileStream.ReadToEnd();
                 }
             }
             catch (Exception ex)

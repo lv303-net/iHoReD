@@ -10,11 +10,14 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Filters;
 using Entities.Services;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace HoReD.AuthFilters
 {
     public class TokenAuthenticate : Attribute, IAuthenticationFilter
     {
+        public string Role { get; set; }
 
         public bool AllowMultiple
         {
@@ -24,76 +27,98 @@ namespace HoReD.AuthFilters
             }
         }
 
+        public string Realm { get; set; }
+
         public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
-            try
+            var request = context.Request;
+            var authorization = request.Headers.Authorization;
+
+            if (authorization == null || authorization.Scheme != "Bearer")
+                return;
+
+            if (string.IsNullOrEmpty(authorization.Parameter))
             {
-                AuthService _authService = context.ActionContext.ControllerContext.Configuration
-                    .DependencyResolver.GetService(typeof(AuthService)) as AuthService;
-
-                HttpRequestMessage request = context.Request;
-                AuthenticationHeaderValue authorization = request.Headers.Authorization;
-
-                if (authorization == null)
-                {
-                    context.ErrorResult = new AuthenticationFailureResult("Missing autorization header", request);
-                    return;
-                }
-                if (authorization.Scheme != "Bearer")
-                {
-                    context.ErrorResult = new AuthenticationFailureResult("Invalid autorization scheme", request);
-                    return;
-                }
-                if (String.IsNullOrEmpty(authorization.Parameter))
-                {
-                    context.ErrorResult = new AuthenticationFailureResult("Missing Token", request);
-                    return;
-                }
-
-                Boolean correctToken = await _authService.ValidateTokenAsync(authorization.Parameter);
-                if (!correctToken)
-                    context.ErrorResult = new AuthenticationFailureResult("Invalid Token", request);
+                context.ErrorResult = new AuthenticationFailureResult("Missing Jwt Token", request);
+                return;
             }
-            catch (Exception ex)
-            {
-                context.ErrorResult = new AuthenticationFailureResult("Exception: \n" + ex.Message, context.Request);
-            }
+
+            var token = authorization.Parameter;
+            var principal = await AuthenticateJwtToken(token);
+
+            if (principal == null)
+                context.ErrorResult = new AuthenticationFailureResult("Invalid token", request);
+
+            else
+                context.Principal = principal;
         }
 
         public Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)
         {
-            var challenge = new AuthenticationHeaderValue("Basic");
-            context.Result = new AddChallengeOnUnauthorizedResult(challenge, context.Result);
+            Challenge(context);
             return Task.FromResult(0);
         }
-    }
 
-    public class AddChallengeOnUnauthorizedResult : IHttpActionResult
-    {
-        public AddChallengeOnUnauthorizedResult(AuthenticationHeaderValue challenge, IHttpActionResult innerResult)
+        private void Challenge(HttpAuthenticationChallengeContext context)
         {
-            Challenge = challenge;
-            InnerResult = innerResult;
+            string parameter = null;
+
+            if (!string.IsNullOrEmpty(Realm))
+                parameter = "realm=\"" + Realm + "\"";
+
+            context.ChallengeWith("Bearer", parameter);
         }
 
-        public AuthenticationHeaderValue Challenge { get; private set; }
-
-        public IHttpActionResult InnerResult { get; private set; }
-
-        public async Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
+        private bool ValidateToken(string token, out string username,out string role)
         {
-            HttpResponseMessage response = await InnerResult.ExecuteAsync(cancellationToken);
+            username = null;
+            role = null;
+            IUserService userService = new UserService(new DbContext());
+            AuthService authService = new AuthService(new MembershipProvider(userService), new RSAKeyProvider());
+            var simplePrinciple = authService.GetPrincipal(token);
+            var identity = simplePrinciple?.Identity as ClaimsIdentity;
 
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            if (identity == null)
+                return false;
+
+            if (!identity.IsAuthenticated)
+                return false;
+
+            var usernameClaim = identity.FindFirst(ClaimTypes.Name);
+            var roleClaim = identity.FindFirst(ClaimTypes.Role);
+            username = usernameClaim?.Value;
+            role = roleClaim?.Value;
+
+            if (string.IsNullOrEmpty(username))
+                return false;
+            if (role != this.Role)
             {
-                // Only add one challenge per authentication scheme.
-                if (!response.Headers.WwwAuthenticate.Any((h) => h.Scheme == Challenge.Scheme))
-                {
-                    response.Headers.WwwAuthenticate.Add(Challenge);
-                }
+                return false;
             }
 
-            return response;
+            return true;
         }
+
+        protected Task<IPrincipal> AuthenticateJwtToken(string token)
+        {
+            string username;
+            string role;
+            if (ValidateToken(token, out username, out role))
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Role, role)
+                };
+
+                var identity = new ClaimsIdentity(claims, "Jwt");
+                IPrincipal user = new ClaimsPrincipal(identity);
+
+                return Task.FromResult(user);
+            }
+
+            return Task.FromResult<IPrincipal>(null);
+        }
+
     }
 }

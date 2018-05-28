@@ -196,7 +196,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="AuthFilters\AddChallengeOnUnauthorizedResult.cs" />
     <Compile Include="AuthFilters\AuthenticationFailureResult.cs" />
+    <Compile Include="AuthFilters\HttpAuthenticationChallengeContextExtensions.cs" />
     <Compile Include="AuthFilters\TokenAuthenticate.cs" />
     <Compile Include="Controllers\DoctorScheduleController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />

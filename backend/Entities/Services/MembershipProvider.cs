@@ -26,12 +26,11 @@ namespace Entities.Services
         public List<Claim> GetUserClaims(string email)
         {
             var currentUser = _userService.GetUserInfo(email);
-            List<Claim> claims = new List<Claim>
+            return new List<Claim>
             {
                 new Claim(ClaimTypes.Role, currentUser.RoleName),
-                new Claim(ClaimTypes.Email, currentUser.Email)
-            };
-            return claims;
+                new Claim(ClaimTypes.Name, currentUser.Email)
+            }; ;
         }
 
         /// <summary>
@@ -41,11 +40,6 @@ namespace Entities.Services
         /// <param name="password"></param>
         /// <returns></returns>
         public bool VerifyUserPassword(string email, string password)
-        {
-            var currentUser = _userService.GetUserInfo(email);
-            var passwordRegForm = password;
-            var isPasswordEqual = Hashing.VerifyPassword(passwordRegForm, currentUser.Password);
-            return isPasswordEqual;
-        }
+            => Hashing.VerifyPassword(password, _userService.GetUserInfo(email).Password);
     }
 }
