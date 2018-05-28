@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Entities;
 using Entities.Services;
-
+using HoReD.AuthFilters;
 namespace HoReD.Controllers
 {
     /// <summary>
@@ -27,6 +27,7 @@ namespace HoReD.Controllers
         /// 
 
         [HttpGet]
+        [TokenAuthenticate(Role = "user,doctor,admin")]
         [Route("GetDoctorSchedule/{doctorId}")]
         public IHttpActionResult GetDoctorSchedule(int doctorId)
         {

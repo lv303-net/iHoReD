@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Entities;
+using HoReD.AuthFilters;
 
 namespace HoReD.Controllers
 {
@@ -28,6 +29,7 @@ namespace HoReD.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [TokenAuthenticate(Role = "user")]
         [Route("EditUserInfo")]
         public IHttpActionResult EditUserInfo(UserInfoBindingModel model)
         {
@@ -41,6 +43,7 @@ namespace HoReD.Controllers
         /// <param name="UserInfoId">ID of needed user</param>
         /// <returns>UserInfo</returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "user,doctor,admin")]
         [Route("GetUserInfoById/{UserInfoId}")]
         public IHttpActionResult GetUserInfoById(int UserInfoId)
         {
@@ -48,12 +51,14 @@ namespace HoReD.Controllers
         }
 
         [HttpGet]
+        [TokenAuthenticate(Role = "admin")]
         [Route("GetInfoAboutAllUsers/{numberPage}/{countInPage}")]
         public IHttpActionResult GetInfoAboutAllUsers(int numberPage, int countInPage)
         {
             return Ok(_userService.GetAllUsers(numberPage,countInPage));
         }
         [HttpGet]
+        [TokenAuthenticate(Role = "admin")]
         [Route("FilterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}")]
         [Route("FilterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}/{firstOrlastname}")]
         public IHttpActionResult FilterAllUsers(int numberPage, int countInPage,bool isAdmin, bool isDoctor, string firstOrlastname=null)
@@ -62,6 +67,7 @@ namespace HoReD.Controllers
         }
 
         [HttpGet]
+        [TokenAuthenticate(Role = "admin")]
         [Route("NumbersOfPage/{countInPage}")]
         public IHttpActionResult NumbersOfPage(int countInPage)
         {
@@ -69,6 +75,7 @@ namespace HoReD.Controllers
         }
 
         [HttpGet]
+        [TokenAuthenticate(Role = "admin")]
         [Route("GetUserRole/{idUser}")]
         public IHttpActionResult GetUserRole(int idUser)
         {
@@ -76,6 +83,7 @@ namespace HoReD.Controllers
         }
 
         [HttpGet]
+        [TokenAuthenticate(Role = "admin")]
         [Route("GetUserAvailableRole/{idUser}")]
         public IHttpActionResult GetUserAvailableRole(int idUser)
         {
@@ -83,6 +91,7 @@ namespace HoReD.Controllers
         }
 
         [HttpGet]
+        [TokenAuthenticate(Role = "admin")]
         [Route("NumbersOfPageFiltered/{countInPage}/{isAdmin}/{isDoctor}")]
         [Route("NumbersOfPageFiltered/{countInPage}/{isAdmin}/{isDoctor}/{firstOrlastname}")]
         public IHttpActionResult NumbersOfPageFiltered(int countInPage,bool isAdmin, bool isDoctor, string firstOrLastname=null)

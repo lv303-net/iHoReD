@@ -91,7 +91,8 @@ namespace HoReD.AuthFilters
 
             if (string.IsNullOrEmpty(username))
                 return false;
-            if (role != this.Role)
+            string[] roles = this.Role.Split(',');
+            if (!roles.Any(role.Contains))
             {
                 return false;
             }
