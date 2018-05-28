@@ -66,5 +66,12 @@ namespace HoReD.Controllers
                 throw;
             }
         }
+
+        [HttpPost]
+        [Route("CheckIfExists")]
+        public IHttpActionResult CheckIfExist(Models.MedicalRecordBindingModel model)
+        {
+            return Ok(_medicalCard.CheckIfDescriptionExists(model.IdPatient, model.StartTime));
+        }
     }
 }

@@ -86,15 +86,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
+    <Compile Include="ClosedAllergyInfo.cs" />
     <Compile Include="Doctor.cs" />
     <Compile Include="DoctorInfo.cs" />
     <Compile Include="DoctorRules.cs" />
+    <Compile Include="DiseaseInfo.cs" />
+    <Compile Include="IllnessCategory.cs" />
+    <Compile Include="PatientDiseases.cs" />
+    <Compile Include="IllnessSubDiseases.cs" />
+    <Compile Include="IllnessSubCategory.cs" />
+    <Compile Include="IllnessDiseases.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Hashing.cs" />
     <Compile Include="Profession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="SalaryCoeff.cs" />
+    <Compile Include="Allergy.cs" />
     <Compile Include="SalaryRate.cs" />
     <Compile Include="SalaryStatistics.cs" />
     <Compile Include="Services\AuthService.cs" />
@@ -116,6 +124,7 @@
     <Compile Include="Services\IScheduleService.cs" />
     <Compile Include="Services\MembershipProvider.cs" />
     <Compile Include="Services\PatientData.cs" />
+    <Compile Include="PatientData.cs" />
     <Compile Include="MedicalCard.cs" />
     <Compile Include="Services\PatientDataService.cs" />
     <Compile Include="Services\MedicalCardService.cs" />
@@ -127,8 +136,10 @@
     <Compile Include="Services\ScheduleService.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserInfo.cs" />
+    <Compile Include="UserRole.cs" />
     <Compile Include="Utils\ParseSqlQuery.cs" />
     <Compile Include="Utils\StaticData.cs" />
+    <Compile Include="VisitInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DoctorControllerTest.cs" />
+    <Compile Include="Controllers\PatientDataControllerTest.cs" />
     <Compile Include="Controllers\RegistrationControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -129,6 +129,43 @@ namespace HoReDTests.Controllers
             Assert.AreEqual(response, fake_list.Count);
         }
 
+        [Test]
+        public void GetDoctorSalaryStatistics_ValidCountOfRecords()
+        {
+            // Arrange
+            int doctorId = 1;
+            DateTime dateStart = new DateTime(2018, 01, 30);
+            DateTime dateFinish = new DateTime(2018, 01, 30);
+            var fake_list = GetFakeDoctorSalaryStatistics(doctorId, dateStart, dateFinish);
+            mock.Setup(repo => repo.GetDoctorSalaryStatisticsSplitedByMonths(doctorId, dateStart, dateFinish)).Returns(fake_list);
+            var controller = new DoctorController(mock.Object);
+
+            // Act
+            var response = (controller.GetDoctorSalaryStatistics(doctorId, dateStart, dateFinish) as OkNegotiatedContentResult<List<SalaryStatistics>[]>).Content;
+
+
+            // Assert
+            Assert.AreEqual(response.Length, fake_list.Length);
+        }
+
+        [Test]
+        public void GetDoctorSalaryStatistics_ReturnedValuesValid()
+        {
+            // Arrange
+            int doctorId = 1;
+            DateTime dateStart = new DateTime(2018, 01, 30);
+            DateTime dateFinish = new DateTime(2018, 01, 30);
+            var fake_list = GetFakeDoctorSalaryStatistics(doctorId, dateStart, dateFinish);
+            mock.Setup(repo => repo.GetDoctorSalaryStatisticsSplitedByMonths(doctorId, dateStart, dateFinish)).Returns(fake_list);
+            var controller = new DoctorController(mock.Object);
+
+            // Act
+            var response = (controller.GetDoctorSalaryStatistics(doctorId, dateStart, dateFinish) as OkNegotiatedContentResult<List<SalaryStatistics>[]>).Content;
+
+
+            // Assert
+            Assert.AreEqual(response[0], fake_list[0]);
+        }
         public List<DoctorInfo> GetFakeDoctors()
         {
             var list = new List<DoctorInfo>();
@@ -177,5 +214,16 @@ namespace HoReDTests.Controllers
             list.Add(prof2);
             return list;
         }
+
+        public List<SalaryStatistics>[] GetFakeDoctorSalaryStatistics(int doctorId, DateTime dateStart, DateTime dateFinish)
+        {
+            var list = new List<SalaryStatistics>[1];
+            list[0] = new List<SalaryStatistics> { new SalaryStatistics { Day = new DateTime(2018, 01, 30), WorkedHours = 2.50, SalaryRate = 80.00, SalaryCoefficient = 2.00, EarnedMoney = 400.00 },
+             new SalaryStatistics { Day = null, WorkedHours = 2.50, SalaryRate = 80.00, SalaryCoefficient = 2.00, EarnedMoney = 400.00 }};
+           
+            return list;
+           
+        }
+
     }
 }

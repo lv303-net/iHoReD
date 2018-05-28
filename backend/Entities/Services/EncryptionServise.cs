@@ -29,13 +29,17 @@ namespace Entities.Services
                     clearText = Convert.ToBase64String(ms.ToArray());
                 }
             }
-            return clearText;
+            return clearText.Replace(" ", "%").Replace("/", "_");
         }
         public static string Decrypt(string cipherText)
         {
             string EncryptionKey = "abc123";
-            byte[] cipherBytes = Convert.FromBase64String(cipherText);
-            cipherText = cipherText.Replace(' ', '+').Replace('_', '/');
+            int mod4 = cipherText.Length % 4;
+            if (mod4 > 0)
+            {
+                cipherText += new string('=', 4 - mod4);
+            }
+            byte[] cipherBytes = Convert.FromBase64String(cipherText.Replace("%", " ").Replace("_", "/"));   
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });

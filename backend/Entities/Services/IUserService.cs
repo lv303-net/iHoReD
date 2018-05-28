@@ -15,5 +15,11 @@ namespace Entities.Services
             string phone, string sex, string country, string city, string street, string apartment);
         UserInfo GetUserInfoById(int id);
         int ActivateUser(int Id);
+        List<UserRole> GetAllUsers(int numberPage,int countInPage);
+        int GetPaginationCount(int countInPage);
+        int GetPaginationCountFiltered(int countInPage,bool isAdmin, bool isDoctor, string firstOrLastname = null);
+        List<UserRole> FilteringUsers(int numberPage, int countInPage, bool isAdmin, bool isDoctor, string firstOrlastname = null);
+        UserRole GetUserRole(int idUser);
+        List<Role> GetUserAvailableRole(int idUser);
     }
 }

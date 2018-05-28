@@ -17,7 +17,7 @@ namespace Entities.Services
 
         public List<MedicalCard> GetUserCardById(int userId, int pageNumber, int elementOnPageCount, int columnNumber)
         {
-            string cmd = "GET_MEDICAL_CARD_BY_USER_ID";
+            string cmd = "GET_MEDICAL_RECORDS_FOR_USER";
             var rowNuber = (int)Math.Ceiling((double) elementOnPageCount / columnNumber);
             var param = new Dictionary<string,object>()
             {
@@ -29,7 +29,7 @@ namespace Entities.Services
             try
             {
                 var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
-                var nonResponsiveList = Utils.ParseSqlQuery.GetMedicalCards(data);
+                var nonResponsiveList = Utils.ParseSqlQuery.GetMedicalRecords(data);
                 List<MedicalCard> responsiveList = new List<MedicalCard>();
                 for (int i = 0; i < columnNumber; i++)
                 {
@@ -66,6 +66,16 @@ namespace Entities.Services
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public int CheckIfDescriptionExists(int patientId, DateTime startDate) {
+            string cmd = "CHECK_IF_DESCRIPTION_EXISTS";
+            var param = new Dictionary<string, object>()
+            {
+                {"IDPATIENT", patientId },
+                {"START_DATETIME", startDate}
+            };
+            return _dbContext.ExecuteQuery(cmd, param);
         }
     }
 }

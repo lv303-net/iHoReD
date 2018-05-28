@@ -8,7 +8,7 @@ namespace Entities
 {
     public class SalaryStatistics
     {
-        public DateTime Day { get; set; }
+        public DateTime? Day { get; set; }
 
         public double WorkedHours { get; set; }
 

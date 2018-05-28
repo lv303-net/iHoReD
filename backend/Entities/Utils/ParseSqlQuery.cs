@@ -85,11 +85,17 @@ namespace Entities.Utils
             var values = str.Split('*');
             var list = new List<SalaryStatistics>();
 
+            DateTime? dt;
             for (int i = 0; i < (values.Length - 1); i += 5)
             {
+                if (string.IsNullOrEmpty(values.GetValue(i).ToString()))
+                    dt = null;
+                else
+                    dt = Convert.ToDateTime(values.GetValue(i));
+
                 SalaryStatistics salaryPerDay = new SalaryStatistics()
                 {
-                    Day = Convert.ToDateTime(values.GetValue(i)),
+                    Day = dt,
                     WorkedHours = Convert.ToDouble(values.GetValue(i + 1)),
                     SalaryRate = Convert.ToDouble(values.GetValue(i + 2)),
                     SalaryCoefficient = Convert.ToDouble(values.GetValue(i + 3)),
@@ -102,21 +108,34 @@ namespace Entities.Utils
             return list;
         }
 
+        public static SalaryStatistics GetDoctorGeneralSalaryStatistics(string str)
+        {
+            var values = str.Split('*');
+            SalaryStatistics statistics = new SalaryStatistics()
+            {
+                Day = null,
+                WorkedHours = Convert.ToDouble(values.GetValue(1)),
+                SalaryRate = Convert.ToDouble(values.GetValue(2)),
+                SalaryCoefficient = Convert.ToDouble(values.GetValue(3)),
+                EarnedMoney = Convert.ToDouble(values.GetValue(4))
+            };
+
+            return statistics;
+        }
+
         /// <summary>
         /// Almost identical to GetDoctorBookedEvents, but also returns name,surname & id of user, that booked session
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static List<Tuple<Event,User>> GetDoctorBookedEventsForDoctor(string str)
+        public static List<Tuple<Event, User>> GetDoctorBookedEventsForDoctor(string str)
         {
             var values = str.Split('*');
-            var list = new List<Tuple<Event,User>>();
-            string datePattern = "yyyy-MM-dd";
-            string timePattern = "HH:mm:ss";
-            for (int i = 0; i < (values.Length - 1); i += 6)
+            var list = new List<Tuple<Event, User>>();
+            for (int i = 0; i < (values.Length - 1); i += 3)
             {
-                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(datePattern),
-                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(timePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(timePattern) };
+                string[] startEndDateTime = {Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.DatePattern),
+                    Convert.ToDateTime(values.GetValue(i + 1)).ToString(StaticData.TimePattern), Convert.ToDateTime(values.GetValue(i + 2)).ToString(StaticData.TimePattern) };
                 var eventToPaste = new Event()
                 {
                     dateTime = startEndDateTime,
@@ -126,12 +145,16 @@ namespace Entities.Utils
                 {
                     Id = (values.GetValue(i) == null) ? 0 : Convert.ToInt32(values.GetValue(i)),
                 };
-                list.Add(new Tuple<Event, User>(eventToPaste,userToPaste));
+                list.Add(new Tuple<Event, User>(eventToPaste, userToPaste));
             }
             return list;
         }
 
-
+        /// <summary>
+        /// Returns basic info about user
+        /// </summary>
+        /// <param name="str">Received Query</param>
+        /// <returns>UserInfo object</returns>
         public static UserInfo GetAllUserInfo(string str)
         {
             var values = str.Split('*');
@@ -159,7 +182,6 @@ namespace Entities.Utils
             }
         }
 
-
         public static List<MedicalCard> GetMedicalCards(string dbResult)
         {
             var values = dbResult.Split('*');
@@ -180,9 +202,33 @@ namespace Entities.Utils
                 };
                 result.Add(medicalCard);
             }
-            
+
             return result;
         }
+
+        public static List<MedicalCard> GetMedicalRecords(string dbResult)
+        {
+            var values = dbResult.Split('*');
+            var result = new List<MedicalCard>();
+            for (int i = 0; i < values.Length - 1; i += 8)
+            {
+                var medicalCard = new MedicalCard
+                {
+                    CardId = Convert.ToInt32(values.GetValue(i)),
+                    Description = values.GetValue(1 + i).ToString(),
+                    Cure = values.GetValue(2 + i).ToString(),
+                    DoctorFirstname = values.GetValue(3 + i).ToString(),
+                    Doctorlastname = values.GetValue(4 + i).ToString(),
+                    IdPatient = Convert.ToInt32(values.GetValue(5 + i)),
+                    StartDateTime = Convert.ToDateTime(values.GetValue(6 + i)),
+                    IdVisit = Convert.ToInt32(values.GetValue(7 + i))
+                };
+                result.Add(medicalCard);
+            }
+
+            return result;
+        }
+
         public static List<PatientData> GetPatientData(string bdResult)
         {
             var values = bdResult.Split('*');
@@ -191,23 +237,206 @@ namespace Entities.Utils
             {
                 var patientData = new PatientData
                 {
-                    FirstName = values.GetValue(i).ToString(),
-                    LastName = values.GetValue(1 + i).ToString(),
-                    Birthday = Convert.ToDateTime(values.GetValue(2 + i)),
-                    Phone = values.GetValue(3 + i).ToString(),
-                    BloodType = values.GetValue(4 + i).ToString(),
+                    FirstName = (values.GetValue(i) ?? "Not specified").ToString(),
+                    LastName = (values.GetValue(1 + i) ?? "Not specified").ToString(),
+                    Birthday = Convert.ToDateTime((values.GetValue(2 + i) != "") ? values.GetValue(2 + i) : new DateTime(1900, 1, 1)),
+                    Phone = (values.GetValue(3 + i) ?? "Not specified").ToString(),
+                    BloodType = (values.GetValue(4 + i) ?? "Not specified").ToString(),
                 };
                 result.Add(patientData);
             }
             return result;
         }
-        public static List<string> GetPatientAllergies(string bdResult)
+
+        public static List<IllnessCategory> GetCategories(string bdResult)
         {
             var values = bdResult.Split('*');
-            var result = new List<string>();
-            for (int i = 0; i < values.Length; i++)
+            var result = new List<IllnessCategory>();
+            for (int i = 0; i < values.Length; i += 2)
             {
-                result.Add(values.GetValue(i).ToString());
+                var Category = new IllnessCategory()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Name = values.GetValue(1 + i).ToString()
+                };
+                result.Add(Category);
+            }
+            return result;
+        }
+
+        public static List<IllnessSubCategory> GetSubCategories(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<IllnessSubCategory>();
+            for (int i = 0; i < values.Length; i += 4)
+            {
+                var subCategory = new IllnessSubCategory()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    FirstCode = values.GetValue(1 + i).ToString(),
+                    LastCode = values.GetValue(2 + i).ToString(),
+                    Name = values.GetValue(3 + i).ToString()
+                };
+                result.Add(subCategory);
+            }
+            return result;
+        }
+
+        public static List<IllnessDiseases> GetDiseases(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<IllnessDiseases>();
+            for (int i = 0; i < values.Length; i += 3)
+            {
+                var subCategory = new IllnessDiseases()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Code = values.GetValue(1 + i).ToString(),
+                    Name = values.GetValue(2 + i).ToString()
+                };
+                result.Add(subCategory);
+            }
+            return result;
+        }
+
+        public static List<IllnessSubDiseases> GetPatientSubDiseases(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<IllnessSubDiseases>();
+            if (bdResult == "")
+                result.Add(new IllnessSubDiseases());
+            else
+            {
+                for (int i = 0; i < values.Length; i += 4)
+                {
+                    var SubDiseases = new IllnessSubDiseases()
+                    {
+                        Id = Convert.ToInt32(values.GetValue(i)),
+                        Name = values.GetValue(1 + i).ToString(),
+                        FirstCode = values.GetValue(2 + i).ToString(),
+                        LastCode = values.GetValue(3 + i).ToString(),
+                    };
+                    result.Add(SubDiseases);
+                }
+            }
+            return result;
+        }
+
+        public static DiseaseInfo GetDiagnoseInfo(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new DiseaseInfo();
+            if (bdResult == "")
+                result = new DiseaseInfo();
+            else
+            {
+                result = new DiseaseInfo()
+                {
+                    DoctorOpenFirstName = (values.GetValue(0)).ToString(),
+                    DoctorOpenLastName = values.GetValue(1).ToString(),
+                    StartDateTime = Convert.ToDateTime(values.GetValue(2)),
+                    Description = values.GetValue(3).ToString(),
+                    Treatment = values.GetValue(4).ToString()
+                };
+            }
+            return result;
+        }
+
+        public static List<PatientDiseases> GetPatientActiveDiseases(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<PatientDiseases>();
+            if (bdResult == "")
+                result.Add(new PatientDiseases());
+            else
+            {
+                for (int i = 0; i < values.Length; i += 2)
+                {
+                    var Diseases = new PatientDiseases()
+                    {
+                        Id = Convert.ToInt32(values.GetValue(i)),
+                        Name = values.GetValue(1 + i).ToString()
+                    };
+                    result.Add(Diseases);
+                }
+            }
+            return result;
+        }
+
+        public static List<DiseaseInfo> GetClosedDiseaseInfo(string bdResult)
+        {
+            int index = 0;
+            var values = bdResult.Split('*');
+            var result = new List<DiseaseInfo>();
+            if (bdResult == "")
+                result.Add(new DiseaseInfo());
+            else
+            {
+                for (int i = 0; i < values.Length; i += 9)
+                {
+                    var Diseases = new DiseaseInfo()
+                    {
+                        Id = index++,
+                        DiseaseName = values.GetValue(i).ToString(),
+                        DoctorOpenFirstName = values.GetValue(1 + i).ToString(),
+                        DoctorOpenLastName = values.GetValue(2 + i).ToString(),
+                        StartDateTime = Convert.ToDateTime(values.GetValue(3 + i)),
+                        Description = values.GetValue(4 + i).ToString(),
+                        Treatment = values.GetValue(5 + i).ToString(),
+                        DoctorCloseFirstName = values.GetValue(6 + i).ToString(),
+                        DoctorCloseLastName = values.GetValue(7 + i).ToString(),
+                        EndDateTime = Convert.ToDateTime(values.GetValue(8 + i))
+                    };
+                    result.Add(Diseases);
+                }
+            }
+            return result;
+        }
+
+        public static List<Allergy> GetPatientActiveAllergies(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<Allergy>();
+
+            if (string.IsNullOrEmpty(bdResult))
+            {
+                result.Add(new Allergy());
+                return result;
+            }
+
+            for (int i = 0; i < values.Length; i += 5)
+            {
+
+                var allergy = new Allergy()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Name = Convert.ToString(values.GetValue(i + 1)),
+                    Visit = Convert.ToInt32(values.GetValue(i + 2))
+                };
+                result.Add(allergy);
+            }
+            return result;
+        }
+
+        public static List<Allergy> GetPatientNonActiveAllergies(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new List<Allergy>();
+
+            if (string.IsNullOrEmpty(bdResult))
+            {
+                result.Add(new Allergy());
+                return result;
+            }
+
+            for (int i = 0; i < values.Length; i += 2)
+            {
+                var allergy = new Allergy()
+                {
+                    Id = Convert.ToInt32(values.GetValue(i)),
+                    Name = Convert.ToString(values.GetValue(i + 1))
+                };
+                result.Add(allergy);
             }
             return result;
         }
@@ -310,6 +539,71 @@ namespace Entities.Utils
             return result;
         }
 
+        public static List<UserRole> GetAllUsers(string str)
+        {
+            var values = str.Split('*');
+            var list = new List<UserRole>();
+            for (int i = 0; i < (values.Length - 1); i += 5)
+            {
+                var user = new UserRole
+                {
+                    IdUser = Convert.ToInt32(values.GetValue(i).ToString()),
+                    FirstName = values.GetValue(i + 1).ToString(),
+                    LastName = values.GetValue(i + 2).ToString(),
+                    IsAdmin = Convert.ToBoolean(Convert.ToInt32(values.GetValue(i + 3))),
+                    Proffession = values.GetValue(i + 4).ToString()
+                };
+                list.Add(user);
+            }
+            return list;
+        }
 
+        public static VisitInfo GetActiveAllergyInfo(string bdResult)
+        {
+            var values = bdResult.Split('*');
+            var result = new VisitInfo();
+
+            if (string.IsNullOrEmpty(bdResult))
+                return new VisitInfo();
+
+            VisitInfo info = new VisitInfo()
+            {
+                DoctorFirstName = Convert.ToString(values.GetValue(0)),
+                DoctorLastName = Convert.ToString(values.GetValue(1)),
+                StartDateTime = Convert.ToDateTime(values.GetValue(2)),
+                Description = Convert.ToString(values.GetValue(3)),
+                Treatment = Convert.ToString(values.GetValue(4))
+            };
+
+            return info;
+        }
+
+        public static UserRole GetUserRole(string str)
+        {
+            var values = str.Split('*');
+            var user = new UserRole
+            {
+                FirstName = values.GetValue(0).ToString(),
+                LastName = values.GetValue(1).ToString(),
+                Proffession = values.GetValue(2).ToString()
+            };
+            return user;
+        }
+
+        public static List<Role> GetUserAvailableRole(string str)
+        {
+            var values = str.Split('*');
+            var list = new List<Role>();
+            for (int i = 0; i < (values.Length - 1); i += 2)
+            {
+                var role = new Role
+                {
+                    RoleId = Convert.ToInt32(values.GetValue(i).ToString()),
+                    RoleName = values.GetValue(i + 1).ToString(),
+                };
+                list.Add(role);
+            }
+            return list;
+        }
     }
 }
