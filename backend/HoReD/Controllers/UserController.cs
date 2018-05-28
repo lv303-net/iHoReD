@@ -82,5 +82,12 @@ namespace HoReD.Controllers
             return Ok(_userService.GetUserAvailableRole(idUser));
         }
 
+        [HttpGet]
+        [Route("NumbersOfPageFiltered/{countInPage}/{isAdmin}/{isDoctor}")]
+        [Route("NumbersOfPageFiltered/{countInPage}/{isAdmin}/{isDoctor}/{firstOrlastname}")]
+        public IHttpActionResult NumbersOfPageFiltered(int countInPage,bool isAdmin, bool isDoctor, string firstOrLastname=null)
+        {
+            return Ok(_userService.GetPaginationCountFiltered(countInPage,isAdmin,isDoctor,firstOrLastname));
+        }
     }
 }

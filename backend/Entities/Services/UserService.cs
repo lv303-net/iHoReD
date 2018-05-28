@@ -160,6 +160,21 @@ namespace Entities.Services
             return outval;
         }
 
+        public int GetPaginationCountFiltered(int countInPage, bool isAdmin, bool isDoctor, string firstOrLastname = null)
+        {
+            const string cmd = "GET_PAGINATION_COUNT_FILTERED";
+            string outparam = "@PAGINATION";
+            var param = new Dictionary<string, object>()
+            {
+                {"@COUNTINPAGE", countInPage },
+                {"@ISADMIN",isAdmin },
+                {"@ISADOCTOR",isDoctor },
+                {"@FIRSTORLASTNAME",firstOrLastname }
+            };
+            int outval = _dbContext.ExecuteSqlQuery(cmd, outparam, param);
+            return outval;
+        }
+
         public UserRole GetUserRole(int idUser)
         {
             const string cmd = "GET_USER_ROLE";
