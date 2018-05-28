@@ -338,5 +338,25 @@ namespace Entities.Services
                 throw;
             }
         }
+
+        public List<ClosedAllergyInfo> GetClosedAllergiesInfo(int idPatient)
+        {
+            string cmd = "GET_INFO_ABOUT_CLOSED_ALLERGIES";
+            var param = new Dictionary<string, object>()
+            {
+                {"@PATIENT_ID",  idPatient}
+            };
+
+            try
+            {
+                var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+                return Utils.ParseSqlQuery.GetClosedAllergiesInfo(data);
+            }
+
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -393,6 +393,44 @@ namespace Entities.Utils
             return result;
         }
 
+        public static List<ClosedAllergyInfo> GetClosedAllergiesInfo(string bdResult)
+        {
+            int index = 0;
+            var values = bdResult.Split('*');
+            var result = new List<ClosedAllergyInfo>();
+
+            if (string.IsNullOrEmpty(bdResult))
+            {
+                return result;
+            }
+            for (int i = 0; i < values.Length; i += 11)
+            {
+                var visitOpening = new VisitInfo()
+                {
+                    DoctorFirstName = Convert.ToString(values.GetValue(1 + i)),
+                    DoctorLastName = Convert.ToString(values.GetValue(2 + i)),
+                    StartDateTime = Convert.ToDateTime(values.GetValue(3 + i)),
+                    Description = values.GetValue(4 + i).ToString(),
+                    Treatment = values.GetValue(5 + i).ToString(),
+                };
+                var visitClosing = new VisitInfo()
+                {
+                    DoctorFirstName = Convert.ToString(values.GetValue(6 + i)),
+                    DoctorLastName = Convert.ToString(values.GetValue(7 + i)),
+                    StartDateTime = Convert.ToDateTime(values.GetValue(8 + i)),
+                    Description = values.GetValue(9 + i).ToString(),
+                    Treatment = values.GetValue(10 + i).ToString(),
+                };
+                var allergyInfo = new ClosedAllergyInfo()
+                {
+                    AllergyName = Convert.ToString(values.GetValue(i)),
+                    OpenigClosingVisitsInfo = new Tuple<VisitInfo, VisitInfo>(visitOpening, visitClosing)
+                };
+                result.Add(allergyInfo);
+            }
+            return result;
+        }
+
         public static List<Allergy> GetPatientActiveAllergies(string bdResult)
         {
             var values = bdResult.Split('*');

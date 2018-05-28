@@ -345,5 +345,26 @@ namespace HoReD.Controllers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Get description, treatment, doctor and date for the opening and closing allergy visits
+        /// </summary>
+        /// <param name="idPatient">ID of needed user</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/PatientData/GetClosedAllergiesInfo/{idPatient}")]
+        public IHttpActionResult GetClosedAllergiesInfo(int idPatient)
+        {
+            try
+            {
+                var result = _patientData.GetClosedAllergiesInfo(idPatient);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }
