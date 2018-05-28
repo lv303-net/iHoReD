@@ -100,6 +100,7 @@ namespace HoReD.Controllers
         }
 
         [HttpGet]
+        [TokenAuthenticate(Role = "admin")]
         [Route("ChangeRole/{userId}/{role}")]
         [Route("ChangeRole/{userId}/{role}/{idProffesion}")]
         public IHttpActionResult ChangeRole(int userId, int role, int idProffesion = 0)
