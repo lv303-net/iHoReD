@@ -43,14 +43,14 @@ namespace Entities.Services
             var str = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var values = str.Split('*');
             var user = new User
-                {
-                    Id = Convert.ToInt32(values.GetValue(0)),
-                    FirstName = values.GetValue(1).ToString(),
-                    LastName = values.GetValue(2).ToString(),
-                    RoleName = values.GetValue(3).ToString(),
-                    Password = values.GetValue(4).ToString(),
-                    Email = values.GetValue(5).ToString(),
-                };
+            {
+                Id = Convert.ToInt32(values.GetValue(0)),
+                FirstName = values.GetValue(1).ToString(),
+                LastName = values.GetValue(2).ToString(),
+                RoleName = values.GetValue(3).ToString(),
+                Password = values.GetValue(4).ToString(),
+                Email = values.GetValue(5).ToString(),
+            };
 
             return user;
         }
@@ -64,11 +64,11 @@ namespace Entities.Services
                 {"ID_USER", Id},
             };
 
-            int outval = _dbContext.ExecuteSqlQuery(cmd,outparam, param);
+            int outval = _dbContext.ExecuteSqlQuery(cmd, outparam, param);
             return outval;
         }
 
-        public void ApdateInfoAboutUser(string id,string firstname, string lastname, string email, string password, string isActivated,
+        public void ApdateInfoAboutUser(string id, string firstname, string lastname, string email, string password, string isActivated,
             string phone, string sex, string country, string city, string street, string apartment)
         {
             var regInfo = new Dictionary<string, object>()
@@ -106,11 +106,11 @@ namespace Entities.Services
                 Password = values.GetValue(3).ToString(),
                 Email = values.GetValue(4).ToString(),
                 Phone = values.GetValue(5).ToString(),
-                Sex=  (values.GetValue(6).ToString()== "") ? false :Convert.ToBoolean(values.GetValue(6).ToString()),
+                Sex = (values.GetValue(6).ToString() == "") ? false : Convert.ToBoolean(values.GetValue(6).ToString()),
                 Country = values.GetValue(7).ToString(),
-                City= values.GetValue(8).ToString(),
-                Street= values.GetValue(9).ToString(),
-                Apartment= values.GetValue(10).ToString()
+                City = values.GetValue(8).ToString(),
+                Street = values.GetValue(9).ToString(),
+                Apartment = values.GetValue(10).ToString()
             };
 
             return userInfo;
@@ -124,14 +124,14 @@ namespace Entities.Services
                 {"@PAGENUMBER", numberPage},
                 {"@COUNTINPAGE", countInPage},
             };
-            
+
             var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
             var values = data.Split('*');
             var users = Utils.ParseSqlQuery.GetAllUsers(data);
             return users;
         }
 
-        public List<UserRole> FiteringUsers(int numberPage, int countInPage,bool isAdmin,bool isDoctor, string firstOrlastname=null)
+        public List<UserRole> FilteringUsers(int numberPage, int countInPage, bool isAdmin, bool isDoctor, string firstOrlastname = null)
         {
             const string cmd = "FILTERING_USERS";
             var param = new Dictionary<string, object>()
@@ -158,7 +158,49 @@ namespace Entities.Services
             };
             int outval = _dbContext.ExecuteSqlQuery(cmd, outparam, param);
             return outval;
-            
+        }
+
+        public int GetPaginationCountFiltered(int countInPage, bool isAdmin, bool isDoctor, string firstOrLastname = null)
+        {
+            const string cmd = "GET_PAGINATION_COUNT_FILTERED";
+            string outparam = "@PAGINATION";
+            var param = new Dictionary<string, object>()
+            {
+                {"@COUNTINPAGE", countInPage },
+                {"@ISADMIN",isAdmin },
+                {"@ISADOCTOR",isDoctor },
+                {"@FIRSTORLASTNAME",firstOrLastname }
+            };
+            int outval = _dbContext.ExecuteSqlQuery(cmd, outparam, param);
+            return outval;
+        }
+
+        public UserRole GetUserRole(int idUser)
+        {
+            const string cmd = "GET_USER_ROLE";
+            var param = new Dictionary<string, object>()
+            {
+                {"IDUsers", idUser},
+            };
+
+            var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var values = data.Split('*');
+            var users = Utils.ParseSqlQuery.GetUserRole(data);
+            return users;
+        }
+
+        public List<Role> GetUserAvailableRole(int idUser)
+        {
+            const string cmd = "GET_USER_AVAILABLE_ROLE";
+            var param = new Dictionary<string, object>()
+            {
+                {"IDUsers", idUser},
+            };
+
+            var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var values = data.Split('*');
+            var users = Utils.ParseSqlQuery.GetUserAvailableRole(data);
+            return users;
         }
     }
 }

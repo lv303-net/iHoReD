@@ -54,11 +54,11 @@ namespace HoReD.Controllers
             return Ok(_userService.GetAllUsers(numberPage,countInPage));
         }
         [HttpGet]
-        [Route("FiterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}")]
-        [Route("FiterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}/{firstOrlastname}")]
-        public IHttpActionResult FiterAllUsers(int numberPage, int countInPage,bool isAdmin, bool isDoctor, string firstOrlastname=null)
+        [Route("FilterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}")]
+        [Route("FilterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}/{firstOrlastname}")]
+        public IHttpActionResult FilterAllUsers(int numberPage, int countInPage,bool isAdmin, bool isDoctor, string firstOrlastname=null)
         {
-            return Ok(_userService.FiteringUsers(numberPage, countInPage,isAdmin,isDoctor,firstOrlastname));
+            return Ok(_userService.FilteringUsers(numberPage, countInPage,isAdmin,isDoctor,firstOrlastname));
         }
 
         [HttpGet]
@@ -68,5 +68,26 @@ namespace HoReD.Controllers
             return Ok(_userService.GetPaginationCount(countInPage));
         }
 
+        [HttpGet]
+        [Route("GetUserRole/{idUser}")]
+        public IHttpActionResult GetUserRole(int idUser)
+        {
+            return Ok(_userService.GetUserRole(idUser));
+        }
+
+        [HttpGet]
+        [Route("GetUserAvailableRole/{idUser}")]
+        public IHttpActionResult GetUserAvailableRole(int idUser)
+        {
+            return Ok(_userService.GetUserAvailableRole(idUser));
+        }
+
+        [HttpGet]
+        [Route("NumbersOfPageFiltered/{countInPage}/{isAdmin}/{isDoctor}")]
+        [Route("NumbersOfPageFiltered/{countInPage}/{isAdmin}/{isDoctor}/{firstOrlastname}")]
+        public IHttpActionResult NumbersOfPageFiltered(int countInPage,bool isAdmin, bool isDoctor, string firstOrLastname=null)
+        {
+            return Ok(_userService.GetPaginationCountFiltered(countInPage,isAdmin,isDoctor,firstOrLastname));
+        }
     }
 }
