@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
+import PropTypes from 'prop-types';
 import '../../../style/AdminChangingRoles.css'
 
 class ChangingRole extends Component {
@@ -12,11 +13,16 @@ class ChangingRole extends Component {
             lastName: "",
             role: "",
             idUser: 0,
-            selectedOption: '',
+            selectedOption: "",
             idRole: 0,
             options: [
-                { value: '0', label: '' }
-            ]
+                { value: "0", label: "" }
+            ],
+            selectedOptionProf: "",
+            idProf: 0,
+            optionsProf: [
+                { value: "0", label: "" }
+            ],
         };
 
     }
@@ -24,19 +30,24 @@ class ChangingRole extends Component {
         return ((this.state.idUser !== nextProps.idUser) ||
                 (this.state.idUser !== nextState.idUser) ||
                 (this.state.options !== nextState.options) || 
-                (this.state.idRole !== nextState.idRole))
+                (this.state.idRole !== nextState.idRole) ||
+                (this.state.optionsProf !== nextState.optionsProf) ||
+                (this.state.idProf !== nextState.idProf))
     }
 
     componentWillUpdate(nextProps, nextState) {
+        console.log(nextState.idProf);
         let _that = this;
-        if ((nextState.idUser !== nextProps.idUser) &&
+        if (((nextState.idUser !== nextProps.idUser) ||
+            (this.state.idUser !== nextState.idUser) ||
+            (this.state.idUser !== nextProps.idUser)) &&
             (nextProps.idUser !== undefined)) {
             axios({
                 method: 'get',
                 url: localStorage.getItem("server_url") + '/GetUserRole/' + nextProps.idUser,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(res => {
@@ -53,7 +64,7 @@ class ChangingRole extends Component {
                 url: localStorage.getItem("server_url") + '/GetUserAvailableRole/' + nextProps.idUser,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(function (response) {
@@ -65,6 +76,20 @@ class ChangingRole extends Component {
 
         if (this.state.idRole !== nextState.idRole && nextState.idRole == 2) {
             console.log('selected role is doctor');
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/AllProfessions',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+
+                }
+            })
+            .then(function (response) {
+                _that.setState({
+                    optionsProf: response.data.map( profession => ({ value: profession[0], label: profession[1] }))
+                })
+              })
         }
     }
 
@@ -77,7 +102,72 @@ class ChangingRole extends Component {
         }
     }
 
+    handleChangeProf = (selectedOption) => {
+        if (selectedOption !== null) {
+            this.setState({
+                selectedOptionProf: selectedOption,
+                idProf: selectedOption.value
+            });
+        }
+    }
+
+    nullSelect() {
+        this.setState({
+            idRole: 0,
+            idProf: 0,
+        })
+    }
+
+    handleApplyClick(){
+        console.log(this.props.idUser + ' '+ this.state.idRole +' '+ this.state.idProf)
+        if (this.state.idProf !== 0) {
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/ChangeRole/' +this.props.idUser+ '/' +this.state.idRole+ '/' +this.state.idProf,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+            .then(function (response) {
+                console.log("successfully");
+              })
+        }
+        else {
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/ChangeRole/' +this.props.idUser+ '/' +this.state.idRole,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+            .then(function (response) {
+                console.log("successfully");
+              })
+        }
+        this.props.callback();
+        this.nullSelect();
+    }
+
     render() {
+        let selectProfession;
+        if (this.state.idRole == 2) {
+            selectProfession =   
+            <div>
+                <br/>
+                <h5>Choose profession:</h5>                              
+                <Select
+                    value={this.state.idProf}
+                    name="form-field-name"
+                    onChange={this.handleChangeProf}
+                    options={this.state.optionsProf}
+                    clearable={false}
+                />
+            </div>
+        }
+        else 
+            selectProfession = ""
         return (
             <div className="modal fade" id="changingRole" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
@@ -100,11 +190,12 @@ class ChangingRole extends Component {
                                     options={this.state.options}
                                     clearable={false}
                                 />
+                                {selectProfession}
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-primary" data-dismiss="modal" >Apply</button>
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.handleApplyClick()}>Apply</button>
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => this.nullSelect()}>Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -112,5 +203,9 @@ class ChangingRole extends Component {
         )
     }
 }
+
+ChangingRole.propTypes = {
+    callback: PropTypes.func
+};
 
 export default ChangingRole;

@@ -32,7 +32,7 @@ class SalaryReport extends React.Component {
           url: localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' +  this.props.match.params.id + '/' + startdate+ '/' +enddate,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
           }
         })
          .then(res => {
@@ -47,7 +47,7 @@ class SalaryReport extends React.Component {
         url:localStorage.getItem("server_url") + '/DoctorGeneralSalaryStatistics/' + this.props.match.params.id + '/' + startdate+ '/' +enddate,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+          'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
         }
       })
            .then(rez => {
@@ -66,7 +66,7 @@ class SalaryReport extends React.Component {
         url: localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + this.state.startDate.format('YYYY-MM-DD') + '/' + this.state.endDate.format('YYYY-MM-DD'),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+          'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
         }
       })
         .then(res => {
@@ -80,7 +80,7 @@ class SalaryReport extends React.Component {
       url:localStorage.getItem("server_url") + '/DoctorGeneralSalaryStatistics/' + this.props.match.params.id + '/' +this.state.startDate.format('YYYY-MM-DD')+ '/' +this.state.endDate.format('YYYY-MM-DD'),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
       }
     })
     .then(rez => {
@@ -118,7 +118,7 @@ class SalaryReport extends React.Component {
       url: localStorage.getItem("server_url") + '/DoctorSalaryStatistics/' + this.props.match.params.id + '/' + start + '/' + end,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
       }
     })
       .then(res => {
@@ -131,7 +131,7 @@ class SalaryReport extends React.Component {
         url:localStorage.getItem("server_url") + '/DoctorGeneralSalaryStatistics/' + this.props.match.params.id +  '/' + start + '/' + end,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+          'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
         }
       })
   .then(rez => {

@@ -1,7 +1,5 @@
 import React from 'react';
 import { Component } from 'react';
-//import PatientDiagnosesTable from '.../PatientDiagnosesTable'
-//import PatientInfo from '../PatientInfo';
 import PatientInfo from '../../PatientInfo';
 import AllergiesCard from './AllergiesCard';
 import AddMedRecord from './../../AddMedRecord';

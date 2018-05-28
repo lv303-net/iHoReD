@@ -74,7 +74,7 @@ class AddRateToProfession extends Component{
                 url: localStorage.getItem("server_url") + '/api/Salary/Rate/add',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 },
                 data: JSON.stringify(newRate)
             })
@@ -93,7 +93,7 @@ class AddRateToProfession extends Component{
                     url: localStorage.getItem("server_url") + '/api/Salary/Coefficient/add',
                     headers: {
                         'Content-Type': 'application/json',
-                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                     },
                     data: JSON.stringify(newCoeff)
                 })

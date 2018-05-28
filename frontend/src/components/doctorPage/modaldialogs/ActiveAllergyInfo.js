@@ -24,7 +24,7 @@ class ActiveAllergyInfo extends Component{
                 url: localStorage.getItem("server_url") + '/api/PatientData/GetActiveAllergyInfo/' + nextProps.PatientId + '/' + nextProps.AllergyId,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(res => {

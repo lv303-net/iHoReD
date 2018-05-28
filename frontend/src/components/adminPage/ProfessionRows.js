@@ -94,7 +94,7 @@ class ProfessionRows extends React.Component {
                 url: localStorage.getItem("server_url") + '/api/Salary/Rate/get/' + nextState.idProf,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(response => {
@@ -111,7 +111,7 @@ class ProfessionRows extends React.Component {
                 url: localStorage.getItem("server_url") + '/api/Salary/Coefficient/get/' + nextState.idDoc,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(response => {

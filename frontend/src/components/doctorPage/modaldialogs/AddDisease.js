@@ -69,7 +69,7 @@ class AddDisease extends Component {
             url: localStorage.getItem("server_url") + '/api/PatientData/AddDisease',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             },
             data: JSON.stringify(newDisease)
         })

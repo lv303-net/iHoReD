@@ -37,7 +37,7 @@ class Calendar extends React.Component{
       url: localStorage.getItem("server_url") + '/api/Schedule',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
       },
       data: JSON.stringify(bookingEvent)
     })
@@ -216,7 +216,7 @@ class Calendar extends React.Component{
         url: localStorage.getItem("server_url")+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
         }
     })
       .then(response => {

@@ -26,7 +26,7 @@ class AddDoctorToCurrentRule extends Component{
                     url: localStorage.getItem("server_url") + "/Rule/" + model.IdRule + "/DoctorHasRule/false/" + model.IdDoctor + "/Assign",
                     headers: {
                         'Content-Type': 'application/json',
-                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                     },
                     data: JSON.stringify(model)
                 })
@@ -51,7 +51,7 @@ class AddDoctorToCurrentRule extends Component{
                 url: localStorage.getItem("server_url") + "/Rule/" + nextProps.IdRule + "/DoctorHasRule/false",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
             .then(res => {

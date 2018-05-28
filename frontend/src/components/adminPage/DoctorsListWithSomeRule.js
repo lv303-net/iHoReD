@@ -18,7 +18,7 @@ class DoctorsListWithSomeRule extends Component {
       url: localStorage.getItem("server_url") + "/Rule/" + this.state.idRule + "/DoctorHasRule/" + idDoc + "/Dismiss",
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
       },
       data: JSON.stringify(model)
     })
@@ -36,7 +36,7 @@ class DoctorsListWithSomeRule extends Component {
       url: localStorage.getItem("server_url") + '/rule/' + nextProps.idRule + '/DoctorHasRule',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
       }
     })
       .then(res => {

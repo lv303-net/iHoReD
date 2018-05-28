@@ -50,7 +50,7 @@ class DeleteRateToProfession extends Component{
                     url: localStorage.getItem("server_url") + '/api/Salary/Rate/delete/' + Profession + '/' + nextProps.date.slice(0,10),
                     headers: {
                         'Content-Type': 'application/json',
-                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                     }
                 })
                 .then((res) => 
@@ -64,7 +64,7 @@ class DeleteRateToProfession extends Component{
                     url: localStorage.getItem("server_url") + '/api/Salary/Coefficient/delete/' + Doctor + '/' + nextProps.date.slice(0,10),
                     headers: {
                         'Content-Type': 'application/json',
-                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                     }
                 })
                 .then((res) => 
