@@ -6,6 +6,7 @@ using System.Web.Http.Results;
 using Entities;
 using Entities.Services;
 using HoReD.Models;
+using HoReD.AuthFilters;
 
 namespace HoReD.Controllers
 {
@@ -39,6 +40,7 @@ namespace HoReD.Controllers
         /// <param name="professionId"></param>
         /// <returns></returns>
         [HttpGet]
+        [TokenAuthenticate(Role ="doctor")]
         [Route("GetDoctors/{professionId}")]
          public IHttpActionResult GetDoctorsByProfession(int professionId)
         {
@@ -52,6 +54,7 @@ namespace HoReD.Controllers
         /// <returns></returns>
         [HttpGet]
         [ActionName("GetProfessions")]
+        [TokenAuthenticate(Role = "user, doctor")]
         [Route("ProfessionsStatic/{isStatic=true}")]
         [Route("ProfessionsNotStatic/{isStatic=false}")]
         public IHttpActionResult GetProfessions(bool isStatic)
@@ -65,6 +68,7 @@ namespace HoReD.Controllers
         /// <param name="isStatic"></param>
         /// <returns></returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("AllProfessions")]
         public IHttpActionResult GetAllProfessions()
         {
