@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Entities;
 using Entities.Services;
+using HoReD.AuthFilters;
 
 namespace HoReD.Controllers
 {
@@ -15,6 +16,7 @@ namespace HoReD.Controllers
             _ruleService = ruleService;
         }
 
+        [TokenAuthenticate]
         [HttpGet]
         [Route("Rule")]
         public IHttpActionResult GetRules()
