@@ -89,5 +89,15 @@ namespace HoReD.Controllers
         {
             return Ok(_userService.GetPaginationCountFiltered(countInPage,isAdmin,isDoctor,firstOrLastname));
         }
+
+        [HttpGet]
+        [Route("ChangeRole/{userId}/{role}")]
+        [Route("ChangeRole/{userId}/{role}/{idProffesion}")]
+        public IHttpActionResult ChangeRole(int userId, int role, int idProffesion = 0)
+
+        {
+            _userService.ChangeRole(userId, role, idProffesion);
+            return Ok();
+        }
     }
 }

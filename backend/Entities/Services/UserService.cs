@@ -202,5 +202,20 @@ namespace Entities.Services
             var users = Utils.ParseSqlQuery.GetUserAvailableRole(data);
             return users;
         }
+
+        public void ChangeRole(int userId, int role, int idProfession = 0)
+        {
+            const string cmd = "CHANGE_ROLE";
+           
+            var param = new Dictionary<string, object>()
+            {
+                {"ID_USER", userId},
+                {"ROLE", role},
+                {"ID_PROFESSION", idProfession},
+            };
+
+            _dbContext.ExecuteSqlQuery(cmd,'*', param);
+           
+        }
     }
 }

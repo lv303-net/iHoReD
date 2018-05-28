@@ -124,7 +124,6 @@
     <Compile Include="Services\IScheduleService.cs" />
     <Compile Include="Services\MembershipProvider.cs" />
     <Compile Include="Services\PatientData.cs" />
-    <Compile Include="PatientData.cs" />
     <Compile Include="MedicalCard.cs" />
     <Compile Include="Services\PatientDataService.cs" />
     <Compile Include="Services\MedicalCardService.cs" />
