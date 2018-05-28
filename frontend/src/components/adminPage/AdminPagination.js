@@ -36,7 +36,7 @@ class AdminPagination extends Component {
             url: localStorage.getItem("server_url") + '/NumbersOfPage/' + this.state.countElements,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             }
         })
         .then(res => {
