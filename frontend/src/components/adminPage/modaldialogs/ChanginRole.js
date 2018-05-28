@@ -116,6 +116,32 @@ class ChangingRole extends Component {
 
     handleApplyClick(){
         console.log(this.props.idUser + ' '+ this.state.idRole +' '+ this.state.idProf)
+        if (this.state.idProf !== 0) {
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/ChangeRole/' +this.props.idUser+ '/' +this.state.idRole+ '/' +this.state.idProf,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+            .then(function (response) {
+                console.log("successfully");
+              })
+        }
+        else {
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/ChangeRole/' +this.props.idUser+ '/' +this.state.idRole,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+            .then(function (response) {
+                console.log("successfully");
+              })
+        }
         this.nullSelect();
     }
 
