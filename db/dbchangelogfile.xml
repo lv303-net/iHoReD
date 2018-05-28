@@ -524,4 +524,17 @@
    <sqlFile path="V4.14_CREATE_PROCEDURE_GET_USER_AVAILABLE_ROLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
  
+  <changeSet author="Maksym Sikorskyi" id="V4.15">
+   <sqlFile path="V4.15_CREATE_PROCEDURE GET_PAGINATION_COUNT_FILTERED.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V4.16">
+   <sqlFile path="V4.16_ALTER_TABLE_DOCTORS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V4.17">
+   <sqlFile path="V4.17_CREATE_PROCEDURE_CHANGE_ROLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+ 
 </databaseChangeLog>
