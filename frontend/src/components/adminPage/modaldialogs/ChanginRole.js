@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
+import PropTypes from 'prop-types';
 import '../../../style/AdminChangingRoles.css'
 
 class ChangingRole extends Component {
@@ -37,7 +38,9 @@ class ChangingRole extends Component {
     componentWillUpdate(nextProps, nextState) {
         console.log(nextState.idProf);
         let _that = this;
-        if ((nextState.idUser !== nextProps.idUser) &&
+        if (((nextState.idUser !== nextProps.idUser) ||
+            (this.state.idUser !== nextState.idUser) ||
+            (this.state.idUser !== nextProps.idUser)) &&
             (nextProps.idUser !== undefined)) {
             axios({
                 method: 'get',
@@ -79,6 +82,7 @@ class ChangingRole extends Component {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+
                 }
             })
             .then(function (response) {
@@ -116,6 +120,33 @@ class ChangingRole extends Component {
 
     handleApplyClick(){
         console.log(this.props.idUser + ' '+ this.state.idRole +' '+ this.state.idProf)
+        if (this.state.idProf !== 0) {
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/ChangeRole/' +this.props.idUser+ '/' +this.state.idRole+ '/' +this.state.idProf,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+            .then(function (response) {
+                console.log("successfully");
+              })
+        }
+        else {
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/ChangeRole/' +this.props.idUser+ '/' +this.state.idRole,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+            .then(function (response) {
+                console.log("successfully");
+              })
+        }
+        this.props.callback();
         this.nullSelect();
     }
 
@@ -172,5 +203,9 @@ class ChangingRole extends Component {
         )
     }
 }
+
+ChangingRole.propTypes = {
+    callback: PropTypes.func
+};
 
 export default ChangingRole;

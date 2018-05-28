@@ -17,7 +17,8 @@ class AdminChangingRoles extends Component {
             isAdmin: false,
             isDoctor: false, 
             applyClick: false,
-            idClick: 0
+            idClick: 0,
+            shouldUpdate: false
         };
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -54,7 +55,11 @@ class AdminChangingRoles extends Component {
                 url: localStorage.getItem("server_url") + '/FilterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
+<<<<<<< HEAD
                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+=======
+                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+>>>>>>> a6bba91e451e3bbadd2a1aa823618db074055453
                 }
             })
                 .then(res => {
@@ -82,19 +87,25 @@ class AdminChangingRoles extends Component {
                 (this.state.rolesList !== nextState.rolesList) ||
                 (this.state.countElements !== nextState.countElements) ||
                 (this.state.applyClick !== nextState.applyClick) ||
-                (this.state.idUser !== nextState.idUser))
+                (this.state.idUser !== nextState.idUser) ||
+                (this.state.shouldUpdate !== nextState.shouldUpdate))
     }
     
     componentWillUpdate(nextProps, nextState) {
         if ((this.state.countElements !== nextState.countElements) ||
             (this.state.currentPage !== nextState.currentPage) ||
-            (this.state.applyClick !== nextState.applyClick)) {
+            (this.state.applyClick !== nextState.applyClick) ||
+            (this.state.shouldUpdate !== nextState.shouldUpdate)) {
                 axios({
                     method: 'get',
                     url: localStorage.getItem("server_url") + '/FilterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
+<<<<<<< HEAD
                         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+=======
+                         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+>>>>>>> a6bba91e451e3bbadd2a1aa823618db074055453
                     }
                 })
                     .then(res => {
@@ -149,7 +160,7 @@ class AdminChangingRoles extends Component {
         
         this.setState({
             currentPage: 1,
-            applyClick: !this.state.applyClick
+            applyClick: !this.state.applyClick,
         })
     }
 
@@ -158,6 +169,12 @@ class AdminChangingRoles extends Component {
         var caller = e.target || e.srcElement;
         this.setState({
             idUser: caller.id,
+        })
+    }
+
+    rerenderFromModal(){
+        this.setState({
+            shouldUpdate: !this.state.shouldUpdate,
         })
     }
 
@@ -220,8 +237,8 @@ class AdminChangingRoles extends Component {
                     </div>
                 </div>
 
-                <AdminPagination currPage={this.state.currentPage} callback={this.getPagesAndQuantity.bind(this)}/>
-                <ChangingRole idUser = {this.state.idUser}/>
+                <AdminPagination currPage={this.state.currentPage} txtFilter={this.state.textFilter} isAdmin={this.state.isAdmin} isDoctor={this.state.isDoctor} callback={this.getPagesAndQuantity.bind(this)}/>
+                <ChangingRole idUser = {this.state.idUser} callback={this.rerenderFromModal.bind(this)}/>
             </div>
         );
     }
