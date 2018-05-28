@@ -40,7 +40,7 @@ namespace HoReD.Controllers
         /// <param name="professionId"></param>
         /// <returns></returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "user,doctor,admin")]
+        [AllowAnonymous]
         [Route("GetDoctors/{professionId}")]
          public IHttpActionResult GetDoctorsByProfession(int professionId)
         {
@@ -54,7 +54,7 @@ namespace HoReD.Controllers
         /// <returns></returns>
         [HttpGet]
         [ActionName("GetProfessions")]
-        [TokenAuthenticate(Role = "user,doctor,admin")]
+        [AllowAnonymous]
         [Route("ProfessionsStatic/{isStatic=true}")]
         [Route("ProfessionsNotStatic/{isStatic=false}")]
         public IHttpActionResult GetProfessions(bool isStatic)
@@ -68,7 +68,7 @@ namespace HoReD.Controllers
         /// <param name="isStatic"></param>
         /// <returns></returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "user,doctor,admin")]
+        [AllowAnonymous]
         [Route("AllProfessions")]
         public IHttpActionResult GetAllProfessions()
         {
@@ -81,7 +81,7 @@ namespace HoReD.Controllers
         /// <returns>List of instances of the class Event</returns>
         /// <example>http://localhost:*****/DoctorEvents/{doctorId}/{dateStart}/{dateFinish}</example>
         [HttpGet]
-        [TokenAuthenticate(Role = "user,doctor,admin")]
+        [AllowAnonymous]
         [Route("DoctorEvents/{doctorId}/{dateStart}/{dateFinish}")]
         public IHttpActionResult GetDoctorEvents(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
