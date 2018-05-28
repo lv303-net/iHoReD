@@ -48,7 +48,7 @@ class LogbarUnauth extends Component {
 
     axios({
       method: 'post',
-      url: localStorage.getItem("server_url") + '/api/Login',
+      url: localStorage.getItem("server_url") + '/api/Membership',
       headers: {
         'Content-Type': 'application/json',
         // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
