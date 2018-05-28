@@ -6,6 +6,7 @@ using System.Web.Http.Results;
 using Entities;
 using Entities.Services;
 using HoReD.Models;
+using HoReD.AuthFilters;
 
 namespace HoReD.Controllers
 {
@@ -39,6 +40,7 @@ namespace HoReD.Controllers
         /// <param name="professionId"></param>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         [Route("GetDoctors/{professionId}")]
          public IHttpActionResult GetDoctorsByProfession(int professionId)
         {
@@ -52,6 +54,7 @@ namespace HoReD.Controllers
         /// <returns></returns>
         [HttpGet]
         [ActionName("GetProfessions")]
+        [AllowAnonymous]
         [Route("ProfessionsStatic/{isStatic=true}")]
         [Route("ProfessionsNotStatic/{isStatic=false}")]
         public IHttpActionResult GetProfessions(bool isStatic)
@@ -65,6 +68,7 @@ namespace HoReD.Controllers
         /// <param name="isStatic"></param>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         [Route("AllProfessions")]
         public IHttpActionResult GetAllProfessions()
         {
@@ -77,6 +81,7 @@ namespace HoReD.Controllers
         /// <returns>List of instances of the class Event</returns>
         /// <example>http://localhost:*****/DoctorEvents/{doctorId}/{dateStart}/{dateFinish}</example>
         [HttpGet]
+        [AllowAnonymous]
         [Route("DoctorEvents/{doctorId}/{dateStart}/{dateFinish}")]
         public IHttpActionResult GetDoctorEvents(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
@@ -91,6 +96,7 @@ namespace HoReD.Controllers
         /// <param name="dateFinish"></param>
         /// <returns></returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor,admin")]
         [Route("DoctorEventsForDoctor/{doctorId}/{dateStart}/{dateFinish}")]
         public IHttpActionResult GetDoctorEventsForDoctor(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
@@ -120,6 +126,7 @@ namespace HoReD.Controllers
         /// <returns>List of instances of the class SalaryStatistics</returns>
         /// <example>http://localhost:*****/DoctorSalaryStatistics/{doctorId}/{dateStart}/{dateFinish}</example>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("DoctorSalaryStatistics/{doctorId}/{dateStart}/{dateFinish}")]
         public IHttpActionResult GetDoctorSalaryStatistics(int doctorId, DateTime dateStart, DateTime dateFinish)
         {
@@ -136,6 +143,7 @@ namespace HoReD.Controllers
         /// <returns>Instance of the class SalaryStatistics</returns>
         /// <example>http://localhost:*****/DoctorGeneralSalaryStatistics/{doctorId}/{dateStart}/{dateFinish}</example>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         [Route("DoctorGeneralSalaryStatistics/{doctorId}/{dateStart}/{dateFinish}")]
         public IHttpActionResult GetDoctorGeneralSalaryStatistics(int doctorId, DateTime dateStart, DateTime dateFinish)
         {           
