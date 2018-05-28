@@ -220,7 +220,7 @@ class AdminChangingRoles extends Component {
                     </div>
                 </div>
 
-                <AdminPagination currPage={this.state.currentPage} callback={this.getPagesAndQuantity.bind(this)}/>
+                <AdminPagination currPage={this.state.currentPage} txtFilter={this.state.textFilter} isAdmin={this.state.isAdmin} isDoctor={this.state.isDoctor} callback={this.getPagesAndQuantity.bind(this)}/>
                 <ChangingRole idUser = {this.state.idUser}/>
             </div>
         );
