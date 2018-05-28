@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  
+  <changeSet author="Vadym Ivanov" id="V1.0">
+    <sqlFile path="V1.0_Create_Starting_Tables.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V1.0_Insert_Values.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Maksym Sikorsky" id="V1.1">
+    <sqlFile path="V1.1_Procedures_Get_Info_About_Doctors.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Oleh Rakus" id="V1.2">
+    <sqlFile path="V1.2_Procedure_Register_User.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Olya Solyar" id="V2.0">
+    <sqlFile path="V2.0_CREATE_TABLES_FOR_DISEASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Olya Solyar" id="V2.1">
+    <sqlFile path="V2.1_INSERT_DATA_INTO_TABLES_FOR_DISEASES.sql" endDelimiter="\nGO" encoding="UTF-16LE" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V2.2">
+    <sqlFile path="V2.2_ADD_IS_ACTIVATED_COLUMN_TO_USERS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.2_UPDATE_PROCEDURE_REGISTER_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V2.5">
+    <sqlFile path="V2.5_CREATE_TABLE_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.5_CREATE_TABLE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.5_ADD_NOT_NULL_CONSTRAINT_TO_ALLERGIES_AND_USERS_ALLERGIES_TABLES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V2.6">
+    <sqlFile path="V2.6_DELETE_LOGIN_COLUMN.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.6_CREATE_GET_USER_INFO_START_PAGE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.6_UPDATE_PROCEDURE_REGISTER_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V2.7">
+    <sqlFile path="V2.7_ALTER_USERS_PASSWORD_COLUMN_SIZE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.7_PROCEDURE_GET_USER_PASSWORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.7_UPDATE_GET_USER_INFO_START_PAGE_PASSWORD_70.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.7_UPDATE_PROCEDURE_REGISTER_USER_PASSWORD_70.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V2.8">
+    <sqlFile path="V2.8_UPDATE_GET_USER_INFO_START_PAGE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Maksym Sikorskyi" id="V2.9">
+    <sqlFile path="V2.9_PROCEDURE_GET_DOCTORS_BY_PROFESSION_ID.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.9_PROCEDURE_GET_PROFESSIONS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V2.10">
+    <sqlFile path="V2.10_UPDATE_GET_USER_INFO_START_PAGE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V2.11">
+    <sqlFile path="V2.11_PROCEDURE_DROP_AND_CREATE_GET_PROFESSIONS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V2.12">
+    <sqlFile path="V2.12_PROCEDURE_GET_WORKING_HOURS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V2.13">
+    <sqlFile path="V2.13_CREATE_RULES_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V2.14">
+    <sqlFile path="V2.14_CREATE_DOCTORS_RULES_SET_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V2.15">
+    <sqlFile path="V2.15_FIXED_INCORECT_TABLE_NAME.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+    
+  <changeSet author="Oleh Rakus" id="V2.16">
+    <sqlFile path="V2.16_ADD_CONSTRAINT_TO_HOUR_START_AND_HOUR_END_TABLES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V2.17">
+    <sqlFile path="V2.17_CREATE_SCHEDULE_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.17_PROCEDURE_INSERT_SCHEDULE_RECORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V2.18">
+    <sqlFile path="V2.18_CREATE_TABLES_RULES_AND_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.18_PROCEDURES_FOR_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V2.18_PROCEDURES_FOR_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V2.19">
+    <sqlFile path="V2.19_UPDATE_DOCTORS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V2.20">
+    <sqlFile path="V2.20_UPDATE_USERS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.0">
+    <sqlFile path="V3.0_ALTER TABLE RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.1">
+    <sqlFile path="V3.1_INSERT_INTO_RULES_AND_RULESETS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.2">
+    <sqlFile path="V3.2_CREATE_PROCEDURE_SELECT_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.3">
+    <sqlFile path="V3.3_CREATE_USER_INFO_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.3_PROCEDURES_EDIT_USER_INFO_AND_GET_ALL_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.3_ALTER_PROCEDURE_REGISTER_USER_FOR_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.31">
+    <sqlFile path="V3.31_ALTERED_PROCEDURE_EDIT_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.32">
+    <sqlFile path="V3.32_ALTERED_PROCEDURE_GET_DOCTORS_WITH_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.33">
+    <sqlFile path="V3.33_PROCEDURE_GET_DOCTORS_WITHOUT_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Maksym Sikorskyi" id="V3.34">
+    <sqlFile path="V3.34_ALTER_PROCEDURE_GET_DOCTORS_WITHOUT_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.4">
+    <sqlFile path="V3.4_ALTERED_PROCEDURE_SELECT_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.35">
+    <sqlFile path="V3.35_ALTERED_PROCEDURE_GET_DOCTORS_WITH_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Maksym Sikorskyi" id="V3.5">
+    <sqlFile path="V3.5_ALTERED_TABLE_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Maksym Sikorskyi" id="V3.51">
+    <sqlFile path="V3.51_INSERT_INTO_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+   <changeSet author="Olha Solyar" id="V3.6">
+    <sqlFile path="V3.6_ALTERED_PROCEDURE_GET_DOCTORS_BY_PROFESSION_ID.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Tetiana Usyk" id="V3.7">
+    <sqlFile path="V3.7_ALTERED_PROCEDURE_SELECT_RULES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+   <changeSet author="Tetiana Usyk" id="V3.8">
+    <sqlFile path="V3.8_CREATE_PROCEDURE_ACTIVATE_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+   <changeSet author="Iryna Halenok" id="V3.9">
+    <sqlFile path="V3.9_UPDATE_PROCEDURE_REGISTER_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Maksym Sikorskyi" id="V3.52">
+    <sqlFile path="V3.52_ALTER_PROCEDURE_GET_ALL_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.10">
+    <sqlFile path="V3.10_UPDATE_PROCEDURE_ACTIVATE_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.11">
+    <sqlFile path="V3.11_PROCEDURE_GET_DOCTOR_SCHEDULE_BOOKED.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.12">
+    <sqlFile path="V3.12_ALTERED_PROCEDURE_GET_DOCTOR_SCHEDULE_BOOKED.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.13">
+    <sqlFile path="V3.13_CREATE_MEDICAL_CARD_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.13_CREATE_GET_SHEDULE_BY_USER_ID_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.13_CREATE_GET_MEDICAL_CARD_BY_USER_ID_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.14">
+    <sqlFile path="V3.14_INSERT_SOME_VALUES_INTO_SCHEDULE_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.15">
+    <sqlFile path="V3.15_INSERT_SOME_VALUES_INTO_MEDICAL_MEDICAL_CARD_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Vadym Ivanov" id="V3.16">
+    <sqlFile path="V3.16_ALTERED_TABLE_USER_INFO_ADDED_COLUMN_BIRTHDAY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.16_CREATED_TABLE_BLOOD_TYPES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>  
+    <sqlFile path="V3.16_INSERTED_BLOOD_TYPES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Oleh Rakus" id="V3.17">
+    <sqlFile path="V3.17_CREATED_PROCEDURE_INSERT_ALLERGY_NAME_ALLERGY_DESCRIPTION_INTO_ALLERGY_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.17_INSERTE_SOME_BASIC_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+    <changeSet author="Vadym Ivanov" id="V3.18">
+      <sqlFile path="V3.18_ADDED_COLUMN_BLOOD_TYPE_INTO_TABLE_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+      <sqlFile path="V3.18_CREATED_PROCEDURE_GET_PATIENT_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet author="Maksym Sikorskyi" id="V3.19">
+      <sqlFile path="V3.19_ALTERED_PROCEDURE_EDIT_USER_INFO_TRANSACTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    </changeSet>
+  
+    <changeSet author="Vadym Ivanov" id="V3.20">
+      <sqlFile path="V3.20_ALTERED_TABLE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+      <sqlFile path="V3.20_INSERTS_INTO_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>  
+      <sqlFile path="V3.20_PROCEDURE_GET_USER_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    </changeSet>
+  
+   <changeSet author="Tetiana Usyk" id="V3.21">
+    <sqlFile path="V3.21_Create_SALARY_RATES_AND_SALARY_COEFFICIENT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.22">
+    <sqlFile path="V3.22_REWRITED_GET_MEDICAL_CARD_BY_USER_ID_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.23">
+    <sqlFile path="V3.23_CHENGED_ORDERING_DATA_IN_PROCEDURE_VERSION_V3-22.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+   <changeSet author="Tetiana Usyk" id="V3.24">
+    <sqlFile path="V3.24_ALTER_TABLES_WITH_SALARY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.24_INSERT_INTO_SALARY_RATES_AND_SALARY_COEFFICIENTS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.24_PROCEDURE_FOR_SALARY_STATISTIC.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.25">
+    <sqlFile path="V3.25_INSERT_INTO_SALARY_RATES_AND_SALARY_COEFFICIENTS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.26">
+    <sqlFile path="V3.26_FIXED_BUG_IN_GET_MEDICAL_CARD_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.26_CREATED_GET_PAGE_COUNT_FOR_MC_DEPENDING_ELEM_COUNT_PROCEDURE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Oleh Rakus" id="V3.27">
+    <sqlFile path="V3.27_UPDATED_PROCEDURE_GET_PAGE_COUNT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.28">
+    <sqlFile path="V3.28_ALTER_PROCEDURE_GET_ALL_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Mariia Shkolyk" id="V3.29">
+    <sqlFile path="V3.29_ALTERED_PROCEDURE_FOR_SALARY_STATISTICS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Maksym Sikorskyi" id="V3.30">
+    <sqlFile path="V3.30_ALTER_PROCEDURE_DISMISS_DOCTOR_FROM_RULE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.31">
+    <sqlFile path="V3.31_ALTERED_PROCEDURE_FOR_CALCULATING_WORKED_HOURS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.32">
+    <sqlFile path="V3.32_UPDATED_DATA_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.33">
+    <sqlFile path="V3.33_PROCEDURE_GET_RATE_FOR_PROFESSION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.34">
+    <sqlFile path="V3.34_INSERT_INTO_SALARY_RATES_AND_SALARY_COEFFICIENTS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.35">
+    <sqlFile path="V3.35_INSERT_INTO_SALARY_RATES_AND_SALARY_COEFFICIENTS_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.36">
+    <sqlFile path="V3.36_PROCEDURES_FOR_RATES_MANAGEMENT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.37">
+    <sqlFile path="V3.37_ALTERED_PROCEDURE_FOR_INSERTING_SCHEDULE_RECORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.37_CONSTRAINTS_SCHEDULE_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.37">
+    <sqlFile path="V3.37_ALTER_PROCEDURE_GET_RATE_FOR_PROFESSION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.38">
+    <sqlFile path="V3.38_ALTERED_PROCEDURE_FOR_INSERTING_SCHEDULE_RECORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.39">
+    <sqlFile path="V3.39_ALTER_PROCEDURE_ADD_NEW_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.40">
+    <sqlFile path="V3.40_ALTER_PROCEDURE_REGISTER_USER_TRANSACTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.41">
+    <sqlFile path="V3.41_ALTERED_PROCEDURE_FOR_WORKED_HOURS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.42">
+    <sqlFile path="V3.42_ALTERED_PROCEDURE_GET_RATE_FOR_PROFESSION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.42_ALTERED_PROCEDURE_ADD_SOME_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.42_ALTERED_PROCEDURE_EDIT_SOME_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.42_ALTERED_PROCEDURE_DELETE_SOME_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.43">
+    <sqlFile path="V3.43_CREATE_PROCEDURE_GET_COEFF_FOR_DOCTOR.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.43_CREATE_PROCEDURE_ADD_SOME_COEFF.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.43_CREATE_PROCEDURE_EDIT_SOME_COEFF.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.43_CREATE_PROCEDURE_DELETE_SOME_COEFF.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.44">
+    <sqlFile path="V3.44_ALTERED_PROCEDURE_EDIT_SOME_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+    <sqlFile path="V3.44_ALTERED_PROCEDURE_EDIT_SOME_COEFF.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.45">
+   <sqlFile path="V3.45_CREATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.45_ALTER_TABLE_MEDICAL_CARD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Tetiana Usyk" id="V3.45">
+   <sqlFile path="V3.45_CREATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.45_ALTER_TABLE_MEDICAL_CARD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.46">
+   <sqlFile path="V3.46_CREATE_PROCEDURE_ADD_DISEASE_AND_ADD_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.46_CREATE_PROCEDURE_CLOSE_DISEASE_AND_CLOSE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+ 
+  <changeSet author="Tetiana Usyk" id="V3.47">
+   <sqlFile path="V3.47_CREATE_PROCEDURE_ACTIVE_ALLERGY_AND_NON_ACTIVE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.47_CREATE_PROCEDURE_ACTIVE_DISEASES_AND_NON_ACTIVE_DISEASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.47_CREATE_PROCEDURE_ADD_DESCRIPTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.48">
+   <sqlFile path="V3.48_INSERT_SOME_VALUES_INTO_MEDICAL_MEDICAL_CARD_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.49">
+   <sqlFile path="V3.49_UPDATE_CREATE_PROCEDURE_ADD_DESCRIPTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.50">
+   <sqlFile path="V3.50_ALTER_PROCEDURE_ADD_DESCRIPTION.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.50_ALTER_PROCEDURE_GET_MEDICAL_CARD_BY_USER_ID.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.53">
+   <sqlFile path="V3.53_CREATE_PROCEDURE_CHECK_IF_DESCRIPTION_EXISTS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.54">
+   <sqlFile path="V3.54_ALTER_PROCEDURE_GET_USER_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.54_ALTER_PROCEDURE_GET_USER_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.54_UPDATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Tetiana Usyk" id="V3.55">
+   <sqlFile path="V3.55_UPDATE_TABLES_PATIENT_DISEASES_AND_UPDATE_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.56">
+   <sqlFile path="V3.56_CREATE_PROCEDURE_FOR_CHOISING_DIASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.56_UPDATE_CLOSE_DISEASE_AND_CLOSE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.57">
+   <sqlFile path="V3.57_UPDATE_CLOSE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V3.58">
+   <sqlFile path="V3.58_PROCEDURES_FOR_GENERAL_SALARY_STATISTICS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Tetiana Usyk" id="V3.59">
+   <sqlFile path="3.59_UPDATE_PROCEDURE_FOR_CHOISING_DIASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+ 
+  <changeSet author="Tetiana Usyk" id="V3.60">
+   <sqlFile path="V3.60_UPDATE_GET_PAGE_COUNT_FOR_MC_DEPENDING_ELEM_COUNT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.61">
+   <sqlFile path="V3.61_NON_ACTIVE_DISEASES_FOR_CATEGORY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.62">
+   <sqlFile path="V3.62_UPDATE_NON_ACTIVE_ALLERGY_AND_ACTIVE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Tetiana Usyk" id="V3.63">
+   <sqlFile path="V3.63_UPDATE_NON_ACTIVE_DISEASES_FOR_CATEGORY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.64">
+   <sqlFile path="V3.64_INSERT_USER_INFO.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.64_INSERT_ALLERGIES_TABLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.65">
+   <sqlFile path="V3.65_INSERT_PATIENT_DISEASES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.65_INSERT_USERS_ALLERGIES.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.66">
+   <sqlFile path="V3.66_INSERT_MEDICAL_CARD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V3.67">
+   <sqlFile path="V3.67_ALTER_PROCEDURE_REGISTER_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Olya Solyar" id="V3.68">
+   <sqlFile path="V3.68_ALTERED_PROCEDURE_GET_MEDICAL_CARD_BY_USER_ID.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V3.69">
+   <sqlFile path="V3.69_ALTERED_NON_ACTIVE_DISEASES_FOR_CATEGORY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V3.69_ALTERED_NON_ACTIVE_ALLERGY.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+    <changeSet author="Maksym Sikorskyi" id="V3.70">
+   <sqlFile path="V3.70_PROCEDURE_GET_MEDICAL_RECORDS_FOR_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.71">
+   <sqlFile path="V3.71_ALTER_PROCEDURE_GET_MEDICAL_RECORDS_FOR_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V3.72">
+   <sqlFile path="V3.72_UPDATED_PROCEDURE_GET_PAGE_COUNT.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+</databaseChangeLog>
