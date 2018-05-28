@@ -55,11 +55,7 @@ class AdminChangingRoles extends Component {
                 url: localStorage.getItem("server_url") + '/FilterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-<<<<<<< HEAD
                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-=======
-                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
->>>>>>> a6bba91e451e3bbadd2a1aa823618db074055453
                 }
             })
                 .then(res => {
@@ -101,11 +97,7 @@ class AdminChangingRoles extends Component {
                     url: localStorage.getItem("server_url") + '/FilterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-<<<<<<< HEAD
                         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-=======
-                         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
->>>>>>> a6bba91e451e3bbadd2a1aa823618db074055453
                     }
                 })
                     .then(res => {
