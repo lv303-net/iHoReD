@@ -8,6 +8,8 @@ namespace Entities
 {
     public class DiseaseInfo 
     {
+        public int Id { get; set; }
+
         public string DiseaseName { get; set; }
 
         public string DoctorOpenFirstName { get; set; }

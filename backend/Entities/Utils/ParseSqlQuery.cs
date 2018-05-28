@@ -365,6 +365,7 @@ namespace Entities.Utils
 
         public static List<DiseaseInfo> GetClosedDiseaseInfo(string bdResult)
         {
+            int index = 0;
             var values = bdResult.Split('*');
             var result = new List<DiseaseInfo>();
             if (bdResult == "")
@@ -375,6 +376,7 @@ namespace Entities.Utils
                 {
                     var Diseases = new DiseaseInfo()
                     {
+                        Id = index++,
                         DiseaseName = values.GetValue(i).ToString(),
                         DoctorOpenFirstName = values.GetValue(1 + i).ToString(),
                         DoctorOpenLastName = values.GetValue(2 + i).ToString(),
