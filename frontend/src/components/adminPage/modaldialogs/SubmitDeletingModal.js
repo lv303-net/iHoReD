@@ -3,21 +3,22 @@ import { Component } from 'react';
 import axios from 'axios';
 
 class SubmitDeleting extends Component {
-    DeleteCurrentRule() {
-        axios({
+    async DeleteCurrentRule() {
+        await axios({
             method: 'post',
             url: localStorage.getItem("server_url") + '/rule/' + this.props.currentRule.IdRule + '/delete',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-            },
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
         })
-            .then(
-                console.log("Deleted rule with id" + this.props.currentRule.RuleName)
-            )
-            .catch(error => {
-                console.log(error.message);
-            })
+        .then(res => {
+            console.log(res.status),
+            this.props.updateRulesList()
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
     }
 
     render() {

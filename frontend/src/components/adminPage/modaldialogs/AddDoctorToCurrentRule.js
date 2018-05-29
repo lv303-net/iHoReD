@@ -8,7 +8,8 @@ class AddDoctorToCurrentRule extends Component{
         super(props);
         this.state = {
             listDoctors: [],
-            loaded: false
+            loaded: false,
+            shouldUpdate: false
         }
     }
 
@@ -26,23 +27,40 @@ class AddDoctorToCurrentRule extends Component{
                     url: localStorage.getItem("server_url") + "/Rule/" + model.IdRule + "/DoctorHasRule/false/" + model.IdDoctor + "/Assign",
                     headers: {
                         'Content-Type': 'application/json',
-                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                     },
                     data: JSON.stringify(model)
                 })
-                .then()
+                .then(res => {
+                    if(this.listIdMustBeAssigning.length == 1){
+                        this.props.updateDoctorsList()
+                        this.listIdMustBeAssigning.splice(0,1)
+                        this.setState({
+                            shouldUpdate: !this.state.shouldUpdate
+                        })
+                    }
+                    else{
+                    this.listIdMustBeAssigning.splice(0,1)
+                    }
+                })
                 .catch()
             }
         )
     }
     
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.props.IdRule !== nextProps.IdRule || this.state.listDoctors !== nextState.listDoctors);
+        return (
+            this.props.IdRule !== nextProps.IdRule || 
+            this.state.listDoctors !== nextState.listDoctors ||
+            this.state.shouldUpdate !== nextState.shouldUpdate ||
+            this.props.shouldUpdate !== nextProps.shouldUpdate
+        );
     }
 
     componentWillUpdate(nextProps, nextState)
     {
-        if(this.props.IdRule !== nextProps.IdRule){
+        if(this.props.IdRule !== nextProps.IdRule || this.state.shouldUpdate !== nextState.shouldUpdate ||
+            this.props.shouldUpdate !== nextProps.shouldUpdate){
             this.setState({
                 loaded: false
             })
@@ -51,14 +69,20 @@ class AddDoctorToCurrentRule extends Component{
                 url: localStorage.getItem("server_url") + "/Rule/" + nextProps.IdRule + "/DoctorHasRule/false",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
             .then(res => {
                 this.setState({
                     listDoctors: res.data,
-                    loaded: true
+                    loaded: true,
                 })
+                this.props.dismissUpdate()
+                if(this.state.shouldUpdate !== nextState.shouldUpdate){
+                    this.setState({
+                        shouldUpdate: !this.state.shouldUpdate
+                    })
+                }
             })
             .catch(
                 error => {console.log(error.message)}
@@ -104,7 +128,7 @@ class AddDoctorToCurrentRule extends Component{
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={(e) => this.AddDoctorsToRule()}>Save changes</button>
+                            <button type="button" className="btn btn-primary" onClick={(e) => this.AddDoctorsToRule()}>Save changes</button>
                         </div>
                     </div>
                 </div>
