@@ -69,9 +69,9 @@ namespace HoReD.AuthFilters
             context.ChallengeWith("Bearer", parameter);
         }
 
-        private bool ValidateToken(string token, out string username,out string role)
+        private bool ValidateToken(string token, out string userEmail,out string role)
         {
-            username = null;
+            userEmail = null;
             role = null;
             IUserService userService = new UserService(new DbContext());
             AuthService authService = new AuthService(new MembershipProvider(userService), new RSAKeyProvider());
@@ -84,12 +84,12 @@ namespace HoReD.AuthFilters
             if (!identity.IsAuthenticated)
                 return false;
 
-            var usernameClaim = identity.FindFirst(ClaimTypes.Name);
+            var userEmailClaim = identity.FindFirst(ClaimTypes.Email);
             var roleClaim = identity.FindFirst(ClaimTypes.Role);
-            username = usernameClaim?.Value;
+            userEmail = userEmailClaim?.Value;
             role = roleClaim?.Value;
 
-            if (string.IsNullOrEmpty(username))
+            if (string.IsNullOrEmpty(userEmail))
                 return false;
             string[] roles = this.Role.Split(',');
             if (!roles.Any(role.Contains))
@@ -102,13 +102,13 @@ namespace HoReD.AuthFilters
 
         protected Task<IPrincipal> AuthenticateJwtToken(string token)
         {
-            string username;
+            string userEmail;
             string role;
-            if (ValidateToken(token, out username, out role))
+            if (ValidateToken(token, out userEmail, out role))
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Email, userEmail),
                     new Claim(ClaimTypes.Role, role)
                 };
 

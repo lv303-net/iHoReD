@@ -29,6 +29,7 @@ namespace HoReD.Controllers
         /// <returns>List of instances of the class DoctorInfo</returns>
         /// <example>http://localhost:*****/api/Doctor/</example>
         [HttpGet]
+        [AllowAnonymous]
         public IHttpActionResult GetDoctors()
         {
             return Ok(_doctorService.GetDoctors());
