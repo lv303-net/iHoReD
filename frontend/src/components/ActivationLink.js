@@ -81,15 +81,8 @@ class ActivationLink extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      axios({
-        method: 'get',
-        url: localStorage.getItem("server_url") + '/Registration/' + this.userId,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-        }
-      })
-        .then(rez => {
+      axios.get(localStorage.getItem("server_url") + '/Registration/' + this.userId)
+         .then(rez => {
           this.setState({ isRegistrated: rez.data });
           this.eventHandler(this.state.isRegistrated);
           console.log("hello");

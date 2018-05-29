@@ -31,12 +31,35 @@ class SelectAllergy extends Component{
         }
     }
 
-    SaveAll(){
-        var data = {
-            Visit:this.props.Visit,
-            PatientId:this.props.PatientId
+    shouldComponentUpdate(nextProps, nextState) {
+        return (this.state.selectedOption!==nextState.selectedOption || this.props.reload!==nextProps.reload || this.state.options!==nextState.options)
+    }
+
+    componentWillUpdate(nextProps, nextState)
+    {
+        let _that=this;
+        if(( this.props.reload!==nextProps.reload))
+        {
+            this.setState({
+                selectedOption: null
+            });
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/api/PatientData/NonActiveAllergies/' +  _that.props.PatientId,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+            .then(function (response) {
+                _that.setState({
+                    options: response.data.map(allergy => ({ value: allergy.Id, label: allergy.Name }))
+                })
+            })
+           _that.handleChange(null);
         }
     }
+
     componentDidMount()
     {
         let _that=this;
@@ -45,18 +68,14 @@ class SelectAllergy extends Component{
             url: localStorage.getItem("server_url") + '/api/PatientData/NonActiveAllergies/' +  _that.props.PatientId,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             }
         })
         .then(function (response) {
             _that.setState({
-                options: response.data.map( allergy => ({ value: allergy.Id, label: allergy.Name }))
+                options: response.data.map(allergy => ({ value: allergy.Id, label: allergy.Name }))
             })
-          })
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return (this.selectedOption!==nextState.selectedOption)
+        })
     }
 
     render() {

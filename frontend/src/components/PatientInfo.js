@@ -5,6 +5,8 @@ import axios from 'axios';
 import photo from '../style/img_avatar1.png';
 import PropTypes from 'prop-types';
 import DiseaseInfo from './doctorPage/modaldialogs/DiseaseInfo';
+import ClosedDiseasesInfo from './doctorPage/modaldialogs/ClosedDiseasesInfo';
+import ActiveAllergyInfo from './doctorPage/modaldialogs/ActiveAllergyInfo';
 
 class AboutPatient extends React.Component {
     render() {
@@ -43,7 +45,8 @@ class PatientInfo extends React.Component {
             diseases: [],
             currentDiseaseId: 0,
             currentDiseaseName: "",
-            id: 1
+            id: 1,
+            reload: 1
         };
         this.getPatientData(this.props.PatientId);
     }
@@ -56,7 +59,7 @@ class PatientInfo extends React.Component {
             url: localStorage.getItem("server_url") + '/api/PatientData/' + PatientId,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             }
         })
             .then(res => {
@@ -70,7 +73,7 @@ class PatientInfo extends React.Component {
             url: localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + PatientId,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             }
         })
             .then(res => {
@@ -83,7 +86,7 @@ class PatientInfo extends React.Component {
             url: localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + PatientId,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             }
         })
             .then(res => {
@@ -111,14 +114,8 @@ class PatientInfo extends React.Component {
             this.props.callback(1);
         }
     }
+    
     render() {
-        console.log(this.props.PatientId);
-        let variable = "qwertyuiop12";
-        console.log(variable);
-        console.log(variable.slice(10));
-        variable = "qwertyuiop12456";
-        console.log(variable);
-        console.log(variable.slice(10));
         return (
             <div className="container mt-5">
                 <div className="row">
@@ -135,8 +132,9 @@ class PatientInfo extends React.Component {
                             <div className="col-5" id="col-custom">Allergies:</div>
                             <div className="col-7" id="diseaselist">
                                 <div className="list-group">
-                                    {this.state.allergies.map(item =>
-                                        <div id="#allergilistitem" className="list-group-item">{item.Name}</div>)}
+                                    {this.state.allergies.map(item => item.Name !== null ?
+                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#AllergyInfo"
+                                        onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div> : <div></div>)}
                                 </div>
                             </div>
                         </div>
@@ -144,14 +142,18 @@ class PatientInfo extends React.Component {
                             <div className="col-5" id="col-custom">Diseases:</div>
                             <div className="col-7" id="diseaselist">
                                 <div className="list-group">
-                                    {this.state.diseases.map(item =>
-                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#DiseaseInfo" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div>)}
+                                    {this.state.diseases.map(item =>  item.Name !== null ?
+                                        <div id={"diseaselistitem" + item.Id} className="list-group-item diseaseelement" data-toggle="modal" data-target="#DiseaseInfo" onClick={() => this.getDiseaseData(item.Id, item.Name)}>{item.Name}</div> : <div></div>)}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {/* <button type="button" className="btn btn-info btn-lg mt-3 col-sm-4" id="AddRate" data-toggle="modal" data-target="#ClosedDiseasesInfo">All diseases history
+                </button> */}
+                {/* <ClosedDiseasesInfo PatientId={this.props.PatientId} reload={this.props.shouldUpdate}/> */}
                 <DiseaseInfo PatientId={this.props.PatientId} DiseaseId={this.state.currentDiseaseId} DiseaseName={this.state.currentDiseaseName}/>
+                <ActiveAllergyInfo  PatientId={this.props.PatientId} AllergyId={this.state.currentDiseaseId} AllergyName={this.state.currentDiseaseName}/>
             </div>
         );
     }

@@ -3,10 +3,10 @@ import { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-import '../../../../style/Diagnoses.css';
+import '../../../style/Diagnoses.css';
 import PropTypes from 'prop-types';
 
-class ActiveDiseases extends Component{
+class ActiveAllergies extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -45,7 +45,7 @@ class ActiveDiseases extends Component{
                 })
                 axios({
                     method: 'get',
-                    url: localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + this.props.PatientId,
+                    url: localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + this.props.PatientId,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -64,7 +64,7 @@ class ActiveDiseases extends Component{
         let _that=this;
             axios({
                 method: 'get',
-                url: localStorage.getItem("server_url") + '/api/PatientData/ActiveDiseases/' + this.props.PatientId,
+                url: localStorage.getItem("server_url") + '/api/PatientData/ActiveAllergies/' + this.props.PatientId,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -82,7 +82,7 @@ class ActiveDiseases extends Component{
     
     return (
         <div className="col-sm-12 mt-3 selectdiagnose">
-        <div className="text-center mb-2">Choose subdisease</div>
+        <div className="text-center mb-2">Choose allergy</div>
         <Select
             value={this.state.selectedOption}
             name="form-field-name"
@@ -95,8 +95,8 @@ class ActiveDiseases extends Component{
     }
 }
 
-ActiveDiseases.propTypes = {
+ActiveAllergies.propTypes = {
     callback: PropTypes.func
   };
 
-export default ActiveDiseases;
+export default ActiveAllergies;

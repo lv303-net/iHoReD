@@ -23,7 +23,7 @@ class ProfessionsTable extends React.Component {
       url: localStorage.getItem("server_url") + '/ProfessionsStatic',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
       }
     })
       .then(res => {

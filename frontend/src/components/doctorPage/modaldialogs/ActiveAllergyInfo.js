@@ -1,29 +1,27 @@
 import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
 import validator from 'validator';
 import PropTypes from 'prop-types';
 
-class DiseaseInfo extends Component{
+class ActiveAllergyInfo extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            diseaseInfo: []
+            allergyInfo: []
         }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.props.DiseaseId !== nextProps.DiseaseId || this.state!==nextState)
+        return (this.props.AllergyId !== nextProps.AllergyId || this.state!==nextState)
     }
 
     componentWillUpdate(nextProps, nextState) {
-        if(this.props.DiseaseId !== nextProps.DiseaseId){
+        if(this.props.AllergyId !== nextProps.AllergyId){
             axios({
                 method: 'get',
-                url: localStorage.getItem("server_url") + '/api/PatientData/GetDiagnoseInfo/' + nextProps.PatientId + '/' + nextProps.DiseaseId,
+                url: localStorage.getItem("server_url") + '/api/PatientData/GetActiveAllergyInfo/' + nextProps.PatientId + '/' + nextProps.AllergyId,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -31,7 +29,7 @@ class DiseaseInfo extends Component{
             })
                 .then(res => {
                     this.setState({
-                        diseaseInfo: res.data
+                        allergyInfo: res.data
                     });
                 });
             }
@@ -39,18 +37,18 @@ class DiseaseInfo extends Component{
 
     render() {
         return (
-            <div className="modal fade" id="DiseaseInfo">
+            <div className="modal fade" id="AllergyInfo">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h4 className="modal-title" id="mModalLabel">{this.props.DiseaseName}</h4>
+                            <h4 className="modal-title" id="mModalLabel">{this.props.AllergyName}</h4>
                             <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button>
                         </div>
                         <div className="modal-body" id="patientModal">
-                                <b>Doctor : </b>{this.state.diseaseInfo.DoctorOpenFirstName + " " + this.state.diseaseInfo.DoctorOpenLastName}<br/>
-                                <br/><b>Start time of disease : </b>{this.state.diseaseInfo.StartDateTime}<br/>
-                                <br/><b>Description : </b>{this.state.diseaseInfo.Description}<br/>
-                                <br/><b>Treatment : </b>{this.state.diseaseInfo.Treatment}
+                                <b>Doctor : </b>{this.state.allergyInfo.DoctorFirstName + " " + this.state.allergyInfo.DoctorLastName}<br/>
+                                <br/><b>Start time of allergy : </b>{this.state.allergyInfo.StartDateTime}<br/>
+                                <br/><b>Description : </b>{this.state.allergyInfo.Description}<br/>
+                                <br/><b>Treatment : </b>{this.state.allergyInfo.Treatment}
                         </div>
                         <div className="modal-footer">
                         <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal" >Close
@@ -63,8 +61,8 @@ class DiseaseInfo extends Component{
     }
 }
 
-DiseaseInfo.propTypes = {
+ActiveAllergyInfo.propTypes = {
     callback: PropTypes.func
   };
 
-export default DiseaseInfo;
+export default ActiveAllergyInfo;

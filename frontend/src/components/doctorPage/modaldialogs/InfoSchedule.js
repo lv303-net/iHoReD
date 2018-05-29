@@ -16,8 +16,9 @@ class InfoSchedule extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return (this.props.idPatient !== nextProps.idPatient
-            || this.state.patientInfo !== nextState.patientInfo)
+        return ((this.props.idPatient !== nextProps.idPatient) || 
+                (this.state.patientInfo !== nextState.patientInfo) ||
+                (this.state.startTime !== nextProps.startTime))
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -31,7 +32,7 @@ class InfoSchedule extends Component {
                 url: localStorage.getItem("server_url") + '/api/PatientData/' + nextProps.idPatient,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(res => {
@@ -52,7 +53,7 @@ class InfoSchedule extends Component {
             url: localStorage.getItem("server_url") + '/MedicalCard/CheckIfExists',
             headers: {
               'Content-Type': 'application/json',
-              // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+              'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             },
             data: JSON.stringify(visit)
           })

@@ -37,7 +37,7 @@ class Calendar extends React.Component{
       url: localStorage.getItem("server_url") + '/api/Schedule',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
       },
       data: JSON.stringify(bookingEvent)
     })
@@ -48,6 +48,7 @@ class Calendar extends React.Component{
       // -2 - patient already has event on that time slot
       // -3 - doctor and patient is the same person
       // -4 - start time >= end tame
+      // -5 - limit for booking exceeded
 
       var message
       switch (response.data) {
@@ -65,6 +66,9 @@ class Calendar extends React.Component{
             break;
         case -3:
             message = "This booking is not availible for You.";
+            break;
+        case -5:
+            message = "Sorry, limit for booking for this day exceeded. Please, choose another day.";
             break;
         }
       this.setState({
@@ -212,7 +216,7 @@ class Calendar extends React.Component{
         url: localStorage.getItem("server_url")+'/DoctorEvents/' + nextState.idDoc +'/' + nextState.startPeriod+'/' + nextState.endPeriod,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
         }
     })
       .then(response => {

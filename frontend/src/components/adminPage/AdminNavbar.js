@@ -33,6 +33,11 @@ class AdminNavbar extends Component {
         idLink: "link2"
       })
     }
+    else if (window.location.href.indexOf("roles") != -1) {
+      this.setState({
+        idLink: "link3"
+      })
+    }
     else {
       this.setState({
         idLink: "link0"
@@ -67,6 +72,11 @@ class AdminNavbar extends Component {
             <li className="nav-item" id="itemlink2">
               <Link to='/admin/salary'>
                 <span className="nav-link" id="link2">Salary</span>
+              </Link>
+            </li>
+            <li className="nav-item" id="itemlink3">
+              <Link to='/admin/roles'>
+                <span className="nav-link" id="link3">Roles</span>
               </Link>
             </li>
           </ul>

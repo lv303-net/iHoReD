@@ -45,7 +45,7 @@ class PatientDiagnosesTable extends React.Component {
                 url: localStorage.getItem("server_url") + '/medicalcard/getbyuserid/' + this.props.PatientId + '/' + page + '/' + count + '/' + colCount,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(res => {
@@ -63,7 +63,7 @@ class PatientDiagnosesTable extends React.Component {
                 url: localStorage.getItem("server_url") + '/MedicalCard/GetPageCount/' + this.props.PatientId + '/' + count,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(res => {
@@ -81,7 +81,7 @@ class PatientDiagnosesTable extends React.Component {
                 url: localStorage.getItem("server_url") + '/medicalcard/getbyuserid/' + this.props.PatientId + '/1/4/2',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(res => {
@@ -97,7 +97,7 @@ class PatientDiagnosesTable extends React.Component {
                 url: localStorage.getItem("server_url") + '/MedicalCard/GetPageCount/' + this.props.PatientId + '/4',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                 }
             })
                 .then(res => {
@@ -144,7 +144,7 @@ class PatientDiagnosesTable extends React.Component {
                     url: localStorage.getItem("server_url") + '/medicalcard/getbyuserid/' + this.props.PatientId + '/' + number + '/' + this.state.elementsCount + '/' + this.state.columnCount,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
                     }
                 })
                     .then(res => {
@@ -184,7 +184,7 @@ class PatientDiagnosesTable extends React.Component {
             url: localStorage.getItem("server_url") + '/MedicalCard/GetPageCount/' + this.props.PatientId + '/' + number,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             }
         })
             .then(res => {
@@ -232,7 +232,7 @@ class PatientDiagnosesTable extends React.Component {
             url: localStorage.getItem("server_url") + '/medicalcard/getbyuserid/' + this.props.PatientId + '/' + newPageNumber + '/' + number + '/' + columnCount,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             }
         })
             .then(res => {

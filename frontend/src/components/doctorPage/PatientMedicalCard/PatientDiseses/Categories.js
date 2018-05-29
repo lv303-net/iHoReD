@@ -30,6 +30,7 @@ class Categories extends Component{
         })
         
     }
+    
     handleChange = (selectedOption) => {
         if(selectedOption!==null){
             this.setState({ selectedOption });
@@ -40,13 +41,21 @@ class Categories extends Component{
     componentDidMount()
     {
         let _that=this;
-        axios.get(localStorage.getItem("server_url") + '/api/PatientData/Categories')
+        axios({
+            method: 'get',
+            url: localStorage.getItem("server_url") + '/api/PatientData/Categories',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
+        })
         .then(function (response) {
             _that.setState({
                 options: response.data.map( category => ({ value: category.Id, label: category.Name }))
             })
           })
     }
+    
     shouldComponentUpdate(nextProps, nextState) {
         return (this.state.selectedOption!==nextState.selectedOption || this.state.shouldUpdate!==nextState.shouldUpdate || this.state.options!==nextState.options)
     }
