@@ -29,8 +29,10 @@ namespace HoReDTests.Controllers
         public void GetClosedDiseaseInfo()
         {
             // Arrange
+
             var fake_info = GetFakeClosedDiseases();
             mock.Setup(repo => repo.GetClosedDiseaseInfo(168)).Returns(fake_info);
+
             var controller = new PatientDataController(mock.Object);
 
             // Act

@@ -54,7 +54,9 @@ namespace HoReD.Controllers
         /// </summary>
         /// <param name="IdUser">ID of the needed user</param>
         /// <returns>Integer: 0 - if user already activated, 1 - if activation succeeded, -1 - if such user doesn't exist in database</returns>
+       
         [HttpGet]
+        [AllowAnonymous]
         [Route("Registration/{IdUser}")]
         public IHttpActionResult ActivateUser(string IdUser)
         {

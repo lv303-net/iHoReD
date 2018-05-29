@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Entities;
 using Entities.Services;
+using HoReD.AuthFilters;
 
 namespace HoReD.Controllers
 {
@@ -16,6 +17,7 @@ namespace HoReD.Controllers
         }
 
         [HttpGet]
+        [TokenAuthenticate(Role = "admin")]
         [Route("Rule")]
         public IHttpActionResult GetRules()
         {
@@ -34,6 +36,7 @@ namespace HoReD.Controllers
         /// </summary>
         /// <param name="model">Rule</param>
         [HttpPost]
+        [TokenAuthenticate(Role = "admin")]
         [Route("Rule/{IdRule}")]
         public void AddOrUpdate(Models.RuleBindingModel model)
         {
@@ -63,6 +66,7 @@ namespace HoReD.Controllers
         /// </summary>
         /// <param name="IdRule">ID of rule, that should be deleted</param>
         [HttpPost]
+        [TokenAuthenticate(Role = "admin")]
         [Route("Rule/{IdRule}/Delete")]
         public void Delete(int IdRule)
         {
@@ -81,6 +85,7 @@ namespace HoReD.Controllers
         /// </summary>
         /// <param name="model">Stores IDs of doctor and rule</param>
         [HttpPost]
+        [TokenAuthenticate(Role = "admin")]
         [Route("Rule/{IdRule}/DoctorHasRule/{IdDoctor}/Dismiss")]
         public void Delete(Models.RulesetBindingModel model)
         {
@@ -98,6 +103,7 @@ namespace HoReD.Controllers
         /// </summary>
         /// <param name="model">Stores IDs of doctor and rule</param>
         [HttpPost]
+        [TokenAuthenticate(Role = "admin")]
         [Route("Rule/{IdRule}/DoctorHasRule/false/{IdDoctor}/Assign")]
         public void AssignDoctorToRule(Models.RulesetBindingModel model)
         {
@@ -118,6 +124,7 @@ namespace HoReD.Controllers
         /// <param name="hasRule">Defines to return doctors that has or has not</param>
         /// <returns></returns>
         [HttpGet]
+        [TokenAuthenticate(Role = "admin")]
         [Route("Rule/{IdRule}/DoctorHasRule/{hasRule=true}")]
         public IHttpActionResult GetDoctorsBYIdRule(int IdRule, bool hasRule)
         {

@@ -8,8 +8,8 @@ namespace Entities
 {
     public class ClosedAllergyInfo
     {
-        public string AllergyNaame { get; set; }
+        public string AllergyName { get; set; }
 
-        public Tuple<VisitInfo, VisitInfo> OpenigClosingVisitsInfo {get; set;}
+        public Tuple<VisitInfo, VisitInfo> OpeningClosingVisitsInfo {get; set;}
     }
 }

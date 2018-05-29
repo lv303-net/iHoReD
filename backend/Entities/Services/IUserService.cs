@@ -21,5 +21,6 @@ namespace Entities.Services
         List<UserRole> FilteringUsers(int numberPage, int countInPage, bool isAdmin, bool isDoctor, string firstOrlastname = null);
         UserRole GetUserRole(int idUser);
         List<Role> GetUserAvailableRole(int idUser);
+       void  ChangeRole(int userId, int role, int idProfession = 0);
     }
 }

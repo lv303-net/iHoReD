@@ -24,5 +24,6 @@ namespace Entities.Services
         int ClosePatientDisease(int id, int disease, DateTime endTime);
         int ClosePatientAllergy(int id, int ellergy, DateTime endTime);
         VisitInfo GetActiveAllergyInfo(int idPatient, int idAllergy);
+        List<ClosedAllergyInfo> GetClosedAllergiesInfo(int idPatient);
     }
 }
