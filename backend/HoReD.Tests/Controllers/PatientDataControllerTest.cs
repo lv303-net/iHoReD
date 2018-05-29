@@ -30,7 +30,7 @@ namespace HoReDTests.Controllers
         {
             // Arrange
             var fake_info = GetFakeDiseaseInfo();
-            //mock.Setup(repo => repo.GetDiagnoseInfo(168,833).Returns(fake_info));
+            mock.Setup(repo => repo.GetDiagnoseInfo(168,833).Returns(fake_info));
             var controller = new PatientDataController(mock.Object);
 
             // Act

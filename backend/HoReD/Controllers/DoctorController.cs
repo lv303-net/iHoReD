@@ -29,6 +29,7 @@ namespace HoReD.Controllers
         /// <returns>List of instances of the class DoctorInfo</returns>
         /// <example>http://localhost:*****/api/Doctor/</example>
         [HttpGet]
+        [TokenAuthenticate(Role = "doctor")]
         public IHttpActionResult GetDoctors()
         {
             return Ok(_doctorService.GetDoctors());
@@ -40,7 +41,7 @@ namespace HoReD.Controllers
         /// <param name="professionId"></param>
         /// <returns></returns>
         [HttpGet]
-        [AllowAnonymous]
+        [TokenAuthenticate(Role = "admin")]
         [Route("GetDoctors/{professionId}")]
          public IHttpActionResult GetDoctorsByProfession(int professionId)
         {
