@@ -51,12 +51,10 @@ class LogbarUnauth extends Component {
       url: localStorage.getItem("server_url") + '/api/Membership',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
       },
       data: JSON.stringify(userAuth)
     })
       .then(function (response) {
-        //window.location.reload();
         window.location.href = window.location.origin + '/user';
         localStorage.setItem("currentUserId", (response.data.User.Id));
         localStorage.setItem("currentUserFirstName", (response.data.User.FirstName));
@@ -66,6 +64,31 @@ class LogbarUnauth extends Component {
         let myColor = { background: '#FF0000', text: "#FFFFFF" };
         notify.show("Wrong login or password!", "custom", 5000, myColor);
     });
+  }
+
+  handleForgotPasswordClick = event => {
+    event.preventDefault();
+    if(this.loginAuth.trim() == "")
+    $("#btnSumbAuth").trigger("click");
+     
+    // axios({
+    //   method: 'post',
+    //   url: localStorage.getItem("server_url") + '/api/Membership',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   data: JSON.stringify(userAuth)
+    // })
+    //   .then(function (response) {
+    //     window.location.href = window.location.origin + '/user';
+    //     localStorage.setItem("currentUserId", (response.data.User.Id));
+    //     localStorage.setItem("currentUserFirstName", (response.data.User.FirstName));
+    //     localStorage.setItem("currentUserLastName", (response.data.User.LastName));
+    //     localStorage.setItem("accessToken", response.data.Token);
+    //   }).catch(error => {
+    //     let myColor = { background: '#FF0000', text: "#FFFFFF" };
+    //     notify.show("Wrong login or password!", "custom", 5000, myColor);
+    // });
   }
 
   handleSubmitRegistr = event => {
@@ -396,7 +419,7 @@ class LogbarUnauth extends Component {
         </div>
 
         <div className="modal fade" id="SignInModal">
-        <Notifications/>
+          <Notifications/>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header mb-5">
@@ -414,9 +437,12 @@ class LogbarUnauth extends Component {
                     <input className="form-control" type="password" placeholder="Password" onBlur={(x => { this.passwordAuth = x.target.value; })} required />
                   </div>
                 </div>
+                <div className="row mb-3 justify-content-center">
+                    <a id="ResetPasswordLink" onClick= {this.handleForgotPasswordClick}>Forgot password?</a>
+                </div>
                 <div className="row mb-3 mt-5 justify-content-center">
                   <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                    <button type="submit" className="btn btn-info btn-lg mb-3">Sign in
+                    <button id="btnSumbAuth" type="submit" className="btn btn-info btn-lg mb-3">Sign in
                     </button>
                   </div>
                   <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
@@ -425,6 +451,21 @@ class LogbarUnauth extends Component {
                   </div>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+
+        <div className="modal fade" id="ShowInfoAboutResetingPassword">      
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header mb-3">
+                <h4 className="modal-title">The link for resetting password was sent to You. Please, check Your e-mail.</h4>
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-info btn-lg mb-3" data-dismiss="modal">Ok
+                </button>
+              </div>
             </div>
           </div>
         </div>
