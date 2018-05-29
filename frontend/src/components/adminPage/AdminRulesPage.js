@@ -35,6 +35,16 @@ class RulesPage extends Component {
             }
         }
 
+        var url = new URL(window.location.href);
+        if(url.search === ''){
+            let searchParameter = new URLSearchParams(window.location.search);
+            searchParameter.set('RuleId', this.state.idRuleForDoctorTable);
+            window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+        }
+        else{
+            this.state.idRuleForDoctorTable = url.searchParams.get('RuleId');
+        }
+
         axios({
             method: 'get',
             url: localStorage.getItem("server_url") + '/rule',
@@ -53,10 +63,13 @@ class RulesPage extends Component {
         .catch(error => {
             console.log(error.message);
         })
+        
     }
 
     ChangeIdRuleForDoctorTable(id, event){
-        console.log(event);
+        let searchParameter = new URLSearchParams(window.location.search);
+        searchParameter.set('RuleId', id);
+        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
         this.setState({
             idRuleForDoctorTable: id
         })
