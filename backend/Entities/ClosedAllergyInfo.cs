@@ -10,6 +10,6 @@ namespace Entities
     {
         public string AllergyName { get; set; }
 
-        public Tuple<VisitInfo, VisitInfo> OpenigClosingVisitsInfo {get; set;}
+        public Tuple<VisitInfo, VisitInfo> OpeningClosingVisitsInfo {get; set;}
     }
 }
