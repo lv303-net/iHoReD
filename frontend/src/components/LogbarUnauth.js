@@ -51,16 +51,16 @@ class LogbarUnauth extends Component {
       url: localStorage.getItem("server_url") + '/api/Membership',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        //'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
       },
       data: JSON.stringify(userAuth)
     })
       .then(function (response) {
         //window.location.reload();
         window.location.href = window.location.origin + '/user';
-        localStorage.setItem("currentUserId", (response.data.Id));
-        localStorage.setItem("currentUserFirstName", (response.data.FirstName));
-        localStorage.setItem("currentUserLastName", (response.data.LastName));
+        localStorage.setItem("currentUserId", (response.data.User.Id));
+        localStorage.setItem("currentUserFirstName", (response.data.User.FirstName));
+        localStorage.setItem("currentUserLastName", (response.data.User.LastName));
         localStorage.setItem("accessToken", response.data.Token);
       }).catch(error => {
         let myColor = { background: '#FF0000', text: "#FFFFFF" };
