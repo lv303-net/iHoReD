@@ -1,10 +1,10 @@
+import $ from 'jquery';
 import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
 import logo from '../images/logo.png';
 import '../style/Navbar.css';
-import $ from 'jquery';
 import Notifications, {notify} from 'react-notify-toast';
 
 
@@ -69,26 +69,12 @@ class LogbarUnauth extends Component {
   handleForgotPasswordClick = event => {
     event.preventDefault();
     if(this.loginAuth.trim() == "")
-    $("#btnSumbAuth").trigger("click");
-     
-    // axios({
-    //   method: 'post',
-    //   url: localStorage.getItem("server_url") + '/api/Membership',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   data: JSON.stringify(userAuth)
-    // })
-    //   .then(function (response) {
-    //     window.location.href = window.location.origin + '/user';
-    //     localStorage.setItem("currentUserId", (response.data.User.Id));
-    //     localStorage.setItem("currentUserFirstName", (response.data.User.FirstName));
-    //     localStorage.setItem("currentUserLastName", (response.data.User.LastName));
-    //     localStorage.setItem("accessToken", response.data.Token);
-    //   }).catch(error => {
-    //     let myColor = { background: '#FF0000', text: "#FFFFFF" };
-    //     notify.show("Wrong login or password!", "custom", 5000, myColor);
-    // });
+      $("#btnSumbAuth").trigger("click");
+    else{
+
+      //here must be reset password axios
+      notify.show("The link for resetting password was sent to You. Please, check Your e-mail.", "custom", 15000, { background: 'green', text: "#FFFFFF" });
+    }
   }
 
   handleSubmitRegistr = event => {
@@ -117,8 +103,7 @@ class LogbarUnauth extends Component {
 
         })
         .catch(error => {
-          let myColor = { background: '#FF0000', text: "#FFFFFF" };
-          notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, myColor);
+          notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, { background: '#FF0000', text: "#FFFFFF" });
       });
     }
   }
@@ -252,6 +237,7 @@ class LogbarUnauth extends Component {
   render() {
     return (
       <div>
+         <Notifications/>
         <nav className="navbar navbar-dark navbar-custom py-0 px-5">
           <div className="navbar-brand p-0">
             <a href="/">
@@ -419,7 +405,6 @@ class LogbarUnauth extends Component {
         </div>
 
         <div className="modal fade" id="SignInModal">
-          <Notifications/>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header mb-5">
@@ -437,8 +422,8 @@ class LogbarUnauth extends Component {
                     <input className="form-control" type="password" placeholder="Password" onBlur={(x => { this.passwordAuth = x.target.value; })} required />
                   </div>
                 </div>
-                <div className="row mb-3 justify-content-center">
-                    <a id="ResetPasswordLink" onClick= {this.handleForgotPasswordClick}>Forgot password?</a>
+                <div className="row mb-3 justify-content-center" id="ResetPasswordLink">
+                    <a data-dismiss="modal" onClick= {this.handleForgotPasswordClick}>Forgot password?</a>
                 </div>
                 <div className="row mb-3 mt-5 justify-content-center">
                   <div className="col-xs-3 col-sm-3 col-md-3 text-center">
@@ -451,21 +436,6 @@ class LogbarUnauth extends Component {
                   </div>
                 </div>
               </form>
-            </div>
-          </div>
-        </div>
-
-        <div className="modal fade" id="ShowInfoAboutResetingPassword">      
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header mb-3">
-                <h4 className="modal-title">The link for resetting password was sent to You. Please, check Your e-mail.</h4>
-                <button type="button" className="close" data-dismiss="modal">&times;</button>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-info btn-lg mb-3" data-dismiss="modal">Ok
-                </button>
-              </div>
             </div>
           </div>
         </div>
