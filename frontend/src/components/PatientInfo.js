@@ -149,11 +149,11 @@ class PatientInfo extends React.Component {
                         </div>
                     </div>
                 </div>
-                <button type="button" className="btn btn-info btn-lg mt-3 col-sm-4" id="AddRate" data-toggle="modal" data-target="#ClosedDiseasesInfo">All diseases history
-                </button>
-                <ClosedDiseasesInfo PatientId={this.props.PatientId} reload={this.props.shouldUpdate}/>
+                {/* <button type="button" className="btn btn-info btn-lg mt-3 col-sm-4" id="AddRate" data-toggle="modal" data-target="#ClosedDiseasesInfo">All diseases history
+                </button> */}
+                {/* <ClosedDiseasesInfo PatientId={this.props.PatientId} reload={this.props.shouldUpdate}/> */}
                 <DiseaseInfo PatientId={this.props.PatientId} DiseaseId={this.state.currentDiseaseId} DiseaseName={this.state.currentDiseaseName}/>
-                <ActiveAllergyInfo  PatientId={this.props.PatientId} DiseaseId={this.state.currentDiseaseId} DiseaseName={this.state.currentDiseaseName}/>
+                <ActiveAllergyInfo  PatientId={this.props.PatientId} AllergyId={this.state.currentDiseaseId} AllergyName={this.state.currentDiseaseName}/>
             </div>
         );
     }
