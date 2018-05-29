@@ -13,12 +13,10 @@ class ChangingRole extends Component {
             lastName: "",
             role: "",
             idUser: 0,
-            selectedOption: "",
             idRole: 0,
             options: [
                 { value: "0", label: "" }
             ],
-            selectedOptionProf: "",
             idProf: 0,
             optionsProf: [
                 { value: "0", label: "" }
@@ -36,7 +34,6 @@ class ChangingRole extends Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        console.log(nextState.idProf);
         let _that = this;
         if (((nextState.idUser !== nextProps.idUser) ||
             (this.state.idUser !== nextState.idUser) ||
