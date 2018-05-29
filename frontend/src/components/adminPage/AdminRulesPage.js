@@ -12,6 +12,9 @@ class RulesPage extends Component {
         this.state = {
             massiveRules: [],
             idRuleForDoctorTable: 0,
+            shouldUpdateRulesList: true,
+            shouldUpdateDoctorList: false,
+            shouldUpdateListDoctorsWithoutRules: false,
             currentRule: {
                 IdRule: 0,    
                 RuleName: '',
@@ -32,6 +35,16 @@ class RulesPage extends Component {
             }
         }
 
+        var url = new URL(window.location.href);
+        if(url.search === ''){
+            let searchParameter = new URLSearchParams(window.location.search);
+            searchParameter.set('RuleId', this.state.idRuleForDoctorTable);
+            window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
+        }
+        else{
+            this.state.idRuleForDoctorTable = url.searchParams.get('RuleId');
+        }
+
         axios({
             method: 'get',
             url: localStorage.getItem("server_url") + '/rule',
@@ -42,17 +55,21 @@ class RulesPage extends Component {
         })
         .then(res => {
             this.setState({
-                massiveRules: res.data
+                massiveRules: res.data,
+                shouldUpdateRulesList: false
             })
             this.state.massiveRules.map(data => console.log(data))
         })
         .catch(error => {
             console.log(error.message);
         })
+        
     }
 
     ChangeIdRuleForDoctorTable(id, event){
-        console.log(event);
+        let searchParameter = new URLSearchParams(window.location.search);
+        searchParameter.set('RuleId', id);
+        window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
         this.setState({
             idRuleForDoctorTable: id
         })
@@ -89,6 +106,72 @@ class RulesPage extends Component {
         }
     }
 
+    UpdateRulesList(){
+        this.setState({
+            shouldUpdateRulesList: true
+        })
+    }
+
+    UpdateDoctorsList(){
+        if(this.state.idRuleForDoctorTable === this.state.currentRule.IdRule){
+            this.setState({
+                shouldUpdateDoctorList: true
+            })
+        }
+    }
+
+    DismissUpdateDoctorsList(){
+        this.setState({
+            shouldUpdateDoctorList: false
+        })
+    }
+
+    UpdateListDoctorsWithoutRules(){
+        this.setState({
+            shouldUpdateListDoctorsWithoutRules: true
+        })
+    }
+
+    DismissUpdateListDoctorsWithoutRules(){
+        this.setState({
+            shouldUpdateListDoctorsWithoutRules: false
+        })
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        return (
+            this.state.idRuleForDoctorTable !== nextState.idRuleForDoctorTable ||
+            this.state.shouldUpdateRulesList !== nextState.shouldUpdateRulesList ||
+            this.state.currentRule !== nextState.currentRule ||
+            this.state.massiveRules !== nextState.massiveRules || 
+            this.state.shouldUpdateDoctorList !== nextState.shouldUpdateDoctorList ||
+            this.state.shouldUpdateListDoctorsWithoutRules !== nextState.shouldUpdateListDoctorsWithoutRules
+        )
+    }
+
+    componentWillUpdate(nextProps, nextState){
+        if(nextState.shouldUpdateRulesList === true){
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/rule',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+            .then(res => {
+                console.log(res.data)
+                this.setState({
+                    massiveRules: res.data,
+                    shouldUpdateRulesList: false
+                })
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
+        }
+    }
+
     render(){
         return (
             <div className="container min-height d-flex flex-row">
@@ -110,10 +193,10 @@ class RulesPage extends Component {
                         </div>
                     </div>)}
                 </div>
-                <DoctorsListWithSomeRule idRule={this.state.idRuleForDoctorTable}/>
-                <AddDoctorToCurrentRule IdRule={this.state.currentRule.IdRule}/>
-                <AddOrUpdateRule currentRule={this.state.currentRule}/>
-                <SubmitDeleting currentRule={this.state.currentRule}/>
+                <DoctorsListWithSomeRule idRule={this.state.idRuleForDoctorTable} shouldUpdate={this.state.shouldUpdateDoctorList} dismissUpdate={this.DismissUpdateDoctorsList.bind(this)} updateDoctorsWithoutRules={this.UpdateListDoctorsWithoutRules.bind(this)}/>
+                <AddDoctorToCurrentRule IdRule={this.state.currentRule.IdRule} updateDoctorsList={this.UpdateDoctorsList.bind(this)} shouldUpdate={this.state.shouldUpdateListDoctorsWithoutRules} dismissUpdate={this.DismissUpdateListDoctorsWithoutRules.bind(this)}/>
+                <AddOrUpdateRule currentRule={this.state.currentRule} updateRulesList={this.UpdateRulesList.bind(this)}/>
+                <SubmitDeleting currentRule={this.state.currentRule} updateRulesList={this.UpdateRulesList.bind(this)}/>
             </div>
         )
         

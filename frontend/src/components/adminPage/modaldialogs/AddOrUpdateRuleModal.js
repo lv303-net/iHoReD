@@ -56,8 +56,8 @@ class AddOrUpdateRule extends Component{
         return newText;
     }
 
-    AddOrUpdateRule(){
-        axios({
+    async AddOrUpdateRule(){
+        await axios({
             method: 'post',
             url: localStorage.getItem("server_url") + '/rule/' + this.NewData.IdRule,
             headers: {
@@ -66,9 +66,10 @@ class AddOrUpdateRule extends Component{
             },
             data: JSON.stringify(this.NewData)
         })
-        .then(
-            console.log("Inserted" + this.NewData)
-        )
+        .then(res => {
+            console.log(res.status),
+            this.props.updateRulesList()
+        })
         .catch(error => {
             console.log(error.message);
         })
