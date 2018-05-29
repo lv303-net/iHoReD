@@ -424,7 +424,7 @@ namespace Entities.Utils
                 var allergyInfo = new ClosedAllergyInfo()
                 {
                     AllergyName = Convert.ToString(values.GetValue(i)),
-                    OpenigClosingVisitsInfo = new Tuple<VisitInfo, VisitInfo>(visitOpening, visitClosing)
+                    OpeningClosingVisitsInfo = new Tuple<VisitInfo, VisitInfo>(visitOpening, visitClosing)
                 };
                 result.Add(allergyInfo);
             }
