@@ -5,7 +5,11 @@ import axios from 'axios';
 class DoctorsListWithSomeRule extends Component {
   constructor(props) {
     super(props);
-    this.state = { doc: [], idRule: 0 };
+    this.state = { 
+      doc: [],
+       idRule: 0,
+       shouldUpdate: false
+      };
   }
 
   DissmissDoctorFromCurrentRule(idDoc) {
@@ -22,12 +26,21 @@ class DoctorsListWithSomeRule extends Component {
       },
       data: JSON.stringify(model)
     })
-      .then()
+      .then( res => {
+        this.setState({
+          shouldUpdate: true
+        })
+        this.props.updateDoctorsWithoutRules()
+      })
       .catch()
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (this.state.idRule !== nextProps.idRule);
+    return (
+      this.state.idRule !== nextProps.idRule || 
+      this.props.shouldUpdate !== nextProps.shouldUpdate ||
+      this.state.shouldUpdate !== nextState.shouldUpdate
+    );
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -42,8 +55,10 @@ class DoctorsListWithSomeRule extends Component {
       .then(res => {
         this.setState({
           idRule: nextProps.idRule,
-          doc: res.data
+          doc: res.data,
+          shouldUpdate: false
         })
+        this.props.dismissUpdate()
       });
   }
 
