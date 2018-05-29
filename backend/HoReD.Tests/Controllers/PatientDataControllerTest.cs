@@ -26,21 +26,53 @@ namespace HoReDTests.Controllers
         }
 
         [Test]
-        public void GetDoctors_ValidCountOfRecords()
+        public void GetClosedDiseaseInfo()
         {
             // Arrange
-            var fake_info = GetFakeDiseaseInfo();
-            mock.Setup(repo => repo.GetDiagnoseInfo(168,833).Returns(fake_info);
+            var fake_info = GetFakeClosedDiseases();
+            mock.Setup(repo => repo.GetClosedDiseaseInfo(168)).Returns(fake_info);
             var controller = new PatientDataController(mock.Object);
 
             // Act
-            var response = (controller.GetDiagnoseInfo(168, 833) as OkNegotiatedContentResult<DiseaseInfo>).Content;
-
+            var response = (controller.GetClosedDiseaseInfo(168) as OkNegotiatedContentResult<List<DiseaseInfo>>).Content;
+            
             // Assert
             Assert.AreEqual(response, fake_info);
         }
+        public List<DiseaseInfo> GetFakeClosedDiseases()
+        {
+            var list = new List<DiseaseInfo> ();
+            var info1 = new DiseaseInfo
+            {
+                Id = 1,
+                DiseaseName = "Cholera",
+                DoctorOpenFirstName = "Ivan",
+                DoctorOpenLastName = "Petrov",
+                StartDateTime = new DateTime(2015, 10, 12, 12, 30, 00),
+                Description = "tttttttttttttttttttttttt",
+                Treatment = "ddddddddddddddddddddddddd",
+                DoctorCloseFirstName = "Mykola",
+                DoctorCloseLastName = "Buga",
+                EndDateTime = new DateTime(2018, 11, 12, 10, 30, 00)
+            };
+            var info2 = new DiseaseInfo
+            {
+                Id = 2,
+                DiseaseName = "Gryp",
+                DoctorOpenFirstName = "Ivanna",
+                DoctorOpenLastName = "Shpack",
+                StartDateTime = new DateTime(2010, 8, 12, 19, 30, 00),
+                Description = "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+                Treatment = "yyyyyyyyyyyyyyyyyyyyy",
+                DoctorCloseFirstName = "Mykola",
+                DoctorCloseLastName = "Tuz",
+                EndDateTime = new DateTime(2017, 2, 21, 10, 00, 00)
+            };
+            list.Add(info1);
+            list.Add(info2);
+            return list;
+        }
 
-        
         public DiseaseInfo GetFakeDiseaseInfo()
         {
             var diseaseInfo = new DiseaseInfo
@@ -52,35 +84,6 @@ namespace HoReDTests.Controllers
                 Treatment = "patient Smachnyy is very ill"
             };
             return diseaseInfo;
-        }
-
-        public List<string[]> GetFakeProfessions(bool isStatic)
-        {
-            var list = new List<string[]>();
-            list.Add(new string[] { "therapist", "1", "true" });
-            list.Add(new string[] { "dentist", "2", "true" });
-            list.Add(new string[] { "ophtalmologist", "3", "true" });
-            return list;
-        }
-
-        public List<string[]> GetFakeDoctorsByProfession(int profession)
-        {
-            var list = new List<string[]>();
-            var prof1 = new string[] { "Halenok", "Iryna" };
-            var prof2 = new string[] { "Solyar", "Olya" };
-            list.Add(prof1);
-            list.Add(prof2);
-            return list;
-        }
-
-        public List<SalaryStatistics>[] GetFakeDoctorSalaryStatistics(int doctorId, DateTime dateStart, DateTime dateFinish)
-        {
-            var list = new List<SalaryStatistics>[1];
-            list[0] = new List<SalaryStatistics> { new SalaryStatistics { Day = new DateTime(2018, 01, 30), WorkedHours = 2.50, SalaryRate = 80.00, SalaryCoefficient = 2.00, EarnedMoney = 400.00 },
-             new SalaryStatistics { Day = null, WorkedHours = 2.50, SalaryRate = 80.00, SalaryCoefficient = 2.00, EarnedMoney = 400.00 }};
-
-            return list;
-
         }
 
     }
