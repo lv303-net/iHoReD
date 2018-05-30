@@ -29,7 +29,7 @@ namespace Entities.Services
             return new List<Claim>
             {
                 new Claim(ClaimTypes.Role, currentUser.RoleName),
-                new Claim(ClaimTypes.Name, currentUser.Email)
+                new Claim(ClaimTypes.Email, currentUser.Email)
             }; ;
         }
 
