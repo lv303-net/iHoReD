@@ -57,5 +57,22 @@ namespace HoReD.Controllers
             }
 
         }
+
+        [AllowAnonymous]
+        [Route("TokensMatch")]
+        public IHttpActionResult TokensMatch(UserWithTokenBindingModel model)
+        {
+            try
+            {
+                UserInfoWithToken userInfoWithToken = new UserInfoWithToken();
+                userInfoWithToken.Token = _authService.GenerateJwtTokenAsync(model.Email, null);
+                return userInfoWithToken.Token == model.Token ? Ok(true) : Ok(false);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+        }
     }
 }
