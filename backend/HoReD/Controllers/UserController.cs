@@ -162,7 +162,7 @@ namespace HoReD.Controllers
         [Route("FirstLastname/{text}")]
         public IHttpActionResult ListFirstLastname(string text)
         {
-            return Ok(_userService.FirstLastname(text));
+            return Ok(_userService.FirstLastname(HttpUtility.UrlDecode(text.Replace(" ", ""))));
         }
     }
 }
