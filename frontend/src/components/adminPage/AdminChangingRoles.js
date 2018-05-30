@@ -20,10 +20,12 @@ class AdminChangingRoles extends Component {
             applyClick: false,
             idClick: 0,
             shouldUpdate: false,
-                        options: [
+            shouldUpdateModal: false,
+            options: [
                 { value: "0", label: "" }
             ],
             idSelectedUser: 0,
+            users: []
         };
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -92,7 +94,8 @@ class AdminChangingRoles extends Component {
                 (this.state.shouldUpdate !== nextState.shouldUpdate) ||
                 (this.state.options !== nextState.options) ||
                 (this.state.idSelectedUser !== nextState.idSelectedUser) ||
-                (this.state.txtFilter !== nextState.txtFilter))
+                (this.state.txtFilter !== nextState.txtFilter) ||
+                (this.state.users !== nextState.users))
     }
     
     componentWillUpdate(nextProps, nextState) {
@@ -102,7 +105,7 @@ class AdminChangingRoles extends Component {
             (this.state.shouldUpdate !== nextState.shouldUpdate)) {
                 axios({
                     method: 'get',
-                    url: localStorage.getItem("server_url") + '/FilterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
+                    url: localStorage.getItem("server_url") + '/FilterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' + nextState.isAdmin+ '/' + nextState.isDoctor+ '/' + nextState.textFilter,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -149,8 +152,7 @@ class AdminChangingRoles extends Component {
         })
     }
 
-    handleApply() {
-        
+    handleApply() {        
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('page', 1);
         searchParameter.set('count', this.state.countElements);
@@ -170,6 +172,7 @@ class AdminChangingRoles extends Component {
         var caller = e.target || e.srcElement;
         this.setState({
             idUser: caller.id,
+            shouldUpdateModal: !this.state.shouldUpdateModal
         })
     }
 
@@ -179,34 +182,6 @@ class AdminChangingRoles extends Component {
         })
     }
 
-    handleInputChange = (selectedOption) => {
-        console.log('here');
-        let _that = this;
-        axios({
-            method: 'get',
-            url: localStorage.getItem("server_url") + '/FilterAllUsers/' + this.state.currentPage + '/' + this.state.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-            }
-        })
-            .then(response => {
-                // this.setState({
-                //     rolesList: res.data,
-                // })
-                _that.setState({
-                    options: response.data.map(rolesList => ({ value: rolesList.IdUser, label: rolesList.FirstName + ' ' + rolesList.LastName }))
-                })
-            });
-
-        // this.setState({
-        //     idSelectedUser: selectedOption.value, 
-        //     txtFilter: selectedOption.label
-        // })
-
-        // console.log(selectedOption.label)
-    }
-
     handleChange = (selectedOption) => {
         this.setState({
             idSelectedUser: selectedOption.value, 
@@ -214,6 +189,27 @@ class AdminChangingRoles extends Component {
         })
     }
     
+    returnDatalist(value){
+        this.setState({
+            textFilter: value,
+            users: []
+        })
+        if (value !== "") {
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/FirstLastname/' + value,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+                .then(response => {
+                    this.setState({
+                        users: response.data,
+                    })
+                });
+        }
+    }
 
     render() {
         return (
@@ -223,20 +219,18 @@ class AdminChangingRoles extends Component {
                         <div className="row mt-2" id="rowFilter">
                             <div className="col-md-5 col-8 text-center" >
                                 <p className="admDocMid">Enter username</p>
-                                {/* <input type="text" 
+                                <input list="names" type="text" 
                                         id="textInputUsername" 
-                                        onChange={x => { this.setState({
-                                            textFilter: x.target.value,
-                                        })}}
-                                        placeholder="Username"/> */}
-                                <Select
-                                    value={this.state.idSelectedUser}
-                                    name="form-field-name"
-                                    onInputChange={this.handleInputChange}
-                                    onChange={this.handleChange}
-                                    options={this.state.options}
-                                    clearable={false}
-                                />
+                                        onChange={x => { this.returnDatalist(x.target.value)}}
+                                        placeholder="Username">
+                                        
+                                </input>
+                                <datalist id="names">
+                                    {this.state.users.map(
+                                        names => 
+                                        <option key={names.IdUser}>{names.FirstName + ' ' + names.LastName}</option>
+                                    )}
+                                </datalist>
                                 
                             </div>
                             <div className="col-md-2 col-5 admDocCheck text-center" >
@@ -253,7 +247,7 @@ class AdminChangingRoles extends Component {
                             <div className="col-md-2 col-6 mt-1 admDocSmall" >
                                 <p>only Doctors</p>
                             </div>                            
-                            <div className="col-md-2 col-12 text-center">
+                            <div className="col-md-3 col-12 text-center">
                                 <button type="button" className="btn btn-info" onClick={() =>{this.handleApply()}}>Apply
                                 </button>
                             </div>
@@ -287,7 +281,7 @@ class AdminChangingRoles extends Component {
                 </div>
 
                 <AdminPagination currPage={this.state.currentPage} txtFilter={this.state.textFilter} isAdmin={this.state.isAdmin} isDoctor={this.state.isDoctor} callback={this.getPagesAndQuantity.bind(this)}/>
-                <ChangingRole idUser = {this.state.idUser} callback={this.rerenderFromModal.bind(this)}/>
+                <ChangingRole shouldUpdateModal={this.state.shouldUpdateModal} idUser = {this.state.idUser} callback={this.rerenderFromModal.bind(this)}/>
             </div>
         );
     }

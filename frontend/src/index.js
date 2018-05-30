@@ -21,6 +21,8 @@ import UserPage from './components/userPage/UserMainPage';
 import DoctorPage from './components/doctorPage/DoctorMainPage';
 import NotFound from './components/NotFound';
 import AddMedRecord from './components/AddMedRecord';
+import ResetPassword from './components/ResetPassword';
+
 var server_url;
 if(process.env.NODE_ENV==="development")
   localStorage.setItem("server_url", "http://localhost:58511")
@@ -37,6 +39,7 @@ class Home extends Component {
                 <Route path="/editUserInfo" component={Edit}/>
                 <Route path="/allDiagnoses" component={Diagnoses}/>
                 <Route path="/activation/:id" component={ActivationLink}/>
+                <Route path="/resetPassword/:token" component={ResetPassword}/>
                 <Route path="/doctorCalendar" component={DoctorCalendar}/>
                 <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
                 <Route path="/medicalCard/:id" component={MedicalCard}/>
