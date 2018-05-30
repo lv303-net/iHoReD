@@ -68,9 +68,12 @@ class LogbarUnauth extends Component {
 
   handleForgotPasswordClick = event => {
     event.preventDefault();
-    // if(this.loginAuth.trim() === "")
-    //   this.validateEmail();
-    // else{
+    if(this.loginAuth.trim() === "")
+    {
+      $("#btnSumbAuth").trigger("click");
+      console.log(11)
+    }
+    else{
         var userAuth = {
           email: this.loginAuth,
           password: null
@@ -94,7 +97,7 @@ class LogbarUnauth extends Component {
       });
 
       notify.show("The link for resetting password was sent to You. Please, check Your e-mail.", "custom", 15000, { background: 'green', text: "#FFFFFF" });
-    // }
+    }
   }
 
   handleSubmitRegistr = event => {
@@ -443,7 +446,7 @@ class LogbarUnauth extends Component {
                   </div>
                 </div>
                 <div className="row mb-3 justify-content-center" id="ResetPasswordLink">
-                    <a data-dismiss="modal" onClick= {this.handleForgotPasswordClick}>Forgot password?</a>
+                    <a onClick= {this.handleForgotPasswordClick}>Forgot password?</a>
                 </div>
                 <div className="row mb-3 mt-5 justify-content-center">
                   <div className="col-xs-3 col-sm-3 col-md-3 text-center">
