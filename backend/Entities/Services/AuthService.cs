@@ -21,8 +21,11 @@ namespace Entities.Services
 
         public string GenerateJwtTokenAsync(string userEmail, string password)
         {
-            if (!_membershipProvider.VerifyUserPassword(userEmail, password))
-                return "Wrong access";
+            if (!String.IsNullOrEmpty(password))
+            {
+                if (!_membershipProvider.VerifyUserPassword(userEmail, password))
+                    return "Wrong access";
+            }
 
             List<Claim> claims = _membershipProvider.GetUserClaims(userEmail);
 

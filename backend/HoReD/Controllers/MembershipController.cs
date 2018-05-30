@@ -36,7 +36,26 @@ namespace HoReD.Controllers
             {
                 return Unauthorized();
             }
-            
+
+        }
+
+        [AllowAnonymous]
+        [Route("ResetPassword")]
+        public IHttpActionResult ResetPassword(LoginUserBindingModel loginInfo)
+        {
+            try
+            {
+                UserInfoWithToken userInfoWithToken = new UserInfoWithToken();
+                userInfoWithToken.Token = _authService.GenerateJwtTokenAsync(loginInfo.Email, null);
+                EmailNotificationService.sendEmailToResetPassword(loginInfo.Email, userInfoWithToken.Token);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
         }
     }
 }
