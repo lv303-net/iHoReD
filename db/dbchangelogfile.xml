@@ -536,5 +536,16 @@
    <sqlFile path="V4.17_CREATE_PROCEDURE_CHANGE_ROLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
+  <changeSet author="Tetiana Usyk" id="V4.18">
+   <sqlFile path="V4.18_CREATE_PROCEDURE_LIST_USER_FOR_ROLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Tetiana Usyk" id="V4.19">
+   <sqlFile path="V4.19_UPDATE_PROCEDURE_FILTERING_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+   <changeSet author="Tetiana Usyk" id="V4.20">
+   <sqlFile path="V4.20_UPDATE_PROC_LIST_USER_FOR_ROLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
  
 </databaseChangeLog>
