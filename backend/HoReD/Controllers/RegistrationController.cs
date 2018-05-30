@@ -66,11 +66,10 @@ namespace HoReD.Controllers
                int result=_userService.ActivateUser(decryptedUserId);
                 return Ok(result);
             }   
-            catch (Exception e )
+            catch (Exception)
             {
-                Console.WriteLine(e);
-                throw;
-               
+                return Unauthorized();
+
             }
         }
     }

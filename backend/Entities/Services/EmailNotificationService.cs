@@ -20,9 +20,11 @@ namespace Entities.Services
         /// </summary>
         const string SmtpClientHost = "smtp.gmail.com";
 
+        const string subjectActivate = "Hospital Registaration Desk";
+        const string bodyActivate = "To activate in HoReD go to the link";
 
-        const string subject = "Hospital Registaration Desk";
-        const string body = "To activate in HoReD go to the link";
+        const string subjectResetPassword = "Resetting password in Hospital Registaration Desk";
+        const string bodyResetPassword = "To change password follow the  ";
 
         /// <summary>
         ///	Credentials that are used for sending emails.
@@ -43,8 +45,7 @@ namespace Entities.Services
             client.Timeout = 10000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.Credentials = new System.Net.NetworkCredential(Credentials.Email, Credentials.Password);
-            
-            
+                     
             return client;
         }
 
@@ -53,11 +54,21 @@ namespace Entities.Services
            string userId = user.Id.ToString();
             string encryptedUserId = EncryptionService.Encrypt(userId);
             SmtpClient client = SetSmtpClient();
-            MailMessage mailmessage = new MailMessage(Credentials.Email, user.Email);
-            mailmessage.IsBodyHtml = true;
-            mailmessage.Subject = subject;
-            mailmessage.Body = body + "<a href="+ConfigurationManager.AppSettings["Linkpath"] + "/activation/"+ encryptedUserId+">"+" "+ "click here</a>";
-            client.Send(mailmessage);
-        }    
+            MailMessage mailMessage = new MailMessage(Credentials.Email, user.Email);
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Subject = subjectActivate;
+            mailMessage.Body = bodyActivate + "<a href="+ConfigurationManager.AppSettings["Linkpath"] + "/activation/"+ encryptedUserId+">"+" "+ "click here</a>";
+            client.Send(mailMessage);
+        }
+
+        public static void sendEmailToResetPassword(string email, string token)
+        {
+            SmtpClient client = SetSmtpClient();
+            MailMessage mailMessage = new MailMessage(Credentials.Email, email);
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Subject = subjectResetPassword;
+            mailMessage.Body = bodyResetPassword + "<a href=" + ConfigurationManager.AppSettings["Linkpath"] + "/resetPassword/" + token + ">" + " " + "link</a>";
+            client.Send(mailMessage);
+        }
     }
 }

@@ -217,5 +217,20 @@ namespace Entities.Services
             _dbContext.ExecuteSqlQuery(cmd,'*', param);
            
         }
+        public List<UserFirstLastname> FirstLastname(string text)
+        {
+            const string cmd = "LIST_USER_FOR_ROLE";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@SEARCHTEXT", text},
+
+            };
+            var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var values = data.Split('*');
+            var users = Utils.ParseSqlQuery.GetAllUsersFirstLastname(data);
+            return users;
+           
+        }
     }
 }

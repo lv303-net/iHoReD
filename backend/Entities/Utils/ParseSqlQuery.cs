@@ -643,5 +643,19 @@ namespace Entities.Utils
             }
             return list;
         }
+        public static List<UserFirstLastname> GetAllUsersFirstLastname(string str)
+        {
+            var values = str.Split('*');
+            var list = new List<UserFirstLastname>();
+            for (int i = 0; i < (values.Length - 1); i += 2)
+            {
+                var user = new UserFirstLastname
+                {   FirstName = values.GetValue(i).ToString(),
+                    LastName = values.GetValue(i + 1).ToString(),
+                 };
+                list.Add(user);
+            }
+            return list;
+        }
     }
 }
