@@ -21,6 +21,7 @@ class ChangingRole extends Component {
             optionsProf: [
                 { value: "0", label: "" }
             ],
+            shouldUpdate: false
         };
 
     }
@@ -116,7 +117,6 @@ class ChangingRole extends Component {
     }
 
     handleApplyClick(){
-        console.log(this.props.idUser + ' '+ this.state.idRole +' '+ this.state.idProf)
         if (this.state.idProf !== 0) {
             axios({
                 method: 'get',
@@ -152,8 +152,7 @@ class ChangingRole extends Component {
         if (this.state.idRole == 2) {
             selectProfession =   
             <div>
-                <br/>
-                <h5>Choose profession:</h5>                              
+                <h5 className="mt-2">Choose profession:</h5>                              
                 <Select
                     value={this.state.idProf}
                     name="form-field-name"
@@ -178,8 +177,10 @@ class ChangingRole extends Component {
                         <div className="modal-body">
                             <div className="modalMain">
                                 <h4>{this.state.firstName} {this.state.lastName}</h4>
-                                <p>{this.state.role}</p>
-                                <h5>Available roles:</h5>
+                                <input id="inputCurrRole" 
+                                        value={this.state.role}/>
+                              
+                                <h5 className="mt-3">Available roles:</h5>
                                 <Select
                                     value={this.state.idRole}
                                     name="form-field-name"
