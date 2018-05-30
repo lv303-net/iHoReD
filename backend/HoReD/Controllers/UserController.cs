@@ -150,5 +150,17 @@ namespace HoReD.Controllers
             _userService.ChangeRole(userId, role, idProffesion);
             return Ok();
         }
+        /// <summary>
+        /// List first and lastname of users for filtering
+        /// </summary>
+        /// <param name="text">text for searching</param>
+        /// <returns>List first and lastnameof users</returns>
+        [HttpGet]
+        [TokenAuthenticate(Role = "admin")]
+        [Route("FirstLastname/{text}")]
+        public IHttpActionResult ListFirstLastname(string text)
+        {
+            return Ok(_userService.FirstLastname(text));
+        }
     }
 }
