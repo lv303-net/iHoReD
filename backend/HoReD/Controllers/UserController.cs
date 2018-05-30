@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Entities;
 using HoReD.AuthFilters;
+using System.Web;
 
 namespace HoReD.Controllers
 {
@@ -78,8 +79,9 @@ namespace HoReD.Controllers
         [Route("FilterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}/{firstOrlastname}")]
         public IHttpActionResult FilterAllUsers(int numberPage, int countInPage,bool isAdmin, bool isDoctor, string firstOrlastname=null)
         {
-            return Ok(_userService.FilteringUsers(numberPage, countInPage,isAdmin,isDoctor,firstOrlastname));
-        }
+            if (firstOrlastname != null) firstOrlastname=HttpUtility.UrlDecode(firstOrlastname.Replace(" ", ""));
+            return Ok(_userService.FilteringUsers(numberPage, countInPage, isAdmin, isDoctor, firstOrlastname));
+            }
         /// <summary>
         /// Count of pages for different quantity of users on the page
         /// </summary>
