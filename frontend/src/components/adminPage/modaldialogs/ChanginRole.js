@@ -117,6 +117,7 @@ class ChangingRole extends Component {
     }
 
     handleApplyClick(){
+        let _that = this;
         if (this.state.idProf !== 0) {
             axios({
                 method: 'get',
@@ -128,6 +129,7 @@ class ChangingRole extends Component {
             })
             .then(function (response) {
                 console.log("successfully");
+                _that.props.callback();
               })
         }
         else {
@@ -141,9 +143,10 @@ class ChangingRole extends Component {
             })
             .then(function (response) {
                 console.log("successfully");
+                _that.props.callback();
               })
         }
-        this.props.callback();
+        
         this.nullSelect();
     }
 
