@@ -540,12 +540,20 @@
    <sqlFile path="V4.18_CREATE_PROCEDURE_LIST_USER_FOR_ROLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
-   <changeSet author="Tetiana Usyk" id="V4.19">
+  <changeSet author="Tetiana Usyk" id="V4.19">
    <sqlFile path="V4.19_UPDATE_PROCEDURE_FILTERING_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
   
-   <changeSet author="Tetiana Usyk" id="V4.20">
+  <changeSet author="Tetiana Usyk" id="V4.20">
    <sqlFile path="V4.20_UPDATE_PROC_LIST_USER_FOR_ROLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V4.21">
+   <sqlFile path="V4.21_PROCEDURE_CHECK_IF_USER_EXISTS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V4.22">
+   <sqlFile path="V4.22_PROCEDURE_FOR_UPDATING_PASSWORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
  
 </databaseChangeLog>
