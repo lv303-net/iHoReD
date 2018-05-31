@@ -25,7 +25,8 @@ class AdminChangingRoles extends Component {
                 { value: "0", label: "" }
             ],
             idSelectedUser: 0,
-            users: []
+            users: [],
+            default: 0,
         };
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -268,8 +269,8 @@ class AdminChangingRoles extends Component {
                                     </div>
                                     <div className="col-2 column-custom" key={items.LastName + 'IsAdmin'}>
                                         {items.IsAdmin
-                                            ? <input type="checkbox" className="checkboxEach mt-2" disabled="disabled" checked />
-                                            : <input type="checkbox" className="checkboxEach mt-2" disabled="disabled" />}
+                                            ? <input value={this.state.default} type="checkbox" className="checkboxEach mt-2" disabled="disabled" checked />
+                                            : <input value={this.state.default} type="checkbox" className="checkboxEach mt-2" disabled="disabled" />}
                                     </div>
                                     <div className="col-5" key={items.LastName + 'Prof'}>
                                         <p className="mt-1 mb-1">{items.Proffession}</p>
@@ -281,7 +282,7 @@ class AdminChangingRoles extends Component {
                 </div>
 
                 <AdminPagination currPage={this.state.currentPage} txtFilter={this.state.textFilter} isAdmin={this.state.isAdmin} isDoctor={this.state.isDoctor} callback={this.getPagesAndQuantity.bind(this)}/>
-                <ChangingRole shouldUpdateModal={this.state.shouldUpdateModal} idUser = {this.state.idUser} callback={this.rerenderFromModal.bind(this)}/>
+                <ChangingRole shoudldUpdateModal={this.state.shouldUpdateModal} idUser = {this.state.idUser} callback={this.rerenderFromModal.bind(this)}/>
             </div>
         );
     }
