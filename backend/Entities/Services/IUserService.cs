@@ -23,6 +23,7 @@ namespace Entities.Services
         List<Role> GetUserAvailableRole(int idUser);
         List<UserFirstLastname> FirstLastname(string text);
         void  ChangeRole(int userId, int role, int idProfession = 0);
-       
+        void SendEmailForResettingPassword(string email);
+        int ResetPassword(string email, string newPassword, string link);
     }
 }

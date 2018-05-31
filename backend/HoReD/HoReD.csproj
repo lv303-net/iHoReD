@@ -220,6 +220,7 @@
     <Compile Include="Models\EventBindingModel.cs" />
     <Compile Include="Models\LoginUserBindingModel.cs" />
     <Compile Include="Models\RegistrationBindingModel.cs" />
+    <Compile Include="Models\ResetPasswordBindingModel.cs" />
     <Compile Include="Models\RuleBindingModel.cs" />
     <Compile Include="Models\RulesetBindingModel.cs" />
     <Compile Include="Models\SalaryCoeffBindingModel.cs" />
