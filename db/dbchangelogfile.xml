@@ -551,5 +551,9 @@
   <changeSet author="Mariia Shkolyk" id="V4.21">
    <sqlFile path="V4.21_PROCEDURE_CHECK_IF_USER_EXISTS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+  
+  <changeSet author="Mariia Shkolyk" id="V4.22">
+   <sqlFile path="V4.22_PROCEDURE_FOR_UPDATING_PASSWORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
  
 </databaseChangeLog>
