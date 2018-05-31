@@ -220,6 +220,7 @@
     <Compile Include="Models\EventBindingModel.cs" />
     <Compile Include="Models\LoginUserBindingModel.cs" />
     <Compile Include="Models\RegistrationBindingModel.cs" />
+    <Compile Include="Models\ResetPasswordBindingModel.cs" />
     <Compile Include="Models\RuleBindingModel.cs" />
     <Compile Include="Models\RulesetBindingModel.cs" />
     <Compile Include="Models\SalaryCoeffBindingModel.cs" />
@@ -227,7 +228,6 @@
     <Compile Include="Models\ScheduleBindingModel.cs" />
     <Compile Include="Models\MedicalRecordBindingModel.cs" />
     <Compile Include="Models\UserInfoBindingModel.cs" />
-    <Compile Include="Models\UserWithTokenBindingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

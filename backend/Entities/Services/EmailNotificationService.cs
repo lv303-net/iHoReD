@@ -51,7 +51,7 @@ namespace Entities.Services
 
         public static void sendEmail(User user)
         {       
-           string userId = user.Id.ToString();
+            string userId = user.Id.ToString();
             string encryptedUserId = EncryptionService.Encrypt(userId);
             SmtpClient client = SetSmtpClient();
             MailMessage mailMessage = new MailMessage(Credentials.Email, user.Email);
@@ -61,13 +61,15 @@ namespace Entities.Services
             client.Send(mailMessage);
         }
 
-        public static void sendEmailToResetPassword(string email, string token)
+        public static void sendEmailToResetPassword(string email)
         {
+            string encryptedEmailAndDateTime = EncryptionService.Encrypt(email + Utils.StaticData.Delimiter + Convert.ToString(DateTime.Now));
+
             SmtpClient client = SetSmtpClient();
             MailMessage mailMessage = new MailMessage(Credentials.Email, email);
             mailMessage.IsBodyHtml = true;
             mailMessage.Subject = subjectResetPassword;
-            mailMessage.Body = bodyResetPassword + "<a href=" + ConfigurationManager.AppSettings["Linkpath"] + "/resetPassword/" + token + ">" + " " + "link</a>";
+            mailMessage.Body = bodyResetPassword + "<a href=" + ConfigurationManager.AppSettings["Linkpath"] + "/resetPassword/" + encryptedEmailAndDateTime + ">" + " " + "link</a>";
             client.Send(mailMessage);
         }
     }

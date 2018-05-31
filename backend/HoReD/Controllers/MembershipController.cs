@@ -38,41 +38,5 @@ namespace HoReD.Controllers
             }
 
         }
-
-        [AllowAnonymous]
-        [Route("ResetPassword")]
-        public IHttpActionResult ResetPassword(LoginUserBindingModel loginInfo)
-        {
-            try
-            {
-                UserInfoWithToken userInfoWithToken = new UserInfoWithToken();
-                userInfoWithToken.Token = _authService.GenerateJwtTokenAsync(loginInfo.Email, null);
-                EmailNotificationService.sendEmailToResetPassword(loginInfo.Email, userInfoWithToken.Token);
-
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-
-        }
-
-        [AllowAnonymous]
-        [Route("TokensMatch")]
-        public IHttpActionResult TokensMatch(UserWithTokenBindingModel model)
-        {
-            try
-            {
-                UserInfoWithToken userInfoWithToken = new UserInfoWithToken();
-                userInfoWithToken.Token = _authService.GenerateJwtTokenAsync(model.Email, null);
-                return userInfoWithToken.Token == model.Token ? Ok(true) : Ok(false);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-
-        }
     }
 }
