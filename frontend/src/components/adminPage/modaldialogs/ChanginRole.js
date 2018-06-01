@@ -38,7 +38,8 @@ class ChangingRole extends Component {
         let _that = this;
         if (((nextState.idUser !== nextProps.idUser) ||
             (this.state.idUser !== nextState.idUser) ||
-            (this.state.idUser !== nextProps.idUser)) &&
+            (this.state.idUser !== nextProps.idUser) ||
+            (this.state.shouldUpdate !== nextProps.shouldUpdateModal)) &&
             (nextProps.idUser !== undefined)) {
             axios({
                 method: 'get',
@@ -80,7 +81,6 @@ class ChangingRole extends Component {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-
                 }
             })
             .then(function (response) {
@@ -117,6 +117,7 @@ class ChangingRole extends Component {
     }
 
     handleApplyClick(){
+        let _that = this;
         if (this.state.idProf !== 0) {
             axios({
                 method: 'get',
@@ -128,6 +129,7 @@ class ChangingRole extends Component {
             })
             .then(function (response) {
                 console.log("successfully");
+                _that.props.callback();
               })
         }
         else {
@@ -141,9 +143,10 @@ class ChangingRole extends Component {
             })
             .then(function (response) {
                 console.log("successfully");
+                _that.props.callback();
               })
         }
-        this.props.callback();
+        
         this.nullSelect();
     }
 
