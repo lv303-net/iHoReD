@@ -14,10 +14,11 @@ class AdminChangingRoles extends Component {
             rolesList: [],
             countElements: 10,
             currentPage: 1,
-            textFilter: "",
+            textFilter: null,
             isAdmin: false,
             isDoctor: false, 
             applyClick: false,
+	    callPagination: 0,
             idClick: 0,
             shouldUpdate: false,
             shouldUpdateModal: false,
@@ -100,6 +101,28 @@ class AdminChangingRoles extends Component {
     }
     
     componentWillUpdate(nextProps, nextState) {
+	var url_string = window.location.href;
+	var url = new URL(url_string);
+
+	let _currentPage = url.searchParams.get("page");
+	let _countElements = url.searchParams.get("count");
+	let _textFilter = url.searchParams.get("text");
+	let _isAdmin = url.searchParams.get("isAdmin");
+	let _isDoctor = url.searchParams.get("isDoc");
+	if (_currentPage !== nextState.currentPage ||
+            _countElements !== nextState.countElements ||
+            _textFilter !== nextState.textFilter ||
+            _isAdmin !== nextState.isAdmin ||
+            _isDoctor !== nextState.isDoctor){
+                this.setState({
+                    currentPage : _currentPage,
+                    countElements : _countElements,
+                    textFilter : _textFilter,
+                    isAdmin : _isAdmin,
+                    isDoctor : _isDoctor
+                });
+            }
+
         if ((this.state.countElements !== nextState.countElements) ||
             (this.state.currentPage !== nextState.currentPage) ||
             (this.state.applyClick !== nextState.applyClick) ||
@@ -165,6 +188,7 @@ class AdminChangingRoles extends Component {
         this.setState({
             currentPage: 1,
             applyClick: !this.state.applyClick,
+	    callPagination: this.state.callPagination+1
         })
     }
 
@@ -281,7 +305,7 @@ class AdminChangingRoles extends Component {
                     </div>
                 </div>
 
-                <AdminPagination currPage={this.state.currentPage} txtFilter={this.state.textFilter} isAdmin={this.state.isAdmin} isDoctor={this.state.isDoctor} callback={this.getPagesAndQuantity.bind(this)}/>
+                <AdminPagination callPagination={this.state.callPagination} callback={this.getPagesAndQuantity.bind(this)}/>
                 <ChangingRole shouldUpdateModal={this.state.shouldUpdateModal} idUser = {this.state.idUser} callback={this.rerenderFromModal.bind(this)}/>
             </div>
         );

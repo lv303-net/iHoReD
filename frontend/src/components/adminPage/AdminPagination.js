@@ -1,39 +1,64 @@
 import React from 'react';
-import { Component } from 'react';
+import {
+    Component
+} from 'react';
 import axios from 'axios';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 import '../../style/AdminChangingRoles.css'
 
 class AdminPagination extends Component {
+    update = 0;
     constructor(props) {
         super(props);
         this.state = {
-            numberStart: 1,
-            numberFinish: 2,
             countElements: 5,
             currentPage: 1,
             pageCount: 1,
-            ifArrow: false
+            isDoctor: false,
+            isAdmin: false,
+            textFilter: null,
+            shouldUpdate:1,
         };
         var url_string = window.location.href;
         var url = new URL(url_string);
         if (url.search !== '') {
             this.state.currentPage = url.searchParams.get("page");
             this.state.countElements = url.searchParams.get("count");
-            this.activePages(this.state.currentPage);
         }
     };
 
     shouldComponentUpdate(nextProps, nextState) {
         return ((this.state.countElements !== nextState.countElements) ||
-            (this.state.currentPage !== nextState.currentPage))
+            (this.state.currentPage !== nextState.currentPage) ||
+            (this.state.isDoctor !== nextState.isDoctor) ||
+            (this.state.isAdmin !== nextState.isAdmin) ||
+            (this.state.textFilter !== nextState.textFilter) ||
+            (this.props.callPagination !== nextProps.callPagination) ||
+            (this.state.pageCount !== nextState.pageCount) ||
+            (this.state.shouldUpdate !== nextState.shouldUpdate)||
+            (this.state.textFilter !== nextState.textFilter));
     }
-
-    componentWillUpdate(nextProps, nextState) {
+    componentDidUpdate(nextProps, nextState) {
+        let page;
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        if (url.search !== '') {
+            this.setState({
+                countElements : url.searchParams.get("count"),
+                currentPage : url.searchParams.get("page"),
+                textFilter: url.searchParams.get("text"),
+                isAdmin :  url.searchParams.get("isAdmin"),
+                isDoctor :  url.searchParams.get("isDoc"),
+                textFilter :  url.searchParams.get("text"),
+            });
+            page = url.searchParams.get("page");
+        }
+        let quant = 1;
         axios({
             method: 'get',
-            url: localStorage.getItem("server_url") + '/NumbersOfPage/' + this.state.countElements,
+            url: localStorage.getItem("server_url") + '/NumbersOfPageFiltered/' + this.state.countElements +
+                '/' + this.state.isAdmin + '/' + this.state.isDoctor + '/' + this.state.textFilter,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -41,77 +66,99 @@ class AdminPagination extends Component {
         })
         .then(res => {
             this.setState({
-                pageCount: res.data
-            })
+                pageCount: res.data,
+            });
+            quant = parseInt(res.data); 
+            this.generatePages(parseInt(page),quant);
+            this.props.callback(parseInt(page), nextState.countElements);        
         });
-        this.props.callback(nextState.currentPage, nextState.countElements);
     }
-
+    
     addPage(e) {
         e.preventDefault();
-        var caller = e.target;
-        var number = caller.innerHTML;
-        if ((number == '»') || (number == '<span aria-hidden="true">»</span><span class="sr-only">Next</span>')) {
-            if ((this.state.numberFinish + 1) <= this.state.pageCount) {
-                var searchParameter = new URLSearchParams(window.location.search);
-                searchParameter.delete('page');
-                let tempStart = this.state.numberStart + 1;
-                let tempFinish = this.state.numberFinish + 1;
-                this.setState({ numberStart: tempStart, numberFinish: tempFinish, ifArrow: true });
-                this.removeActive();
+       var caller = e.target;
+        var number = parseInt(caller.innerHTML);
+
+        if (isNaN(number)) {
+            if ((this.state.numberStart - 1) > 0) {
+                let searchParameter = new URLSearchParams(window.location.search);
+                searchParameter.delete("page");
             }
+        } 
+        else 
+        {
+            let searchParameter = new URLSearchParams(window.location.search);
+            searchParameter.set('page', number);
+            this.setState({
+                currentPage: number
+            });
+            window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
         }
-        else {
-            if ((number == '«') || (number == '<span aria-hidden="true">«</span><span class="sr-only">Previous</span>')) {
-                if ((this.state.numberStart - 1) > 0) {
-                    searchParameter = new URLSearchParams(window.location.search);
-                    searchParameter.delete("page");
-                    let tempStart = this.state.numberStart - 1;
-                    let tempFinish = this.state.numberFinish - 1;
-                    this.setState({ numberStart: tempStart, numberFinish: tempFinish, ifArrow: true });
-                    this.removeActive();
+    }
+    generatePages(number,quant) {
+        number = parseInt(number);
+        let arr = []
+        let item = 
+        <li className = "page-item mypag-item active"id = {"mypageitem" + number} key = { "mypageitem" + number}>
+            <a className = "page-link mypag-link" id = "mypagelink" key = { "mypagelink" + number } > {(number).toString()}
+            </a>
+        </li >
+        arr.push(item);
+
+        if (quant !== 1) {
+            if (number > 1) {
+                item =
+                < li className = "page-item mypag-item" id = { "mypageitem" + (number - 1)}   key = {  "mypageitem" + (number - 1)} >
+                    <a className = "page-link mypag-link" id = "mypagelink" key = {"mypagelink" + (number - 1)} > {(number - 1).toString() } 
+                    </a>
+                </li >
+                arr.unshift(item);
+                if (number > 2) {
+                    if (number > 3) {
+                        item =
+                         <li className = "page-item " id = { "mypageitem" + ".." } key = {"mypageitemli" + ".."} >
+                             <a className = "page-link mypag-link" id = "mypagelink" key = {"mypagelink" + '..' } > 
+                                ..
+                            </a>
+                        </li >
+                        arr.unshift(item);
+                    }
+                    item = 
+                    <li className = "page-item "id = {"mypageitem" + "1"} key = { "mypageitemli" + "1" } >
+                        <a className = "page-link mypag-link" id = "mypagelink"key = {"mypagelink" + '1' } >
+                             1 
+                        </a>
+                    </li >
+                    arr.unshift(item);
                 }
             }
-            else {
-                searchParameter = new URLSearchParams(window.location.search);
-                searchParameter.set('page', number);
-                this.setState({ currentPage: number });
-                window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
-                this.activePages(number);
-            }
-        }
-    }
-
-    activePages(number) {
-        this.removeActive();
-        $('.pages li#mypageitem' + (number)).addClass('active');
-    }
-
-    removeActive() {
-        let i;
-        for (i = this.state.numberStart; i <= this.state.numberFinish; i++) {
-            $('.pages li#mypageitem' + (i)).removeClass('active');
-        }
-    }
-
-    generatePages(numberStart, numberFinish) {
-        var arr = []
-        var url_string = window.location.href;
-        var url = new URL(url_string);
-        var item =
-            <li className="page-item mypag-item active" id={"mypageitem" + numberStart} key={"mypageitemli" + numberStart}>
-                <a className="page-link mypag-link" id="mypagelink" key={"mypageitem" + numberStart}>{(numberStart).toString()}</a>
-            </li>
-        arr.push(item);
-        for (var i = numberStart; i < numberFinish; i++) {
-            item =
-                <li className="page-item mypag-item" id={"mypageitem" + (i + 1)} key={"mypageitem" + (i + 1)}>
-                    <a className="page-link mypag-link" id="mypagelink" key={"mypagelink" + (i + 1)}>{(i + 1).toString()}</a>
+            if (quant > number) {
+                item = 
+                <li className = "page-item mypag-item" id = { "mypageitem" + (number + 1)} key = { "mypageitem" + (number + 1) } >
+                    <a className = "page-link mypag-link" id = "mypagelink"  key = {"mypagelink" + (number + 1)} > 
+                        {(number + 1).toString() }
+                    </a>
                 </li>
-            arr.push(item);
-        }
-        if (!this.state.ifArrow) {
-            this.activePages(Number(url.searchParams.get("page")));
+                arr.push(item);
+                if (quant > number + 1) {
+                    if (quant > number + 2) {
+                        item =
+                         <li className = "page-item "id = { "mypageitem" + "."} key = {"mypageitemli" + "."} >
+                            <a className = "page-link mypag-link" id = "mypagelink" key = {"mypagelink" + '.'} >
+                             .. 
+                            </a>
+                        </li>
+                        arr.push(item);
+                    }
+                    item = 
+                    <li className = "page-item mypag-item" id = {"mypageitem" + (quant)} key = {"mypageitem" + (quant)} >
+                        <a className = "page-link mypag-link" id = "mypagelink" key = {"mypagelink" + (quant) } >
+                         {(quant).toString()}
+                        </a>
+                    </li >
+                    arr.push(item);
+                }
+            }
         }
         return arr;
     }
@@ -127,84 +174,54 @@ class AdminPagination extends Component {
         var number = parseInt(caller.innerHTML);
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('count', number);
+        var newPageNumber = 1;
         this.setState({
-            countElements: number
+            countElements: number,
+            currentPage: newPageNumber
         })
-        var newPageNumber;
-        if (this.state.elementsCount < number) {
-            for (var i = 1; i < number; i++) {
-                var start = this.state.elementsCount * (this.state.pageNumber - 1) + 1;
-                if ((start >= ((i - 1) * number + 1)) && ((start + this.state.elementsCount - 1) <= ((i - 1) * number + number))) {
-                    newPageNumber = i;
-                }
-                else {
-                    if ((start >= ((i - 1) * number + 1)) && ((start) <= ((i - 1) * number + number))) {
-                        newPageNumber = i;
-                    }
-                }
-            }
-            if (newPageNumber == null) {
-                newPageNumber = 1;
-            }
-        }
-        else {
-            newPageNumber = 1;
-        }
-        if ((newPageNumber + 1) < this.state.pageCount) {
-            this.setState({ numberStart: newPageNumber, numberFinish: newPageNumber + 1 })
-        }
-        else {
-            if ((newPageNumber - 1) >= 1) {
-                this.setState({ numberStart: newPageNumber - 1, numberFinish: newPageNumber })
-            }
-            else {
-                this.setState({ numberStart: newPageNumber, numberFinish: newPageNumber })
-            }
-        }
-        this.setState({ pageNumber: newPageNumber, currentPage: newPageNumber });
         searchParameter.set('page', newPageNumber);
         window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
         this.AddDropdown(number);
     }
 
-    componentDidMount() {
-        this.setState({
-            currentPage: this.props.currPage
-        })
-        this.activePages(this.props.currPage);
+    componentWillMount() {
+        axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/NumbersOfPageFiltered/' + this.state.countElements +
+                    '/' + this.state.isAdmin + '/' + this.state.isDoctor + '/' + this.state.textFilter,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+            .then(res => {
+                this.setState({
+                    pageCount: parseInt(res.data)
+                });
+                this.generatePages(1,this.state.pageCount);
+            });
+        this.props.callback(this.state.currentPage, this.state.countElements);
     }
 
     render() {
         return (
-            <div className="row mt-2 paginationRow">
-                <div className="dropdown mydropdown float-right col-6">
-                    <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div className = "row mt-2 paginationRow" >
+                <div className = "dropdown mydropdown float-right col-6" >
+                    <button className = "btn btn-primary dropdown-toggle" type = "button" id = "dropdownMenuButton" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false" >
                         Elements per page
-                        </button>
-                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" onClick={e => (this.addCountOfElements(e))}>
-                        <button type="button" className="dropdown-item">5</button>
-                        <button type="button" className="dropdown-item">10</button>
-                        <button type="button" className="dropdown-item">15</button>
+                    </button> 
+                    <div className = "dropdown-menu" aria-labelledby = "dropdownMenuButton" onClick = {e => (this.addCountOfElements(e))} >
+                        <button type = "button" className = "dropdown-item" > 5 </button>
+                        <button type = "button" className = "dropdown-item" > 10 </button>
+                        <button type = "button"className = "dropdown-item" > 15 </button>
                     </div>
-                </div>
-                <div className="col-6" id="paginationPages">
-                    <nav >
-                        <ul className="pagination pages" onClick={e => (this.addPage(e))}>
-                            <li className="page-item">
-                                <a className="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span className="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            {this.generatePages(this.state.numberStart, this.state.numberFinish)}
-                            <li className="page-item">
-                                <a className="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span className="sr-only">Next</span>
-                                </a>
-                            </li>
+               </div>
+                <div className = "col-6" id = "paginationPages" >
+                    <nav>
+                        <ul className = "pagination pages" onClick = { e => (this.addPage(e))} > 
+                            {this.generatePages(this.state.currentPage,this.state.pageCount) }
                         </ul>
-                    </nav>
+                    </nav> 
                 </div>
             </div>
         );
