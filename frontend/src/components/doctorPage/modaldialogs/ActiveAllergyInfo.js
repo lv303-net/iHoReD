@@ -9,7 +9,7 @@ class ActiveAllergyInfo extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            alergyInfo: []
+            allergyInfo: []
         }
     }
 
@@ -29,7 +29,7 @@ class ActiveAllergyInfo extends Component{
             })
                 .then(res => {
                     this.setState({
-                        alergyInfo: res.data
+                        allergyInfo: res.data
                     });
                 });
             }
@@ -45,10 +45,10 @@ class ActiveAllergyInfo extends Component{
                             <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button>
                         </div>
                         <div className="modal-body" id="patientModal">
-                                <b>Doctor : </b>{this.state.alergyInfo.DoctorFirstName + " " + this.state.alergyInfo.DoctorLastName}<br/>
-                                <br/><b>Start time of allergy : </b>{this.state.alergyInfo.StartDateTime}<br/>
-                                <br/><b>Description : </b>{this.state.alergyInfo.Description}<br/>
-                                <br/><b>Treatment : </b>{this.state.alergyInfo.Treatment}
+                                <b>Doctor : </b>{this.state.allergyInfo.DoctorFirstName + " " + this.state.allergyInfo.DoctorLastName}<br/>
+                                <br/><b>Start time of allergy : </b>{this.state.allergyInfo.StartDateTime}<br/>
+                                <br/><b>Description : </b>{this.state.allergyInfo.Description}<br/>
+                                <br/><b>Treatment : </b>{this.state.allergyInfo.Treatment}
                         </div>
                         <div className="modal-footer">
                         <button type="button" className="btn btn-danger btn-lg" data-dismiss="modal" >Close

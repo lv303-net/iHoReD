@@ -22,6 +22,7 @@ import DoctorPage from './components/doctorPage/DoctorMainPage';
 import NotFound from './components/NotFound';
 import AddMedRecord from './components/AddMedRecord';
 import PrivateRoute from './PrivateRoute.js';
+import ResetPassword from './components/ResetPassword';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -36,7 +37,9 @@ class Home extends Component {
             <LogbarWrapper/>
               <Switch>
                 <PrivateRoute path="/editUserInfo" component={Edit} accessLevel="admin,user,doctor"/>
+                <PrivateRoute path="/allDiagnoses" component={Diagnoses} accessLevel="doctor"/>
                 <PrivateRoute path="/activation/:id" component={ActivationLink}/>
+                <PrivateRoute path="/resetPassword/:link" component={ResetPassword}/>
                 <PrivateRoute path="/doctorCalendar" component={DoctorCalendar} accessLevel="doctor"/>
                 <PrivateRoute path="/patientDiagnoses" component={PatientDiagnosesTable} accessLevel="doctor"/>
                 <PrivateRoute path="/medicalCard/:id" component={MedicalCard} accessLevel="doctor,user"/>
@@ -47,7 +50,6 @@ class Home extends Component {
                 <PrivateRoute exact path="/AddMedRecord" component={AddMedRecord} accessLevel="doctor"/>
                 <Route exact path="/" component={App}/>
                 <PrivateRoute component={NotFound}/>
-               
               </Switch>
             <Footerbar/>
       </div>

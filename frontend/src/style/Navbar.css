@@ -87,3 +87,18 @@ a:link, a:visited {
         height: 64px;
     }
 }
+
+div #ResetPasswordLink a{
+    text-decoration: underline;
+    color: #49A2FF;
+}
+
+div #ResetPasswordLink a:hover{
+    text-decoration: underline;
+    color: royalblue;
+    cursor: pointer;
+}
+
+.labelForm{
+    font-weight: bold;
+}

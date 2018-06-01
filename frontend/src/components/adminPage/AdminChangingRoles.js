@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import $ from 'jquery';
+import Select from 'react-select';
 import AdminPagination from './AdminPagination';
 import ChangingRole from './modaldialogs/ChanginRole';
 import '../../style/AdminChangingRoles.css'
@@ -18,7 +19,14 @@ class AdminChangingRoles extends Component {
             isDoctor: false, 
             applyClick: false,
             idClick: 0,
-            shouldUpdate: false
+            shouldUpdate: false,
+            shouldUpdateModal: false,
+            options: [
+                { value: "0", label: "" }
+            ],
+            idSelectedUser: 0,
+            users: [],
+            default: 0,
         };
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -56,7 +64,6 @@ class AdminChangingRoles extends Component {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-
                 }
             })
                 .then(res => {
@@ -85,7 +92,11 @@ class AdminChangingRoles extends Component {
                 (this.state.countElements !== nextState.countElements) ||
                 (this.state.applyClick !== nextState.applyClick) ||
                 (this.state.idUser !== nextState.idUser) ||
-                (this.state.shouldUpdate !== nextState.shouldUpdate))
+                (this.state.shouldUpdate !== nextState.shouldUpdate) ||
+                (this.state.options !== nextState.options) ||
+                (this.state.idSelectedUser !== nextState.idSelectedUser) ||
+                (this.state.txtFilter !== nextState.txtFilter) ||
+                (this.state.users !== nextState.users))
     }
     
     componentWillUpdate(nextProps, nextState) {
@@ -95,11 +106,10 @@ class AdminChangingRoles extends Component {
             (this.state.shouldUpdate !== nextState.shouldUpdate)) {
                 axios({
                     method: 'get',
-                    url: localStorage.getItem("server_url") + '/FilterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' +this.state.isAdmin+ '/' +this.state.isDoctor+ '/' + this.state.textFilter,
+                    url: localStorage.getItem("server_url") + '/FilterAllUsers/' + nextState.currentPage + '/' + nextState.countElements + '/' + nextState.isAdmin+ '/' + nextState.isDoctor+ '/' + nextState.textFilter,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-
                     }
                 })
                     .then(res => {
@@ -143,7 +153,7 @@ class AdminChangingRoles extends Component {
         })
     }
 
-    handleApply() {
+    handleApply() {        
         var searchParameter = new URLSearchParams(window.location.search);
         searchParameter.set('page', 1);
         searchParameter.set('count', this.state.countElements);
@@ -163,6 +173,7 @@ class AdminChangingRoles extends Component {
         var caller = e.target || e.srcElement;
         this.setState({
             idUser: caller.id,
+            shouldUpdateModal: !this.state.shouldUpdateModal
         })
     }
 
@@ -172,33 +183,72 @@ class AdminChangingRoles extends Component {
         })
     }
 
+    handleChange = (selectedOption) => {
+        this.setState({
+            idSelectedUser: selectedOption.value, 
+            textFilter: selectedOption.label
+        })
+    }
+    
+    returnDatalist(value){
+        this.setState({
+            textFilter: value,
+            users: []
+        })
+        if (value !== "") {
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/FirstLastname/' + value,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+                .then(response => {
+                    this.setState({
+                        users: response.data,
+                    })
+                });
+        }
+    }
+
     render() {
         return (
             <div className="container" id="changingRolesDiv">
                 <div className="row mt-5">
-                    <div className="col-12">
-                        <div className="row" id="rowFilter">
-                            <div className="col-md-5 col-8" >
-                                <input type="text" 
+                    <div className="col-12 col-md-9 col-centered">
+                        <div className="row mt-2" id="rowFilter">
+                            <div className="col-md-5 col-8 text-center" >
+                                <p className="admDocMid">Enter username</p>
+                                <input list="names" type="text" 
                                         id="textInputUsername" 
-                                        onChange={x => { this.setState({
-                                            textFilter: x.target.value,
-                                        })}}
-                                        placeholder="Username"/>
+                                        onChange={x => { this.returnDatalist(x.target.value)}}
+                                        placeholder="Username">
+                                        
+                                </input>
+                                <datalist id="names">
+                                    {this.state.users.map(
+                                        names => 
+                                        <option key={names.IdUser}>{names.FirstName + ' ' + names.LastName}</option>
+                                    )}
+                                </datalist>
+                                
                             </div>
-                            <div className="col-md-1 col-5 admDocCheck" >
+                            <div className="col-md-2 col-5 admDocCheck text-center" >
+                                <p className="admDocMid">Admin</p>
                                 <input type="checkbox" className="checkboxEach mt-2" id="checkboxAdmin" onChange={() => this.changeAdmin()}/>
                             </div>
-                            <div className="col-md-2 col-6 mt-1 admDocLabel" >
+                            <div className="col-md-2 col-6 mt-1 admDocSmall" >
                                 <p>only Admins</p>
                             </div>                            
-                            <div className="col-md-4 col-5 admDocCheck">
+                            <div className="col-md-2 col-5 admDocCheck text-center">
+                                <p className="admDocMid">Doctor</p>
                                 <input type="checkbox" className="checkboxEach mt-2" id="checkboxDoctor" onChange={() => this.changeDoctor()}/>
                             </div>
-                            <div className="col-md-2 col-6 mt-1 admDocLabel" >
+                            <div className="col-md-2 col-6 mt-1 admDocSmall" >
                                 <p>only Doctors</p>
                             </div>                            
-                            <div className="col-md-2 col-12 text-center">
+                            <div className="col-md-3 col-12 text-center">
                                 <button type="button" className="btn btn-info" onClick={() =>{this.handleApply()}}>Apply
                                 </button>
                             </div>
@@ -219,8 +269,8 @@ class AdminChangingRoles extends Component {
                                     </div>
                                     <div className="col-2 column-custom" key={items.LastName + 'IsAdmin'}>
                                         {items.IsAdmin
-                                            ? <input type="checkbox" className="checkboxEach mt-2" disabled="disabled" checked />
-                                            : <input type="checkbox" className="checkboxEach mt-2" disabled="disabled" />}
+                                            ? <input value={this.state.default} type="checkbox" className="checkboxEach mt-2" disabled="disabled" checked />
+                                            : <input value={this.state.default} type="checkbox" className="checkboxEach mt-2" disabled="disabled" />}
                                     </div>
                                     <div className="col-5" key={items.LastName + 'Prof'}>
                                         <p className="mt-1 mb-1">{items.Proffession}</p>
@@ -232,7 +282,7 @@ class AdminChangingRoles extends Component {
                 </div>
 
                 <AdminPagination currPage={this.state.currentPage} txtFilter={this.state.textFilter} isAdmin={this.state.isAdmin} isDoctor={this.state.isDoctor} callback={this.getPagesAndQuantity.bind(this)}/>
-                <ChangingRole idUser = {this.state.idUser} callback={this.rerenderFromModal.bind(this)}/>
+                <ChangingRole shouldUpdateModal={this.state.shouldUpdateModal} idUser = {this.state.idUser} callback={this.rerenderFromModal.bind(this)}/>
             </div>
         );
     }

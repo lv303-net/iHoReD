@@ -1,12 +1,11 @@
 import React from 'react';
 import { Component } from 'react';
-//import PatientDiagnosesTable from '.../PatientDiagnosesTable'
-//import PatientInfo from '../PatientInfo';
 import PatientInfo from '../../PatientInfo';
 import AllergiesCard from './AllergiesCard';
 import AddMedRecord from './../../AddMedRecord';
 import Diagnoses from './PatientDiseses/Diagnoses';
 import ClosedDiseasesInfo from './../modaldialogs/ClosedDiseasesInfo';
+import ClosedAllergiesInfo from './../modaldialogs/ClosedAllergiesInfo';
 import './../../../style/Disease.css';
 class PatientMedicalCard extends Component {
   constructor(){
@@ -44,22 +43,24 @@ class PatientMedicalCard extends Component {
 
   }
 
-
   render() {
-    console.log(this.props.match.params.startDate)
     return(
       <div id="mainDiv">
         <div className="container">
             <PatientInfo PatientId={this.props.match.params.id} shouldUpdate={this.state.shouldUpdate} callback={this.updateAllergiesOrDiseasesState.bind(this)} />
-            <div className="row" id="AllClosedDiseases">
-              <div className="col-md-7"/>
-                <div className="row col-md-5">
-                  <button type="button" className="btn btn-info btn-lg mb-3 col-12" id="ClosedDiseases" data-toggle="modal" data-target="#ClosedDiseasesInfo">All diseases history
+            <div className="row mt-5 mx-0">
+                <div className="col-md-6">
+                  <button type="button" className="btn btn-info btn-lg mb-3 col-12" id="ClosedDiseases" data-toggle="modal" data-target="#ClosedDiseasesInfo">Closed diseases history
                   </button>
                   <ClosedDiseasesInfo PatientId={this.props.match.params.id} reload={this.state.updateDiseases}/>
-              </div>
+                </div>
+                <div className="col-md-6">
+                  <button type="button" className="btn btn-info btn-lg mb-3 col-12" id="ClosedDiseases" data-toggle="modal" data-target="#ClosedAllergiesInfo">Closed allergies history
+                  </button>
+                  <ClosedAllergiesInfo PatientId={this.props.match.params.id} reload={this.state.updateAllergies}/>
+                </div>
             </div>
-            <div className="row mx-0">
+            <div className="row mx-0 mb-5">
               <div className="col-sm-12 col-md-6">
                 <Diagnoses PatientId={this.props.match.params.id} Visit={this.props.match.params.startDate} callback={this.reloadComponent.bind(this)} reload={this.state.updateDiseases}/>
               </div>

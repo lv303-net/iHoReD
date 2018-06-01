@@ -13,16 +13,15 @@ class ChangingRole extends Component {
             lastName: "",
             role: "",
             idUser: 0,
-            selectedOption: "",
             idRole: 0,
             options: [
                 { value: "0", label: "" }
             ],
-            selectedOptionProf: "",
             idProf: 0,
             optionsProf: [
                 { value: "0", label: "" }
             ],
+            shouldUpdate: false
         };
 
     }
@@ -36,11 +35,11 @@ class ChangingRole extends Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        console.log(nextState.idProf);
         let _that = this;
         if (((nextState.idUser !== nextProps.idUser) ||
             (this.state.idUser !== nextState.idUser) ||
-            (this.state.idUser !== nextProps.idUser)) &&
+            (this.state.idUser !== nextProps.idUser) ||
+            (this.state.shouldUpdate !== nextProps.shouldUpdateModal)) &&
             (nextProps.idUser !== undefined)) {
             axios({
                 method: 'get',
@@ -82,7 +81,6 @@ class ChangingRole extends Component {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-
                 }
             })
             .then(function (response) {
@@ -119,7 +117,7 @@ class ChangingRole extends Component {
     }
 
     handleApplyClick(){
-        console.log(this.props.idUser + ' '+ this.state.idRole +' '+ this.state.idProf)
+        let _that = this;
         if (this.state.idProf !== 0) {
             axios({
                 method: 'get',
@@ -131,6 +129,7 @@ class ChangingRole extends Component {
             })
             .then(function (response) {
                 console.log("successfully");
+                _that.props.callback();
               })
         }
         else {
@@ -144,9 +143,10 @@ class ChangingRole extends Component {
             })
             .then(function (response) {
                 console.log("successfully");
+                _that.props.callback();
               })
         }
-        this.props.callback();
+        
         this.nullSelect();
     }
 
@@ -155,8 +155,7 @@ class ChangingRole extends Component {
         if (this.state.idRole == 2) {
             selectProfession =   
             <div>
-                <br/>
-                <h5>Choose profession:</h5>                              
+                <h5 className="mt-2">Choose profession:</h5>                              
                 <Select
                     value={this.state.idProf}
                     name="form-field-name"
@@ -181,8 +180,10 @@ class ChangingRole extends Component {
                         <div className="modal-body">
                             <div className="modalMain">
                                 <h4>{this.state.firstName} {this.state.lastName}</h4>
-                                <p>{this.state.role}</p>
-                                <h5>Available roles:</h5>
+                                <input id="inputCurrRole" 
+                                        value={this.state.role}/>
+                              
+                                <h5 className="mt-3">Available roles:</h5>
                                 <Select
                                     value={this.state.idRole}
                                     name="form-field-name"
