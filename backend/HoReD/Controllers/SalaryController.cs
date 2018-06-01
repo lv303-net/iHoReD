@@ -78,7 +78,7 @@ namespace HoReD.Controllers
         [Route("api/Salary/Rate/edit")]
         public IHttpActionResult EditNewRate(Models.SalaryRateBindingModel model)
         {
-            return Ok(_salaryService.EditRate(model.ProfessionId, model.Rate, model.StartDate));
+            return Ok(_salaryService.EditRate(model.ProfessionId, model.Rate, model.StartDate, model.UserId));
         }
 
         /// <summary>

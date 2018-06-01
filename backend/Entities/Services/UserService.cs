@@ -172,7 +172,7 @@ namespace Entities.Services
                 {"@COUNTINPAGE", countInPage },
                 {"@ISADMIN",isAdmin },
                 {"@ISADOCTOR",isDoctor },
-                {"@FIRSTORLASTNAME",firstOrLastname }
+                {"@FIRSTORLASTNAME",(firstOrLastname == "undefined" || firstOrLastname == "null") ? null : firstOrLastname }
             };
             int outval = _dbContext.ExecuteSqlQuery(cmd, outparam, param);
             return outval;
