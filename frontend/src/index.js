@@ -39,7 +39,7 @@ class Home extends Component {
                 <Route path="/editUserInfo" component={Edit}/>
                 <Route path="/allDiagnoses" component={Diagnoses}/>
                 <Route path="/activation/:id" component={ActivationLink}/>
-                <Route path="/resetPassword/:token" component={ResetPassword}/>
+                <Route path="/resetPassword/:link" component={ResetPassword}/>
                 <Route path="/doctorCalendar" component={DoctorCalendar}/>
                 <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
                 <Route path="/medicalCard/:id" component={MedicalCard}/>

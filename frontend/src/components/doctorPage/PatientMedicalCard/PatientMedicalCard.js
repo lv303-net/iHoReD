@@ -43,9 +43,7 @@ class PatientMedicalCard extends Component {
 
   }
 
-
   render() {
-    console.log(this.props.match.params.startDate)
     return(
       <div id="mainDiv">
         <div className="container">

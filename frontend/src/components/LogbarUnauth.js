@@ -69,19 +69,16 @@ class LogbarUnauth extends Component {
   handleForgotPasswordClick = event => {
     event.preventDefault();
     if(this.loginAuth.trim() === "")
-    {
       $("#btnSumbAuth").trigger("click");
-      console.log(11)
-    }
     else{
         var userAuth = {
           email: this.loginAuth,
           password: null
         }
-
+        
         axios({
         method: 'post',
-        url: localStorage.getItem("server_url") + '/ResetPassword',
+        url: localStorage.getItem("server_url") + '/SendEmailForResettingPassword',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -115,7 +112,6 @@ class LogbarUnauth extends Component {
         url: localStorage.getItem("server_url") + '/api/Registration',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
         },
         data: JSON.stringify(userRegister)
       })
