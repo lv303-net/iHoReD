@@ -54,5 +54,44 @@ namespace HoReD.Controllers
                 return Unauthorized();
             }
         }
+
+        /// <summary>
+        /// Sends email with uniquely generated link that have expiration time to provide ability reset password
+        /// </summary>
+        /// <param name="model">Email address where send link to</param>
+        /// <example>http://localhost:*****/SendEmailForResettingPassword</example>
+        [AllowAnonymous]
+        [Route("SendEmailForResettingPassword")]
+        public IHttpActionResult SendEmailForResettingPassword(LoginUserBindingModel model)
+        {
+            try
+            {
+                _userService.SendEmailForResettingPassword(model.Email);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Resets password after validation link, email address and new password
+        /// </summary>
+        /// <param name="model">Email, new password and link for resetting from email</param>
+        /// <example>http://localhost:*****/ResetPassword</example>
+        [AllowAnonymous]
+        [Route("ResetPassword")]
+        public IHttpActionResult ResetPassword(ResetPasswordBindingModel model)
+        {
+            try
+            {
+                return Ok(_userService.ResetPassword(model.Email, model.NewPassword, model.Link));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
