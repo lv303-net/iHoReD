@@ -21,7 +21,11 @@ namespace HoReD.Controllers
             _authService = new AuthService(new MembershipProvider(new UserService(new DbContext())),new RSAKeyProvider());
         }
 
-
+        /// <summary>
+        /// Verify user data
+        /// </summary>
+        /// <param name="loginInfo">Gets user email and password</param>
+        /// <returns>If data correct - 200 status code which contain access token, else returns 401 status code</returns>
         [AllowAnonymous]
         public IHttpActionResult Authenticate(LoginUserBindingModel loginInfo)
         {
