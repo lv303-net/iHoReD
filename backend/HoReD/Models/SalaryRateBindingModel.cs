@@ -8,6 +8,8 @@ namespace HoReD.Models
 {
     public class SalaryRateBindingModel
     {
+        public int UserId { get; set; }
+
         public int ProfessionId { get; set; }
 
         public double Rate { get; set; }
