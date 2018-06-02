@@ -9,13 +9,13 @@ namespace Entities.Services
 {
     /// <summary>
     /// </summary>
-    public class MembershipProvider
+    public class MembershipProvider : IMembershipProvider
     {
         private readonly IUserService _userService;
 
         public MembershipProvider(IUserService userService)
         {
-            _userService = new UserService(new DbContext());
+            _userService = userService;
         }
 
         /// <summary>
