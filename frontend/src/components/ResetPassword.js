@@ -99,7 +99,8 @@ class ResetPassword extends React.Component {
   }
 
   validatePassword() {
-    if (validator.isEmpty(this.passwordRegistr) === false) {
+    if (validator.isLength(this.passwordRegistr, 8, 30) && !validator.isAlphanumeric(this.passwordRegistr)
+      && validator.matches(this.passwordRegistr, '[A-Z]') && validator.matches(this.passwordRegistr, '[a-z]') && validator.matches(this.passwordRegistr, '[0-9]')) {
       this.validPasword = true;
       return true;
     } else {
@@ -118,18 +119,15 @@ class ResetPassword extends React.Component {
               <div className="m-2 col-12">
                 <h1 className="modal-title text-center" id="registrationHeader">Resetting password</h1>
               </div>
-              <form className="mx-3 mt-5 col-12" onSubmit={this.handleSubmitResetPassword} noValidate>
+              <form className="mx-3 mt-5 col-12" onSubmit={this.handleSubmitResetPassword}>
                 <div className="form-row">
                   <div className="form-group justify-content-center col-sm-6 col-xs-12 mb-0">
                     <p className="labelForm">Email</p>
                   </div>
-                  <div className="form-group col-sm-5 col-xs-12" id="inputYourEmail">
+                  <div className="form-group col-sm-5 col-xs-12" >
                     <input type="email"
                       className="form-control"
                       onChange={x => { this.emailRegistr = x.target.value; } }
-                      id="inputEmailText"
-                      placeholder="Email"
-                      id="emailForReset"
                       required />
                   </div>
                 </div>
