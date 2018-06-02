@@ -86,6 +86,9 @@ namespace HoReD.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                    return Conflict();
+
                 return Ok(_userService.ResetPassword(model.Email, model.NewPassword, model.Link));
             }
             catch (Exception)

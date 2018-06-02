@@ -113,11 +113,13 @@
     <Compile Include="Services\EncryptionServise.cs" />
     <Compile Include="Services\FakeDbContext.cs" />
     <Compile Include="Services\FakeDoctorService.cs" />
+    <Compile Include="Services\IAuthService.cs" />
     <Compile Include="Services\IDbContext.cs" />
     <Compile Include="Services\IDoctorService.cs" />
     <Compile Include="Services\IMembershipProvider.cs" />
     <Compile Include="Services\IPatientDataService.cs" />
     <Compile Include="Services\IMedicalCardService.cs" />
+    <Compile Include="Services\IRSAKeyProvider.cs" />
     <Compile Include="Services\IRuleService.cs" />
     <Compile Include="Services\ISalaryService.cs" />
     <Compile Include="Services\IUserService.cs" />

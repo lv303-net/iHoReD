@@ -30,7 +30,7 @@ namespace HoReD.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [TokenAuthenticate(Role = "user")]
+        [TokenAuthenticate(Role = "patient")]
         [Route("EditUserInfo")]
         public IHttpActionResult EditUserInfo(UserInfoBindingModel model)
         {

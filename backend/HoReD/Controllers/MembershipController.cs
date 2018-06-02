@@ -12,13 +12,13 @@ namespace HoReD.Controllers
 {
     public class MembershipController : ApiController
     {
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
         private readonly IUserService _userService;
 
-        public MembershipController()
+        public MembershipController(IUserService userService, IAuthService authService)
         {
-            _userService = new UserService(new DbContext());
-            _authService = new AuthService(new MembershipProvider(new UserService(new DbContext())),new RSAKeyProvider());
+            _userService = userService;
+            _authService = authService;
         }
 
         /// <summary>

@@ -43,7 +43,7 @@ namespace HoReD.Controllers
 
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Unauthorized();
             }
