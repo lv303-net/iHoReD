@@ -556,4 +556,30 @@
    <sqlFile path="V4.22_PROCEDURE_FOR_UPDATING_PASSWORD.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
  
+  <changeSet author="Vadym Ivanov" id="V4.23">
+   <sqlFile path="V4.23_CREATE_PROCEDURE_SET_CURRENT_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V4.23_CREATE_TRIGGER_LOGG_SALARY_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+  
+  <changeSet author="Tetiana Usyk" id="V4.24">
+   <sqlFile path="V4.24_UPDATE_ PROCEDURE_CHANGE_ROLE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Vadym Ivanov" id="V4.25">
+   <sqlFile path="V4.25_UPDATE_PROCEDURE_SET_CURRENT_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V4.25_UPDATE_TRIGGER_LOGG_SALARY_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Vadym Ivanov" id="V4.26">
+   <sqlFile path="V4.26_CREATED_TABLE_LOGGER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V4.26_UPDATE_TRIGGER_LOGG_SALARY_RATE.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Vadym Ivanov" id="V4.27">
+   <sqlFile path="V4.27_CREATE_PROCEDURE_SET_CURRENT_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Vadym Ivanov" id="V4.28">
+   <sqlFile path="V4.28_UPDATE_PROCEDURE_SET_CURRENT_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>
