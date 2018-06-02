@@ -68,6 +68,7 @@ class EditRateToProfession extends Component {
             var Doctor = url.searchParams.get("doc");
             if (Doctor === null) {
                 var newRate = {
+                    UserId: localStorage.getItem("currentUserId"),
                     ProfessionId: Profession,
                     Rate: nextState.rate,
                     StartDate: nextProps.date
