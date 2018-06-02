@@ -25,6 +25,7 @@ import ResetPassword from './components/ResetPassword';
 import AdminSwitch from './components/adminPage/AdminSwitch';
 import DoctorSwitch from './components/doctorPage/DoctorSwitch';
 import UserSwitch from './components/userPage/UserSwitch';
+import "./web.config";
 
 var server_url;
 if(process.env.NODE_ENV==="development")
