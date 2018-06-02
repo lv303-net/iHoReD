@@ -30,7 +30,7 @@ namespace HoReD.Controllers
         /// <returns>List of instances of the class SalaryRate (Rate, StartDate, State)</returns>
         /// <example>http://localhost:*****/api/Salary/Rate/get/{professionId}</example>
         [HttpGet]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "admin")]
         [Route("api/Salary/Rate/get/{professionId}")]
         public IHttpActionResult GetRatesForProfession(int professionId)
         {
@@ -46,7 +46,7 @@ namespace HoReD.Controllers
         /// <returns>Status code: 0 - something went wrong, 1 - successful</returns>
         /// <example>http://localhost:*****/api/Salary/Rate/delete/{professionId}/{startDate}</example>
         [HttpDelete]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "admin")]
         [Route("api/Salary/Rate/delete/{professionId}/{startDate}")]
         public IHttpActionResult DeleteRate(int professionId, string startDate)
         {
@@ -60,7 +60,7 @@ namespace HoReD.Controllers
         /// <returns>Status code: 0 - something went wrong, 1 - successful</returns>
         /// <example>http://localhost:*****/api/Salary/Rate/add</example>
         [HttpPost]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "admin")]
         [Route("api/Salary/Rate/add")]
         public IHttpActionResult AddNewRate(Models.SalaryRateBindingModel model)
         {            
@@ -74,11 +74,11 @@ namespace HoReD.Controllers
         /// <returns>Status code: 0 - something went wrong, 1 - successful</returns>
         /// <example>http://localhost:*****/api/Salary/Rate/edit</example>
         [HttpPost]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "admin")]
         [Route("api/Salary/Rate/edit")]
         public IHttpActionResult EditNewRate(Models.SalaryRateBindingModel model)
         {
-            return Ok(_salaryService.EditRate(model.ProfessionId, model.Rate, model.StartDate));
+            return Ok(_salaryService.EditRate(model.ProfessionId, model.Rate, model.StartDate, model.UserId));
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace HoReD.Controllers
         /// <returns>List of instances of the class SalaryRate (Rate, StartDate, State)</returns>
         /// <example>http://localhost:*****/api/Salary/Rate/get/{doctorId}</example>
         [HttpGet]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "admin")]
         [Route("api/Salary/Coefficient/get/{doctorId}")]
         public IHttpActionResult GetCoefficientsForDoctor(int doctorId)
         {
@@ -103,7 +103,7 @@ namespace HoReD.Controllers
         /// <returns>Status code: 0 - something went wrong, 1 - successful</returns>
         /// <example>http://localhost:*****/api/Salary/Rate/delet/{doctorId}/{startDate}</example>
         [HttpDelete]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "admin")]
         [Route("api/Salary/Coefficient/delete/{doctorId}/{startDate}")]
         public IHttpActionResult DeleteCoeff(int doctorId, string startDate )
         {
@@ -117,7 +117,7 @@ namespace HoReD.Controllers
         /// <returns>Status code: 0 - something went wrong, 1 - successful</returns>
         /// <example>http://localhost:*****/api/Salary/Coefficient/add</example>
         [HttpPost]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "admin")]
         [Route("api/Salary/Coefficient/add")]
         public IHttpActionResult AddNewCoeff(Models.SalaryCoeffBindingModel model)
         {
@@ -131,7 +131,7 @@ namespace HoReD.Controllers
         /// <returns>Status code: 0 - something went wrong, 1 - successful</returns>
         /// <example>http://localhost:*****/api/Salary/Coefficient/edit</example>
         [HttpPost]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "admin")]
         [Route("api/Salary/Coefficient/edit")]
         public IHttpActionResult EditNewCoeff(Models.SalaryCoeffBindingModel model)
         {

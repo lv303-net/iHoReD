@@ -16,6 +16,8 @@ namespace Entities.Services
             _dbContext = dbContext;
         }
 
+        private const int DaysLinkExpired = 1;
+
         public void StoringInfoAboutNewUser(string firstname, string lastname, string email, string password, string phone)
         {
             var passwordHash = Hashing.HashingPassword(password);
@@ -148,6 +150,7 @@ namespace Entities.Services
             var users = Utils.ParseSqlQuery.GetAllUsers(data);
             return users;
         }
+
         public int GetPaginationCount(int countInPage)
         {
             const string cmd = "GET_PAGINATION_COUNT";
@@ -169,7 +172,7 @@ namespace Entities.Services
                 {"@COUNTINPAGE", countInPage },
                 {"@ISADMIN",isAdmin },
                 {"@ISADOCTOR",isDoctor },
-                {"@FIRSTORLASTNAME",firstOrLastname }
+                {"@FIRSTORLASTNAME",(firstOrLastname == "undefined" || firstOrLastname == "null") ? null : firstOrLastname }
             };
             int outval = _dbContext.ExecuteSqlQuery(cmd, outparam, param);
             return outval;
@@ -216,6 +219,80 @@ namespace Entities.Services
 
             _dbContext.ExecuteSqlQuery(cmd,'*', param);
            
+        }
+
+        public List<UserFirstLastname> FirstLastname(string text)
+        {
+            const string cmd = "LIST_USER_FOR_ROLE";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@SEARCHTEXT", text},
+
+            };
+            var data = _dbContext.ExecuteSqlQuery(cmd, '*', param);
+            var values = data.Split('*');
+            var users = Utils.ParseSqlQuery.GetAllUsersFirstLastname(data);
+            return users;
+           
+        }
+
+        public bool IsUserExists(string email)
+        {
+            const string cmd = "IF_USER_EXISTS";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@EMAIL", email},
+
+            };
+            return Convert.ToBoolean(_dbContext.ExecuteQuery(cmd, param));
+        }
+
+        public bool IsLinkValid(string email, string link)
+        {
+            try
+            {
+                string decryptedLink = EncryptionService.Decrypt(link);
+                string[] linkPart = decryptedLink.Split(Utils.StaticData.Delimiter);
+
+                if (linkPart[0] != email || Convert.ToDateTime(linkPart[1]).AddDays(DaysLinkExpired) < DateTime.Now)
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+            return true;             
+        }
+        
+        public void SendEmailForResettingPassword(string emailAddress)
+        {
+            if (IsUserExists(emailAddress))
+                EmailNotificationService.sendEmailToResetPassword(emailAddress);             
+        }
+
+        public void ChangePassword(string email, string newHashedPassword)
+        {
+            const string cmd = "CHANGE_PASSWORD";
+
+            var param = new Dictionary<string, object>()
+            {
+                {"@EMAIL", email},
+                {"@PASSWORD", newHashedPassword},
+
+            };
+            _dbContext.ExecuteQuery(cmd, param);
+        }
+
+        public int ResetPassword(string email, string newPassword, string link)
+        {
+            if (IsUserExists(email) && IsLinkValid(email, link))
+            {
+                ChangePassword(email, Hashing.HashingPassword(newPassword));
+                return 1;
+            }
+            return 0;
         }
     }
 }

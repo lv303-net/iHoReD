@@ -220,6 +220,7 @@
     <Compile Include="Models\EventBindingModel.cs" />
     <Compile Include="Models\LoginUserBindingModel.cs" />
     <Compile Include="Models\RegistrationBindingModel.cs" />
+    <Compile Include="Models\ResetPasswordBindingModel.cs" />
     <Compile Include="Models\RuleBindingModel.cs" />
     <Compile Include="Models\RulesetBindingModel.cs" />
     <Compile Include="Models\SalaryCoeffBindingModel.cs" />
@@ -322,7 +323,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Vsxmd.1.2.0\build\Vsxmd.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Vsxmd.1.2.0\build\Vsxmd.targets'))" />
   </Target>
+  <Import Project="..\packages\Vsxmd.1.2.0\build\Vsxmd.targets" Condition="Exists('..\packages\Vsxmd.1.2.0\build\Vsxmd.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

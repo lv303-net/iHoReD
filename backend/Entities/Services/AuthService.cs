@@ -8,12 +8,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Entities.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
-        private readonly MembershipProvider _membershipProvider;
-        private readonly RSAKeyProvider _rsaProvider;
+        private readonly IMembershipProvider _membershipProvider;
+        private readonly IRSAKeyProvider _rsaProvider;
 
-        public AuthService(MembershipProvider membershipProvider, RSAKeyProvider rsaProvider)
+        public AuthService(IMembershipProvider membershipProvider, IRSAKeyProvider rsaProvider)
         {
             _membershipProvider = membershipProvider;
             _rsaProvider = rsaProvider;
@@ -21,8 +21,11 @@ namespace Entities.Services
 
         public string GenerateJwtTokenAsync(string userEmail, string password)
         {
-            if (!_membershipProvider.VerifyUserPassword(userEmail, password))
-                return "Wrong access";
+            if (!String.IsNullOrEmpty(password))
+            {
+                if (!_membershipProvider.VerifyUserPassword(userEmail, password))
+                    return "Wrong access";
+            }
 
             List<Claim> claims = _membershipProvider.GetUserClaims(userEmail);
 
@@ -115,6 +118,5 @@ namespace Entities.Services
                 return null;
             }
         }
-
     }
 }

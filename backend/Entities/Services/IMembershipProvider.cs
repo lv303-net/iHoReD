@@ -18,5 +18,7 @@ namespace Entities.Services
         /// <param name="username"></param>
         /// <returns></returns>
         List<Claim> GetUserClaims(string username);
+
+        bool VerifyUserPassword(string email, string password);
     }
 }
