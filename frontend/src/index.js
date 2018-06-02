@@ -22,6 +22,9 @@ import DoctorPage from './components/doctorPage/DoctorMainPage';
 import NotFound from './components/NotFound';
 import AddMedRecord from './components/AddMedRecord';
 import ResetPassword from './components/ResetPassword';
+import AdminSwitch from './components/adminPage/AdminSwitch';
+import DoctorSwitch from './components/doctorPage/DoctorSwitch';
+import UserSwitch from './components/userPage/UserSwitch';
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -49,6 +52,9 @@ class Home extends Component {
                 <Route exact path="/reporting/:id" component={SalaryReport}/>
                 <Route exact path="/AddMedRecord" component={AddMedRecord}/>
                 <Route component={NotFound} />
+                <AdminSwitch/>
+                <DoctorSwitch/>
+                <UserSwitch/>
               </Switch>
             <Footerbar/>
       </div>
