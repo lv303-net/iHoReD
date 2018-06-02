@@ -579,4 +579,7 @@
    <sqlFile path="V4.27_CREATE_PROCEDURE_SET_CURRENT_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Vadym Ivanov" id="V4.28">
+   <sqlFile path="V4.28_UPDATE_PROCEDURE_SET_CURRENT_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>
