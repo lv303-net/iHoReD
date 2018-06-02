@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Collections.Generic;
 
 namespace Entities.Services
 {
@@ -13,6 +14,16 @@ namespace Entities.Services
             p.ParameterName = name;
             p.Value = value ?? DBNull.Value;
             command.Parameters.Add(p);
+        }
+
+        public static void SetCurrentUser(this IDbContext command, int idUser)
+        {
+            const string cmd = "SET_CURRENT_USER";
+            var param = new Dictionary<string, object>()
+            {
+                {"@USER_ID", idUser}
+            };
+            command.ExecuteSqlQuery(cmd, param);
         }
     }
 }

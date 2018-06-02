@@ -47,7 +47,7 @@ namespace Entities.Services
             return _dbContext.ExecuteQuery(cmd, param);
         }
 
-        public int AddRate(int professionId, double rate, DateTime startDate)
+        public int AddRate(int professionId, double rate, DateTime startDate, int userId)
         {
             const string cmd = "ADD_NEW_RATE";
 
@@ -57,21 +57,20 @@ namespace Entities.Services
                 {"RATE", rate },
                 {"START_DATE", startDate},
             };
-
+            CommandExtensions.SetCurrentUser(_dbContext, userId);
             return _dbContext.ExecuteQuery(cmd, param);
         }
 
-        public int EditRate(int professionId, double rate, DateTime startDate)
+        public int EditRate(int professionId, double rate, DateTime startDate, int userId)
         {
             const string cmd = "EDIT_SOME_RATE";
-
             var param = new Dictionary<string, object>()
             {
                 {"PROFFESION_ID", professionId},
                 {"RATE", rate },
                 {"START_DATE", startDate},
             };
-
+            CommandExtensions.SetCurrentUser(_dbContext, userId);
             return _dbContext.ExecuteQuery(cmd, param);
         }
 

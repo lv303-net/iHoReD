@@ -10,8 +10,8 @@ namespace Entities.Services
     {
         List<SalaryRate> GetRatesForProfession(int professionId);
         int DeleteRate(int professionId, DateTime startDate);
-        int AddRate(int professionId, double rate, DateTime startDate);
-        int EditRate(int professionId, double rate, DateTime startDate);
+        int AddRate(int professionId, double rate, DateTime startDate, int iserId);
+        int EditRate(int professionId, double rate, DateTime startDate, int userId);
 
         List<SalaryCoeff> GetCoefficientsForDoctor(int doctorId);
         int DeleteCoeff(int doctorId, DateTime startDate);

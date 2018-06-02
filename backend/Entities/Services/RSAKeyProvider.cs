@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Services
 {
-    public class RSAKeyProvider
+    public class RSAKeyProvider : IRSAKeyProvider
     {
 
         private string rsaKeyPath;

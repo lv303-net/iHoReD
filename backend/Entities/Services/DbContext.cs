@@ -75,14 +75,14 @@ namespace Entities.Services
                 }
                 sqlCommand.Parameters.Add(outparam, SqlDbType.Int).Direction = ParameterDirection.Output;
                 sqlCommand.ExecuteNonQuery();
-                 outval =(int) sqlCommand.Parameters[outparam].Value;
+                outval =(int) sqlCommand.Parameters[outparam].Value;
                 
             }
             _myConnection.Close();
            return outval;
         }
 
-            public int ExecuteQuery(string cmd, IDictionary<string, object> data)
+        public int ExecuteQuery(string cmd, IDictionary<string, object> data)
         {
             int outval = 0;
             _myConnection.Open();

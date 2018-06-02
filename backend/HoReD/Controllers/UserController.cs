@@ -30,7 +30,7 @@ namespace HoReD.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [TokenAuthenticate(Role = "user")]
+        [TokenAuthenticate(Role = "patient")]
         [Route("EditUserInfo")]
         public IHttpActionResult EditUserInfo(UserInfoBindingModel model)
         {
@@ -74,7 +74,8 @@ namespace HoReD.Controllers
         /// <param name="firstOrlastname">firstOrlastname(unnecessary param)</param>
         /// <returns>List of filtered info about users-first and lastname,isAdmin,profession</returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "admin")]
+        [AllowAnonymous]
+        //[TokenAuthenticate(Role = "admin")]
         [Route("FilterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}")]
         [Route("FilterAllUsers/{numberPage}/{countInPage}/{isAdmin}/{isDoctor}/{firstOrlastname}")]
         public IHttpActionResult FilterAllUsers(int numberPage, int countInPage,bool isAdmin, bool isDoctor, string firstOrlastname=null)
@@ -127,7 +128,8 @@ namespace HoReD.Controllers
         /// <param name="firstOrlastname">firstOrlastname(unnecessary param)</param>
         /// <returns>Count of pages(for pagination)</returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "admin")]
+        [AllowAnonymous]
+        //[TokenAuthenticate(Role = "admin")]
         [Route("NumbersOfPageFiltered/{countInPage}/{isAdmin}/{isDoctor}")]
         [Route("NumbersOfPageFiltered/{countInPage}/{isAdmin}/{isDoctor}/{firstOrlastname}")]
         public IHttpActionResult NumbersOfPageFiltered(int countInPage,bool isAdmin, bool isDoctor, string firstOrLastname=null)
