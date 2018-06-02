@@ -8,6 +8,7 @@ import App from './App';
 import Diagnoses from './components/Diagnoses';
 import Edit from './components/Edit';
 import StartPatientPage from './components/StartPatientPage';
+import registerServiceWorker from './registerServiceWorker';
 import ActivationLink from './components/ActivationLink';
 import PatientDiagnosesTable from './components/PatientDiagnosesTable';
 import LogbarWrapper from './components/LogbarWrapper';
@@ -68,3 +69,4 @@ class Home extends Component {
     </BrowserRouter>   
     ), 
   document.getElementById('root'));
+  registerServiceWorker();
