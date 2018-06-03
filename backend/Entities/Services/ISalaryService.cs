@@ -9,7 +9,7 @@ namespace Entities.Services
     public interface ISalaryService
     {
         List<SalaryRate> GetRatesForProfession(int professionId);
-        int DeleteRate(int professionId, DateTime startDate);
+        int DeleteRate(int professionId, DateTime startDate, int userId);
         int AddRate(int professionId, double rate, DateTime startDate, int iserId);
         int EditRate(int professionId, double rate, DateTime startDate, int userId);
 

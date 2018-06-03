@@ -47,10 +47,10 @@ namespace HoReD.Controllers
         /// <example>http://localhost:*****/api/Salary/Rate/delete/{professionId}/{startDate}</example>
         [HttpDelete]
         [TokenAuthenticate(Role = "admin")]
-        [Route("api/Salary/Rate/delete/{professionId}/{startDate}")]
-        public IHttpActionResult DeleteRate(int professionId, string startDate)
+        [Route("api/Salary/Rate/delete/{professionId}/{startDate}/{userId}")]
+        public IHttpActionResult DeleteRate(int professionId, string startDate, int userId)
         {
-            return Ok(_salaryService.DeleteRate(professionId, Convert.ToDateTime(startDate)));
+            return Ok(_salaryService.DeleteRate(professionId, Convert.ToDateTime(startDate), userId));
         }
 
         /// <summary>

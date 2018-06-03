@@ -34,7 +34,7 @@ namespace Entities.Services
             return list;
         }
 
-        public int DeleteRate(int professionId, DateTime startDate)
+        public int DeleteRate(int professionId, DateTime startDate, int userId)
         {
             const string cmd = "DELETE_SOME_RATE";
 
@@ -43,7 +43,7 @@ namespace Entities.Services
                 {"PROFFESION_ID", professionId},
                 {"START_DATE", startDate},
             };
-
+            CommandExtensions.SetCurrentUser(_dbContext, userId);
             return _dbContext.ExecuteQuery(cmd, param);
         }
 
