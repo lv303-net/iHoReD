@@ -216,7 +216,7 @@ namespace Entities.Services
                 {"ROLE", role},
                 {"ID_PROFESSION", idProfession},
             };
-            CommandExtensions.SetCurrentUser(_dbContext, userId);
+            CommandExtensions.SetCurrentUser(_dbContext, currentUser);
             _dbContext.ExecuteSqlQuery(cmd,'*', param);
            
         }

@@ -140,6 +140,7 @@ namespace HoReD.Controllers
         /// <summary>
         /// Change of user role(from doctor to admin etc)
         /// </summary>
+        /// <param name="currentUser">current User Id for logging info</param>
         /// <param name="userId">UserId</param>
         /// <param name="role">Role</param>
         /// <param name="idProffesion">idProffesion(unnecessary param)</param>
@@ -151,7 +152,7 @@ namespace HoReD.Controllers
         public IHttpActionResult ChangeRole(int currentUser, int userId, int role, int idProffesion = 0)
 
         {
-            _userService.ChangeRole(userId, role, idProffesion);
+            _userService.ChangeRole(currentUser, userId, role, idProffesion);
             return Ok();
         }
         /// <summary>
