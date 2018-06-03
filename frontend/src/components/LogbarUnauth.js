@@ -1,10 +1,11 @@
-import $ from 'jquery';
 import React from 'react';
 import { Component } from 'react';
 import axios from 'axios';
 import validator from 'validator';
 import logo from '../images/logo.png';
 import '../style/Navbar.css';
+import $ from 'jquery';
+import jwt_decode from 'jwt-decode';
 import Notifications, {notify} from 'react-notify-toast';
 
 
@@ -55,11 +56,14 @@ class LogbarUnauth extends Component {
       data: JSON.stringify(userAuth)
     })
       .then(function (response) {
-        window.location.href = window.location.origin + '/user';
-        localStorage.setItem("currentUserId", (response.data.User.Id));
-        localStorage.setItem("currentUserFirstName", (response.data.User.FirstName));
-        localStorage.setItem("currentUserLastName", (response.data.User.LastName));
+        localStorage.setItem("currentUserId", (response.data.Id));
+        localStorage.setItem("currentUserFirstName", (response.data.FirstName));
+        localStorage.setItem("currentUserLastName", (response.data.LastName));
         localStorage.setItem("accessToken", response.data.Token);
+        let jwtTokenInfo = jwt_decode(localStorage.getItem('accessToken'));
+        Object.keys(jwtTokenInfo).map(key=>{if(key.indexOf('role')>=0){
+            window.location.href = window.location.origin +'/'+ jwtTokenInfo[key];
+         }});
       }).catch(error => {
         let myColor = { background: '#FF0000', text: "#FFFFFF" };
         notify.show("Wrong login or password!", "custom", 5000, myColor);
@@ -109,6 +113,7 @@ class LogbarUnauth extends Component {
         url: localStorage.getItem("server_url") + '/api/Registration',
         headers: {
           'Content-Type': 'application/json',
+          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
         },
         data: JSON.stringify(userRegister)
       })
@@ -119,7 +124,8 @@ class LogbarUnauth extends Component {
 
         })
         .catch(error => {
-          notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, { background: '#FF0000', text: "#FFFFFF" });
+          let myColor = { background: '#FF0000', text: "#FFFFFF" };
+          notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, myColor);
       });
     }
   }
@@ -254,7 +260,6 @@ class LogbarUnauth extends Component {
   render() {
     return (
       <div>
-         <Notifications/>
         <nav className="navbar navbar-dark navbar-custom py-0 px-5">
           <div className="navbar-brand p-0">
             <a href="/">
@@ -422,6 +427,7 @@ class LogbarUnauth extends Component {
         </div>
 
         <div className="modal fade" id="SignInModal">
+        <Notifications/>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header mb-5">
@@ -439,12 +445,9 @@ class LogbarUnauth extends Component {
                     <input className="form-control" type="password" placeholder="Password" onBlur={(x => { this.passwordAuth = x.target.value; })} required />
                   </div>
                 </div>
-                <div className="row mb-3 justify-content-center" id="ResetPasswordLink">
-                    <a onClick= {this.handleForgotPasswordClick}>Forgot password?</a>
-                </div>
                 <div className="row mb-3 mt-5 justify-content-center">
                   <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                    <button id="btnSumbAuth" type="submit" className="btn btn-info btn-lg mb-3">Sign in
+                    <button type="submit" className="btn btn-info btn-lg mb-3">Sign in
                     </button>
                   </div>
                   <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
