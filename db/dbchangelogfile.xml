@@ -593,4 +593,10 @@
    <sqlFile path="V4.30_CREATE_TRIGGER_LOGG_SALARY_COEFFICIENS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
    <sqlFile path="V4.30_CREATE_TRIGGER_LOGG_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Vadym Ivanov" id="V4.30">
+   <sqlFile path="V4.31_UPDATE_TRIGGER_LOGG_USERS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+   <sqlFile path="V4.31_UPDATE_TRIGGER_LOGG_DOCTORS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
 </databaseChangeLog>
