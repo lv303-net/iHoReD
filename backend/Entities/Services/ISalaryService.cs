@@ -14,8 +14,8 @@ namespace Entities.Services
         int EditRate(int professionId, double rate, DateTime startDate, int userId);
 
         List<SalaryCoeff> GetCoefficientsForDoctor(int doctorId);
-        int DeleteCoeff(int doctorId, DateTime startDate);
-        int AddCoeff(int doctorId, double coeff, DateTime startDate);
-        int EditCoeff(int doctorId, double coeff, DateTime startDate);
+        int DeleteCoeff(int doctorId, DateTime startDate, int userId);
+        int AddCoeff(int doctorId, double coeff, DateTime startDate, int userId);
+        int EditCoeff(int doctorId, double coeff, DateTime startDate, int userId);
     }
 }
