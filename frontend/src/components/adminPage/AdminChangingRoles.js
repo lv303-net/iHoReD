@@ -94,6 +94,7 @@ class AdminChangingRoles extends Component {
             (this.state.applyClick !== nextState.applyClick) ||
             (this.state.idUser !== nextState.idUser) ||
             (this.state.shouldUpdate !== nextState.shouldUpdate) ||
+            (this.state.shouldUpdateModal !== nextState.shouldUpdateModal) ||
             (this.state.options !== nextState.options) ||
             (this.state.idSelectedUser !== nextState.idSelectedUser) ||
             (this.state.txtFilter !== nextState.txtFilter) ||
@@ -287,7 +288,7 @@ class AdminChangingRoles extends Component {
                         </div>
                         {
                             this.state.rolesList.map(items =>
-                                <div className="row text-center patientcard" key={items.LastName + items.FirstName + 'Row'}>
+                                <div className="row text-center patientcard" key={items.IdUser + 'Row'}>
                                     <div className="col-5 column-custom" id={items.IdUser} data-toggle="modal" data-target="#changingRole" onClick={(e) => this.getIdClick(e)} >
                                         <p className="mt-1 mb-1" id={items.IdUser}>{items.FirstName} {items.LastName} </p>
                                     </div>
