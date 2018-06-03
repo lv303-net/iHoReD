@@ -4,6 +4,7 @@ import Loader from 'react-loader';
 import { Link } from 'react-router-dom';
 import '../style/NotFound.css'
 import '../style/Navbar.css';
+import '../style//ResetPassword.css';
 import validator from 'validator';
 import Notifications, {notify} from 'react-notify-toast';
 import { withRouter } from 'react-router';
@@ -99,7 +100,8 @@ class ResetPassword extends React.Component {
   }
 
   validatePassword() {
-    if (validator.isEmpty(this.passwordRegistr) === false) {
+    if (validator.isLength(this.passwordRegistr, 8, 30) && !validator.isAlphanumeric(this.passwordRegistr)
+      && validator.matches(this.passwordRegistr, '[A-Z]') && validator.matches(this.passwordRegistr, '[a-z]') && validator.matches(this.passwordRegistr, '[0-9]')) {
       this.validPasword = true;
       return true;
     } else {
@@ -110,69 +112,68 @@ class ResetPassword extends React.Component {
 
   render() {
     return ( 
-      <div id="mainDiv">
+      <div id="mainDivReset">
         <div className="container-fluid my-5">
           <div className="container">
             <Notifications/>
-            <div className="row">
-              <div className="m-2 col-12">
-                <h1 className="modal-title text-center" id="registrationHeader">Resetting password</h1>
+            <div>
+              <div className="m-2 row">
+                <h1 className="modal-title text-center col-12" id="registrationHeader">Resetting password</h1>
               </div>
-              <form className="mx-3 mt-5 col-12" onSubmit={this.handleSubmitResetPassword} noValidate>
-                <div className="form-row">
-                  <div className="form-group justify-content-center col-sm-6 col-xs-12 mb-0">
-                    <p className="labelForm">Email</p>
-                  </div>
-                  <div className="form-group col-sm-5 col-xs-12" id="inputYourEmail">
-                    <input type="email"
-                      className="form-control"
-                      onChange={x => { this.emailRegistr = x.target.value; } }
-                      id="inputEmailText"
-                      placeholder="Email"
-                      id="emailForReset"
-                      required />
-                  </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-group justify-content-center col-sm-6 col-xs-12 mb-0">
-                    <p className="labelForm">New password</p>
-                  </div>
-                  <div className="form-group col-sm-5 col-xs-12" id="inputNewPassword">
-                    <input type="password"
-                      className="form-control"
-                      placeholder="Password"
-                      onChange={(x => { this.passwordRegistr = x.target.value; this.validatePassword(); this.hideError(this.divPassRegistr, 'newPassword') })}
-                      id="newPassword"
-                      required />
-                    <div id="invalidPassword" className="text-muted" ref={this.divPassRegistr}>
+              <div className="my-5 row">
+                <p>New password should contain at least 8 characters, one special character, one number, one upper-case letter, one lower-case letter. The maximum password length is 30 characters.</p>
+              </div>
+              <div className="row my-5">
+                <form className="col-md-12" onSubmit={this.handleSubmitResetPassword}>
+                  <div className="form-row">
+                    <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0">
+                      <p className="labelForm">Email:</p>
+                    </div>
+                    <div className="form-group col-sm-7 col-xs-12" >
+                      <input type="email"
+                        className="form-control"
+                        placeholder="Email"
+                        onChange={x => { this.emailRegistr = x.target.value; } }
+                        required />
                     </div>
                   </div>
-                </div>
-                <div className="form-row">
-                  <div className="form-group justify-content-center col-sm-6 col-xs-12 mb-0">
-                    <p className="labelForm">Confirm new password</p>
-                  </div>
-                  <div className="form-group col-sm-5 col-xs-12" id="inputConfirmNewPassword">
-                    <input type="password"
-                      className="form-control"
-                      placeholder="Confirm Password"
-                      onChange={(x => { this.confirmPasswordRegistr = x.target.value; this.checkPassword(); this.hideError(this.divConfirmPassRegistr, 'confirmNewPassword') })}
-                      onPaste={x => { x.preventDefault() }}
-                      id="confirmNewPassword"
-                      required />
-                    <div id="invalidConfirmPassword" className="text-muted" ref={this.divConfirmPassRegistr}>
+                  <div className="form-row">
+                    <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0">
+                      <p className="labelForm">New password:</p>
+                    </div>
+                    <div className="form-group col-sm-7 col-xs-12" id="inputNewPassword">
+                      <input type="password"
+                        className="form-control"
+                        placeholder="Password"
+                        onChange={(x => { this.passwordRegistr = x.target.value; this.validatePassword(); this.hideError(this.divPassRegistr, 'newPassword') })}
+                        id="newPassword"
+                        required />
+                      <div id="invalidPassword" className="text-muted" ref={this.divPassRegistr}>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="mt-5 justify-content-center">
-                  <div className="col-sm-11 text-right">
-                    <div className="text-right">
-                      <button type="submit" ref={this.btnResetPassword} onClick={(x => this.showError())} className="btn btn-info btn-lg mb-3">Ok
-                      </button>
+                  <div className="form-row">
+                    <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0">
+                      <p className="labelForm">Confirm new password:</p>
+                    </div>
+                    <div className="form-group col-sm-7 col-xs-12" id="inputConfirmNewPassword">
+                      <input type="password"
+                        className="form-control"
+                        placeholder="Confirm Password"
+                        onChange={(x => { this.confirmPasswordRegistr = x.target.value; this.checkPassword(); this.hideError(this.divConfirmPassRegistr, 'confirmNewPassword') })}
+                        onPaste={x => { x.preventDefault() }}
+                        id="confirmNewPassword"
+                        required />
+                      <div id="invalidConfirmPassword" className="text-muted" ref={this.divConfirmPassRegistr}>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </form>
+                  <div className="mt-5 text-center">
+                    <button id="btnReset" type="submit" ref={this.btnResetPassword} onClick={(x => this.showError())} className="btn btn-info btn-lg mb-3 col-md-3 sm-12">Ok
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>

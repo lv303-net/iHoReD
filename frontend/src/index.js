@@ -23,6 +23,10 @@ import NotFound from './components/NotFound';
 import AddMedRecord from './components/AddMedRecord';
 import PrivateRoute from './PrivateRoute.js';
 import ResetPassword from './components/ResetPassword';
+import AdminSwitch from './components/adminPage/AdminSwitch';
+import DoctorSwitch from './components/doctorPage/DoctorSwitch';
+import UserSwitch from './components/userPage/UserSwitch';
+
 
 var server_url;
 if(process.env.NODE_ENV==="development")
@@ -50,6 +54,9 @@ class Home extends Component {
                 <PrivateRoute exact path="/AddMedRecord" component={AddMedRecord} accessLevel="doctor"/>
                 <Route exact path="/" component={App}/>
                 <PrivateRoute component={NotFound}/>
+                <AdminSwitch/>
+                <DoctorSwitch/>
+                <UserSwitch/>
               </Switch>
             <Footerbar/>
       </div>
@@ -64,4 +71,3 @@ class Home extends Component {
     ), 
   document.getElementById('root'));
   registerServiceWorker();
-

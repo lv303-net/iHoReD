@@ -49,14 +49,13 @@ class LogbarUnauth extends Component {
 
     axios({
       method: 'post',
-      url: localStorage.getItem("server_url") + '/api/Login',
+      url: localStorage.getItem("server_url") + '/api/Membership',
       headers: {
         'Content-Type': 'application/json',
       },
       data: JSON.stringify(userAuth)
     })
       .then(function (response) {
-        //window.location.reload();
         localStorage.setItem("currentUserId", (response.data.Id));
         localStorage.setItem("currentUserFirstName", (response.data.FirstName));
         localStorage.setItem("currentUserLastName", (response.data.LastName));
@@ -69,6 +68,34 @@ class LogbarUnauth extends Component {
         let myColor = { background: '#FF0000', text: "#FFFFFF" };
         notify.show("Wrong login or password!", "custom", 5000, myColor);
     });
+  }
+
+  handleForgotPasswordClick = event => {
+    event.preventDefault();
+    if(this.loginAuth.trim() === "")
+      $("#btnSumbAuth").trigger("click");
+    else{
+        var userAuth = {
+          email: this.loginAuth,
+          password: null
+        }
+        axios({
+        method: 'post',
+        url: localStorage.getItem("server_url") + '/SendEmailForResettingPassword',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify(userAuth)
+        })
+        .then(response => {
+          response.status === 200 ? notify.show("The link for resetting password was sent to You. Please, check Your e-mail.", "custom", 15000, { background: 'green', text: "#FFFFFF" }) :
+            notify.show('Internal server error. Check out Your e-mail address and try again.', "custom", 5000, { background: '#FF0000', text: "#FFFFFF" });
+        })
+        .catch(error => {
+          notify.show('Something went wrong. Try again later.', "custom", 5000, { background: '#FF0000', text: "#FFFFFF" });
+        });
+        $("#btnSignInModalDismis").trigger("click");
+    }
   }
 
   handleSubmitRegistr = event => {
@@ -220,7 +247,8 @@ class LogbarUnauth extends Component {
   }
 
   validatePassword() {
-    if (validator.isEmpty(this.passwordRegistr) === false) {
+    if (validator.isLength(this.passwordRegistr, 8, 30) && !validator.isAlphanumeric(this.passwordRegistr)
+      && validator.matches(this.passwordRegistr, '[A-Z]') && validator.matches(this.passwordRegistr, '[a-z]') && validator.matches(this.passwordRegistr, '[0-9]')) {
       this.validPasword = true;
       return true;
     } else {
@@ -404,7 +432,7 @@ class LogbarUnauth extends Component {
             <div className="modal-content">
               <div className="modal-header mb-5">
                 <h4 className="modal-title">Please, enter Your creds</h4>
-                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <button type="button" id = "btnSignInModalDismis" className="close" data-dismiss="modal">&times;</button>
               </div>
               <form className="ml-3 mr-3" onSubmit={this.handleSubmitAuth}>
                 <div className="form-row mb-3 justify-content-center">
