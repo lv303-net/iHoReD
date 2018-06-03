@@ -146,9 +146,9 @@ namespace HoReD.Controllers
         /// <returns>Update role for one user</returns>
         [HttpGet]
         [TokenAuthenticate(Role = "admin")]
-        [Route("ChangeRole/{userId}/{role}")]
-        [Route("ChangeRole/{userId}/{role}/{idProffesion}")]
-        public IHttpActionResult ChangeRole(int userId, int role, int idProffesion = 0)
+        [Route("ChangeRole/{currentUser}/{userId}/{role}")]
+        [Route("ChangeRole/{currentUser}/{userId}/{role}/{idProffesion}")]
+        public IHttpActionResult ChangeRole(int currentUser, int userId, int role, int idProffesion = 0)
 
         {
             _userService.ChangeRole(userId, role, idProffesion);

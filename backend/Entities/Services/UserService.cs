@@ -206,7 +206,7 @@ namespace Entities.Services
             return users;
         }
 
-        public void ChangeRole(int userId, int role, int idProfession = 0)
+        public void ChangeRole(int currentUser, int userId, int role, int idProfession = 0)
         {
             const string cmd = "CHANGE_ROLE";
            
@@ -216,7 +216,7 @@ namespace Entities.Services
                 {"ROLE", role},
                 {"ID_PROFESSION", idProfession},
             };
-
+            CommandExtensions.SetCurrentUser(_dbContext, userId);
             _dbContext.ExecuteSqlQuery(cmd,'*', param);
            
         }
