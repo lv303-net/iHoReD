@@ -8,6 +8,8 @@ namespace HoReD.Models
 {
     public class SalaryCoeffBindingModel
     {
+        public int UserId { get; set; }
+
         public int DoctorId { get; set; }
 
         public double Coeff { get; set; }
