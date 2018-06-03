@@ -6,6 +6,7 @@ import Edit from '../Edit'
 import MedicalCard from '../MedicalCard';
 import NotFound from './../NotFound'
 import '../../style/UserPage.css'
+import PrivateRoute from './../../PrivateRoute';
 
 class UserSwitch extends Component {
   render() {    
@@ -13,9 +14,9 @@ class UserSwitch extends Component {
         <main id='mainDivHeight'>
           <Switch>
             <Route exact path='/user' render={() => <Redirect to="/user/schedule" />}/>
-            <Route exact path="/user/schedule" component={App}/>
-            <Route exact path="/user/edit" component={Edit}/>
-            <Route exact path="/user/medicalCard/:id" component={MedicalCard}/>
+            <PrivateRoute exact path="/user/schedule" component={App} accessLevel="user"/>
+            <PrivateRoute exact path="/user/edit" component={Edit} accessLevel="user"/>
+            <PrivateRoute exact path="/user/medicalCard/:id" component={MedicalCard} accessLevel="user"/>
             <Route component={NotFound} />
           </Switch>
         </main>

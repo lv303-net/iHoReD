@@ -21,34 +21,43 @@ import UserPage from './components/userPage/UserMainPage';
 import DoctorPage from './components/doctorPage/DoctorMainPage';
 import NotFound from './components/NotFound';
 import AddMedRecord from './components/AddMedRecord';
+import PrivateRoute from './PrivateRoute.js';
 import ResetPassword from './components/ResetPassword';
+import AdminSwitch from './components/adminPage/AdminSwitch';
+import DoctorSwitch from './components/doctorPage/DoctorSwitch';
+import UserSwitch from './components/userPage/UserSwitch';
+
 
 var server_url;
 if(process.env.NODE_ENV==="development")
   localStorage.setItem("server_url", "http://localhost:58511")
 else if(process.env.NODE_ENV==="production")
   localStorage.setItem("server_url","https://hored.azurewebsites.net")
-  
+
 class Home extends Component {
     render() {
       return (
         <div>
             <LogbarWrapper/>
               <Switch>
-                <Route exact path="/" component={App}/>              
-                <Route path="/editUserInfo" component={Edit}/>
-                <Route path="/allDiagnoses" component={Diagnoses}/>
-                <Route path="/activation/:id" component={ActivationLink}/>
-                <Route path="/resetPassword/:token" component={ResetPassword}/>
-                <Route path="/doctorCalendar" component={DoctorCalendar}/>
-                <Route path="/patientDiagnoses" component={PatientDiagnosesTable}/>
-                <Route path="/medicalCard/:id" component={MedicalCard}/>
-                <Route path="/admin" component={AdminPage}/>
-                <Route path="/user" component={UserPage}/>
-                <Route path="/doctor" component={DoctorPage}/>
-                <Route exact path="/reporting/:id" component={SalaryReport}/>
-                <Route exact path="/AddMedRecord" component={AddMedRecord}/>
-                <Route component={NotFound} />
+
+                <PrivateRoute path="/editUserInfo" component={Edit} accessLevel="admin,user,doctor"/>
+                <PrivateRoute path="/allDiagnoses" component={Diagnoses} accessLevel="doctor"/>
+                <PrivateRoute path="/activation/:id" component={ActivationLink}/>
+                <PrivateRoute path="/resetPassword/:link" component={ResetPassword}/>
+                <PrivateRoute path="/doctorCalendar" component={DoctorCalendar} accessLevel="doctor"/>
+                <PrivateRoute path="/patientDiagnoses" component={PatientDiagnosesTable} accessLevel="doctor"/>
+                <PrivateRoute path="/medicalCard/:id" component={MedicalCard} accessLevel="doctor,user"/>
+                <PrivateRoute path="/admin" component={AdminPage} accessLevel="admin"/>
+                <PrivateRoute path="/user" component={UserPage} accessLevel="admin,user,doctor"/>
+                <PrivateRoute path="/doctor" component={DoctorPage} accessLevel="doctor"/>
+                <PrivateRoute exact path="/reporting/:id" component={SalaryReport} accessLevel="doctor"/>
+                <PrivateRoute exact path="/AddMedRecord" component={AddMedRecord} accessLevel="doctor"/>
+                <Route exact path="/" component={App}/>
+                <PrivateRoute component={NotFound}/>
+                <AdminSwitch/>
+                <DoctorSwitch/>
+                <UserSwitch/>
               </Switch>
             <Footerbar/>
       </div>

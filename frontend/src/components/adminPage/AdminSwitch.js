@@ -8,7 +8,7 @@ import Salary from './salaryManagment/Salary';
 import Roles from './AdminChangingRoles'
 import NotFound from '../NotFound'
 import '../../style/AdminPage.css'
-
+import PrivateRoute from './../../PrivateRoute';
 
 class AdminSwitch extends Component {
   render() {
@@ -16,9 +16,9 @@ class AdminSwitch extends Component {
         <main id='mainDivHeight'>
           <Switch>
             <Route exact path='/admin' render={() => <Redirect to="/admin/rules" />}/>
-            <Route exact path="/admin/rules" component={AdminRulesPage}/>
-            <Route exact path="/admin/salary" component={Salary}/>
-            <Route exact path="/admin/roles" component={Roles}/>
+            <PrivateRoute exact path="/admin/rules" component={AdminRulesPage} accessLevel="admin"/>
+            <PrivateRoute exact path="/admin/salary" component={Salary} accessLevel="admin"/>
+            <PrivateRoute exact path="/admin/roles" component={Roles} accessLevel="admin"/>
             <Route component={NotFound} />
           </Switch>
         </main>
