@@ -40,16 +40,15 @@ class Home extends Component {
         <div>
             <LogbarWrapper/>
               <Switch>
-
-                <PrivateRoute path="/editUserInfo" component={Edit} accessLevel="admin,user,doctor"/>
+                <PrivateRoute path="/editUserInfo" component={Edit} accessLevel="admin,patient,doctor"/>
                 <PrivateRoute path="/allDiagnoses" component={Diagnoses} accessLevel="doctor"/>
                 <PrivateRoute path="/activation/:id" component={ActivationLink}/>
                 <PrivateRoute path="/resetPassword/:link" component={ResetPassword}/>
                 <PrivateRoute path="/doctorCalendar" component={DoctorCalendar} accessLevel="doctor"/>
                 <PrivateRoute path="/patientDiagnoses" component={PatientDiagnosesTable} accessLevel="doctor"/>
-                <PrivateRoute path="/medicalCard/:id" component={MedicalCard} accessLevel="doctor,user"/>
+                <PrivateRoute path="/medicalCard/:id" component={MedicalCard} accessLevel="doctor,patient"/>
                 <PrivateRoute path="/admin" component={AdminPage} accessLevel="admin"/>
-                <PrivateRoute path="/user" component={UserPage} accessLevel="admin,user,doctor"/>
+                <PrivateRoute path="/patient" component={UserPage} accessLevel="admin,patient,doctor"/>
                 <PrivateRoute path="/doctor" component={DoctorPage} accessLevel="doctor"/>
                 <PrivateRoute exact path="/reporting/:id" component={SalaryReport} accessLevel="doctor"/>
                 <PrivateRoute exact path="/AddMedRecord" component={AddMedRecord} accessLevel="doctor"/>

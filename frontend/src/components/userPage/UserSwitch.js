@@ -13,10 +13,10 @@ class UserSwitch extends Component {
     return (
         <main id='mainDivHeight'>
           <Switch>
-            <Route exact path='/user' render={() => <Redirect to="/user/schedule" />}/>
-            <PrivateRoute exact path="/user/schedule" component={App} accessLevel="user"/>
-            <PrivateRoute exact path="/user/edit" component={Edit} accessLevel="user"/>
-            <PrivateRoute exact path="/user/medicalCard/:id" component={MedicalCard} accessLevel="user"/>
+            <Route exact path='/patient' render={() => <Redirect to="/patient/schedule" />}/>
+            <PrivateRoute exact path="/patient/schedule" component={App} accessLevel="patient"/>
+            <PrivateRoute exact path="/patient/edit" component={Edit} accessLevel="patient"/>
+            <PrivateRoute exact path="/patient/medicalCard/:id" component={MedicalCard} accessLevel="patient"/>
             <Route component={NotFound} />
           </Switch>
         </main>

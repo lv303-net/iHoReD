@@ -64,6 +64,7 @@ class AddRateToProfession extends Component{
         var Doctor = url.searchParams.get("doc");
         if(Doctor===null){
             var newRate = {
+            UserId: localStorage.getItem("currentUserId"),
             ProfessionId: Profession,
             Rate: this.rate,
             StartDate: this.state.startDate.format('YYYY-MM-DD')
@@ -84,6 +85,7 @@ class AddRateToProfession extends Component{
         }
         else{
             var newCoeff = {
+                UserId: localStorage.getItem("currentUserId"),
                 DoctorId: Doctor,
                 Coeff: this.rate,
                 StartDate: this.state.startDate.format('YYYY-MM-DD')
