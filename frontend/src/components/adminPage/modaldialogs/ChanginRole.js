@@ -25,6 +25,11 @@ class ChangingRole extends Component {
         };
 
     }
+
+    componentWillMount() {
+        this.nullSelect();
+    }
+    
     shouldComponentUpdate(nextProps, nextState) {
         return ((this.state.idUser !== nextProps.idUser) ||
                 (this.state.idUser !== nextState.idUser) ||
@@ -36,10 +41,7 @@ class ChangingRole extends Component {
 
     componentWillUpdate(nextProps, nextState) {
         let _that = this;
-        if (((nextState.idUser !== nextProps.idUser) ||
-            (this.state.idUser !== nextState.idUser) ||
-            (this.state.idUser !== nextProps.idUser) ||
-            (this.state.shouldUpdate !== nextProps.shouldUpdateModal)) &&
+        if ((this.state.shouldUpdate !== nextProps.shouldUpdateModal) &&
             (nextProps.idUser !== undefined)) {
             axios({
                 method: 'get',
@@ -54,7 +56,8 @@ class ChangingRole extends Component {
                         firstName: res.data.FirstName,
                         lastName: res.data.LastName,
                         role: res.data.Proffession,
-                        idUser: nextProps.idUser
+                        idUser: nextProps.idUser,
+                        shouldUpdate: nextProps.shouldUpdateModal
                     })
                 });
 
