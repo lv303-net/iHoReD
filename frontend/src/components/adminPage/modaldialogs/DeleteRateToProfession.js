@@ -61,7 +61,7 @@ class DeleteRateToProfession extends Component{
             else{
                 axios({
                     method: 'delete',
-                    url: localStorage.getItem("server_url") + '/api/Salary/Coefficient/delete/' + Doctor + '/' + nextProps.date.slice(0,10),
+                    url: localStorage.getItem("server_url") + '/api/Salary/Coefficient/delete/' + Doctor + '/' + nextProps.date.slice(0,10) + '/' + localStorage.getItem("currentUserId"),
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
