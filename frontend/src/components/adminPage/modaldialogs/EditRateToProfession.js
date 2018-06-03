@@ -88,6 +88,7 @@ class EditRateToProfession extends Component {
             }
             else {
                 var newCoefficient = {
+                    UserId: localStorage.getItem("currentUserId"),
                     DoctorId: Doctor,
                     Coeff: nextState.rate,
                     StartDate: nextProps.date
