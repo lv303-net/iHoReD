@@ -113,7 +113,6 @@ class LogbarUnauth extends Component {
         url: localStorage.getItem("server_url") + '/api/Registration',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
         },
         data: JSON.stringify(userRegister)
       })
@@ -260,6 +259,7 @@ class LogbarUnauth extends Component {
   render() {
     return (
       <div>
+        <Notifications/>
         <nav className="navbar navbar-dark navbar-custom py-0 px-5">
           <div className="navbar-brand p-0">
             <a href="/">
@@ -427,7 +427,6 @@ class LogbarUnauth extends Component {
         </div>
 
         <div className="modal fade" id="SignInModal">
-        <Notifications/>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header mb-5">
@@ -445,9 +444,12 @@ class LogbarUnauth extends Component {
                     <input className="form-control" type="password" placeholder="Password" onBlur={(x => { this.passwordAuth = x.target.value; })} required />
                   </div>
                 </div>
+                <div className="row mb-3 justify-content-center" id="ResetPasswordLink">
+                  <a onClick= {this.handleForgotPasswordClick}>Forgot password?</a>
+                </div>
                 <div className="row mb-3 mt-5 justify-content-center">
                   <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                    <button type="submit" className="btn btn-info btn-lg mb-3">Sign in
+                    <button id="btnSumbAuth" type="submit" className="btn btn-info btn-lg mb-3">Sign in
                     </button>
                   </div>
                   <div className="col-xs-3 col-sm-3 col-md-3 text-center" >
