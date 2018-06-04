@@ -1,0 +1,14 @@
+.rulesName {
+    width: calc(100% - 85px);
+}
+
+@media screen and (max-width: 650px) {
+    #crudButton{
+        width: 30px;
+        flex-direction: column;
+    }
+
+    .rulesName {
+        width: calc(100% - 30px);
+    }
+}
