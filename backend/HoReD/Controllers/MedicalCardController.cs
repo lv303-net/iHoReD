@@ -71,7 +71,7 @@ namespace HoReD.Controllers
         }
 
         [HttpPost]
-        [TokenAuthenticate(Role = "user,doctor")]
+        [TokenAuthenticate(Role = "patient,doctor")]
         [Route("CheckIfExists")]
         public IHttpActionResult CheckIfExist(Models.MedicalRecordBindingModel model)
         {
