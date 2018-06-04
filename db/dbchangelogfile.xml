@@ -606,4 +606,8 @@
   <changeSet author="Vadym Ivanov" id="V4.33">
    <sqlFile path="V4.33_DROP_TRIGGERS_FOR_USERS_DOCTORS_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Iryna Halenok" id="V4.34">
+   <sqlFile path="V4.34_ALTER_PROCEDURE_REGISTER_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>
