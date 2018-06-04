@@ -68,7 +68,7 @@ namespace Entities.Services
             SmtpClient client = SetSmtpClient();
             MailMessage mailMessage = new MailMessage(Credentials.Email, email);
             mailMessage.IsBodyHtml = true;
-            mailMessage.Subject = subjectResetPassword;
+            mailMessage.Subject = subjectResetPassword + " " + Convert.ToString(DateTime.Now);
             mailMessage.Body = bodyResetPassword + "<a href=" + ConfigurationManager.AppSettings["Linkpath"] + "/resetPassword/" + encryptedEmailAndDateTime + ">" + " " + "link</a>";
             client.Send(mailMessage);
         }
