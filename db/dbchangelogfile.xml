@@ -599,4 +599,11 @@
    <sqlFile path="V4.31_UPDATE_TRIGGER_LOGG_DOCTORS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
 
+  <changeSet author="Vadym Ivanov" id="V4.32">
+   <sqlFile path="V4.32_DROP_TRIGGERS_FOR_USERS_DOCTORS_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
+
+  <changeSet author="Vadym Ivanov" id="V4.33">
+   <sqlFile path="V4.33_DROP_TRIGGERS_FOR_USERS_DOCTORS_RULESETS.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>
