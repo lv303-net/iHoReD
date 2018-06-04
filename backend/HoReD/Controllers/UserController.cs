@@ -44,7 +44,7 @@ namespace HoReD.Controllers
         /// <param name="UserInfoId">ID of needed user</param>
         /// <returns>UserInfo</returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "user,doctor,admin")]
+        [TokenAuthenticate(Role = "patient,doctor,admin")]
         [Route("GetUserInfoById/{UserInfoId}")]
         public IHttpActionResult GetUserInfoById(int UserInfoId)
         {

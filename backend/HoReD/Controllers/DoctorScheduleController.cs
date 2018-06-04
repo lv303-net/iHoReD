@@ -27,7 +27,7 @@ namespace HoReD.Controllers
         /// 
 
         [HttpGet]
-        [TokenAuthenticate(Role = "user,doctor,admin")]
+        [TokenAuthenticate(Role = "patient,doctor,admin")]
         [Route("GetDoctorSchedule/{doctorId}")]
         public IHttpActionResult GetDoctorSchedule(int doctorId)
         {

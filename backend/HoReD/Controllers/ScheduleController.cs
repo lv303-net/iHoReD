@@ -26,7 +26,7 @@ namespace HoReD.Controllers
         /// <param name="model"> Stores data about schedule(start time, end time and IDs of doctor and patient</param>
         /// <returns>Status code</returns>
         [HttpPost]
-        [TokenAuthenticate(Role = "user,doctor,admin")]
+        [TokenAuthenticate(Role = "patient,doctor,admin")]
         public IHttpActionResult InsertNewScheduleRecord(Models.ScheduleBindingModel model)
         {
             int response;
