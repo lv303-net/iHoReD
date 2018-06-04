@@ -51,7 +51,7 @@ class ResetPassword extends React.Component {
             notify.show("Invalid input data. Check out Your creds.", "custom", 5000, { background: '#FF0000', text: "#FFFFFF" });
         })
         .catch(error => {
-          notify.show("something went wrong", "custom", 5000, { background: '#FF0000', text: "#FFFFFF" });
+          notify.show("Something went wrong", "custom", 5000, { background: '#FF0000', text: "#FFFFFF" });
       });
     }
   }

@@ -80,13 +80,13 @@ class ClosedAllergiesInfo extends Component{
 
                                         <b>Treatment : </b>{item.OpeningClosingVisitsInfo.m_Item1.Treatment}<br/>
                                         
-                                        <b>Closing : </b>{item.OpeningClosingVisitsInfo.m_Item1.DoctorFirstName  + " " + item.OpeningClosingVisitsInfo.m_Item1.DoctorLastName}<br/>
+                                        <b>Closing : </b>{item.OpeningClosingVisitsInfo.m_Item2.DoctorFirstName  + " " + item.OpeningClosingVisitsInfo.m_Item2.DoctorLastName}<br/>
 
-                                        <b>End time of treatment : </b>{item.OpeningClosingVisitsInfo.m_Item1.StartDateTime}<br/>
+                                        <b>End time of treatment : </b>{item.OpeningClosingVisitsInfo.m_Item2.StartDateTime}<br/>
 
-                                        <b>Description : </b>{item.OpeningClosingVisitsInfo.m_Item1.Description}<br/>
+                                        <b>Description : </b>{item.OpeningClosingVisitsInfo.m_Item2.Description}<br/>
 
-                                        <b>Treatment : </b>{item.OpeningClosingVisitsInfo.m_Item1.Treatment}<br/>
+                                        <b>Treatment : </b>{item.OpeningClosingVisitsInfo.m_Item2.Treatment}<br/>
                                     </div>
                                   </div>
                                 </div>

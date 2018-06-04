@@ -112,8 +112,8 @@ class LogbarUnauth extends Component {
         method: 'post',
         url: localStorage.getItem("server_url") + '/api/Registration',
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json'
+		},
         data: JSON.stringify(userRegister)
       })
         .then(rez => {
@@ -123,8 +123,8 @@ class LogbarUnauth extends Component {
 
         })
         .catch(error => {
-          let myColor = { background: '#FF0000', text: "#FFFFFF" };
-          notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, myColor);
+          let myColor = { background: '#FF0000', text: "#FFFFFF" }; 
+          error.response.status === 401 ? notify.show("User with this email already exists in our database!","custom",5000,myColor) : notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, myColor);
       });
     }
   }
@@ -259,7 +259,6 @@ class LogbarUnauth extends Component {
   render() {
     return (
       <div>
-        <Notifications/>
         <nav className="navbar navbar-dark navbar-custom py-0 px-5">
           <div className="navbar-brand p-0">
             <a href="/">
@@ -267,7 +266,7 @@ class LogbarUnauth extends Component {
             </a>
             <span className="logo-name">Lviv Regional Hospital</span>
           </div>
-
+            <Notifications options={{zIndex: 10000}}/>
           <ul className="nav">
             <li className="nav-item btn-custom">
               <a className="nav-link" id="link-custom" data-toggle="modal" data-target="#SignInModal">Sign in</a>
