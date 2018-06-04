@@ -51,7 +51,7 @@ class ResetPassword extends React.Component {
             notify.show("Invalid input data. Check out Your creds.", "custom", 5000, { background: '#FF0000', text: "#FFFFFF" });
         })
         .catch(error => {
-          notify.show("something went wrong", "custom", 5000, { background: '#FF0000', text: "#FFFFFF" });
+          notify.show("Something went wrong", "custom", 5000, { background: '#FF0000', text: "#FFFFFF" });
       });
     }
   }
@@ -127,7 +127,7 @@ class ResetPassword extends React.Component {
                 <form className="col-md-12" onSubmit={this.handleSubmitResetPassword}>
                   <div className="form-row">
                     <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0">
-                      <p className="labelForm">Email:</p>
+                      <p className="labelFormReset">Email:</p>
                     </div>
                     <div className="form-group col-sm-7 col-xs-12" >
                       <input type="email"
@@ -139,7 +139,7 @@ class ResetPassword extends React.Component {
                   </div>
                   <div className="form-row">
                     <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0">
-                      <p className="labelForm">New password:</p>
+                      <p className="labelFormReset">New password:</p>
                     </div>
                     <div className="form-group col-sm-7 col-xs-12" id="inputNewPassword">
                       <input type="password"
@@ -154,7 +154,7 @@ class ResetPassword extends React.Component {
                   </div>
                   <div className="form-row">
                     <div className="form-group justify-content-center col-sm-4 col-xs-12 mb-0">
-                      <p className="labelForm">Confirm new password:</p>
+                      <p className="labelFormReset">Confirm new password:</p>
                     </div>
                     <div className="form-group col-sm-7 col-xs-12" id="inputConfirmNewPassword">
                       <input type="password"

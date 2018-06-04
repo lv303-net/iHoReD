@@ -31,17 +31,20 @@ class ChangingRole extends Component {
     }
     
     shouldComponentUpdate(nextProps, nextState) {
-        return ((this.state.idUser !== nextProps.idUser) ||
+        return ((nextState.idUser !== nextProps.idUser) ||
+                (this.state.idUser !== nextProps.idUser) ||
                 (this.state.idUser !== nextState.idUser) ||
                 (this.state.options !== nextState.options) || 
                 (this.state.idRole !== nextState.idRole) ||
                 (this.state.optionsProf !== nextState.optionsProf) ||
-                (this.state.idProf !== nextState.idProf))
+                (this.state.idProf !== nextState.idProf) ||
+                (this.state.shouldUpdate !== nextProps.shouldUpdateModal))
     }
 
     componentWillUpdate(nextProps, nextState) {
         let _that = this;
-        if ((this.state.shouldUpdate !== nextProps.shouldUpdateModal) &&
+        if ((
+            (nextState.shouldUpdate !== nextProps.shouldUpdateModal)) &&
             (nextProps.idUser !== undefined)) {
             axios({
                 method: 'get',
@@ -121,10 +124,11 @@ class ChangingRole extends Component {
 
     handleApplyClick(){
         let _that = this;
+        let currentUserId = localStorage.getItem('currentUserId');
         if (this.state.idProf !== 0) {
             axios({
                 method: 'get',
-                url: localStorage.getItem("server_url") + '/ChangeRole/' +this.props.idUser+ '/' +this.state.idRole+ '/' +this.state.idProf,
+                url: localStorage.getItem("server_url") + '/ChangeRole/' +currentUserId+ '/' +this.props.idUser+ '/' +this.state.idRole+ '/' +this.state.idProf,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
@@ -138,7 +142,7 @@ class ChangingRole extends Component {
         else {
             axios({
                 method: 'get',
-                url: localStorage.getItem("server_url") + '/ChangeRole/' +this.props.idUser+ '/' +this.state.idRole,
+                url: localStorage.getItem("server_url") + '/ChangeRole/' +currentUserId+ '/' +this.props.idUser+ '/' +this.state.idRole,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Bearer ' + localStorage.getItem("accessToken")

@@ -88,15 +88,15 @@ class AdminChangingRoles extends Component {
     }
     shouldComponentUpdate(nextProps, nextState) {
         return ((this.state.countElements !== nextState.countElements) ||
-            (this.state.currentPage !== nextState.currentPage) ||
+            (this.state.currentPage != nextState.currentPage) ||
             (this.state.rolesList !== nextState.rolesList) ||
             (this.state.countElements !== nextState.countElements) ||
             (this.state.applyClick !== nextState.applyClick) ||
-            (this.state.idUser !== nextState.idUser) ||
             (this.state.shouldUpdate !== nextState.shouldUpdate) ||
+            (this.state.shouldUpdateModal !== nextState.shouldUpdateModal) ||
             (this.state.options !== nextState.options) ||
             (this.state.idSelectedUser !== nextState.idSelectedUser) ||
-            (this.state.txtFilter !== nextState.txtFilter) ||
+            (this.state.textFilter !== nextState.textFilter) ||
             (this.state.users !== nextState.users))
     }
 
@@ -109,7 +109,7 @@ class AdminChangingRoles extends Component {
         let _textFilter = nextState.textFilter;
         let _isAdmin = nextState.isAdmin;
         let _isDoctor = nextState.isDoctor;
-        if (_currentPage !== nextState.currentPage ||
+        if (_currentPage != nextState.currentPage ||
             _countElements !== nextState.countElements ||
             _textFilter !== nextState.textFilter ||
             _isAdmin !== nextState.isAdmin ||
@@ -287,7 +287,7 @@ class AdminChangingRoles extends Component {
                         </div>
                         {
                             this.state.rolesList.map(items =>
-                                <div className="row text-center patientcard" key={items.LastName + items.FirstName + 'Row'}>
+                                <div className="row text-center patientcard" key={items.IdUser + 'Row'}>
                                     <div className="col-5 column-custom" id={items.IdUser} data-toggle="modal" data-target="#changingRole" onClick={(e) => this.getIdClick(e)} >
                                         <p className="mt-1 mb-1" id={items.IdUser}>{items.FirstName} {items.LastName} </p>
                                     </div>
