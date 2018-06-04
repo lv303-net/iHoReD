@@ -1,0 +1,100 @@
+.logo{
+    max-height: 3em;
+    width: auto;
+}
+
+li.btn-custom {
+    color: white;
+    border-radius: 0%;
+    border: .001rem solid rgba(255, 255, 255, 0.1);
+    background-color:#74b8ff;
+}
+
+li.btn-custom:hover {
+    background-color: #49A2FF;
+}
+
+a:link, a:visited {
+    color:white;
+}
+
+#link-custom{
+    height: 100%;
+}
+
+.navbar-custom {
+    color: white;
+    background-color:#74B8FF;
+    align-items: stretch;
+}
+
+.navbar .navbar-custom  {
+    width: 100%;
+}
+
+.navbar-toggler-icon{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.navbar-toggler span {
+    display: block;
+    width: 1.2em;
+    height: .085em;
+    left: 0;
+    background: #fff;
+    margin: .45rem 0rem;
+}
+
+.navbar-toggler span.shorter-line {
+    width: .75em;
+}
+
+.nav-item a#link-custom {
+    padding-top: 1rem;
+    padding-bottom: 0.6rem;
+}
+
+.navbar-collapse .navbar-nav .nav-item {
+    background-color: rgb(255, 255, 255);
+}
+
+.navbar-collapse .navbar-nav .nav-item {
+    border-right: 1px solid #74B8FF;
+}
+
+.navbar-collapse .navbar-nav .nav-item:last-child {
+    border-right: none;
+}
+
+.navbar .active#itemlink1,
+.navbar .active#itemlink2,
+.navbar .active#itemlink3  {
+    background-color: #49A2FF;
+    border-right: none;
+}
+
+.navbar .active#itemlink1 #link1,
+.navbar .active#itemlink2 #link2,
+.navbar .active#itemlink3 #link3 {
+    color: white;
+}
+
+@media only screen and (max-width : 480px) {
+    .nav-item#itemlink1,
+    .nav-item#itemlink2,
+    .nav-item#itemlink3 {
+        height: 64px;
+    }
+}
+
+div #ResetPasswordLink a{
+    text-decoration: underline;
+    color: #49A2FF;
+}
+
+div #ResetPasswordLink a:hover{
+    text-decoration: underline;
+    color: royalblue;
+    cursor: pointer;
+}
