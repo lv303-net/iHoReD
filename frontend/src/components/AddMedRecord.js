@@ -40,6 +40,7 @@ class AddMedRecord extends Component {
             .catch(function (response) {
                 console.log(response);
             });
+        this.redirectToSchedule();
     }
 
     getText(t, val) {
