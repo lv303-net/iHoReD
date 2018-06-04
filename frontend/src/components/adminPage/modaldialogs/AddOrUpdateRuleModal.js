@@ -100,7 +100,6 @@ class AddOrUpdateRule extends Component{
 
     componentWillUpdate(nextProps, nextState)
     {
-        //if(this.props.currentRule !== nextProps.currentRule)
         this.setState({
             currentRule: nextProps.currentRule
         })
@@ -110,8 +109,6 @@ class AddOrUpdateRule extends Component{
         document.getElementById("rulenameAoUInput").value = nextProps.currentRule.RuleName;
         document.getElementById("hourstartAoUInput").value = nextProps.currentRule.HourStart;
         document.getElementById("hourendAoUInput").value = nextProps.currentRule.HourFinish;
-        //document.getElementById("periodstartAoUinput").value = nextProps.currentRule.PeriodStart.slice(0,10);
-        //document.getElementById("periodendAoUinput").value = nextProps.currentRule.PeriodFinish.slice(0,10);
         document.getElementById('inclusiveAoUCheckbox').checked = nextProps.currentRule.IfInclusive;
         Object.keys(this.state.currentRule.Week).map((key) => {document.getElementById(key.toLowerCase() +'AoUCheckbox').checked = nextProps.currentRule.Week[key]});
     }
@@ -145,25 +142,24 @@ class AddOrUpdateRule extends Component{
                                     </div>
                                 </div>
                                 <div className="form-row mb-3 justify-content-center">
-                                    <DatePicker
-                                        selected={this.state.startDate}
-                                        startDate={this.state.startDate}
-                                        onChange={this.handleChangeStart}
-                                        id="periodstartAoUinput"
-                                    />
-                                </div>
-                                {/* <div className="form-row mb-3 justify-content-center">
                                     <div className="form-group col-sm-6 col-xs-12">
-                                        <input type="text"  className="form-control" id="periodendAoUinput" placeholder="Period Finish" onBlur={(x) => this.NewData.PeriodFinish = x.target.value}/>
+                                        <DatePicker
+                                            selected={this.state.startDate}
+                                            startDate={this.state.startDate}
+                                            onChange={this.handleChangeStart}
+                                            id="periodstartAoUinput"
+                                        />
                                     </div>
-                                </div> */}
+                                </div>
                                 <div className="form-row mb-3 justify-content-center">
-                                    <DatePicker
-                                        selected={this.state.finishDate}
-                                        startDate={this.state.finishDate}
-                                        onChange={this.handleChangeFinish}
-                                        id="periodendAoUinput"
-                                    />
+                                    <div className="form-group col-sm-6 col-xs-12">
+                                        <DatePicker
+                                            selected={this.state.finishDate}
+                                            startDate={this.state.finishDate}
+                                            onChange={this.handleChangeFinish}
+                                            id="periodendAoUinput"
+                                        />
+                                    </div>
                                 </div>
                                 <div className="form-row mb-3 justify-content-center">
                                     <div className="form-group col-sm-6 col-xs-12 d-flex justify-content-between">
