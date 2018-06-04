@@ -26,7 +26,7 @@ class InfoSchedule extends Component {
             idPatient: nextProps.idPatient,
             startTime: nextProps.startTime
         })
-        if (this.state.patientInfo === nextState.patientInfo) {
+        if (this.state.patientInfo === nextState.patientInfo && nextProps.idPatient != 0) {
             axios({
                 method: 'get',
                 url: localStorage.getItem("server_url") + '/api/PatientData/' + nextProps.idPatient,
@@ -85,11 +85,11 @@ class InfoSchedule extends Component {
                                     <div className="col-9 col-centered" key={item.LastName}>
                                         <div className="row">
                                             <div className="col-6 mb-2" key={item.LastName + "Day"}><b>Day</b></div>
-                                            <div className="col-6 mb-2" key={this.props.startTime}><p className="col-12">{this.props.startTime._i.slice(0, 10)}</p></div>
+                                            <div className="col-6 mb-2" key={this.props.startTime}><p className="col-12">{this.props.startTime.slice(0, 10)}</p></div>
                                         </div>
                                         <div className="row">
                                             <div className="col-6 mb-2" key={item.LastName + "Time"}><b>Time</b></div>
-                                            <div className="col-6 mb-2" key={this.props.startTime}><p className="col-12">{this.props.startTime._i.slice(11, 20)}</p></div>
+                                            <div className="col-6 mb-2" key={this.props.startTime}><p className="col-12">{this.props.startTime.slice(11, 20)}</p></div>
                                         </div>
                                         <hr />
                                         <div className="row">
