@@ -9,6 +9,7 @@ import jwt_decode from 'jwt-decode';
 import Notifications, {notify} from 'react-notify-toast';
 
 
+
 class LogbarUnauth extends Component {
   constructor(props) {
     super(props);
@@ -303,6 +304,7 @@ class LogbarUnauth extends Component {
         </div>
 
         <div className="modal fade" id="myModal">
+        {/* <Notifications /> */}
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header mb-2">
