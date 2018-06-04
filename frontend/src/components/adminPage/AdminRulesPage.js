@@ -5,6 +5,7 @@ import DoctorsListWithSomeRule from './DoctorsListWithSomeRule';
 import AddOrUpdateRule from './modaldialogs/AddOrUpdateRuleModal';
 import SubmitDeleting from './modaldialogs/SubmitDeletingModal';
 import AddDoctorToCurrentRule from './modaldialogs/AddDoctorToCurrentRule';
+import $ from 'jquery';
 
 class RulesPage extends Component {
     constructor(){
@@ -138,6 +139,13 @@ class RulesPage extends Component {
         })
     }
 
+    AddActiveClass(id){
+        this.state.massiveRules.map(rule => {
+            $('#' + rule.IdRule.toString() + 'RuleID').removeClass('active');
+        })
+        $('#' + id).addClass('active');
+    }
+
     shouldComponentUpdate(nextProps, nextState){
         return (
             this.state.idRuleForDoctorTable !== nextState.idRuleForDoctorTable ||
@@ -182,8 +190,8 @@ class RulesPage extends Component {
                             <i className="fa fa-plus align-middle" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChangeCurrentRuleInfo(-1)}></i>
                         </div>
                     </div>
-                    {this.state.massiveRules.map(rule => <div className="list-group-item list-group-active d-flex flex-row justify-content-between" key={rule.IdRule.toString() + "adminRulesPage"}>
-                        <div onClick={(e) => this.ChangeIdRuleForDoctorTable(rule.IdRule, e)}>
+                    {this.state.massiveRules.map(rule => <div className="list-group-item list-group-active d-flex flex-row justify-content-between" key={rule.IdRule.toString() + "adminRulesPage"} id={rule.IdRule.toString()+'RuleID'}>
+                        <div onClick={(e) => {this.ChangeIdRuleForDoctorTable(rule.IdRule, e), this.AddActiveClass(rule.IdRule.toString()+'RuleID')}}>
                             {rule.RuleName}
                         </div>
                         <div>
