@@ -20,8 +20,7 @@ class DoctorCalendar extends React.Component {
       startTime: '',
       endTime: '',
       idPatient: 0,
-      namePatient: "",
-      startTime: ""
+      namePatient: ""
     };
     this.setId = this.setId.bind(this);
   }
@@ -83,7 +82,7 @@ class DoctorCalendar extends React.Component {
             $("#modButton").trigger("click");
           } else {
             _that.saveCurrentTimeStartEnd(event.start._i, event.end._i);
-            _that.setId(event.patientId, event.patientName, event.start);
+            _that.setId(event.patientId, event.patientName, event.start._i);
             $("#blockClickButton").trigger("click");
           }
         },

@@ -57,20 +57,22 @@ class DoctorTable extends React.Component {
       })
     }
 
-    axios({
-      method: 'get',
-      url: localStorage.getItem("server_url") + '/GetDoctors/' + nextProps.idProf,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-      }
-    })
-      .then(res => {
-        this.setState({
-          idProf: nextProps.idProf,
-          doc: res.data
-        })
-      });
+    if (nextState.idProf !== nextProps.idProf) {
+      axios({
+        method: 'get',
+        url: localStorage.getItem("server_url") + '/GetDoctors/' + nextProps.idProf,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+        }
+      })
+        .then(res => {
+          this.setState({
+            idProf: nextProps.idProf,
+            doc: res.data
+          })
+        });
+    }
 
 
     let idSt = this.state.idDoc;

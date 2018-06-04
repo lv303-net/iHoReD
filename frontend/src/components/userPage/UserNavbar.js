@@ -67,17 +67,17 @@ class UserNavbar extends Component {
         <div className="navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav main-nav1" onClick={(e) => { this.tabSelected(e) }} >
             <li className="nav-item" id="itemlink1">
-              <Link to='/user/schedule'>
+              <Link to='/patient/schedule'>
                 <span className="nav-link" id="link1">Schedule</span>
               </Link>
             </li>
             <li className="nav-item" id="itemlink2">
-              <Link to='/user/edit'>
+              <Link to='/patient/edit'>
                 <span className="nav-link" id="link2">Edit Info</span>
               </Link>
             </li>
             <li className="nav-item" id="itemlink3">
-              <Link to={'/user/medicalCard/' + id}>
+              <Link to={'/patient/medicalCard/' + id}>
                 <span className="nav-link" id="link3">Medical Card</span>
               </Link>
             </li>

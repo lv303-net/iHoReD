@@ -153,7 +153,7 @@ class SalaryReport extends React.Component {
     window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
   }
    render() {
-    let listitems = this.state.salaryData.map(items =><li><a className="btn btn-primary salarybutton mx-1"
+    let listitems = this.state.salaryData.map(items =><li key={items.toString()} ><a className="btn btn-primary salarybutton mx-1"
      data-toggle="collapse" id="multiCollapse" href={'#' + items[0].Day.toString()} role="button" aria-expanded="true"
     aria-controls="multiCollapseExample">{items[0].Day.slice(0,7).toString()}</a></li>); 
       return (
@@ -227,7 +227,7 @@ class SalaryReport extends React.Component {
             <ul className="nav nav-tabs">{listitems}</ul>
             <div className="monthButton mx-3"> 
                 {this.state.salaryData.map(items =>      
-              <div className="collapse multi-collapse mt-5 monthInfo" id={items[0].Day.toString()}>
+              <div className="collapse multi-collapse mt-5 monthInfo" key={items[0].Day} id={items[0].Day.toString()}>
               <div className="row" id="patientcard">
                 <div className="col-3 col-custom-header" id="col-custom">Date</div>
                 <div className="col-2 col-custom-header" id="col-custom">Hours</div>
@@ -236,7 +236,7 @@ class SalaryReport extends React.Component {
                 <div className="col-3 col-custom-header">Total</div>
               </div>             
                {
-                items.map(item=> <DayReport  day={item.Day}
+                items.map(item=> <DayReport key={item.Day} day={item.Day}
                   workedHours={item.WorkedHours} salaryCoefficient={item.SalaryCoefficient}
                   salaryRate={item.SalaryRate} earnedMoney={item.EarnedMoney}
                 />)

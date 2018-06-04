@@ -113,9 +113,8 @@ class LogbarUnauth extends Component {
         method: 'post',
         url: localStorage.getItem("server_url") + '/api/Registration',
         headers: {
-          'Content-Type': 'application/json',
-          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-        },
+          'Content-Type': 'application/json'
+		},
         data: JSON.stringify(userRegister)
       })
         .then(rez => {
@@ -125,8 +124,8 @@ class LogbarUnauth extends Component {
 
         })
         .catch(error => {
-          let myColor = { background: '#FF0000', text: "#FFFFFF" };
-          notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, myColor);
+          let myColor = { background: '#FF0000', text: "#FFFFFF" }; 
+          error.response.status === 401 ? notify.show("User with this email already exists in our database!","custom",5000,myColor) : notify.show(error.response.status+" - "+error.response.statusText, "custom", 5000, myColor);
       });
     }
   }
@@ -268,7 +267,7 @@ class LogbarUnauth extends Component {
             </a>
             <span className="logo-name">Lviv Regional Hospital</span>
           </div>
-
+            <Notifications options={{zIndex: 10000}}/>
           <ul className="nav">
             <li className="nav-item btn-custom">
               <a className="nav-link" id="link-custom" data-toggle="modal" data-target="#SignInModal">Sign in</a>
@@ -429,7 +428,6 @@ class LogbarUnauth extends Component {
         </div>
 
         <div className="modal fade" id="SignInModal">
-        <Notifications/>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header mb-5">
@@ -447,9 +445,12 @@ class LogbarUnauth extends Component {
                     <input className="form-control" type="password" placeholder="Password" onBlur={(x => { this.passwordAuth = x.target.value; })} required />
                   </div>
                 </div>
+                <div className="row mb-3 justify-content-center" id="ResetPasswordLink">
+                  <a onClick= {this.handleForgotPasswordClick}>Forgot password?</a>
+                </div>
                 <div className="row mb-3 mt-5 justify-content-center">
                   <div className="col-xs-3 col-sm-3 col-md-3 text-center">
-                    <button type="submit" className="btn btn-info btn-lg mb-3">Sign in
+                    <button id="btnSumbAuth" type="submit" className="btn btn-info btn-lg mb-3">Sign in
                     </button>
                   </div>
                   <div className="col-xs-3 col-sm-3 col-md-3 text-center" >

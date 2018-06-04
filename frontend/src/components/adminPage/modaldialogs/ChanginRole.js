@@ -43,10 +43,8 @@ class ChangingRole extends Component {
 
     componentWillUpdate(nextProps, nextState) {
         let _that = this;
-        if (((nextState.idUser !== nextProps.idUser) ||
-            (this.state.idUser !== nextProps.idUser) ||
-            (this.state.idUser !== nextState.idUser) ||
-            (this.state.shouldUpdate !== nextProps.shouldUpdateModal)) &&
+        if ((
+            (nextState.shouldUpdate !== nextProps.shouldUpdateModal)) &&
             (nextProps.idUser !== undefined)) {
             axios({
                 method: 'get',
