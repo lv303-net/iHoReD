@@ -2,6 +2,8 @@ import React from 'react';
 import { Component } from 'react';
 import VisitDescription from '../components/VisitDescription';
 import axios from 'axios';
+import Notifications, {notify} from 'react-notify-toast';
+
 class AddMedRecord extends Component {
     constructor(props) {
         super(props);
@@ -31,10 +33,13 @@ class AddMedRecord extends Component {
               'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             },
             data: JSON.stringify(data)
-          })
-        .catch(function (response) {
-            console.log(response);
-        });
+            })
+            .then(response => {
+                notify.show("Successfully saved", "custom", 5000, { background: 'green', text: "#FFFFFF" });
+            })
+            .catch(function (response) {
+                console.log(response);
+            });
     }
 
     getText(t, val) {
@@ -50,6 +55,7 @@ class AddMedRecord extends Component {
         return (
             <div>
                 <div>
+                    <Notifications/>
                     <VisitDescription getText={this.getText} newTreatment={this.state.treatment} newDescription={this.state.description} />
                 </div>
                 <div className="row">
