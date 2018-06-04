@@ -56,9 +56,9 @@ class LogbarUnauth extends Component {
       data: JSON.stringify(userAuth)
     })
       .then(function (response) {
-        localStorage.setItem("currentUserId", (response.data.Id));
-        localStorage.setItem("currentUserFirstName", (response.data.FirstName));
-        localStorage.setItem("currentUserLastName", (response.data.LastName));
+        localStorage.setItem("currentUserId", (response.data.User.Id));
+        localStorage.setItem("currentUserFirstName", (response.data.User.FirstName));
+        localStorage.setItem("currentUserLastName", (response.data.User.LastName));
         localStorage.setItem("accessToken", response.data.Token);
         let jwtTokenInfo = jwt_decode(localStorage.getItem('accessToken'));
         Object.keys(jwtTokenInfo).map(key=>{if(key.indexOf('role')>=0){
