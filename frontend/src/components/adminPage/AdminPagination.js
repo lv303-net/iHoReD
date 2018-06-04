@@ -55,23 +55,25 @@ class AdminPagination extends Component {
             page = url.searchParams.get("page");
         }
         let quant = 1;
-        axios({
-            method: 'get',
-            url: localStorage.getItem("server_url") + '/NumbersOfPageFiltered/' + this.state.countElements +
-                '/' + this.state.isAdmin + '/' + this.state.isDoctor + '/' + this.state.textFilter,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-            }
-        })
-        .then(res => {
-            this.setState({
-                pageCount: res.data,
+        if (this.state.textFilter !== null) {
+            axios({
+                method: 'get',
+                url: localStorage.getItem("server_url") + '/NumbersOfPageFiltered/' + this.state.countElements +
+                    '/' + this.state.isAdmin + '/' + this.state.isDoctor + '/' + this.state.textFilter,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                }
+            })
+            .then(res => {
+                this.setState({
+                    pageCount: res.data,
+                });
+                quant = parseInt(res.data); 
+                this.generatePages(parseInt(page),quant);
+                this.props.callback(parseInt(page), nextState.countElements);        
             });
-            quant = parseInt(res.data); 
-            this.generatePages(parseInt(page),quant);
-            this.props.callback(parseInt(page), nextState.countElements);        
-        });
+        }
     }
     
     addPage(e) {
@@ -185,22 +187,24 @@ class AdminPagination extends Component {
     }
 
     componentWillMount() {
-        axios({
-                method: 'get',
-                url: localStorage.getItem("server_url") + '/NumbersOfPageFiltered/' + this.state.countElements +
-                    '/' + this.state.isAdmin + '/' + this.state.isDoctor + '/' + this.state.textFilter,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-                }
-            })
-            .then(res => {
-                this.setState({
-                    pageCount: parseInt(res.data)
+        if (this.state.textFilter !== null) {
+            axios({
+                    method: 'get',
+                    url: localStorage.getItem("server_url") + '/NumbersOfPageFiltered/' + this.state.countElements +
+                        '/' + this.state.isAdmin + '/' + this.state.isDoctor + '/' + this.state.textFilter,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    }
+                })
+                .then(res => {
+                    this.setState({
+                        pageCount: parseInt(res.data)
+                    });
+                    this.generatePages(1,this.state.pageCount);                    
+                    this.props.callback(this.state.currentPage, this.state.countElements); 
                 });
-                this.generatePages(1,this.state.pageCount);
-            });
-        this.props.callback(this.state.currentPage, this.state.countElements);
+        }
     }
 
     render() {
