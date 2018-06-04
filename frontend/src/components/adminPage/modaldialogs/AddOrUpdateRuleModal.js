@@ -128,21 +128,25 @@ class AddOrUpdateRule extends Component{
                             <div className="modal-body">
                                 <div className="form-row mb-3 justify-content-center">
                                     <div className="form-group col-sm-6 col-xs-12">
+                                        <p className="marginBottom0">Rule name</p>
                                         <input type="text" className="form-control" id="rulenameAoUInput" placeholder="Rule Name" onBlur={(x) => this.NewData.RuleName = x.target.value}/>
                                     </div>
                                 </div>
                                 <div className="form-row mb-3 justify-content-center">
                                     <div className="form-group col-sm-6 col-xs-12">
+                                        <p className="marginBottom0">Start hour</p>
                                         <input type="time" className="form-control" id="hourstartAoUInput" placeholder="Hour Start" onBlur={(x) => this.NewData.HourStart = x.target.value}/>
                                     </div>
                                 </div>
                                 <div className="form-row mb-3 justify-content-center">
                                     <div className="form-group col-sm-6 col-xs-12">
+                                    <p className="marginBottom0">End hour</p>
                                         <input type="time"  className="form-control" id="hourendAoUInput"placeholder="Hour Finish" onBlur={(x) => this.NewData.HourFinish = x.target.value}/>
                                     </div>
                                 </div>
                                 <div className="form-row mb-3 justify-content-center">
                                     <div className="form-group col-sm-6 col-xs-12">
+                                        <p className="marginBottom0">Period start</p>
                                         <DatePicker
                                             selected={this.state.startDate}
                                             startDate={this.state.startDate}
@@ -153,6 +157,7 @@ class AddOrUpdateRule extends Component{
                                 </div>
                                 <div className="form-row mb-3 justify-content-center">
                                     <div className="form-group col-sm-6 col-xs-12">
+                                        <p className="marginBottom0">Period end</p>
                                         <DatePicker
                                             selected={this.state.finishDate}
                                             startDate={this.state.finishDate}
@@ -169,8 +174,8 @@ class AddOrUpdateRule extends Component{
                                     </div>
                                 </div>
                                 <div className="form-row mb-3 justify-content-center">
-                                    <div className="form-group col-xs-12">
-                                        {Object.keys(this.state.currentRule.Week).map((key) => <div className="form-check form-check-inline" key={key.toString() + "AoURule"}>
+                                    <div className="form-group col-xs-12" id="daysOfWeekMainContainter">
+                                        {Object.keys(this.state.currentRule.Week).map((key) => <div className="form-check form-check-inline" key={key.toString() + "AoURule"} id={key.toString() + "Container"}>
                                             <label className="form-check-label d-flex flex-column dayOfWeekLabel">{this.ShowShorterValueName(key)}
                                                 <input className="" type="checkbox" id={key.toLowerCase() + 'AoUCheckbox'} onChange={(x)=> {this.NewData.Week[key] = x.target.checked}}/>
                                             </label>

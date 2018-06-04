@@ -19,3 +19,16 @@
 #periodendAoUinput {
     width: 100%;
 }
+
+.marginBottom0 {
+    margin-bottom: 0;
+}
+
+#SatContainer {
+    margin-right: 0;
+}
+
+#daysOfWeekMainContainter {
+    width: 100%;
+    padding: 0;
+}
