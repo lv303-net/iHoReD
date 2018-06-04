@@ -305,7 +305,6 @@ class LogbarUnauth extends Component {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header mb-2">
-              {/* {($('#myModal').hasClass('modal-open')) ? <Notifications/> : <p/>} */}
                 <h4 className="modal-title" id="registrationHeader">Registration Form</h4>
                 <button type="button" className="close" data-dismiss="modal">&times;</button>
               </div>
@@ -430,7 +429,6 @@ class LogbarUnauth extends Component {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header mb-5">
-              {/* {($('#SignInModal').hasClass('modal-open')) ? <div><Notifications/> <h1>AAA</h1></div> : <p/>} */}
                 <h4 className="modal-title">Please, enter Your creds</h4>
                 <button type="button" id = "btnSignInModalDismis" className="close" data-dismiss="modal">&times;</button>
               </div>
