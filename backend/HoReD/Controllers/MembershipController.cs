@@ -33,8 +33,15 @@ namespace HoReD.Controllers
             {
                 UserInfoWithToken userInfoWithToken = new UserInfoWithToken();
                 userInfoWithToken.Token = _authService.GenerateJwtTokenAsync(loginInfo.Email, loginInfo.Password);
-                userInfoWithToken.User = _userService.GetUserInfo(loginInfo.Email);
-                return Ok(userInfoWithToken);
+                if (userInfoWithToken.Token.Split('.').Length == 3)
+                {
+                    userInfoWithToken.User = _userService.GetUserInfo(loginInfo.Email);
+                    return Ok(userInfoWithToken);
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
             catch (Exception e)
             {
