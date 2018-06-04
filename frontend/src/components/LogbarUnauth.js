@@ -112,8 +112,7 @@ class LogbarUnauth extends Component {
         method: 'post',
         url: localStorage.getItem("server_url") + '/api/Registration',
         headers: {
-          'Content-Type': 'application/json',
-          // 'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+          'Content-Type': 'application/json'
         },
         data: JSON.stringify(userRegister)
       })
