@@ -6,6 +6,7 @@ import AddOrUpdateRule from './modaldialogs/AddOrUpdateRuleModal';
 import SubmitDeleting from './modaldialogs/SubmitDeletingModal';
 import AddDoctorToCurrentRule from './modaldialogs/AddDoctorToCurrentRule';
 import $ from 'jquery';
+import '../../style/RulesPage.css';
 
 class RulesPage extends Component {
     constructor(){
@@ -191,10 +192,10 @@ class RulesPage extends Component {
                         </div>
                     </div>
                     {this.state.massiveRules.map(rule => <div className="list-group-item list-group-active d-flex flex-row justify-content-between" key={rule.IdRule.toString() + "adminRulesPage"} id={rule.IdRule.toString()+'RuleID'}>
-                        <div onClick={(e) => {this.ChangeIdRuleForDoctorTable(rule.IdRule, e), this.AddActiveClass(rule.IdRule.toString()+'RuleID')}}>
+                        <div onClick={(e) => {this.ChangeIdRuleForDoctorTable(rule.IdRule, e), this.AddActiveClass(rule.IdRule.toString()+'RuleID')}} className="rulesName">
                             {rule.RuleName}
                         </div>
-                        <div>
+                        <div id="crudButton">
                             <i className="fa fa-plus align-middle" data-toggle="modal" data-target="#addDoctorToPageModal" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>
                             <i className="fa fa-pencil-alt align-middle" data-toggle="modal" data-target="#addRuleModal" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>
                             <i className="fa fa-times align-middle" data-toggle="modal" data-target="#submitDeletingData" onClick={() => this.ChangeCurrentRuleInfo(rule.IdRule)}></i>

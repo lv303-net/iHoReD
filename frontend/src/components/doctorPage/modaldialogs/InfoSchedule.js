@@ -17,29 +17,34 @@ class InfoSchedule extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         return ((this.props.idPatient !== nextProps.idPatient) || 
+                (this.state.idPatient !== nextState.idPatient) || 
                 (this.state.patientInfo !== nextState.patientInfo) ||
                 (this.state.startTime !== nextProps.startTime))
     }
 
     componentWillUpdate(nextProps, nextState) {
-        this.setState({
-            idPatient: nextProps.idPatient,
-            startTime: nextProps.startTime
-        })
-        if (this.state.patientInfo === nextState.patientInfo && nextProps.idPatient != 0) {
-            axios({
-                method: 'get',
-                url: localStorage.getItem("server_url") + '/api/PatientData/' + nextProps.idPatient,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
-                }
+
+        if (this.state.patientInfo === nextState.patientInfo ) {
+            this.setState({
+                idPatient: nextProps.idPatient,
+                startTime: nextProps.startTime
             })
-                .then(res => {
-                    this.setState({
-                        patientInfo: res.data
+            if( nextProps.idPatient != 0)
+            {
+                axios({
+                    method: 'get',
+                    url: localStorage.getItem("server_url") + '/api/PatientData/' + nextProps.idPatient,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                    }
+                })
+                    .then(res => {
+                        this.setState({
+                            patientInfo: res.data
+                        });
                     });
-                });
+            }
         }
     }
 
@@ -62,7 +67,7 @@ class InfoSchedule extends Component {
                     statusCode: res.data
                 });
                 if (this.state.statusCode === 0) {
-                    window.location.href = window.location.origin + '/doctor/patientMedicalCard/' + this.state.idPatient + '/' + this.state.startTime._i;
+                    window.location.href = window.location.origin + '/doctor/patientMedicalCard/' + this.state.idPatient + '/' + this.state.startTime;
                 }
                 else {
                     this.props.callback(this.state.statusCode);
