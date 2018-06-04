@@ -67,7 +67,7 @@ class InfoSchedule extends Component {
                     statusCode: res.data
                 });
                 if (this.state.statusCode === 0) {
-                    window.location.href = window.location.origin + '/doctor/patientMedicalCard/' + this.state.idPatient + '/' + this.state.startTime._i;
+                    window.location.href = window.location.origin + '/doctor/patientMedicalCard/' + this.state.idPatient + '/' + this.state.startTime;
                 }
                 else {
                     this.props.callback(this.state.statusCode);
