@@ -47,10 +47,10 @@ namespace HoReD.Controllers
         /// <example>http://localhost:*****/api/Salary/Rate/delete/{professionId}/{startDate}</example>
         [HttpDelete]
         [TokenAuthenticate(Role = "admin")]
-        [Route("api/Salary/Rate/delete/{professionId}/{startDate}")]
-        public IHttpActionResult DeleteRate(int professionId, string startDate)
+        [Route("api/Salary/Rate/delete/{professionId}/{startDate}/{userId}")]
+        public IHttpActionResult DeleteRate(int professionId, string startDate, int userId)
         {
-            return Ok(_salaryService.DeleteRate(professionId, Convert.ToDateTime(startDate)));
+            return Ok(_salaryService.DeleteRate(professionId, Convert.ToDateTime(startDate), userId));
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace HoReD.Controllers
         [Route("api/Salary/Rate/add")]
         public IHttpActionResult AddNewRate(Models.SalaryRateBindingModel model)
         {            
-            return Ok(_salaryService.AddRate(model.ProfessionId, model.Rate, model.StartDate));
+            return Ok(_salaryService.AddRate(model.ProfessionId, model.Rate, model.StartDate, model.UserId));
         }
 
         /// <summary>
@@ -104,10 +104,10 @@ namespace HoReD.Controllers
         /// <example>http://localhost:*****/api/Salary/Rate/delet/{doctorId}/{startDate}</example>
         [HttpDelete]
         [TokenAuthenticate(Role = "admin")]
-        [Route("api/Salary/Coefficient/delete/{doctorId}/{startDate}")]
-        public IHttpActionResult DeleteCoeff(int doctorId, string startDate )
+        [Route("api/Salary/Coefficient/delete/{doctorId}/{startDate}/{userId}")]
+        public IHttpActionResult DeleteCoeff(int doctorId, string startDate, int userId)
         {
-            return Ok(_salaryService.DeleteCoeff(doctorId, Convert.ToDateTime(startDate)));
+            return Ok(_salaryService.DeleteCoeff(doctorId, Convert.ToDateTime(startDate),userId));
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace HoReD.Controllers
         [Route("api/Salary/Coefficient/add")]
         public IHttpActionResult AddNewCoeff(Models.SalaryCoeffBindingModel model)
         {
-            return Ok(_salaryService.AddCoeff(model.DoctorId, model.Coeff, model.StartDate));
+            return Ok(_salaryService.AddCoeff(model.DoctorId, model.Coeff, model.StartDate, model.UserId));
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace HoReD.Controllers
         [Route("api/Salary/Coefficient/edit")]
         public IHttpActionResult EditNewCoeff(Models.SalaryCoeffBindingModel model)
         {
-            return Ok(_salaryService.EditCoeff(model.DoctorId, model.Coeff, model.StartDate));
+            return Ok(_salaryService.EditCoeff(model.DoctorId, model.Coeff, model.StartDate, model.UserId));
         }
     }
 }

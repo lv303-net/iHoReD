@@ -34,7 +34,7 @@ namespace Entities.Services
             return list;
         }
 
-        public int DeleteRate(int professionId, DateTime startDate)
+        public int DeleteRate(int professionId, DateTime startDate, int userId)
         {
             const string cmd = "DELETE_SOME_RATE";
 
@@ -43,11 +43,11 @@ namespace Entities.Services
                 {"PROFFESION_ID", professionId},
                 {"START_DATE", startDate},
             };
-
+            CommandExtensions.SetCurrentUser(_dbContext, userId);
             return _dbContext.ExecuteQuery(cmd, param);
         }
 
-        public int AddRate(int professionId, double rate, DateTime startDate)
+        public int AddRate(int professionId, double rate, DateTime startDate, int userId)
         {
             const string cmd = "ADD_NEW_RATE";
 
@@ -57,7 +57,7 @@ namespace Entities.Services
                 {"RATE", rate },
                 {"START_DATE", startDate},
             };
-
+            CommandExtensions.SetCurrentUser(_dbContext, userId);
             return _dbContext.ExecuteQuery(cmd, param);
         }
 
@@ -95,7 +95,7 @@ namespace Entities.Services
             return list;
         }
 
-        public int DeleteCoeff(int doctorId, DateTime startDate)
+        public int DeleteCoeff(int doctorId, DateTime startDate, int userId)
         {
             const string cmd = "DELETE_SOME_COEFF";
 
@@ -104,11 +104,11 @@ namespace Entities.Services
                 {"DOCTOR_ID", doctorId},
                 {"START_DATE", startDate},
             };
-
+            CommandExtensions.SetCurrentUser(_dbContext, userId);
             return _dbContext.ExecuteQuery(cmd, param);
         }
 
-        public int AddCoeff(int doctorId, double coeff, DateTime startDate)
+        public int AddCoeff(int doctorId, double coeff, DateTime startDate, int userId)
         {
             const string cmd = "ADD_NEW_COEFF";
 
@@ -118,11 +118,11 @@ namespace Entities.Services
                 {"COEFFICIENT", coeff },
                 {"START_DATE", startDate},
             };
-
+            CommandExtensions.SetCurrentUser(_dbContext, userId);
             return _dbContext.ExecuteQuery(cmd, param);
         }
 
-        public int EditCoeff(int doctorId, double coeff, DateTime startDate)
+        public int EditCoeff(int doctorId, double coeff, DateTime startDate, int userId)
         {
             const string cmd = "EDIT_SOME_COEFF";
 
@@ -132,7 +132,7 @@ namespace Entities.Services
                 {"COEFFICIENT", coeff },
                 {"START_DATE", startDate},
             };
-
+            CommandExtensions.SetCurrentUser(_dbContext, userId);
             return _dbContext.ExecuteQuery(cmd, param);
         }
     }

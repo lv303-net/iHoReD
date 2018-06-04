@@ -60,6 +60,26 @@ namespace Entities.Services
             _myConnection.Close();
         }
 
+        public void ExecuteSqlQueryWithCheckingChanges(string cmd, IDictionary<string, object> data)
+        {
+            _myConnection.Open();
+
+            using (var sqlCommand = new SqlCommand(cmd, _myConnection))
+            {
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                foreach (var d in data)
+                {
+                    sqlCommand.AddParameter(d.Key, d.Value);
+                }
+                
+                if (sqlCommand.ExecuteNonQuery() != 2)
+                {
+                    throw new Exception();
+                }
+            }
+            _myConnection.Close();
+        }
+
         public int ExecuteSqlQuery(string cmd, string outparam, IDictionary<string, object> data)
         {
             int outval = 0;

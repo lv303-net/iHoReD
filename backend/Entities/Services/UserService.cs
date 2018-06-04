@@ -32,7 +32,7 @@ namespace Entities.Services
             };
             var cmd = "REGISTER_USER";
 
-            _dbContext.ExecuteSqlQuery(cmd, regInfo);
+            _dbContext.ExecuteSqlQueryWithCheckingChanges(cmd, regInfo);
         }
 
         public User GetUserInfo(string email)
@@ -206,7 +206,7 @@ namespace Entities.Services
             return users;
         }
 
-        public void ChangeRole(int userId, int role, int idProfession = 0)
+        public void ChangeRole(int currentUser, int userId, int role, int idProfession = 0)
         {
             const string cmd = "CHANGE_ROLE";
            
@@ -216,7 +216,6 @@ namespace Entities.Services
                 {"ROLE", role},
                 {"ID_PROFESSION", idProfession},
             };
-
             _dbContext.ExecuteSqlQuery(cmd,'*', param);
            
         }

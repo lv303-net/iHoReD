@@ -138,18 +138,19 @@ namespace HoReD.Controllers
         /// <summary>
         /// Change of user role(from doctor to admin etc)
         /// </summary>
+        /// <param name="currentUser">current User Id for logging info</param>
         /// <param name="userId">UserId</param>
         /// <param name="role">Role</param>
         /// <param name="idProffesion">idProffesion(unnecessary param)</param>
         /// <returns>Update role for one user</returns>
         [HttpGet]
         [TokenAuthenticate(Role = "admin")]
-        [Route("ChangeRole/{userId}/{role}")]
-        [Route("ChangeRole/{userId}/{role}/{idProffesion}")]
-        public IHttpActionResult ChangeRole(int userId, int role, int idProffesion = 0)
+        [Route("ChangeRole/{currentUser}/{userId}/{role}")]
+        [Route("ChangeRole/{currentUser}/{userId}/{role}/{idProffesion}")]
+        public IHttpActionResult ChangeRole(int currentUser, int userId, int role, int idProffesion = 0)
 
         {
-            _userService.ChangeRole(userId, role, idProffesion);
+            _userService.ChangeRole(currentUser, userId, role, idProffesion);
             return Ok();
         }
         /// <summary>

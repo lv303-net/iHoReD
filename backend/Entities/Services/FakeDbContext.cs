@@ -30,5 +30,10 @@ namespace Entities.Services
         {
             throw new System.NotImplementedException();
         }
+
+        public void ExecuteSqlQueryWithCheckingChanges(string cmd, IDictionary<string, object> data)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
