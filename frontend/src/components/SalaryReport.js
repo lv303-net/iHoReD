@@ -153,7 +153,7 @@ class SalaryReport extends React.Component {
     window.history.pushState(null, null, `${window.location.pathname}?${searchParameter.toString()}${window.location.hash}`);
   }
    render() {
-    let listitems = this.state.salaryData.map(items =><li key={items.toString()} ><a className="btn btn-primary salarybutton mx-1"
+    let listitems = this.state.salaryData.map(items =><li><a className="btn btn-primary salarybutton mx-1"
      data-toggle="collapse" id="multiCollapse" href={'#' + items[0].Day.toString()} role="button" aria-expanded="true"
     aria-controls="multiCollapseExample">{items[0].Day.slice(0,7).toString()}</a></li>); 
       return (
