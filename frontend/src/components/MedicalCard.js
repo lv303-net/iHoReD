@@ -7,9 +7,9 @@ class MedicalCard extends Component {
   render() {
     return(
       <div id="mainDiv">
-        <div class="container">
+        <div className="container">
         <div className="row">
-        <div class="col">
+        <div className="col">
         <PatientInfo PatientId={this.props.match.params.id}/>  
          </div>       
           </div> 

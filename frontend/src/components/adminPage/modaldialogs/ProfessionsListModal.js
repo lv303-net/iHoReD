@@ -42,16 +42,16 @@ class ProfessionsListModal extends Component {
 
     render() {
         return (
-            <div class="modal fade" id="ProfessionsListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="exampleModalLabel">Doctors:</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div className="modal fade" id="ProfessionsListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h3 className="modal-title" id="exampleModalLabel">Doctors:</h3>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
 
                             <div id='listProf' className="list-group ">
                                 {this.state.professionsArr.map(

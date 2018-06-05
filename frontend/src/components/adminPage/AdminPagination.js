@@ -187,7 +187,6 @@ class AdminPagination extends Component {
     }
 
     componentWillMount() {
-        if (this.state.textFilter !== null) {
             axios({
                     method: 'get',
                     url: localStorage.getItem("server_url") + '/NumbersOfPageFiltered/' + this.state.countElements +
@@ -201,10 +200,9 @@ class AdminPagination extends Component {
                     this.setState({
                         pageCount: parseInt(res.data)
                     });
-                    this.generatePages(1,this.state.pageCount);                    
+                    this.generatePages(1,res.data);                    
                     this.props.callback(this.state.currentPage, this.state.countElements); 
                 });
-        }
     }
 
     render() {

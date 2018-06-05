@@ -62,7 +62,7 @@ class CloseAllergy extends Component{
                     <div className="modal-content">
                         <div className="modal-header">
                             <h3 className="modal-title" id="exampleModalLabel">Close allergy</h3>
-                            <button type="button" class="close" data-dismiss="modal"  onClick={() => { this.handleCancel() }} aria-label="Close">
+                            <button type="button" className="close" data-dismiss="modal"  onClick={() => { this.handleCancel() }} aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
