@@ -610,4 +610,8 @@
   <changeSet author="Iryna Halenok" id="V4.34">
    <sqlFile path="V4.34_ALTER_PROCEDURE_REGISTER_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
   </changeSet>
+
+  <changeSet author="Maksym Sikorskyi" id="V4.35">
+   <sqlFile path="V4.35_ALTER_PROCEDURE_SET_CURRENT_USER.sql" endDelimiter="\nGO" encoding="UTF-8" splitStatements="true" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>
