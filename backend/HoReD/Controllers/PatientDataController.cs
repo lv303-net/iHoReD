@@ -29,7 +29,7 @@ namespace HoReD.Controllers
         /// <param name="id">ID of needed user</param>
         /// <returns>Patient Data</returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "patient,doctor")]
         public IHttpActionResult GetPatientDataByPatientId(int id)
         {
             try
@@ -50,7 +50,7 @@ namespace HoReD.Controllers
         /// <param name="id">ID of needed user</param>
         /// <returns>List of user's allergies names, id and visit</returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "patient,doctor")]
         [Route("api/PatientData/ActiveAllergies/{id}")]
         public IHttpActionResult GetPatientActiveAllergies(int id)
         {
@@ -71,7 +71,7 @@ namespace HoReD.Controllers
         /// <param name="id">ID of needed user</param>
         /// <returns>List of user's allergies names, id</returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "patient,doctor")]
         [Route("api/PatientData/NonActiveAllergies/{id}")]
         public IHttpActionResult GetPatientNoNActiveAllergies(int id)
         {
@@ -92,7 +92,7 @@ namespace HoReD.Controllers
         /// <param name="id">ID of needed user</param>
         /// <returns>List of user's diseases names, id</returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "patient,doctor")]
         [Route("api/PatientData/ActiveDiseases/{id}")]
         public IHttpActionResult GetPatientActiveDiseases(int id)
         {
@@ -370,7 +370,7 @@ namespace HoReD.Controllers
         /// <param name="idPatient">ID of needed user</param>
         /// <returns></returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "doctor")]
+        [TokenAuthenticate(Role = "patient,doctor")]
         [Route("api/PatientData/GetClosedAllergiesInfo/{idPatient}")]
         public IHttpActionResult GetClosedAllergiesInfo(int idPatient)
         {
