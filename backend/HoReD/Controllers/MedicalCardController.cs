@@ -32,7 +32,7 @@ namespace HoReD.Controllers
         /// <param name="columnNumber"> Amount of column on page</param>
         /// <returns>Array of records</returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "patient")]
+        [TokenAuthenticate(Role = "patient,doctor")]
         [Route("GetByUserId/{userId}/{pageNumber}/{elementOnPageCount}/{columnNumber}")]
         public IHttpActionResult GetMedicalCardByPatientId(int userId, int pageNumber, int elementOnPageCount, int columnNumber)
         {
@@ -55,7 +55,7 @@ namespace HoReD.Controllers
         /// <param name="elementOnPageCount">Amount of records displayed on one page</param>
         /// <returns>Total page amount</returns>
         [HttpGet]
-        [TokenAuthenticate(Role = "patient")]
+        [TokenAuthenticate(Role = "patient,doctor")]
         [Route("GetPageCount/{userId}/{elementOnPageCount}")]
         public IHttpActionResult GetPageCount(int userId, int elementOnPageCount)
         {
