@@ -62,8 +62,8 @@ class AddMedRecord extends Component {
                 <div className="row">
                     <div className="container">
                         <div className="btn-group-lg">
-                            <button type="button" class="btn btn-info btn-lg float-left" onClick={this.SaveAll}>Save</button>
-                            <button type="button" class="btn btn-danger btn-lg float-right" onClick={this.redirectToSchedule}>Cancel</button>
+                            <button type="button" className="btn btn-info btn-lg float-left" onClick={this.SaveAll}>Save</button>
+                            <button type="button" className="btn btn-danger btn-lg float-right" onClick={this.redirectToSchedule}>Cancel</button>
                         </div>
                     </div>
                 </div>

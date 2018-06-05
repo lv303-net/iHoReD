@@ -113,7 +113,7 @@ class PatientDiagnosesTable extends React.Component {
         e.preventDefault();
         var caller = e.target;
         var number = caller.innerHTML;
-        if ((number == '»') || (number == '<span aria-hidden="true">»</span><span class="sr-only">Next</span>')) {
+        if ((number == '»') || (number == '<span aria-hidden="true">»</span><span className="sr-only">Next</span>')) {
             if ((this.state.numberFinish + 1) <= this.state.pageCount) {
                 var searchParameter = new URLSearchParams(window.location.search);
                 searchParameter.delete('page');
@@ -124,7 +124,7 @@ class PatientDiagnosesTable extends React.Component {
             }
         }
         else {
-            if ((number == '«') || (number == '<span aria-hidden="true">«</span><span class="sr-only">Previous</span>')) {
+            if ((number == '«') || (number == '<span aria-hidden="true">«</span><span className="sr-only">Previous</span>')) {
                 if ((this.state.numberStart - 1) > 0) {
                     var searchParameter = new URLSearchParams(window.location.search);
                     searchParameter.delete("page");
@@ -381,17 +381,17 @@ class PatientDiagnosesTable extends React.Component {
                 <div>
                     <nav >
                         <ul className="pagination pages" onClick={e => (this.addPage(e))}>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
+                            <li className="page-item">
+                                <a className="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
+                                    <span className="sr-only">Previous</span>
                                 </a>
                             </li>
                             {this.generatePages(this.state.numberStart, this.state.numberFinish)}
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
+                            <li className="page-item">
+                                <a className="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
+                                    <span className="sr-only">Next</span>
                                 </a>
                             </li>
                         </ul>

@@ -66,7 +66,7 @@ class CloseDisease extends Component {
                             <h3 className="modal-title" id="exampleModalLabel">
                                 Close disease
                             </h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={() => { this.handleCancel() }}>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => { this.handleCancel() }}>
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
